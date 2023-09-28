@@ -4,8 +4,21 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  corePlugins: {
+    // ...
+  },
+
   theme: {
-    extend: {},
+    fontFamily: {
+      sans: ['Roboto', 'sans-serif'],
+    },
+    extend: {
+      backgroundImage: {
+      },
+      colors: {
+        example: '#464660',
+      },
+    },
   },
   plugins: [],
 }
