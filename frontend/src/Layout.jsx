@@ -6,7 +6,7 @@ import LandingPage from './views/LandingPage';
 const Layout = () => {
 
   return (
-    <div className=''>
+    <div className='max-w-screen-lg flex flex-col mx-auto justify-center'>
       <Router basename={import.meta.env.BASE_URL}>
         <Header />
         <main>
