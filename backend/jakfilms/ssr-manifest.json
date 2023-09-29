@@ -49,6 +49,12 @@
   ],
   "src/Layout.jsx": [
   ],
+  "src/components/header/HeaderTitle.jsx": [
+  ],
+  "src/components/header/NavElement.jsx": [
+  ],
+  "src/components/header/NavUpperElement.jsx": [
+  ],
   "src/index.css": [
   ],
   "src/main.jsx": [
