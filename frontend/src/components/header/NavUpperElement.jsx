@@ -3,7 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const NavUpperElement = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // use for links
 
   return (
     <nav className=' p-4 bg-gray-700 sticky top-0 w-full z-10'>
@@ -32,17 +32,17 @@ const NavUpperElement = () => {
         </div>
         <ul id='nav-links' className='hidden md:flex'>
           <li>
-            <a href='#' className='text-white underline mr-2'>
-              Home
+            <a href='#' className='text-white  mr-10'>
+              Login
             </a>
           </li>
           <li>
-            <a href='#stream' className='text-white underline mr-2'>
-              Stream & Chat
+            <a href='#stream' className='text-white  mr-10'>
+              Register Now
             </a>
           </li>
           <li>
-            <a href='#articles' className='text-white underline mr-2'>
+            <a href='#articles' className='text-white  mr-4'>
               Articles
             </a>
           </li>
