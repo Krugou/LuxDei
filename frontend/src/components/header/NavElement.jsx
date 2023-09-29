@@ -1,10 +1,17 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+
 const NavElement = () => {
-  const navigate = useNavigate(); // use for links
+  const navigate = useNavigate();
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  const toggleNav = () => {
+    setIsNavOpen(!isNavOpen);
+  };
 
   return (
-    <nav className=' p-4 bg-gray-700 sticky top-0 w-full z-10'>
+    <nav className='p-4 bg-gray-700 sticky top-0 w-full z-10'>
       <div className='container mx-auto flex justify-between items-center relative'>
         <a href='#' className='text-white text-2xl font-bold'>
           Jak Films
@@ -12,6 +19,7 @@ const NavElement = () => {
         <div
           id='mobile-menu-button'
           className='text-white md:hidden cursor-pointer'
+          onClick={toggleNav}
         >
           <svg
             xmlns='http://www.w3.org/2000/svg'
@@ -28,7 +36,7 @@ const NavElement = () => {
             ></path>
           </svg>
         </div>
-        <ul id='nav-links' className='hidden md:flex'>
+        <ul id='nav-links' className={isNavOpen ? 'md:flex' : 'hidden md:flex'}>
           <li>
             <button
               className='nav-button mr-10 text-blue-300'
