@@ -31,7 +31,7 @@ const NavElement = () => {
         <ul id='nav-links' className='hidden md:flex'>
           <li>
             <button
-              className='nav-button mr-10'
+              className='nav-button mr-10 text-blue-300'
               onClick={() => {
                 navigate('/login');
               }}
@@ -41,7 +41,7 @@ const NavElement = () => {
           </li>
           <li>
             <button
-              className='nav-button mr-10'
+              className='nav-button mr-10 text-blue-300'
               onClick={() => {
                 navigate('/register');
               }}
@@ -51,7 +51,7 @@ const NavElement = () => {
           </li>
           <li>
             <button
-              className='nav-button'
+              className='nav-button text-blue-300'
               onClick={() => {
                 navigate('/articles');
               }}
