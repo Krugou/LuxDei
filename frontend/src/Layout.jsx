@@ -6,15 +6,17 @@ import LandingPage from './views/LandingPage';
 const Layout = () => {
 
   return (
-    <>
+    <div className=''>
       <Router basename={import.meta.env.BASE_URL}>
         <Header />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-        </Routes>
+        <main>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+          </Routes>
+        </main>
         <Footer />
       </Router>
-    </>
+    </div>
   );
 };
 
