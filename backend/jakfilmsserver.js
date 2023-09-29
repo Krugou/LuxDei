@@ -10,7 +10,7 @@ const http = createServer(app);
 const io = new Server(http);
 const port = 3001;
 const lastMessages = {};
-const maxsavedmessages = 20;
+const maxSavedMessages = 20;
 
 app.use(express.static('jakfilms'));
 
