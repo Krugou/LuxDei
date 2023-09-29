@@ -10,7 +10,7 @@ const http = createServer(app);
 const io = new Server(http);
 const port = 3001;
 const lastMessages = {};
-
+const maxsavedmessages = 20;
 
 app.use(express.static('jakfilms'));
 
@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
         if (!lastMessages[data.room]) {
             lastMessages[data.room] = [];
         }
-        if (lastMessages[data.room].length > 20) {
+        if (lastMessages[data.room].length > maxsavedmessages) {
             lastMessages[data.room].shift();
         }
         lastMessages[data.room].push(data);
