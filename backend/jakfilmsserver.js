@@ -8,8 +8,10 @@ import {Server} from 'socket.io';
 const app = express();
 const http = createServer(app);
 const io = new Server(http);
-const port = 3001;
 const lastMessages = {};
+
+// server's adjustable settings
+const port = 3001;
 const maxSavedMessages = 20;
 
 app.use(express.static('jakfilms'));
