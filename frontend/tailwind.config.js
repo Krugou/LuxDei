@@ -10,7 +10,6 @@ export default {
       sans: ['Roboto', 'sans-serif'],
     },
     extend: {
-      backgroundImage: {},
       colors: {
         example: '#464660',
         gmmidnightgreen: '#133c4b',
@@ -18,6 +17,11 @@ export default {
         gmcastletongreen: '#1c5935',
         gmbondiblue: '#098eb1',
         gmairforceblue: '#52872a0',
+      },
+      backgroundImage: {
+        'inspiskuva1': `url('./assets/images/inspiskuva1.jpg')`,
+        'inspiskuva2': `url('./assets/images/inspiskuva2.jpg')`,
+        'inspiskuva3': `url('./assets/images/inspiskuva3.jpg')`,
       },
     },
   },
