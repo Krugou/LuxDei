@@ -1,17 +1,17 @@
-import React, {useState} from 'react';
-
+import React, { useState } from 'react';
+import Banner from '../../components/main/Banner';
 const LandingPage = () => {
-    const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
 
-    const handleClick = () => {
-        setCount(count + 1);
-    };
+  const handleClick = () => {
+    setCount(count + 1);
+  };
 
-    return (
-        <>
-            
-        </>
-    );
+  return (
+    <>
+      <Banner />
+    </>
+  );
 };
 
 export default LandingPage;
