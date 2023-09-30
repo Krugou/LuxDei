@@ -41,8 +41,8 @@ const NavElement = () => {
           <ListButton name="login" navigate={navigate} />
           <ListButton name="register" navigate={navigate} />
 
-          <ListButton name="livestream" navigate={navigate} />
-          <ListButton name="articles" navigate={navigate} />
+          <ListButton name="livestream" navigate={navigate}  />
+          <ListButton name="articles" navigate={navigate} lastItem={true} />
 
         </ul>
       </div>
