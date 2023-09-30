@@ -37,6 +37,7 @@ const Banner = () => {
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     height: '50vh',
+    transition: 'background-image 0.5s ease-in-out', // Add transition for background image
   };
 
   return (
