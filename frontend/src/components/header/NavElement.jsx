@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import ListButton from './buttons/ListButton';
 
 const NavElement = () => {
   const navigate = useNavigate();
@@ -36,46 +37,13 @@ const NavElement = () => {
           </svg>
         </div>
         <ul id='nav-links' className={isNavOpen ? 'md:flex' : 'hidden md:flex'}>
-          <li>
-            <button
-              className='nav-button mr-10 text-blue-300'
-              onClick={() => {
-                navigate('/login');
-              }}
-            >
-              Log In NOW
-            </button>
-          </li>
-          <li>
-            <button
-              className='nav-button mr-10 text-blue-300'
-              onClick={() => {
-                navigate('/register');
-              }}
-            >
-              Register NOW
-            </button>
-          </li>
-          <li>
-            <button
-              className='nav-button mr-10 text-blue-300'
-              onClick={() => {
-                navigate('/articles');
-              }}
-            >
-              Articles
-            </button>
-          </li>
-          <li>
-            <button
-              className='nav-button text-blue-300'
-              onClick={() => {
-                navigate('/livestream');
-              }}
-            >
-              Livestream
-            </button>
-          </li>
+
+          <ListButton name="login" navigate={navigate} />
+          <ListButton name="register" navigate={navigate} />
+
+          <ListButton name="livestream" navigate={navigate} />
+          <ListButton name="articles" navigate={navigate} />
+
         </ul>
       </div>
     </nav>
