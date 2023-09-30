@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import inspiskuva1 from '../../assets/images/inspiskuva1.jpg';
-import inspiskuva2 from '../../assets/images/inspiskuva2.jpg';
-import inspiskuva3 from '../../assets/images/inspiskuva3.jpg';
+import React, {useEffect, useState} from 'react';
+
 
 const Banner = () => {
-  const images = [inspiskuva1, inspiskuva2, inspiskuva3]; // Array of image paths
+  const images = ['bg-inspiskuva1', 'bg-inspiskuva2', 'bg-inspiskuva3']; // Array of background image class names
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Function to update the current image index
@@ -31,17 +29,13 @@ const Banner = () => {
     return () => clearInterval(intervalId);
   }, [currentImageIndex]);
 
-  const bannerStyle = {
-    backgroundImage: `url(${images[currentImageIndex]})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    backgroundRepeat: 'no-repeat',
-    height: '50vh',
-    transition: 'background-image 0.5s ease-in-out', // Add transition for background image
-  };
-
   return (
-    <div style={bannerStyle}>
+    <div className={`bg-banner ${currentImageIndex === 0
+      ? 'bg-inspiskuva1'
+      : currentImageIndex === 1
+        ? 'bg-inspiskuva2'
+        : 'bg-inspiskuva3'
+      }`}>
       <div className='flex justify-between items-center h-full flex-col'>
         <header className='text-white'>
           <h1 className='text-xl lg:text-2xl mt-12 ml-4 mr-4 bg-black rounded font-bold p-1'>
@@ -57,21 +51,20 @@ const Banner = () => {
         <div className='flex justify-center mt-4'>
           <button
             onClick={() => changeImage(currentImageIndex - 1)}
-            className='text-white mr-4 hover:text-gray-400 p-2 rounded-lg bg-gmmidnightgreen hover:bg-gmpictonblue transition-all duration-300 ease-in-out'
+            className='text-white mr-4 hover:text-gray-400 p-2 rounded-lg bg-gmmidnightgreen hover:bg-gmpictonblue transition-all duration-300 ease-in-out border-black border-solid border'
           >
             Previous
           </button>
           <button
             onClick={() => changeImage(currentImageIndex + 1)}
-            className='text-white p-2 rounded-lg bg-gmmidnightgreen hover:bg-gmpictonblue hover:text-white transition-all duration-300 ease-in-out'
+            className='text-white p-2 rounded-lg bg-gmmidnightgreen hover:bg-gmpictonblue hover:text-white transition-all duration-300 ease-in-out border-black border-solid border'
           >
             Next
           </button>
         </div>
         <a
           href='#articles'
-          className='lg:text-xl font-semibold text-white mt-4 rounded p-1 bg-gmmidnightgreen hover:bg-gmpictonblue hover:text-white transition-all duration-300 ease-in-out'
-          style={{ border: '1px solid black' }}
+          className='lg:text-xl font-semibold text-white mt-4 rounded p-1 bg-gmmidnightgreen hover:bg-gmpictonblue hover:text-white transition-all duration-300 ease-in-out border-black border-solid border'
         >
           Latest articles
         </a>
