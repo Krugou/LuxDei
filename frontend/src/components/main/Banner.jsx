@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import inspiskuva1 from '../../images/inspiskuva1.jpg';
-import inspiskuva2 from '../../images/inspiskuva2.jpg';
-import inspiskuva3 from '../../images/inspiskuva3.jpg';
+import inspiskuva1 from '../../assets/images/inspiskuva1.jpg';
+import inspiskuva2 from '../../assets/images/inspiskuva2.jpg';
+import inspiskuva3 from '../../assets/images/inspiskuva3.jpg';
 
 const Banner = () => {
   const images = [inspiskuva1, inspiskuva2, inspiskuva3]; // Array of image paths
