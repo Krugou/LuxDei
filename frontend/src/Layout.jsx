@@ -6,7 +6,7 @@ import LiveStream from './views/main/LiveStream';
 
 const Layout = () => {
   return (
-    <div className='max-w-screen-xl flex flex-col mx-auto justify-center'>
+    <div className='max-w-screen-2xl flex flex-col mx-auto justify-center'>
       <Router basename={import.meta.env.BASE_URL}>
         <Header />
         <main>
