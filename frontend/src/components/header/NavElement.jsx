@@ -1,6 +1,5 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 const NavElement = () => {
   const navigate = useNavigate();
@@ -59,12 +58,22 @@ const NavElement = () => {
           </li>
           <li>
             <button
-              className='nav-button text-blue-300'
+              className='nav-button mr-10 text-blue-300'
               onClick={() => {
                 navigate('/articles');
               }}
             >
               Articles
+            </button>
+          </li>
+          <li>
+            <button
+              className='nav-button text-blue-300'
+              onClick={() => {
+                navigate('/livestream');
+              }}
+            >
+              Livestream
             </button>
           </li>
         </ul>
