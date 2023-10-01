@@ -47,7 +47,7 @@ io.on('connection', (socket) => {
         if (!lastMessages[data.room]) {
             lastMessages[data.room] = [];
         }
-        if (lastMessages[data.room].length > maxsavedmessages) {
+        if (lastMessages[data.room].length > maxSavedMessages) {
             lastMessages[data.room].shift();
         }
         lastMessages[data.room].push(data);
