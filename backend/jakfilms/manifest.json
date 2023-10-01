@@ -1,6 +1,6 @@
 {
   "index.css": {
-    "file": "assets/index-489de264.css",
+    "file": "assets/index-6df1e3dd.css",
     "src": "index.css"
   },
   "index.html": {
@@ -10,9 +10,9 @@
       "assets/inspiskuva3-1db6a5a3.jpg"
     ],
     "css": [
-      "assets/index-489de264.css"
+      "assets/index-6df1e3dd.css"
     ],
-    "file": "assets/index-15485e27.js",
+    "file": "assets/index-44f8c4c6.js",
     "isEntry": true,
     "src": "index.html"
   },

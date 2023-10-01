@@ -134,6 +134,11 @@
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
   ],
+  "node_modules/@socket.io/component-emitter/index.mjs": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
   "node_modules/@videojs/vhs-utils/es/byte-helpers.js": [
     "/assets/inspiskuva1-e54495bc.jpg",
     "/assets/inspiskuva2-c6fb1ff2.jpg",
@@ -215,6 +220,101 @@
     "/assets/inspiskuva3-1db6a5a3.jpg"
   ],
   "node_modules/@xmldom/xmldom/lib/sax.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/contrib/has-cors.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/contrib/parseqs.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/contrib/parseuri.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/contrib/yeast.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/globalThis.browser.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/socket.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/transport.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/transports/index.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/transports/polling.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/transports/websocket-constructor.browser.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/transports/websocket.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/transports/webtransport.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/transports/xmlhttprequest.browser.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-client/build/esm/util.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-parser/build/esm/commons.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-parser/build/esm/contrib/base64-arraybuffer.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-parser/build/esm/decodePacket.browser.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-parser/build/esm/encodePacket.browser.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/engine.io-parser/build/esm/index.js": [
     "/assets/inspiskuva1-e54495bc.jpg",
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
@@ -364,6 +464,51 @@
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
   ],
+  "node_modules/socket.io-client/build/esm/contrib/backo2.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/socket.io-client/build/esm/index.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/socket.io-client/build/esm/manager.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/socket.io-client/build/esm/on.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/socket.io-client/build/esm/socket.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/socket.io-client/build/esm/url.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/socket.io-parser/build/esm/binary.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/socket.io-parser/build/esm/index.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "node_modules/socket.io-parser/build/esm/is-binary.js": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
   "node_modules/url-toolkit/src/url-toolkit.js": [
     "/assets/inspiskuva1-e54495bc.jpg",
     "/assets/inspiskuva2-c6fb1ff2.jpg",
@@ -445,6 +590,11 @@
     "/assets/inspiskuva3-1db6a5a3.jpg"
   ],
   "src/components/main/Banner.jsx": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "src/components/main/Chat.jsx": [
     "/assets/inspiskuva1-e54495bc.jpg",
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
