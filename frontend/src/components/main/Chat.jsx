@@ -77,10 +77,10 @@ const Chat = () => {
     }, 1000);
   }, [messages]);
   return (
-    <section className={`border rounded p-4 `}>
-      <form className="m-5 flex flex-col items-center" onSubmit={handleSubmit}>
+    <>
+      <form className=" flex flex-col items-center" onSubmit={handleSubmit}>
         {/* Room selection dropdown */}
-        <div className='flex m-4 p-4 flex-col md:flex-row justify-center items-center'>
+        <div className='flex  p-4 flex-col  justify-center items-center'>
           <select
             title="selector"
             name="room"
@@ -97,13 +97,13 @@ const Chat = () => {
           {/* Username input */}
           <label
             htmlFor="u"
-            className="text-white ml-2 my-2 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="text-white  dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             Username:
           </label>
           <input
             id="u"
-            className="block ml-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block  p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500"
             type="text"
             placeholder="Enter your username"
             value={username}
@@ -112,7 +112,7 @@ const Chat = () => {
           {/* Message input */}
           <label
             htmlFor="m"
-            className="text-white my-2 ml-2 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="text-white  ml-2 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500"
           >
             Message:
           </label>
@@ -154,7 +154,6 @@ const Chat = () => {
         </div>
       </form>
 
-      {/* Message list */}
       <ul
         id="messages"
         className={`flex flex-col bg-white m-4  shadow-lg rounded-md p-4 max-h-80 overflow-y-auto dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500`}
@@ -182,7 +181,8 @@ const Chat = () => {
           </li>
         ))}
       </ul>
-    </section>
+    </>
+
   );
 };
 
