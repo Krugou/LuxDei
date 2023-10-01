@@ -37,8 +37,8 @@ const Chat = ({username}) => {
 
   useEffect(() => {
     // Create a new socket connection when the component mounts
-    // const newSocket = io('/', {path: '/react/socket.io', transports: ['websocket']});
-    const newSocket = io('/', {transports: ['websocket']});
+    const newSocket = io('/', {path: '/socket.io', transports: ['websocket']});
+    // const newSocket = io('/');
     setSocket(newSocket);
 
     // Remove the socket connection when the component unmounts
@@ -87,11 +87,11 @@ const Chat = ({username}) => {
             id="room"
             value={room}
             onChange={handleRoomChange}
-            className={`text-white block w-full py-2 px-3 border border-gray-400 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${room === 'room1' ? 'bg-aleviolet text-white' : room === 'room2' ? 'bg-alepurple text-white' : 'bg-alecharcoal text-white'}focus:border-transparent `}
+            className={`text-white block w-full py-2 px-3 border border-gray-400 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${room === 'room1' ? 'bg-black text-white' : room === 'room2' ? 'bg-black text-white' : 'bg-black text-white'}focus:border-transparent `}
           >
-            <option className="bg-aleviolet text-white " value="room1">Silver Screen Lounge</option>
-            <option className="bg-alepurple text-white" value="room2">Director's Cut Den</option>
-            <option className="bg-alecharcoal text-white" value="room3">Cinephile's Hangout</option>
+            <option className="bg-black text-white " value="room1">Silver Screen Lounge</option>
+            <option className="bg-black text-white" value="room2">Director's Cut Den</option>
+            <option className="bg-black text-white" value="room3">Cinephile's Hangout</option>
           </select>
 
 
@@ -152,8 +152,8 @@ const Chat = ({username}) => {
           >
             <div
               className={`rounded-lg py-2 px-3 ${message.username === username
-                ? "bg-aleviolet text-white"
-                : "bg-alepurple text-white"
+                ? "bg-black text-white"
+                : "bg-black text-white"
                 }`}
             >
               <p className={`text-sm ${isPulsing ? 'animate-bounce' : ''}`}>{message.message}</p>
@@ -171,7 +171,7 @@ const Chat = ({username}) => {
 
   );
 };
-Chat.PropTypes = {
+Chat.propTypes = {
   username: PropTypes.string.isRequired,
 };
 
