@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-
+import {useNavigate} from 'react-router-dom';
 
 const Banner = () => {
+  const navigate = useNavigate();
   const images = ['bg-inspiskuva1', 'bg-inspiskuva2', 'bg-inspiskuva3']; // Array of background image class names
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -62,12 +63,14 @@ const Banner = () => {
             Next
           </button>
         </div>
-        <a
-          href='#articles'
+        <button
+          onClick={() => {
+            navigate('/articles');
+          }}
           className='lg:text-xl font-semibold text-white mt-4 rounded p-1 bg-gmmidnightgreen hover:bg-gmpictonblue hover:text-white transition-all duration-300 ease-in-out border-black border-solid border'
         >
           Latest articles
-        </a>
+        </button>
       </div>
     </div>
   );
