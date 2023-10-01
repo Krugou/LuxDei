@@ -1,12 +1,13 @@
 import React, {useEffect, useRef, useState} from 'react';
+import PropTypes from 'prop-types';
 
-const NavUpperElement = () => {
+const NavUpperElement = ({randomSeconds}) => {
   const [animationDuration, setAnimationDuration] = useState(0);
   const policeCarRef = useRef(null);
 
   // Function to generate a random duration between 1 to 10 seconds
   const getRandomDuration = () => {
-    return Math.floor(Math.random() * 120 + 1) * 1000; // Convert to milliseconds
+    return Math.floor(Math.random() * randomSeconds + 1) * 1000; // Convert to milliseconds
   };
 
   // Function to start the animation with a new random duration
@@ -36,7 +37,7 @@ const NavUpperElement = () => {
         id="police-car"
         ref={policeCarRef}
         className="absolute w-auto h-6 left-full ease-in-out delay-200 animate-police-car"
-        src="https://cdn.vectorstock.com/i/preview-1x/53/72/police-car-cartoon-icon-patrol-auto-side-view-vector-45285372.jpg"
+        src="https://clipart-library.com/images/BigKkbeMT.gif"
         alt="Police Car"
         style={{animationDuration: `${animationDuration}ms`}}
       />
@@ -48,6 +49,9 @@ const NavUpperElement = () => {
       />
     </div>
   );
+};
+NavUpperElement.propTypes = {
+  randomSeconds: PropTypes.number,
 };
 
 export default NavUpperElement;
