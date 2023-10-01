@@ -1,9 +1,8 @@
+import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import io from 'socket.io-client';
-
-const Chat = () => {
+const Chat = ({username}) => {
   const [message, setMessage] = useState('');
-  const [username, setUsername] = useState('Anonymous');
   const [messages, setMessages] = useState([]);
   const [room, setRoom] = useState('room1');
   const [socket, setSocket] = useState(null);
@@ -38,7 +37,8 @@ const Chat = () => {
 
   useEffect(() => {
     // Create a new socket connection when the component mounts
-    const newSocket = io('/', {path: '/react/socket.io', transports: ['websocket']});
+    // const newSocket = io('/', {path: '/react/socket.io', transports: ['websocket']});
+    const newSocket = io('/', {transports: ['websocket']});
     setSocket(newSocket);
 
     // Remove the socket connection when the component unmounts
@@ -87,39 +87,25 @@ const Chat = () => {
             id="room"
             value={room}
             onChange={handleRoomChange}
-            className={`text-white block w-full py-2 px-3 border border-gray-400 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${room === 'room1' ? 'bg-aleviolet text-white' : room === 'room2' ? 'bg-alepurple text-white' : 'bg-alecharcoal text-white'}focus:border-transparent dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+            className={`text-white block w-full py-2 px-3 border border-gray-400 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${room === 'room1' ? 'bg-aleviolet text-white' : room === 'room2' ? 'bg-alepurple text-white' : 'bg-alecharcoal text-white'}focus:border-transparent `}
           >
             <option className="bg-aleviolet text-white " value="room1">Silver Screen Lounge</option>
             <option className="bg-alepurple text-white" value="room2">Director's Cut Den</option>
             <option className="bg-alecharcoal text-white" value="room3">Cinephile's Hangout</option>
           </select>
 
-          {/* Username input */}
-          <label
-            htmlFor="u"
-            className="text-white  dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          >
-            Username:
-          </label>
-          <input
-            id="u"
-            className="block  p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            type="text"
-            placeholder="Enter your username"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
+
           {/* Message input */}
           <label
             htmlFor="m"
-            className="text-white  ml-2 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="text-white  ml-2 "
           >
             Message:
           </label>
           <textarea
             id="m"
             rows="1"
-            className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
             type="text"
             placeholder="Type your message here"
             value={message}
@@ -129,7 +115,7 @@ const Chat = () => {
           {/* Submit button */}
           <button
             type="submit"
-            className="inline-flex justify-center p-2 text-alecharcoal bg-white rounded-full cursor-pointer hover:bg-blue-100 dark:text-blue-500 dark:hover:bg-gray-600"
+            className="inline-flex justify-center p-2 text-alecharcoal bg-white rounded-full cursor-pointer hover:bg-blue-100 "
           >
             <svg
               fill="currentColor"
@@ -156,7 +142,7 @@ const Chat = () => {
 
       <ul
         id="messages"
-        className={`flex flex-col bg-white m-4  shadow-lg rounded-md p-4 max-h-80 overflow-y-auto dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:mybasetext dark:focus:ring-blue-500 dark:focus:border-blue-500`}
+        className={`flex flex-col bg-white m-4  shadow-lg rounded-md p-4 max-h-80 overflow-y-auto `}
       >
         {messages.map((message, index) => (
           <li
@@ -184,6 +170,9 @@ const Chat = () => {
     </>
 
   );
+};
+Chat.PropTypes = {
+  username: PropTypes.string.isRequired,
 };
 
 export default Chat;
