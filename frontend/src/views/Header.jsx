@@ -5,7 +5,7 @@ import NavUpperElement from '../components/header/NavUpperElement';
 const Header = () => {
   return (
     <header>
-      <NavUpperElement />
+      <NavUpperElement randomSeconds={200} />
       <NavElement />
       <HeaderTitle />
     </header>
