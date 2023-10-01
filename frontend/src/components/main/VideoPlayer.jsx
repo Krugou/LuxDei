@@ -47,7 +47,7 @@ export const VideoPlayer = (props) => {
 
     return (
         <>
-            <div data-vjs-player className="w-full h-full">
+            <div data-vjs-player className="w-full h-full ">
                 <div ref={videoRef} className="video-js   vjs-theme-city " >
                     <style jsx>{`
                     .video-js {
@@ -86,9 +86,7 @@ export const VideoPlayer = (props) => {
                 `}</style>
                 </div>
             </div>
-            <div className='w-100 h-auto'>
-
-            </div>
+            
         </>);
 };
 
