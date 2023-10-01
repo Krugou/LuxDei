@@ -1,6 +1,6 @@
 # LuxDei
 
-[Project link here!](LuxDei)
+[Project link here!](https://jakfilms.northeurope.cloudapp.azure.com/)
 lux dei - (the light of God)
 
 ## Joonas Lamminmäki
