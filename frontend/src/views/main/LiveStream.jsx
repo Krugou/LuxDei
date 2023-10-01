@@ -1,6 +1,6 @@
 import React from 'react';
-import VideoPlayer from '../../components/main/VideoPlayer';
 import Chat from '../../components/main/Chat';
+import VideoPlayer from '../../components/main/VideoPlayer';
 const LiveStream = () => {
     const playerRef = React.useRef(null);
 
@@ -21,7 +21,7 @@ const LiveStream = () => {
                 overrideNative: true
             }
         },
-        poster: './img/aurora.png',
+
         liveui: true,
 
 
@@ -49,7 +49,7 @@ const LiveStream = () => {
 
 
             <VideoPlayer className="w-2/3 h-full " options={videoJsOptions} onReady={handlePlayerReady} />
-            <Chat className=" " username={'anon'}/>
+            <Chat className=" " username={'anon'} />
 
         </section>
     );
