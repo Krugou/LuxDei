@@ -13,9 +13,9 @@ const NavElement = () => {
   return (
     <nav className='p-4 bg-gray-700 sticky top-0 w-full z-10'>
       <div className='container mx-auto flex justify-between items-center relative'>
-        <a href='#' className='text-white text-2xl font-bold'>
+        <button onClick={() => {navigate('/')}} className='text-white text-2xl font-bold'>
           Jak Films
-        </a>
+        </button>
         <div
           id='mobile-menu-button'
           className='text-white md:hidden cursor-pointer'
