@@ -1,8 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-
-
 export const VideoPlayer = (props) => {
     const videoRef = React.useRef(null);
     const playerRef = React.useRef(null);
@@ -73,7 +72,7 @@ export const VideoPlayer = (props) => {
                     .video-js .vjs-big-play-button .vjs-icon-placeholder:before {
                         content: "";
                         background-color: #white;
-                        background-image: url('./img/auroraicon.png');
+                       
                         background-repeat: no-repeat;
                         background-size: 4rem;
                         background-position: 55% calc(50% - 0px);
@@ -86,9 +85,12 @@ export const VideoPlayer = (props) => {
                 `}</style>
                 </div>
             </div>
-            
+
         </>);
 };
-
+VideoPlayer.proptypes = {
+    options: PropTypes.object.isRequired,
+    onReady: PropTypes.func.isRequired
+};
 
 export default VideoPlayer;
