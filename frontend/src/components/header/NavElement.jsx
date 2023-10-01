@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import ListButton from './buttons/ListButton';
+import HeaderListButton from './buttons/HeaderListButton';
 
 const NavElement = () => {
   const navigate = useNavigate();
@@ -38,11 +38,11 @@ const NavElement = () => {
         </div>
         <ul id='nav-links' className={isNavOpen ? 'md:flex' : 'hidden md:flex'}>
 
-          <ListButton name="login" navigate={navigate} />
-          <ListButton name="register" navigate={navigate} />
+          <HeaderListButton name="login" navigate={navigate} />
+          <HeaderListButton name="register" navigate={navigate} />
 
-          <ListButton name="livestream" navigate={navigate}  />
-          <ListButton name="articles" navigate={navigate} lastItem={true} />
+          <HeaderListButton name="livestream" navigate={navigate}  />
+          <HeaderListButton name="articles" navigate={navigate} lastItem={true} />
 
         </ul>
       </div>
