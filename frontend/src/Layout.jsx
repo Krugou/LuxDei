@@ -7,8 +7,8 @@ import Footer from './views/Footer';
 import Header from './views/Header';
 import LandingPage from './views/main/LandingPage';
 import LiveStream from './views/main/LiveStream';
-import PrivacyPolicy from './views/main/main/PrivacyPolicy';
-import TermsOfService from './components/main/TermsofService';
+import PrivacyPolicy from './views/main/PrivacyPolicy';
+import TermsOfService from './views/main/TermsofService';
 import Team from './views/main/Team';
 
 const Layout = () => {
