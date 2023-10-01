@@ -1,5 +1,6 @@
 import React from 'react';
 import VideoPlayer from '../../components/main/VideoPlayer';
+import Chat from '../../components/main/Chat';
 const LiveStream = () => {
     const playerRef = React.useRef(null);
 
@@ -44,10 +45,11 @@ const LiveStream = () => {
     };
 
     return (
-        <section className="border rounded flex flex-col md:flex-row justify-center items-center md:items-start p-4 mb-8">
+        <section className="border rounded flex flex-col md:flex-row justify-center items-center md:items-start p-2 ">
 
 
-            <VideoPlayer className="w-100 h-full " options={videoJsOptions} onReady={handlePlayerReady} />
+            <VideoPlayer className="w-2/3 h-full " options={videoJsOptions} onReady={handlePlayerReady} />
+            <Chat className=" " />
 
         </section>
     );
