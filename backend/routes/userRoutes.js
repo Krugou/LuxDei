@@ -39,7 +39,7 @@ router.get('/:id', (req, res) => {
       res.status(500).json({ error: 'Error getting user from the database' });
     });
 });
-router.get('/:username', (req, res) => {
+router.get('/username/:username', (req, res) => {
   User.findOne({ name: req.params.username }) // Use findOne to find by username
     .then((user) => {
       if (user) {
