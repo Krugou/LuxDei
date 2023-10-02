@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../hooks/ApiHooks';
 
 const Register = () => {
   const { postUser, getCheckUser } = useUser();
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const usernameRef = useRef('');
   const emailRef = useRef('');
@@ -35,6 +37,7 @@ const Register = () => {
       //delete withoutConfirm.confirm;
       const response = await postUser(userData);
       console.log(response, 'Register Response');
+      navigate('/');
     } catch (error) {
       error.message === 'Username already taken' &&
         setErrorMessage(error.message);

@@ -2,7 +2,10 @@
 
 import express from 'express';
 import User from '../models/User.js';
+const { httpError } = require('../utils/errors');
 
+const { validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -41,7 +44,20 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  // Extract the validation errors from a request.
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    // There are errors.
+    // Error messages can be returned in an array using `errors.array()`.
+    console.error('get_UserProfileLimited validation', errors.array());
+
+    return httpError('Invalid data', 400);
+  }
+
   try {
+    const salt = bcrypt.genSaltSync(10);
+    const pwd = bcrypt.hashSync(req.body.password, salt);
     const newUser = new User({
       name: req.body.name,
       email: req.body.email,

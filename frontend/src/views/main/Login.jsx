@@ -1,16 +1,32 @@
 import React, { useRef, useState } from 'react';
 import useForm from '../../hooks/FormHooks';
+import { useUser } from '../../hooks/ApiHooks';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
+  const { postLogin } = useUser();
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
       `Username: ${usernameRef.current.value}, Password: ${passwordRef.current.value}`
     );
+    const inputs = {
+      username: usernameRef.current.value,
+      password: passwordRef.current.value,
+    };
     // Add logic to authenticate user here
+    try {
+      const loginResult = await postLogin(inputs);
+      localStorage.setItem('userToken', loginResult.token);
+      //setUser(loginResult.user);
+      navigate('/');
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (

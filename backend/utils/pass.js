@@ -2,7 +2,7 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const Strategy = require('passport-local').Strategy;
-const { findUsersByEmailRegUser } = require('../models/regUserModel');
+//const { findUsersByEmailRegUser } = require('../models/regUserModel');
 const passportJWT = require('passport-jwt');
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
@@ -12,10 +12,10 @@ passport.use(
   new Strategy(async (username, password, done) => {
     const params = [username];
     try {
-      const [user] = await findUsersByEmailRegUser(params);
+      //const [user] = await findUsersByEmailRegUser(params);
       console.log('Local strategy', user); // result is binary row
       if (user === undefined) {
-        return done(null, false, { message: 'Incorrect email.' });
+        return done(null, false, { message: 'Incorrect username.' });
       }
       if (!bcrypt.compareSync(password, user.Userpassword)) {
         return done(null, false, { message: 'Incorrect password.' });

@@ -28,5 +28,16 @@ const useUser = () => {
   return {
     postUser,
   };
+
+  const postLogin = async (inputs) => {
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inputs),
+    };
+    return await doFetch(baseUrl + 'login', options);
+  };
 };
 export { useUser };
