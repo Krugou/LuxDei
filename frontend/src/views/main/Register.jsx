@@ -9,22 +9,27 @@ const Register = () => {
   const passwordRef = useRef('');
   const countryRef = useRef('fi'); // Set the initial value for the select
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
       `Username: ${usernameRef.current.value}, Email: ${emailRef.current.value}, Password: ${passwordRef.current.value}`
     );
-
-    const doRegister = async () => {
-      try {
-        const withoutConfirm = { ...inputs };
-        delete withoutConfirm.confirm;
-        await postUser(withoutConfirm);
-        toggle();
-      } catch (error) {
-        setAlert(error.message);
-      }
+    const userData = {
+      name: usernameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      countryid: countryRef.current.value,
     };
+
+    try {
+      //const withoutConfirm = { ...inputs };
+      //delete withoutConfirm.confirm;
+      const response = await postUser(userData);
+      console.log(response, 'Register Response');
+    } catch (error) {
+      alert(error.message);
+    }
+
     // Add code here to submit form data to server
     /*
 

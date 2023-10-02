@@ -21,6 +21,7 @@ const useUser = () => {
       },
       body: JSON.stringify(inputs),
     };
+    console.log('meni läpi');
     return await doFetch(baseUrl + 'users', options);
   };
 
@@ -34,3 +35,4 @@ const useUser = () => {
     getCheckUser,
   };
 };
+export { useUser };
