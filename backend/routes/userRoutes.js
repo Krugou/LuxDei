@@ -56,12 +56,13 @@ router.post('/', async (req, res) => {
   }
 
   try {
+    // encrypt password
     const salt = bcrypt.genSaltSync(10);
     const pwd = bcrypt.hashSync(req.body.password, salt);
     const newUser = new User({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: pwd,
       countryid: req.body.countryid,
     });
 
