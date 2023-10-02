@@ -8,6 +8,7 @@ const router = express.Router();
 
 // Define a separate function for handling passport authentication
 const authenticate = (req, res) => {
+  console.log('authenticate maan');
   passport.authenticate('local', { session: false }, (err, user, info) => {
     console.log('info: ', info);
     console.log('err1: ', err);
