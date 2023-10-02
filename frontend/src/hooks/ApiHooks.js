@@ -15,8 +15,6 @@ const doFetch = async (url, options) => {
 const useUser = () => {
   const getCheckUser = async (username) => {
     alert('check USERNAME');
-    const response = await doFetch(baseUrl + 'users/username/' + username);
-    return response;
   };
 
   const postUser = async (inputs) => {
