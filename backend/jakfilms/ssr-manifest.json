@@ -549,6 +549,11 @@
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
   ],
+  "src/components/footer/FooterCopyright.jsx": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
   "src/components/footer/FooterList.jsx": [
     "/assets/inspiskuva1-e54495bc.jpg",
     "/assets/inspiskuva2-c6fb1ff2.jpg",
@@ -579,16 +584,6 @@
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
   ],
-  "src/components/main/About.jsx": [
-    "/assets/inspiskuva1-e54495bc.jpg",
-    "/assets/inspiskuva2-c6fb1ff2.jpg",
-    "/assets/inspiskuva3-1db6a5a3.jpg"
-  ],
-  "src/components/main/Articles.jsx": [
-    "/assets/inspiskuva1-e54495bc.jpg",
-    "/assets/inspiskuva2-c6fb1ff2.jpg",
-    "/assets/inspiskuva3-1db6a5a3.jpg"
-  ],
   "src/components/main/Banner.jsx": [
     "/assets/inspiskuva1-e54495bc.jpg",
     "/assets/inspiskuva2-c6fb1ff2.jpg",
@@ -599,27 +594,17 @@
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
   ],
-  "src/components/main/Login.jsx": [
-    "/assets/inspiskuva1-e54495bc.jpg",
-    "/assets/inspiskuva2-c6fb1ff2.jpg",
-    "/assets/inspiskuva3-1db6a5a3.jpg"
-  ],
-  "src/components/main/PrivacyPolicy.jsx": [
-    "/assets/inspiskuva1-e54495bc.jpg",
-    "/assets/inspiskuva2-c6fb1ff2.jpg",
-    "/assets/inspiskuva3-1db6a5a3.jpg"
-  ],
-  "src/components/main/Register.jsx": [
-    "/assets/inspiskuva1-e54495bc.jpg",
-    "/assets/inspiskuva2-c6fb1ff2.jpg",
-    "/assets/inspiskuva3-1db6a5a3.jpg"
-  ],
-  "src/components/main/TermsofService.jsx": [
+  "src/components/main/EventDetails.jsx": [
     "/assets/inspiskuva1-e54495bc.jpg",
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
   ],
   "src/components/main/VideoPlayer.jsx": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "src/hooks/ApiHooks.js": [
     "/assets/inspiskuva1-e54495bc.jpg",
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
@@ -644,12 +629,47 @@
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
   ],
+  "src/views/main/About.jsx": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "src/views/main/Articles.jsx": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
   "src/views/main/LandingPage.jsx": [
     "/assets/inspiskuva1-e54495bc.jpg",
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
   ],
   "src/views/main/LiveStream.jsx": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "src/views/main/Login.jsx": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "src/views/main/PrivacyPolicy.jsx": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "src/views/main/Register.jsx": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "src/views/main/Team.jsx": [
+    "/assets/inspiskuva1-e54495bc.jpg",
+    "/assets/inspiskuva2-c6fb1ff2.jpg",
+    "/assets/inspiskuva3-1db6a5a3.jpg"
+  ],
+  "src/views/main/TermsofService.jsx": [
     "/assets/inspiskuva1-e54495bc.jpg",
     "/assets/inspiskuva2-c6fb1ff2.jpg",
     "/assets/inspiskuva3-1db6a5a3.jpg"
