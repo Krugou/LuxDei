@@ -15,7 +15,9 @@ const port = 3001;
 const maxSavedMessages = 20;
 
 app.use(express.static('jakfilms'));
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'jakfilms', 'index.html'));
+});
 io.on('connection', (socket) => {
   console.log(socket.id, ' has entered the building');
   const ip = socket.request.connection.remoteAddress;
