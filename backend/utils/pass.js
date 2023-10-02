@@ -47,7 +47,7 @@ passport.use(
       secretOrKey: 'väliaikainenkusetus', // Secret key for JWT verification
     },
     (jwtPayload, done) => {
-      console.log('JWTStrategy', jwtPayload); // Log the JWT payload
+      console.log('JWTStrategy', process.env.JWT_SECRET); // Log the JWT payload
       done(null, jwtPayload); // Pass the JWT payload as the authenticated user
     }
   )

@@ -22,7 +22,7 @@ const authenticate = (req, res, next) => {
         next(httpError('Virhe kirjautuessa', 403));
         return;
       }
-      const token = jwt.sign(user, 'väliaikainenkusetus');
+      const token = jwt.sign(user, process.env.JWT_SECRET);
       res.json({ user, token });
     });
   })(req, res, next);
