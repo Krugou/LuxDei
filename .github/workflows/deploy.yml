@@ -1,0 +1,27 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: SSH into server and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: aanderson@jakfilms.northeurope.cloudapp.azure.com
+          username: aanderson
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/aanderson/LuxDei
+            eval `ssh-agent -s`
+            ssh-add /home/aanderson/.ssh/id_ed25519
+            git pull
+            cd frontend
+            npm run build
