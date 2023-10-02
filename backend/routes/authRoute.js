@@ -18,7 +18,7 @@ const authenticate = (req, res) => {
     req.login(user, { session: false }, (err) => {
       if (err) {
         console.log('err2: ', err);
-        return httpError('Virhe kirjautuessa', 403);
+        return next(httpError('Virhe kirjautuessa', 403));
       }
       const token = jwt.sign(user, process.env.JWT_SECRET);
       res.json({ user, token });
