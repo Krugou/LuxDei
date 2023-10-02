@@ -39,7 +39,6 @@ const Register = () => {
       error === 'Username already taken' && setErrorMessage(error.error);
       console.log(error, 'error');
       console.log(error.message, 'error message');
-      console.log(error.message.error, 'error message');
     }
 
     // Add code here to submit form data to server

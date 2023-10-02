@@ -40,38 +40,34 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
-  const newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    countryid: req.body.countryid,
-  });
-
-  // See if username is already taken:
-  User.findOne({ name: newUser.name }) // Use findOne to find by username
-    .then((user) => {
-      if (user) {
-        return new Error('Username already taken');
-      } else {
-        // Save the new user if the username is not taken
-        newUser
-          .save()
-          .then(() => {
-            res.json({ message: 'User saved to the database' });
-          })
-          .catch((err) => {
-            console.error('Error saving user to the database', err);
-            res
-              .status(500)
-              .json({ error: 'Error saving user to the database' });
-          });
-      }
-    })
-    .catch((err) => {
-      console.error('Error getting user from the database', err);
-      res.status(500).json({ error: 'Error getting user from the database' });
+router.post('/', async (req, res) => {
+  try {
+    const newUser = new User({
+      name: req.body.name,
+      email: req.body.email,
+      password: req.body.password,
+      countryid: req.body.countryid,
     });
+
+    // Check if username is already taken:
+    const existingUser = await User.findOne({ name: newUser.name });
+
+    if (existingUser) {
+      throw new Error('Username already taken');
+    }
+
+    // Save the new user if the username is not taken
+    await newUser.save();
+    res.json({ message: 'User saved to the database' });
+  } catch (error) {
+    console.error('Error:', error.message);
+
+    if (error.message === 'Username already taken') {
+      res.status(400).json({ error: 'Username already taken' });
+    } else {
+      res.status(500).json({ error: 'An error occurred' });
+    }
+  }
 });
 
 router.put('/:id', (req, res) => {
