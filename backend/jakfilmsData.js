@@ -5,7 +5,7 @@ import { createServer } from 'http';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import authRoute from './routes/authRoute.js';
-
+import passport from './utils/pass.js';
 const connectPort = 3002;
 const app = express();
 const http = createServer(app);
@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 // Middleware for JSON parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(passport.initialize());
 
 // Serve static files
 
