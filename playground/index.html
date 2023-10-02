@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,11 +18,16 @@
         #countdown-display {
             font-size: 3rem;
         }
+
+        .countdown-white {
+            color: white;
+        }
     </style>
 </head>
+
 <body>
     <div class="countdown">
-        <h1 id="countdown-display">00:00</h1>
+        <h1 id="countdown-display">00:00:00:00</h1>
     </div>
 
     <script>
@@ -43,14 +49,23 @@
 
             if (timeRemaining <= 0) {
                 clearInterval(countdownInterval);
-                countdownDisplay.textContent = "00:00";
+                countdownDisplay.textContent = "00:00:00:00";
             } else {
-                const minutes = Math.floor(timeRemaining / (1000 * 60));
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
-                const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                let formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                if (days > 0) {
+                    formattedTime = `${String(days).padStart(2, '0')}:${formattedTime}`;
+                }
                 countdownDisplay.textContent = formattedTime;
+                if (days > 0 || hours > 0) {
+                    countdownDisplay.classList.add('countdown-white');
+                }
             }
         }
     </script>
 </body>
+
 </html>
