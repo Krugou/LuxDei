@@ -4,7 +4,6 @@
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import path from 'path';
 const app = express();
 const http = createServer(app);
 const io = new Server(http);
@@ -16,7 +15,7 @@ const maxSavedMessages = 20;
 
 app.use(express.static('jakfilms'));
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'jakfilms', 'index.html'));
+  res.sendFile('jakfilms', 'index.html');
 });
 io.on('connection', (socket) => {
   console.log(socket.id, ' has entered the building');
