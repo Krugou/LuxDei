@@ -15,7 +15,7 @@ passport.use(
     const params = [username];
     try {
       // Find a user in the database with the provided username
-      const user = await User.findOne({ name: password });
+      const user = await User.findOne({ name: params });
       console.log(params, 'paramsasdasd');
       console.log(user);
       console.log('Local strategy', user); // Log the user (result is a binary row)
