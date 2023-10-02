@@ -22,6 +22,12 @@ const Register = () => {
     };
 
     try {
+      getCheckUser(userData.name);
+    } catch (error) {
+      alert(error);
+    }
+
+    try {
       //const withoutConfirm = { ...inputs };
       //delete withoutConfirm.confirm;
       const response = await postUser(userData);

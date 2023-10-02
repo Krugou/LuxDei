@@ -26,8 +26,8 @@ const useUser = () => {
   };
 
   const getCheckUser = async (username) => {
-    const { available } = await doFetch(baseUrl + 'users/username/' + username);
-    return available;
+    const response = await doFetch(baseUrl + 'users/username/' + username);
+    return response;
   };
 
   return {
