@@ -32,6 +32,7 @@ passport.use(
       // Remove sensitive data (password) and pass the user as the authenticated user
       delete user.password;
       console.log('nopassword', user);
+      console.log(user.password, 'PASSWORD');
 
       return done(null, { ...user }, { message: 'Logged In Successfully' });
     } catch (err) {
