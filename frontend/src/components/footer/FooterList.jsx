@@ -8,16 +8,19 @@ const FooterList = () => {
             <ul className="flex flex-col ">
                 <FooterListButton name="home" />
                 <FooterListButton name="about" />
+                <FooterListButton name="articles" />
             </ul>
 
             <ul className="flex flex-col">
                 <FooterListButton name="login" />
                 <FooterListButton name="register" />
+                <FooterListButton name="team" />
 
             </ul>
             <ul className="flex flex-col ">
                 <FooterListButton name="terms of service" />
                 <FooterListButton name="privacy policy" />
+                
 
             </ul>
         </div>
