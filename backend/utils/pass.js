@@ -34,7 +34,6 @@ passport.use(
 
       // Delete the password property from the user object
       delete userObject.password;
-      console.log('nopassword', userObject);
 
       return done(
         null,
