@@ -44,6 +44,7 @@ router.get('/:id', (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  console.log('router post');
   // Extract the validation errors from a request.
   const errors = validationResult(req);
 
@@ -54,7 +55,6 @@ router.post('/', async (req, res) => {
 
     return httpError('Invalid data', 400);
   }
-
   try {
     // encrypt password
     const salt = bcrypt.genSaltSync(10);
