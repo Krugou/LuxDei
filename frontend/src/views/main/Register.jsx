@@ -36,8 +36,8 @@ const Register = () => {
       const response = await postUser(userData);
       console.log(response, 'Register Response');
     } catch (error) {
-      error.error === 'Username already exists' && setErrorMessage(error.error);
-      alert(error.error);
+      error === 'Username already exists' && setErrorMessage(error.error);
+      alert(error);
     }
 
     // Add code here to submit form data to server
