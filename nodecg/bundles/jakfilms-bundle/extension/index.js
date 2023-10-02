@@ -7,4 +7,5 @@ module.exports = function (nodecg) {
 	nodecg.log.info('Good luck!');
 	nodecg.Replicant("speakerReplicant", {defaultValue: "Maija Mehiläinen"});
 	nodecg.Replicant("roleReplicant", {defaultValue: "Puhuja"});
+	nodecg.Replicant("timerReplicant", {defaultValue: "Laskuri"});
 };
