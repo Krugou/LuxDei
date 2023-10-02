@@ -3,6 +3,7 @@ import { useUser } from '../../hooks/ApiHooks';
 
 const Register = () => {
   const { postUser, getCheckUser } = useUser();
+  const [errorMessage, setErrorMessage] = useState('');
 
   const usernameRef = useRef('');
   const emailRef = useRef('');
@@ -35,7 +36,8 @@ const Register = () => {
       const response = await postUser(userData);
       console.log(response, 'Register Response');
     } catch (error) {
-      alert(error.message);
+      error.error === 'Username already exists' && setErrorMessage(error.error);
+      alert(error.error);
     }
 
     // Add code here to submit form data to server
@@ -77,6 +79,8 @@ const Register = () => {
           ref={usernameRef}
           className='border border-gray-400 rounded-lg p-2 w-full'
         />
+        {/* Display the error message */}
+        {errorMessage && <p className='text-orange-500'>{errorMessage}</p>}
       </label>
       <label className='flex flex-col items-start mt-4'>
         <span className='text-lg font-medium mb-2'>Email:</span>
