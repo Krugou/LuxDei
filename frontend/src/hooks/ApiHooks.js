@@ -13,10 +13,6 @@ const doFetch = async (url, options) => {
 };
 
 const useUser = () => {
-  const getCheckUser = async (username) => {
-    alert('check USERNAME');
-  };
-
   const postUser = async (inputs) => {
     const options = {
       method: 'POST',
@@ -31,7 +27,6 @@ const useUser = () => {
 
   return {
     postUser,
-    getCheckUser,
   };
 };
 export { useUser };
