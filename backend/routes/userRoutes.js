@@ -46,6 +46,7 @@ router.get('/:id', (req, res) => {
 router.post('/', async (req, res) => {
   console.log('router post');
   // Extract the validation errors from a request.
+  /*
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -55,10 +56,11 @@ router.post('/', async (req, res) => {
 
     return httpError('Invalid data', 400);
   }
+  */
   try {
     // encrypt password
-    const salt = bcrypt.genSaltSync(10);
-    const pwd = bcrypt.hashSync(req.body.password, salt);
+    // const salt = bcrypt.genSaltSync(10);
+    //const pwd = bcrypt.hashSync(req.body.password, salt);
     const newUser = new User({
       name: req.body.name,
       email: req.body.email,
