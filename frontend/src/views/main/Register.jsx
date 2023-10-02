@@ -22,7 +22,7 @@ const Register = () => {
     };
 
     try {
-      const response = getCheckUser(userData.name);
+      const response = await getCheckUser(userData.name);
       console.log(response, 'checkUser Response');
     } catch (error) {
       alert(error);
