@@ -6,6 +6,8 @@ import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import authRoute from './routes/authRoute.js';
 import passport from './utils/pass.js';
+import { config } from 'dotenv';
+
 const connectPort = 3002;
 const app = express();
 const http = createServer(app);
