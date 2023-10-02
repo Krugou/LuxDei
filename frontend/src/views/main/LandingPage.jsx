@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Banner from '../../components/main/Banner';
+import EventDetails from '../../components/main/EventDetails';
 const LandingPage = () => {
   const [count, setCount] = useState(0);
 
@@ -10,6 +11,7 @@ const LandingPage = () => {
   return (
     <>
       <Banner />
+      <EventDetails />
     </>
   );
 };
