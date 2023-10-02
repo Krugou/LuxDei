@@ -38,7 +38,7 @@ mongoose
 
 // Use user routes
 app.use('/users', userRoutes);
-app.use('/auth', authRoute);
+//app.use('/auth', authRoute);
 
 http.listen(connectPort, () => {
   console.log('Server started on port ' + connectPort);
