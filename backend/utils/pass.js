@@ -17,7 +17,6 @@ passport.use(
       // Find a user in the database with the provided username
       const user = await User.findOne({ name: params });
       console.log(params, 'paramsasdasd');
-      console.log(user);
       console.log('Local strategy', user); // Log the user (result is a binary row)
 
       // Check if the user exists
@@ -30,8 +29,8 @@ passport.use(
         return done(null, false, { message: 'Incorrect password.' });
       }
 
-      // Remove sensitive data (Userpassword) and pass the user as the authenticated user
-      delete user.Userpassword;
+      // Remove sensitive data (password) and pass the user as the authenticated user
+      delete user.password;
       return done(null, { ...user }, { message: 'Logged In Successfully' });
     } catch (err) {
       return done(err);

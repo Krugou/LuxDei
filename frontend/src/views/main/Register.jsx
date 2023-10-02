@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../hooks/ApiHooks';
 
 const Register = () => {
-  const { postUser, getCheckUser } = useUser();
+  const { postUser } = useUser();
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 

@@ -1,6 +1,7 @@
 const baseUrl = 'https://jakfilms.northeurope.cloudapp.azure.com/backend/';
 
 const doFetch = async (url, options) => {
+  console.log('jpejep');
   const response = await fetch(url, options);
   const json = await response.json();
   console.log(json, 'dofetch json');
@@ -22,11 +23,8 @@ const useUser = () => {
       body: JSON.stringify(inputs),
     };
     console.log('meni läpi');
+    console.log(inputs);
     return await doFetch(baseUrl + 'users', options);
-  };
-
-  return {
-    postUser,
   };
 
   const postLogin = async (inputs) => {
@@ -37,7 +35,12 @@ const useUser = () => {
       },
       body: JSON.stringify(inputs),
     };
-    return await doFetch(baseUrl + 'login', options);
+    return await doFetch(baseUrl + 'auth/login', options);
+  };
+
+  return {
+    postUser,
+    postLogin,
   };
 };
 export { useUser };
