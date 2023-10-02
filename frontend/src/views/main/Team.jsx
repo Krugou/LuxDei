@@ -3,7 +3,7 @@ import React from 'react';
 const Team = () => {
     return (
         <div className='bg-alepurple container mx-auto p-4 m-4'>
-            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mybasetext">Meet the Kirkenes Film Festival Team</h1>
+            <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mybasetext">Meet the Jak-Films Festival Team</h1>
             <p className="text-base md:text-lg mybasetext mt-4">
                 Our festival wouldn't be possible without the dedicated and passionate individuals who make up our team. Get to know
                 the people behind the scenes who work tirelessly to bring you an exceptional cinematic experience.
