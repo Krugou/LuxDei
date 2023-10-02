@@ -39,29 +39,28 @@ router.get('/:id', (req, res) => {
       res.status(500).json({ error: 'Error getting user from the database' });
     });
 });
-router.get('/username/:username', (req, res) => {
-  User.findOne({ name: req.params.username }) // Use findOne to find by username
-    .then((user) => {
-      if (user) {
-        return res.status(404).json({ error: 'Username already taken' });
-      }
-      // User does not exist, you can return a success response if needed
-      res.json({ message: 'Username is available' });
-    })
-    .catch((err) => {
-      console.error('Error getting user from the database', err);
-      res.status(500).json({ error: 'Error getting user from the database' });
-    });
-});
+
 
 router.post('/', (req, res) => {
-  const newUser = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-    countryid: req.body.countryid,
-  });
-
+    const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        countryid: req.body.countryid,
+    });
+    
+    // See if username is already taken:
+    User.findOne({ name: newUser.name }) // Use findOne to find by username
+      .then((user) => {
+        if (user) {
+          return res.status(404).json({ error: 'Username already taken' });
+        }
+      .catch((err) => {
+        console.error('Error getting user from the database', err);
+        res.status(500).json({ error: 'Error getting user from the database' });
+      });
+    });
+    
   newUser
     .save()
     .then(() => {

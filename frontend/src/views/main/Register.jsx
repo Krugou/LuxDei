@@ -20,14 +20,15 @@ const Register = () => {
       password: passwordRef.current.value,
       countryid: countryRef.current.value,
     };
-
+    // INTEGROI SAMAAN FUNKTIOON
+    /*
     try {
       const response = await getCheckUser(userData.name);
       console.log(response, 'checkUser Response');
     } catch (error) {
       alert(error);
     }
-
+ */
     try {
       //const withoutConfirm = { ...inputs };
       //delete withoutConfirm.confirm;
