@@ -11,7 +11,7 @@ const ExtractJWT = passportJWT.ExtractJwt;
 
 // Define a local strategy for username and password login
 passport.use(
-  new LocalStrategy(async (username, password, done) => {
+  new Strategy(async (username, password, done) => {
     const params = [username];
     try {
       // Find a user in the database with the provided username
