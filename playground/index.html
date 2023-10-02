@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .countdown {
+            margin-top: 100px;
+        }
+
+        #countdown-display {
+            font-size: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown">
+        <h1 id="countdown-display">00:00</h1>
+    </div>
+
+    <script>
+        // Get the countdown time from the URL parameter or default to 5 minutes
+        const urlParams = new URLSearchParams(window.location.search);
+        const countdownMinutes = parseInt(urlParams.get('time')) || 5;
+
+        // Calculate the end time for the countdown
+        const now = new Date().getTime();
+        const endTime = now + countdownMinutes * 60 * 1000;
+
+        // Update the countdown timer every second
+        const countdownDisplay = document.getElementById('countdown-display');
+        const countdownInterval = setInterval(updateCountdown, 1000);
+
+        function updateCountdown() {
+            const currentTime = new Date().getTime();
+            const timeRemaining = endTime - currentTime;
+
+            if (timeRemaining <= 0) {
+                clearInterval(countdownInterval);
+                countdownDisplay.textContent = "00:00";
+            } else {
+                const minutes = Math.floor(timeRemaining / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+                const formattedTime = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                countdownDisplay.textContent = formattedTime;
+            }
+        }
+    </script>
+</body>
+</html>
