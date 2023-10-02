@@ -11,7 +11,7 @@ const FooterListButton = ({name}) => {
                 onClick={() => {
                     navigate(`/${name}`);
                 }}
-                className='border rounded m-2  p-2 '
+                className='border rounded m-2 p-2 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl '
             >
                 {capitalized}
             </button>
