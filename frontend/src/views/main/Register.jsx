@@ -36,7 +36,7 @@ const Register = () => {
       const response = await postUser(userData);
       console.log(response, 'Register Response');
     } catch (error) {
-      error === 'Username already exists' && setErrorMessage(error.error);
+      error === 'Username already taken' && setErrorMessage(error.error);
       console.log(error, 'error');
       console.log(error.message, 'error message');
       console.log(error.message.error, 'error message');
