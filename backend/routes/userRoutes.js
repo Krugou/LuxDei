@@ -60,10 +60,9 @@ router.post('/', async (req, res) => {
     await newUser.save();
     res.json({ message: 'User saved to the database' });
   } catch (error) {
-    console.error('Error:', error.message);
-
+    console.log('Error:', error.message);
     if (error.message === 'Username already taken') {
-      res.status(400).json({ error: 'Username already taken' });
+      res.json({error.message});
     } else {
       res.status(500).json({ error: 'An error occurred' });
     }
