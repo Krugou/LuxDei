@@ -16,6 +16,15 @@ const NavElement = () => {
         <button onClick={() => {navigate('/')}} className='text-white text-2xl font-bold'>
           Jak Films
         </button>
+        <ul id='nav-links' className={isNavOpen ? 'md:flex' : 'hidden md:flex'}>
+
+          <HeaderListButton name="login" navigate={navigate} />
+          <HeaderListButton name="register" navigate={navigate} />
+
+          <HeaderListButton name="livestream" navigate={navigate}  />
+          <HeaderListButton name="articles" navigate={navigate} lastItem={true} />
+
+        </ul>
         <div
           id='mobile-menu-button'
           className='text-white md:hidden cursor-pointer'
@@ -36,15 +45,6 @@ const NavElement = () => {
             ></path>
           </svg>
         </div>
-        <ul id='nav-links' className={isNavOpen ? 'md:flex' : 'hidden md:flex'}>
-
-          <HeaderListButton name="login" navigate={navigate} />
-          <HeaderListButton name="register" navigate={navigate} />
-
-          <HeaderListButton name="livestream" navigate={navigate}  />
-          <HeaderListButton name="articles" navigate={navigate} lastItem={true} />
-
-        </ul>
       </div>
     </nav>
   );
