@@ -8,6 +8,12 @@ import authRoute from './routes/authRoute.js';
 import passport from './utils/pass.js';
 import { config } from 'dotenv';
 
+// Use the import.meta.url to get the directory of the current module
+const __dirname = new URL('.', import.meta.url).pathname;
+
+// Load environment variables from .env file
+config({ path: `${__dirname}.env` });
+
 const connectPort = 3002;
 const app = express();
 const http = createServer(app);
