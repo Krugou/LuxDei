@@ -1,44 +1,55 @@
 'use strict';
+
+// Import necessary modules and dependencies
 import bcrypt from 'bcryptjs';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-//const { findUsersByEmailRegUser } = require('../models/regUserModel');
+import passportJWT from 'passport-jwt'; // Import passport-jwt module directly
+import User from '../models/User.js'; // Import the User model
 const { Strategy: JWTStrategy, ExtractJwt: ExtractJWT } = passportJWT;
 
-// local strategy for username password login
+// Define a local strategy for username and password login
 passport.use(
-  new Strategy(async (username, password, done) => {
+  new LocalStrategy(async (username, password, done) => {
     const params = [username];
     try {
-      //const [user] = await findUsersByEmailRegUser(params);
-      console.log('Local strategy', user); // result is binary row
+      // Find a user in the database with the provided username
+      const [user] = await User.findOne({ name: password });
+      console.log('Local strategy', user); // Log the user (result is a binary row)
+
+      // Check if the user exists
       if (user === undefined) {
         return done(null, false, { message: 'Incorrect username.' });
       }
+
+      // Compare the provided password with the stored password using bcrypt
       if (!bcrypt.compareSync(password, user.Userpassword)) {
         return done(null, false, { message: 'Incorrect password.' });
       }
+
+      // Remove sensitive data (Userpassword) and pass the user as the authenticated user
       delete user.Userpassword;
-      return done(null, { ...user }, { message: 'Logged In Successfully' }); // use spread syntax to create shallow copy to get rid of binary row type
+      return done(null, { ...user }, { message: 'Logged In Successfully' });
     } catch (err) {
       return done(err);
     }
   })
 );
 
+// Define a JWT strategy for handling JSON Web Tokens
 passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET,
+      secretOrKey: process.env.JWT_SECRET, // Secret key for JWT verification
     },
     (jwtPayload, done) => {
-      console.log('JWTStrategy', jwtPayload);
-      done(null, jwtPayload);
+      console.log('JWTStrategy', jwtPayload); // Log the JWT payload
+      done(null, jwtPayload); // Pass the JWT payload as the authenticated user
     }
   )
 );
 
-// consider .env for secret, e.g. secretOrKey: process.env.JWT_SECRET
+// Consider using .env for secret, e.g., secretOrKey: process.env.JWT_SECRET
 
-module.exports = passport;
+export default passport; // Export passport as the default export

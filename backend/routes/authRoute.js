@@ -7,31 +7,29 @@ import httpError from '../utils/errors.js';
 const router = express.Router();
 
 // Define a separate function for handling passport authentication
-const authenticate = (req, res, next) => {
+const authenticate = (req, res) => {
   passport.authenticate('local', { session: false }, (err, user, info) => {
     console.log('info: ', info);
     console.log('err1: ', err);
     if (err || !user) {
-      next(httpError('Virhe kirjautuessa', 403));
-      return;
+      return httpError('Virhe kirjautuessa', 403);
     }
     req.login(user, { session: false }, (err) => {
       if (err) {
         console.log('err2: ', err);
-        next(httpError('Virhe kirjautuessa', 403));
-        return;
+        return httpError('Virhe kirjautuessa', 403);
       }
       const token = jwt.sign(user, process.env.JWT_SECRET);
       res.json({ user, token });
     });
-  })(req, res, next);
+  })(req, res);
 };
 
 // Define validation and error handling for the login route
 router.post(
   '/login',
   [body('username').escape(), body('password').escape()],
-  (req, res, next) => {
+  (req, res) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
@@ -46,7 +44,7 @@ router.post(
     }
 
     // Call the authenticate function to handle passport authentication
-    authenticate(req, res, next);
+    authenticate(req, res);
   }
 );
 
