@@ -2,10 +2,10 @@
 
 import express from 'express';
 import User from '../models/User.js';
-const { httpError } = require('../utils/errors');
+//const { httpError } = require('../utils/errors');
 
-const { validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
+//const { validationResult } = require('express-validator');
+//const bcrypt = require('bcryptjs');
 const router = express.Router();
 
 router.get('/', (req, res) => {
