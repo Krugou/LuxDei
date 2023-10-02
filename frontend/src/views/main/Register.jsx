@@ -22,7 +22,8 @@ const Register = () => {
     };
 
     try {
-      getCheckUser(userData.name);
+      const response = getCheckUser(userData.name);
+      console.log(response, 'checkUser Response');
     } catch (error) {
       alert(error);
     }
