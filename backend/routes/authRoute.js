@@ -1,10 +1,10 @@
 'use strict';
-const jwt = require('jsonwebtoken');
-const express = require('express');
+import jwt from 'jsonwebtoken';
+import express from 'express';
+import { body, validationResult } from 'express-validator';
+import passport from 'passport';
+import httpError from '../utils/errors.js';
 const router = express.Router();
-const { body, validationResult } = require('express-validator');
-const passport = require('passport');
-const { httpError } = require('../utils/errors');
 
 // Define a separate function for handling passport authentication
 const authenticate = (req, res, next) => {

@@ -1,11 +1,9 @@
 'use strict';
-const bcrypt = require('bcryptjs');
-const passport = require('passport');
-const Strategy = require('passport-local').Strategy;
+import bcrypt from 'bcryptjs';
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
 //const { findUsersByEmailRegUser } = require('../models/regUserModel');
-const passportJWT = require('passport-jwt');
-const JWTStrategy = passportJWT.Strategy;
-const ExtractJWT = passportJWT.ExtractJwt;
+const { Strategy: JWTStrategy, ExtractJwt: ExtractJWT } = passportJWT;
 
 // local strategy for username password login
 passport.use(

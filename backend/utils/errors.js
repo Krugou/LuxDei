@@ -1,5 +1,3 @@
-'use strict';
-
 const httpError = (message, status) => {
   console.log('error used');
   const err = new Error(message);
@@ -7,6 +5,4 @@ const httpError = (message, status) => {
   return err;
 };
 
-module.exports = {
-  httpError,
-};
+export default httpError;
