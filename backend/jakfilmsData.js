@@ -10,9 +10,10 @@ const app = express();
 const http = createServer(app);
 
 app.get('/', (req, res) => {
-    res.send('
-        <h1>This is backend server calling</h1>
-    ');
+    res.send(`
+    <h1>This is backend server calling</h1>
+    <h2>It's running on port ${connectPort}</h2>
+  `);
 });
 
 // Middleware for JSON parsing
