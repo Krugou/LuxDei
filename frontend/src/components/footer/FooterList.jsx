@@ -4,7 +4,7 @@ const FooterList = () => {
 
     return (
         <div className="container mx-auto flex justify-between items-center">
-            <p>&copy; {new Date().getFullYear()} JakFilms</p>
+
             <ul className="flex flex-col ">
                 <FooterListButton name="home" />
                 <FooterListButton name="about" />
