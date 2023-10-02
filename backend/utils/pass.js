@@ -29,12 +29,18 @@ passport.use(
         return done(null, false, { message: 'Incorrect password.' });
       }
 
-      // Remove sensitive data (password) and pass the user as the authenticated user
-      delete user.password;
-      console.log('nopassword', user);
-      console.log(user.password, 'PASSWORD');
+      // Convert the Mongoose document to a plain JavaScript object
+      const userObject = user.toObject();
 
-      return done(null, { ...user }, { message: 'Logged In Successfully' });
+      // Delete the password property from the user object
+      delete userObject.password;
+      console.log('nopassword', userObject);
+
+      return done(
+        null,
+        { ...userObject },
+        { message: 'Logged In Successfully' }
+      );
     } catch (err) {
       return done(err);
     }
