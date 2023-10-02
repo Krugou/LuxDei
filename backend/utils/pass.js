@@ -3,10 +3,11 @@
 // Import necessary modules and dependencies
 import bcrypt from 'bcryptjs';
 import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
+import { Strategy } from 'passport-local';
 import passportJWT from 'passport-jwt'; // Import passport-jwt module directly
 import User from '../models/User.js'; // Import the User model
-const { Strategy: JWTStrategy, ExtractJwt: ExtractJWT } = passportJWT;
+const JWTStrategy = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
 
 // Define a local strategy for username and password login
 passport.use(
@@ -49,7 +50,5 @@ passport.use(
     }
   )
 );
-
-// Consider using .env for secret, e.g., secretOrKey: process.env.JWT_SECRET
 
 export default passport; // Export passport as the default export
