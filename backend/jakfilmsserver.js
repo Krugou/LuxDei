@@ -15,7 +15,7 @@ const maxSavedMessages = 20;
 
 app.use(express.static('jakfilms'));
 app.get('*', (req, res) => {
-  res.sendFile('jakfilms', 'index.html');
+  res.sendFile('index.html', {root: 'jakfilms'});
 });
 io.on('connection', (socket) => {
   console.log(socket.id, ' has entered the building');
