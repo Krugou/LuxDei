@@ -34,7 +34,7 @@ export default {
           '100%': {transform: 'translateX(-110vw)'},
         },
         secondmovementRighToLeft: {
-          '0%': {transform: 'translateX(-50vw)'},
+          '0%': {transform: 'translateX(-20vw)'},
           '100%': {transform: 'translateX(-110vw)'},
         },
         flash: {
