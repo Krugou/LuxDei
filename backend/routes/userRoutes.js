@@ -52,7 +52,7 @@ router.post('/', (req, res) => {
   User.findOne({ name: newUser.name }) // Use findOne to find by username
     .then((user) => {
       if (user) {
-        return res.status(400).json({'Username already taken'});
+        return res.status(400).json({ error: 'Username already taken' });
       } else {
         // Save the new user if the username is not taken
         newUser
