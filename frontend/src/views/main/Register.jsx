@@ -1,6 +1,9 @@
 import React, { useRef } from 'react';
+import { useUser } from '../../hooks/ApiHooks';
 
 const Register = () => {
+  const { postUser, getCheckUser } = useUser();
+
   const usernameRef = useRef('');
   const emailRef = useRef('');
   const passwordRef = useRef('');
@@ -11,7 +14,20 @@ const Register = () => {
     console.log(
       `Username: ${usernameRef.current.value}, Email: ${emailRef.current.value}, Password: ${passwordRef.current.value}`
     );
+
+    const doRegister = async () => {
+      try {
+        const withoutConfirm = { ...inputs };
+        delete withoutConfirm.confirm;
+        await postUser(withoutConfirm);
+        toggle();
+      } catch (error) {
+        setAlert(error.message);
+      }
+    };
     // Add code here to submit form data to server
+    /*
+
     fetch('http://jakfilms.northeurope.cloudapp.azure.com/backend/users', {
       method: 'POST',
       headers: {
@@ -36,6 +52,7 @@ const Register = () => {
       .catch((error) => {
         console.error('There was a problem with the fetch operation:', error);
       });
+      */
   };
 
   return (
