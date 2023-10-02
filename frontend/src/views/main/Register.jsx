@@ -37,7 +37,9 @@ const Register = () => {
       console.log(response, 'Register Response');
     } catch (error) {
       error === 'Username already exists' && setErrorMessage(error.error);
-      alert(error);
+      console.log(error, 'error');
+      console.log(error.message, 'error message');
+      console.log(error.message.error, 'error message');
     }
 
     // Add code here to submit form data to server
