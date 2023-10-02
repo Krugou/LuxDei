@@ -26,7 +26,7 @@ passport.use(
       }
 
       // Compare the provided password with the stored password using bcrypt
-      if (!bcrypt.compareSync(password, user.Userpassword)) {
+      if (!bcrypt.compareSync(password, user.password)) {
         return done(null, false, { message: 'Incorrect password.' });
       }
 
