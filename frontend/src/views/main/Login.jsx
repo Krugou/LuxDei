@@ -1,13 +1,13 @@
-import React, {useRef, useState, useContext } from 'react';
-import useForm from '../../hooks/FormHooks';
-import { useUser } from '../../hooks/ApiHooks';
+import React, {useContext, useRef, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {UserContext} from '../../contexts/UserContext';
+import {useUser} from '../../hooks/ApiHooks';
+import useForm from '../../hooks/FormHooks';
 
 const Login = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
-  const { postLogin } = useUser();
+  const {postLogin} = useUser();
   const navigate = useNavigate();
   const {setUsername, setCountryId} = useContext(UserContext);
   const handleSubmit = async (event) => {
