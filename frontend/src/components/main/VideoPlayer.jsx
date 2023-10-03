@@ -1,8 +1,8 @@
-import '@videojs/themes/dist/city/index.css';
 import PropTypes from 'prop-types';
 import React from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
+import '@videojs/themes/dist/city/index.css';
 
 export const VideoPlayer = (props) => {
     const videoRef = React.useRef(null);
@@ -49,7 +49,7 @@ export const VideoPlayer = (props) => {
     return (
         <>
             <div data-vjs-player className="w-full h-full ">
-                <div ref={videoRef} className="video-js vjs-theme-city">
+                <div ref={videoRef} className="video-js   vjs-theme-city " >
                     <style jsx>{`
                     .video-js {
                         width: 100%;
@@ -59,8 +59,8 @@ export const VideoPlayer = (props) => {
                 `}</style>
                 </div>
             </div>
-        </>
-    );
+
+        </>);
 };
 VideoPlayer.proptypes = {
     options: PropTypes.object.isRequired,
