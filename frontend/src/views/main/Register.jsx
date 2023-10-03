@@ -82,6 +82,8 @@ const Register = () => {
           type='text'
           ref={usernameRef}
           className='border border-gray-400 rounded-lg p-2 w-full'
+          aria-label='Username'
+          autoComplete='username'
         />
         {/* Display the error message */}
         {errorMessage && <p className='text-orange-500'>{errorMessage}</p>}
@@ -92,6 +94,8 @@ const Register = () => {
           type='email'
           ref={emailRef}
           className='border border-gray-400 rounded-lg p-2 w-full'
+          aria-label='Email'
+          autoComplete='email'
         />
       </label>
       <label className='flex flex-col items-start mt-4'>
@@ -100,6 +104,8 @@ const Register = () => {
           type='password'
           ref={passwordRef}
           className='border border-gray-400 rounded-lg p-2 w-full'
+          aria-label='Password'
+          autoComplete='new-password'
         />
       </label>
       <label className='flex flex-col items-start mt-4'>
