@@ -8,8 +8,5 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
   console.log(req.user, 'USER ASDASD');
-  res.send(`
-    <h1>This is backend server calling</h1>
-  `);
 });
 export default router;
