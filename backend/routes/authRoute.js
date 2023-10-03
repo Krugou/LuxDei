@@ -51,7 +51,10 @@ router.post(
   }
 );
 
-router.get('/:token', (req, res) => {
+router.get('/', (req, res) => {
   console.log(req.user);
+  res.send(`
+    <h1>This is backend server calling</h1>
+  `);
 });
 export default router;
