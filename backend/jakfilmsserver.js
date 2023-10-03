@@ -11,7 +11,7 @@ const lastMessages = {};
 
 // server's adjustable settings
 const port = 3001;
-const maxSavedMessages = 20;
+const maxSavedMessages = 10;
 const startTime = new Date();
 console.log(' Backend chat/frontend server start time: ' + startTime.toLocaleString());
 app.use(express.static('jakfilms'));
@@ -58,8 +58,8 @@ io.on('connection', (socket) => {
     }
     lastMessages[data.room].push(data);
 
-    console.log('data.room: ', data.room);
-    console.log('data.countryid: ', data.countryid);
+    // console.log('data.room: ', data.room);
+    // console.log('data.countryid: ', data.countryid);
     io.to(data.room).emit('chat message', {
       countryid: data.countryid,
       username: data.username,
@@ -68,19 +68,19 @@ io.on('connection', (socket) => {
     });
   });
   socket.on('typing', ({username, room}) => {
-    console.log('typing: ', username, room);
+    // console.log('typing: ', username, room);
     socket.broadcast.to(room).emit("typing", {username});
-    console.log('typing event emitted successfully');
+    // console.log('typing event emitted successfully');
   });
   socket.on('stop typing', ({username, room}) => {
-    console.log('stop typing: ', username, room);
+    // console.log('stop typing: ', username, room);
     socket.broadcast.to(room).emit("stop typing", {username});
   });
   socket.on('get messages', (room) => {
-    console.log('get messages for room: ', room);
+    // console.log('get messages for room: ', room);
     if (lastMessages[room]) {
       const latestMessage = lastMessages[room][lastMessages[room].length - 1];
-      console.log('latest message: ', latestMessage);
+      // console.log('latest message: ', latestMessage);
       socket.broadcast.to(room).emit("typing", {username});
       socket.emit('chat message', {
         countryid: latestMessage.countryid,
