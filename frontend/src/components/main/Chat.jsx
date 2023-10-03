@@ -153,8 +153,9 @@ const Chat = ({username, countryid}) => {
   return (
     <div className='flex flex-col'>
       {typingUsers.length > 0 && (
-        <div className="text-xs text-gray-500 bg-black">
-          {typingUsers.join(", ")} {typingUsers.length === 1 ? "is" : "are"} typing...
+        <div className={`text-xs text-gray-500 bg-black ${isPulsing ? 'animate-pulse' : ''}`}>
+          <span className="mr-1">{typingUsers.join(", ")}</span>
+          <span>{typingUsers.length === 1 ? "is" : "are"} typing...</span>
         </div>
       )}
       <ul
