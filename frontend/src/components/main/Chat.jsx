@@ -30,13 +30,17 @@ const Chat = ({username, countryid}) => {
 
   const handleTypingIntoServer = (event) => {
     if (event.target.value !== "") {
-      setIsTyping(true);
-      socket.emit("typing", {username, room});
+      if (!isTyping) {
+        setIsTyping(true);
+        socket.emit("typing", {username, room});
+        setTimeout(() => {
+          setIsTyping(false);
+          socket.emit("stop typing", {username, room});
+        }, 2000);
+      }
     } else {
-      setTimeout(() => {
-        setIsTyping(false);
-        socket.emit("stop typing", {username, room});
-      }, 5000);
+      setIsTyping(false);
+      socket.emit("stop typing", {username, room});
     }
   };
   // Function to handle room changes
