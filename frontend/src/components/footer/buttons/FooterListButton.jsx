@@ -12,6 +12,8 @@ const FooterListButton = ({name}) => {
                     navigate(`/${name}`);
                 }}
                 className='border rounded m-2 p-2 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl '
+                aria-label={`Go to ${capitalized}`}
+                title={`Go to ${capitalized}`}
             >
                 {capitalized}
             </button>
