@@ -51,7 +51,8 @@ const LiveStream = () => {
 
 
             <VideoPlayer className="w-2/3 h-full " options={videoJsOptions} onReady={handlePlayerReady} />
-            <Chat className=" " username={username} countryid={countryId} />
+            <Chat className=" " username={'anonyymi'} countryid={'FI'} />
+            {/* <Chat className=" " username={username} countryid={countryId} /> */}
 
         </section>
     );
