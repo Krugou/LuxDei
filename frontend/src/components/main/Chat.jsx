@@ -142,6 +142,7 @@ const Chat = ({username, countryid}) => {
             value={room}
             onChange={handleRoomChange}
             className={`text-white block w-full py-2 px-3 border border-gray-400 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${room === 'room1' ? 'bg-black text-white' : room === 'room2' ? 'bg-black text-white' : 'bg-black text-white'}focus:border-transparent `}
+            aria-label='Select a chat room'
           >
             <option className="bg-black text-white " value="room1">Silver Screen Lounge</option>
             <option className="bg-black text-white" value="room2">Director's Cut Den</option>
@@ -161,6 +162,7 @@ const Chat = ({username, countryid}) => {
               onChange={(event) => setMessage(event.target.value)}
               onKeyDown={handleTyping}
               onKeyUp={handleTyping}
+              aria-label='Type your message here'
             />
 
             {/* Submit button */}
