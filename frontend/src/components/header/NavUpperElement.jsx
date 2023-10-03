@@ -1,18 +1,20 @@
-import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
+import React, {useEffect, useRef, useState} from 'react';
 
-const NavUpperElement = ({randomSeconds}) => {
+const NavUpperElement = ({startSeconds, endSeconds}) => {
   const [animationDuration, setAnimationDuration] = useState(0);
   const policeCarRef = useRef(null);
 
-  // Function to generate a random duration between 1 to 10 seconds
-  const getRandomDuration = () => {
-    return Math.floor(Math.random() * randomSeconds + 1) * 1000; // Convert to milliseconds
+  // Function to generate a random duration between minSeconds and maxSeconds
+  const getRandomDuration = (minSeconds, maxSeconds) => {
+    const minMilliseconds = minSeconds * 1000;
+    const maxMilliseconds = maxSeconds * 1000;
+    return Math.floor(Math.random() * (maxMilliseconds - minMilliseconds + 1)) + minMilliseconds;
   };
 
   // Function to start the animation with a new random duration
   const startAnimation = () => {
-    const duration = getRandomDuration();
+    const duration = getRandomDuration(startSeconds, endSeconds);
     // console.log('duration:', duration);
 
     setAnimationDuration(duration);
@@ -51,7 +53,8 @@ const NavUpperElement = ({randomSeconds}) => {
   );
 };
 NavUpperElement.propTypes = {
-  randomSeconds: PropTypes.number,
+  startSeconds: PropTypes.number,
+  endSeconds: PropTypes.number,
 };
 
 export default NavUpperElement;
