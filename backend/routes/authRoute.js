@@ -51,4 +51,7 @@ router.post(
   }
 );
 
+router.get('/:token', (req, res) => {
+  console.log(req.user);
+});
 export default router;
