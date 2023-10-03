@@ -37,6 +37,7 @@ io.on('connection', (socket) => {
               message: message.message,
               username: message.username,
               room: message.room,
+              countryid: message.countryid,
             });
           });
         }
@@ -56,19 +57,20 @@ io.on('connection', (socket) => {
       lastMessages[data.room].shift();
     }
     lastMessages[data.room].push(data);
-    console.log(
-      `message: ${data.message}, username: ${data.username}, room: ${data.room}`
-    );
+
     console.log('data.room: ', data.room);
+    console.log('data.countryid: ', data.countryid);
     io.to(data.room).emit('chat message', {
+      countryid: data.countryid,
+      username: data.username ,
       message: data.message,
-      username: data.username,
       room: data.room,
     });
   });
   socket.on('typing', ({username, room}) => {
     console.log('typing: ', username, room);
     socket.broadcast.to(room).emit("typing", {username});
+    console.log('typing event emitted successfully');
   });
   socket.on('stop typing', ({username, room}) => {
     console.log('stop typing: ', username, room);
@@ -77,16 +79,20 @@ io.on('connection', (socket) => {
   socket.on('get messages', (room) => {
     console.log('get messages for room: ', room);
     if (lastMessages[room]) {
-      lastMessages[room].forEach((message) => {
-        console.log('message: ', message);
-        socket.emit('chat message', {
-          username: message.username,
-          message: message.message,
-        });
+      const latestMessage = lastMessages[room][lastMessages[room].length - 1];
+      console.log('latest message: ', latestMessage);
+      socket.broadcast.to(room).emit("typing", {username});
+      socket.emit('chat message', {
+        countryid: latestMessage.countryid,
+        username: latestMessage.username,
+        message: latestMessage.message,
+        room: latestMessage.room,
       });
     }
   });
-});
+}
+);
+
 
 http.listen(port, () => {
   console.log(
