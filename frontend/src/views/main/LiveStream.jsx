@@ -11,23 +11,13 @@ const LiveStream = () => {
         autoplay: true,
         controls: true,
         responsive: true,
-        inactivityTimeout: 0,
         fluid: true,
         sources: [{
             src: 'http://195.148.104.124:1935/jakelu/jakfilms/manifest.mpd',
             type: 'application/dash+xml'
         }],
         playbackRates: [0.5, 1, 1.5, 2],
-        html5: {
-            vhs: {
-                overrideNative: true
-            }
-        },
-
         liveui: true,
-
-
-
     };
 
 

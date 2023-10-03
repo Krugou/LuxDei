@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
+import '@videojs/themes/dist/city/index.css';
+
 export const VideoPlayer = (props) => {
     const videoRef = React.useRef(null);
     const playerRef = React.useRef(null);
@@ -53,35 +55,7 @@ export const VideoPlayer = (props) => {
                         width: 100%;
                         height: 100%;
                     }
-                    .vjs-theme-city .vjs-control-bar {
-                        font-size: 2em;
-
-                        background-color: #153640;
-                    }
-                    .vjs-paused {
-                        font-size: 1.2em;
-                    }
-                    .vjs-playing {
-                        
-                        font-size: 1em;
-                    }
-                    .vjs-icon-placeholder:before , .vjs-playback-rate {
-                        color: #876484;
-
-                    }
-                    .video-js .vjs-big-play-button .vjs-icon-placeholder:before {
-                        content: "";
-                        background-color: #white;
-                       
-                        background-repeat: no-repeat;
-                        background-size: 4rem;
-                        background-position: 55% calc(50% - 0px);
-                        border: none !important;
-                        box-shadow: none !important;
-                    }
-                    .vjs-big-play-button:hover {
-                        background-color: rgba(255, 255, 255, 1);
-                    }
+                   
                 `}</style>
                 </div>
             </div>
