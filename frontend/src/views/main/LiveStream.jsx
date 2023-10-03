@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Chat from '../../components/main/Chat';
 import VideoPlayer from '../../components/main/VideoPlayer';
-import {useContext} from 'react';
 import {UserContext} from '../../contexts/UserContext';
 const LiveStream = () => {
     const {username, countryId} = useContext(UserContext);
