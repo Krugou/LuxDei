@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
     return (
         <div className="bg-gray-100  py-12 px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl mx-auto">
-                <h1 className="text-3xl font-extrabold text-gray-900">Aleksi testi: sPrivacy Policy for JakFilms Festival Online Event</h1>
+                <h1 className="text-3xl font-extrabold text-gray-900">Privacy Policy for JakFilms Festival Online Event</h1>
                 <p className="mt-2 text-gray-600">
                     Welcome to JakFilms Festival, the premier online film festival experience! We take your privacy seriously and want you to feel confident in how we handle your personal information during this exciting online event.
                 </p>
