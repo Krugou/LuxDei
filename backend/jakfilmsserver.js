@@ -65,6 +65,15 @@ io.on('connection', (socket) => {
       room: data.room,
     });
   });
+  socket.on("typing", ({username, room}) => {
+    console.log('typing: ', username, room)
+    socket.broadcast.to(room).emit("typing", {username});
+  });
+
+  socket.on("stop typing", ({username, room}) => {
+    console.log('stop typing: ', username, room)
+    socket.broadcast.to(room).emit("stop typing", {username});
+  });
   socket.on('get messages', (room) => {
     console.log('get messages for room: ', room);
     if (lastMessages[room]) {

@@ -1,14 +1,25 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
-import io from 'socket.io-client';
 import {FlagIcon} from "react-flag-kit";
+import io from 'socket.io-client';
 
-const Chat = ({username = 'anon' , countryid = 'fi' }) => {
+const Chat = ({username, countryid}) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [room, setRoom] = useState('room1');
   const [socket, setSocket] = useState(null);
   const [isPulsing, setIsPulsing] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);
+  const [typingUsers, setTypingUsers] = useState([]);
+  const handleTyping = (event) => {
+    if (event.target.value !== "") {
+      setIsTyping(true);
+      socket.emit("typing", {username, room});
+    } else {
+      setIsTyping(false);
+      socket.emit("stop typing", {username, room});
+    }
+  };
   // Function to handle room changes
   const handleRoomChange = (event) => {
     // console.log('room change happened');
@@ -60,7 +71,14 @@ const Chat = ({username = 'anon' , countryid = 'fi' }) => {
           setMessages((prevMessages) => [...prevMessages, data]);
         }
       };
+      socket.on("typing", ({username}) => {
+        setTypingUsers((typingUsers) => [...typingUsers, username]);
+        console.log('typingUsers: ', typingUsers);
+      });
 
+      socket.on("stop typing", ({username}) => {
+        setTypingUsers((typingUsers) => typingUsers.filter((user) => user !== username));
+      });
       // Add the chat message listener
       socket.on('chat message', handleMessage);
 
@@ -79,8 +97,42 @@ const Chat = ({username = 'anon' , countryid = 'fi' }) => {
     }, 1000);
   }, [messages]);
   return (
-    <>
-      <form className=" flex flex-col items-center" onSubmit={handleSubmit}>
+    <div className='flex flex-col'>
+      {typingUsers.length > 0 && (
+        <div className="text-xs text-gray-500 bg-black">
+          {typingUsers.join(", ")} {typingUsers.length === 1 ? "is" : "are"} typing...
+        </div>
+      )}
+      <ul
+        id="messages"
+        className={`flex flex-col bg-white m-4  shadow-lg rounded-md p-4  overflow-y-auto `}
+      >
+        {messages.map((message, index) => (
+          <li
+            key={index}
+            className={`flex flex-col mb-2 ${message.username === username ? "items-end" : "items-start"
+              }`}
+          >
+            <div
+              className={`rounded-lg py-2 px-3 ${message.username === username
+                ? "bg-black text-white"
+                : "bg-black text-white"
+                }`}
+            >
+              <p className={`text-sm ${isPulsing ? 'animate-bounce' : ''}`}>{message.message}</p>
+            </div>
+            <span
+              className={`text-xs mt-1 border rounded ${message.username === username ? "text-right" : "text-left"
+                }`}
+            >
+              {message.username}
+              <FlagIcon code={countryid} size={20} />
+            </span>
+
+          </li>
+        ))}
+      </ul>
+      <form className=" flex  items-center justify-end bottom-0.5 " onSubmit={handleSubmit}>
         {/* Room selection dropdown */}
         <div className='flex  p-4 flex-col  justify-center items-center'>
           <select
@@ -98,84 +150,54 @@ const Chat = ({username = 'anon' , countryid = 'fi' }) => {
 
 
           {/* Message input */}
-          <label
-            htmlFor="m"
-            className="text-white  ml-2 "
-          >
-            Message:
-          </label>
-          <textarea
-            id="m"
-            rows="1"
-            className="block mx-4 p-2.5 w-full text-sm text-gray-900 bg-white rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 "
-            type="text"
-            placeholder="Type your message here"
-            value={message}
-            onChange={(event) => setMessage(event.target.value)}
-          />
+          <div className='flex flex-row rounded border'>
+            <textarea
+              id="m"
+              rows="1"
+              className=" p-4  w-full h-50    "
+              type="text"
+              placeholder="Type your message here"
+              value={message}
+              onChange={(event) => setMessage(event.target.value)}
+              onKeyDown={handleTyping}
+              onKeyUp={handleTyping}
+            />
 
-          {/* Submit button */}
-          <button
-            type="submit"
-            className="inline-flex justify-center p-2 text-alecharcoal bg-white rounded-full cursor-pointer hover:bg-blue-100 "
-          >
-            <svg
-              fill="currentColor"
-              className="w-6 h-6 "
-              version="1.1"
-              id="Layer_1"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-              x="0px"
-              y="0px"
-
-              viewBox="0 0 80.593 122.88"
-              enableBackground="new 0 0 80.593 122.88"
-              xmlSpace="preserve"
+            {/* Submit button */}
+            <button
+              type="submit"
+              className="inline-flex justify-center my-auto mx-2 border rounded   cursor-pointer hover:bg-gmpictonblue "
             >
-              {/* Your submit button icon */}
-              <g>
-                <polygon points="0,0 30.82,0 80.593,61.44 30.82,122.88 0,122.88 49.772,61.44 0,0" />
-              </g>
-            </svg>
-          </button>
+              <svg
+                fill="currentColor"
+                className="w-6 h-6 "
+                version="1.1"
+                id="Layer_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlnsXlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+
+                viewBox="0 0 80.593 122.88"
+                enableBackground="new 0 0 80.593 122.88"
+                xmlSpace="preserve"
+              >
+                {/* Your submit button icon */}
+                <g>
+                  <polygon points="0,0 30.82,0 80.593,61.44 30.82,122.88 0,122.88 49.772,61.44 0,0" />
+                </g>
+              </svg>
+            </button>
+          </div>
         </div>
       </form>
 
-      <ul
-        id="messages"
-        className={`flex flex-col bg-white m-4  shadow-lg rounded-md p-4 max-h-80 overflow-y-auto `}
-      >
-        {messages.map((message, index) => (
-          <li
-            key={index}
-            className={`flex flex-col mb-2 ${message.username === username ? "items-end" : "items-start"
-              }`}
-          >
-            <div
-              className={`rounded-lg py-2 px-3 ${message.username === username
-                ? "bg-black text-white"
-                : "bg-black text-white"
-                }`}
-            >
-              <p className={`text-sm ${isPulsing ? 'animate-bounce' : ''}`}>{message.message}</p>
-            </div>
-            <span
-              className={`text-xs mt-1 ${message.username === username ? "text-right" : "text-left"
-                }`}
-            >
-              {message.username}
-            </span>
-            <FlagIcon code={countryid} size={20} />
-          </li>
-        ))}
-      </ul>
-    </>
+    </div>
 
   );
 }; Chat.defaultProps = {
   username: 'anon',
-  countryid: 'fi',
+  countryid: 'FI',
 };
 Chat.propTypes = {
   username: PropTypes.string.isRequired,
