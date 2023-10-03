@@ -62,32 +62,19 @@ io.on('connection', (socket) => {
     console.log('data.countryid: ', data.countryid);
     io.to(data.room).emit('chat message', {
       countryid: data.countryid,
-      username: data.username ,
+      username: data.username,
       message: data.message,
       room: data.room,
     });
   });
-  const typingUsers = new Set();
-
   socket.on('typing', ({username, room}) => {
     console.log('typing: ', username, room);
-
-    const now = Date.now();
-    if (!typingUsers.has(username) || now - typingUsers.get(username) > 5000) {
-      typingUsers.set(username, now);
-      socket.broadcast.to(room).emit("typing", {username});
-      console.log('typing event emitted successfully');
-    }
+    socket.broadcast.to(room).emit("typing", {username});
+    console.log('typing event emitted successfully');
   });
   socket.on('stop typing', ({username, room}) => {
     console.log('stop typing: ', username, room);
-
-    const now = Date.now();
-    if (!typingUsers.has(username) || now - typingUsers.get(username) > 5000) {
-      typingUsers.set(username, now);
-      socket.broadcast.to(room).emit("stop typing", {username});
-      console.log('stop typing event emitted successfully');
-    }
+    socket.broadcast.to(room).emit("stop typing", {username});
   });
   socket.on('get messages', (room) => {
     console.log('get messages for room: ', room);
