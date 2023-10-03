@@ -108,9 +108,10 @@ const Chat = ({username, countryid}) => {
 
   const handleTyping = ({username}) => {
     try {
-      console.log('typing: ', username);
       // Check if the username is already in the typingUsers array
       if (!typingUsers.includes(username)) {
+        console.log('typingUsers: ', typingUsers);
+        console.log('typing: ', username);
         setTypingUsers((prevTypingUsers) => [...prevTypingUsers, username]);
       }
     } catch (error) {
