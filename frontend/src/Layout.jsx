@@ -11,6 +11,8 @@ import PrivacyPolicy from './views/main/PrivacyPolicy';
 import Register from './views/main/Register';
 import Team from './views/main/Team';
 import TermsOfService from './views/main/TermsofService';
+import NotFound from './views/main/NotFound';
+import Schedule from './views/main/Schedule';
 
 const Layout = () => {
   return (
@@ -21,8 +23,10 @@ const Layout = () => {
           <main>
             <Routes>
               <Route path='/' element={<LandingPage />} />
+              <Route path='*' element={<NotFound />} />
+              <Route path='404' element={<NotFound />} />
+              <Route path='/home' element={<LandingPage />} />
               <Route path='/livestream' element={<LiveStream />} />
-              <Route path='*' element={<LandingPage />} />
               <Route path='/articles' element={<Articles />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
@@ -30,6 +34,8 @@ const Layout = () => {
               <Route path='/privacypolicy' element={<PrivacyPolicy />} />
               <Route path='/termsofservice' element={<TermsOfService />} />
               <Route path='/team' element={<Team />} />
+              <Route path='/schedule' element={<Schedule />} />
+
             </Routes>
           </main>
           <Footer />
