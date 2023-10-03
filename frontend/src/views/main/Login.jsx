@@ -42,6 +42,7 @@ const Login = () => {
           <label
             className='block text-gray-700 font-bold mb-2'
             htmlFor='username'
+            aria-label='Username'
           >
             Username
           </label>
@@ -49,14 +50,18 @@ const Login = () => {
             className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
             id='username'
             type='text'
+            autoFocus
+            autoComplete="username"
             ref={usernameRef}
             placeholder='Enter your username'
+            aria-label='Username input'
           />
         </div>
         <div className='mb-6'>
           <label
             className='block text-gray-700 font-bold mb-2'
             htmlFor='password'
+            aria-label='Password'
           >
             Password
           </label>
@@ -66,6 +71,8 @@ const Login = () => {
             type='password'
             ref={passwordRef}
             placeholder='Enter your password'
+            autoComplete='current-password'
+            aria-label='Password input'
           />
         </div>
         <div className='flex items-center justify-between'>
