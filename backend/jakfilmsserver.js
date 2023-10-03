@@ -12,7 +12,8 @@ const lastMessages = {};
 // server's adjustable settings
 const port = 3001;
 const maxSavedMessages = 20;
-
+const startTime = new Date();
+console.log(' Backend chat/frontend server start time: ' + startTime.toLocaleString());
 app.use(express.static('jakfilms'));
 app.get('*', (req, res) => {
   res.sendFile('index.html', { root: 'jakfilms' });
