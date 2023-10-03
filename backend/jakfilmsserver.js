@@ -21,7 +21,7 @@ app.get('*', (req, res) => {
 io.on('connection', (socket) => {
   console.log(socket.id, ' has entered the building');
   const ip = socket.request.connection.remoteAddress;
-  console.log(`Client connected with IP address: ${ip}`);
+  // console.log(`Client connected with IP address: ${ip}`);
 
   socket.on('disconnect', () => {
     console.log(socket.id, ' has left the building');
@@ -44,11 +44,11 @@ io.on('connection', (socket) => {
     }
   });
   socket.on('leave room', (room) => {
-    console.log(socket.id, ' left room: ', room);
+    // console.log(socket.id, ' left room: ', room);
     socket.leave(room);
   });
   socket.on('chat message', (data) => {
-    console.log('chat message received:', data);
+    // console.log('chat message received:', data);
     if (!lastMessages[data.room]) {
       lastMessages[data.room] = [];
     }
@@ -81,7 +81,7 @@ io.on('connection', (socket) => {
 
 http.listen(port, () => {
   console.log(
-    'Jakfilms backend server Started at: http://localhost:' +
+    'Jakfilms backend chat/frontend server Started at: http://localhost:' +
       port +
       '/index.html '
   );
