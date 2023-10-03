@@ -66,12 +66,12 @@ io.on('connection', (socket) => {
     });
   });
   socket.on("typing", ({username, room}) => {
-    console.log('typing: ', username, room)
+    // console.log('typing: ', username, room)
     socket.broadcast.to(room).emit("typing", {username});
   });
 
   socket.on("stop typing", ({username, room}) => {
-    console.log('stop typing: ', username, room)
+    // console.log('stop typing: ', username, room)
     socket.broadcast.to(room).emit("stop typing", {username});
   });
   socket.on('get messages', (room) => {
