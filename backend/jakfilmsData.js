@@ -18,10 +18,18 @@ const connectPort = 3002;
 const app = express();
 const http = createServer(app);
 
+const startTime = new Date();
+console.log(' Backend database server start time: ' + startTime.toLocaleString());
 app.get('/', (req, res) => {
+  const uptime = process.uptime();
+  const hours = Math.floor(uptime / 3600);
+  const minutes = Math.floor((uptime % 3600) / 60);
+  const seconds = Math.floor(uptime % 60);
   res.send(`
     <h1>This is backend server calling</h1>
     <h2>It's running on port ${connectPort}</h2>
+    <p>Start time: ${startTime.toLocaleString()}</p>
+    <p>Uptime: ${hours} hours, ${minutes} minutes, ${seconds} seconds</p>
   `);
 });
 
