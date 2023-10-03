@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import io from 'socket.io-client';
+import {FlagIcon} from "react-flag-kit";
+
 const Chat = ({username = 'anon' , countryid = 'fi' }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
@@ -162,14 +164,18 @@ const Chat = ({username = 'anon' , countryid = 'fi' }) => {
               className={`text-xs mt-1 ${message.username === username ? "text-right" : "text-left"
                 }`}
             >
-              {message.username, countryid}
+              {message.username}
             </span>
+            <FlagIcon code={countryid} size={20} />
           </li>
         ))}
       </ul>
     </>
 
   );
+}; Chat.defaultProps = {
+  username: 'anon',
+  countryid: 'fi',
 };
 Chat.propTypes = {
   username: PropTypes.string.isRequired,
