@@ -22,8 +22,7 @@ const useUser = () => {
       },
       body: JSON.stringify(inputs),
     };
-    console.log('meni läpi');
-    console.log(inputs);
+    console.debug('ApiHooks.js - handleInputChange: Inputs:', inputs);
     return await doFetch(baseUrl + 'users', options);
   };
 
