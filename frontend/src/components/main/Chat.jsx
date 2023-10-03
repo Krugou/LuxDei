@@ -109,7 +109,10 @@ const Chat = ({username, countryid}) => {
   const handleTyping = ({username}) => {
     try {
       console.log('typing: ', username);
-      setTypingUsers((prevTypingUsers) => [...prevTypingUsers, username]);
+      // Check if the username is already in the typingUsers array
+      if (!typingUsers.includes(username)) {
+        setTypingUsers((prevTypingUsers) => [...prevTypingUsers, username]);
+      }
     } catch (error) {
       console.error('Error updating typingUsers state:', error);
     }
@@ -153,7 +156,7 @@ const Chat = ({username, countryid}) => {
   return (
     <div className='flex flex-col'>
       {typingUsers.length > 0 && (
-        <div className={`text-xs text-gray-500 bg-black ${isPulsing ? 'animate-pulse' : ''}`}>
+        <div className={`text-md text-white bg-black ${isPulsing ? 'animate-pulse' : ''}`}>
           <span className="mr-1">{typingUsers.join(", ")}</span>
           <span>{typingUsers.length === 1 ? "is" : "are"} typing...</span>
         </div>
