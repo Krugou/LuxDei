@@ -2,8 +2,8 @@
 /* simple chat app */
 
 import express from 'express';
-import { createServer } from 'http';
-import { Server } from 'socket.io';
+import {createServer} from 'http';
+import {Server} from 'socket.io';
 const app = express();
 const http = createServer(app);
 const io = new Server(http);
@@ -16,7 +16,7 @@ const startTime = new Date();
 console.log(' Backend chat/frontend server start time: ' + startTime.toLocaleString());
 app.use(express.static('jakfilms'));
 app.get('*', (req, res) => {
-  res.sendFile('index.html', { root: 'jakfilms' });
+  res.sendFile('index.html', {root: 'jakfilms'});
 });
 io.on('connection', (socket) => {
   console.log(socket.id, ' has entered the building');
@@ -59,19 +59,19 @@ io.on('connection', (socket) => {
     console.log(
       `message: ${data.message}, username: ${data.username}, room: ${data.room}`
     );
+    console.log('data.room: ', data.room);
     io.to(data.room).emit('chat message', {
       message: data.message,
       username: data.username,
       room: data.room,
     });
   });
-  socket.on("typing", ({username, room}) => {
-    // console.log('typing: ', username, room)
+  socket.on('typing', ({username, room}) => {
+    console.log('typing: ', username, room);
     socket.broadcast.to(room).emit("typing", {username});
   });
-
-  socket.on("stop typing", ({username, room}) => {
-    // console.log('stop typing: ', username, room)
+  socket.on('stop typing', ({username, room}) => {
+    console.log('stop typing: ', username, room);
     socket.broadcast.to(room).emit("stop typing", {username});
   });
   socket.on('get messages', (room) => {
@@ -91,7 +91,7 @@ io.on('connection', (socket) => {
 http.listen(port, () => {
   console.log(
     'Jakfilms backend chat/frontend server Started at: http://localhost:' +
-      port +
-      '/index.html '
+    port +
+    '/index.html '
   );
 });
