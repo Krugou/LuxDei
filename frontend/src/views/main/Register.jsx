@@ -108,10 +108,13 @@ const Register = () => {
           ref={countryRef}
           className='border border-gray-400 rounded-lg p-2 w-full'
         >
-          <option value='fi'>Finland</option>
-          <option value='dk'>Denmark</option>
-          <option value='no'>Norway</option>
-          <option value='se'>Sweden</option>
+          <option value='FI'>Finland</option>
+          <option value='DK'>Denmark</option>
+          <option value='NO'>Norway</option>
+          <option value='SE'>Sweden</option>
+          <option value='IS'>Iceland</option>
+          <option value='EE'>Estonia</option>
+          
         </select>
       </label>
       <button
