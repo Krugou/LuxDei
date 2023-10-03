@@ -1,5 +1,6 @@
 'use strict';
-
+import { config } from 'dotenv';
+config();
 // Import necessary modules and dependencies
 import bcrypt from 'bcryptjs';
 import passport from 'passport';
@@ -51,10 +52,10 @@ passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'vvvv',
+      secretOrKey: process.env.JWT_SECRET,
     },
     (jwtPayload, done) => {
-      console.log('JWTStrategy', process.env.JWT_SECRET); // Log the JWT payload
+      console.log('JWTStrategy', jwtPayload); // Log the JWT payload
       done(null, jwtPayload); // Pass the JWT payload as the authenticated user
     }
   )

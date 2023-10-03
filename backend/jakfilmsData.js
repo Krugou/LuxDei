@@ -1,5 +1,8 @@
 // app.js
 
+import { config } from 'dotenv';
+config();
+
 import express from 'express';
 import { createServer } from 'http';
 import mongoose from 'mongoose';
@@ -8,13 +11,6 @@ import authRoute from './routes/authRoute.js';
 import secureRoute from './routes/secureRoute.js';
 
 import passport from './utils/pass.js';
-import { config } from 'dotenv';
-
-// Use the import.meta.url to get the directory of the current module
-const __dirname = new URL('.', import.meta.url).pathname;
-
-// Load environment variables from .env file
-config({ path: `${__dirname}.env` });
 
 const connectPort = 3002;
 const app = express();
@@ -34,7 +30,7 @@ app.get('/', (req, res) => {
     <h2>It's running on port ${connectPort}</h2>
     <p>Start time: ${startTime.toLocaleString()}</p>
     <p>Uptime: ${hours} hours, ${minutes} minutes, ${seconds} seconds</p>
-  `);
+    `);
 });
 
 // Middleware for JSON parsing
