@@ -15,8 +15,8 @@ const Chat = ({username, countryid}) => {
   useEffect(() => {
     try {
       // Create a new socket connection when the component mounts
-      // const newSocket = io('/', {path: '/socket.io', transports: ['websocket']});
-      const newSocket = io('http://localhost:3001/');
+      const newSocket = io('/', {path: '/socket.io', transports: ['websocket']});
+      // const newSocket = io('http://localhost:3001/');
       setSocket(newSocket);
       newSocket.emit('join room', room);
       // Remove the socket connection when the component unmounts
