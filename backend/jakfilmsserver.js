@@ -67,10 +67,16 @@ io.on('connection', (socket) => {
       room: data.room,
     });
   });
+  const [prevUsername, setPrevUsername] = useState('');
+
   socket.on('typing', ({username, room}) => {
     console.log('typing: ', username, room);
-    socket.broadcast.to(room).emit("typing", {username});
-    console.log('typing event emitted successfully');
+
+    if (username !== prevUsername) {
+      socket.broadcast.to(room).emit("typing", {username});
+      console.log('typing event emitted successfully');
+      setPrevUsername(username);
+    }
   });
   socket.on('stop typing', ({username, room}) => {
     console.log('stop typing: ', username, room);
