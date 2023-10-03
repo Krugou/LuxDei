@@ -1,14 +1,15 @@
-import React, { useRef, useState } from 'react';
+import React, {useRef, useState, useContext } from 'react';
 import useForm from '../../hooks/FormHooks';
 import { useUser } from '../../hooks/ApiHooks';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
+import {UserContext} from '../../contexts/UserContext';
 
 const Login = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
   const { postLogin } = useUser();
   const navigate = useNavigate();
-
+  const {setUsername, setCountryId} = useContext(UserContext);
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
@@ -23,6 +24,8 @@ const Login = () => {
       const loginResult = await postLogin(inputs);
       localStorage.setItem('userToken', loginResult.token);
       //setUser(loginResult.user);
+      setUsername(loginResult.user.username);
+      setCountryId(loginResult.user.countryId);
       navigate('/');
     } catch (error) {
       console.log(error.message);

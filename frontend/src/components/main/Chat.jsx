@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import io from 'socket.io-client';
-const Chat = ({username}) => {
+const Chat = ({username = 'anon' , countryid = 'fi' }) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [room, setRoom] = useState('room1');
@@ -162,7 +162,7 @@ const Chat = ({username}) => {
               className={`text-xs mt-1 ${message.username === username ? "text-right" : "text-left"
                 }`}
             >
-              {message.username}
+              {message.username, countryid}
             </span>
           </li>
         ))}
@@ -173,6 +173,7 @@ const Chat = ({username}) => {
 };
 Chat.propTypes = {
   username: PropTypes.string.isRequired,
+  countryid: PropTypes.string.isRequired,
 };
 
 export default Chat;
