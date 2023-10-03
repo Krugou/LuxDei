@@ -11,15 +11,27 @@ const Chat = ({username, countryid}) => {
   const [isPulsing, setIsPulsing] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [typingUsers, setTypingUsers] = useState([]);
+  let typingTimeout;
+
   const handleTypingIntoServer = (event) => {
     if (event.target.value !== "") {
       setIsTyping(true);
-      setTimeout(() => {
+
+      // Clear the previous timeout (if any)
+      clearTimeout(typingTimeout);
+
+      // Set a new timeout for sending the "typing" event
+      typingTimeout = setTimeout(() => {
         socket.emit("typing", {username, room});
       }, 1000); // Delay the typing event by 1 second (1000 milliseconds)
     } else {
       setIsTyping(false);
-      setTimeout(() => {
+
+      // Clear the previous timeout (if any)
+      clearTimeout(typingTimeout);
+
+      // Set a new timeout for sending the "stop typing" event
+      typingTimeout = setTimeout(() => {
         socket.emit("stop typing", {username, room});
       }, 1000); // Delay the stop typing event by 1 second (1000 milliseconds)
     }
@@ -40,81 +52,113 @@ const Chat = ({username, countryid}) => {
 
   // Function to handle message submission
   const handleSubmit = (event) => {
-    // console.log('submit worked');
     event.preventDefault();
     const newMessage = {
       username,
       message,
       room,
     };
-    // Emit the new message to the server
-    socket.emit('chat message', newMessage);
-    setMessage('');
+    try {
+      // Emit the new message to the server
+      socket.emit('chat message', newMessage);
+      setMessage('');
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
   };
 
   useEffect(() => {
-    // Create a new socket connection when the component mounts
-    const newSocket = io('/', {path: '/socket.io', transports: ['websocket']});
-    // const newSocket = io('http://localhost:3001/');
-    setSocket(newSocket);
+    try {
+      // Create a new socket connection when the component mounts
+      // const newSocket = io('/', {path: '/socket.io', transports: ['websocket']});
+      const newSocket = io('http://localhost:3001/');
+      setSocket(newSocket);
 
-    // Remove the socket connection when the component unmounts
-    return () => {
-      newSocket.disconnect();
-    };
+      // Remove the socket connection when the component unmounts
+      return () => {
+        newSocket.disconnect();
+      };
+    } catch (error) {
+      console.error('Error establishing socket connection:', error);
+    }
   }, []);
 
   useEffect(() => {
-    if (socket) {
-      const handleMessage = (data) => {
-        // console.log('chat message received:', data);
-        // console.log('current room:', room);
-        if (data.room === room) {
-          // console.log('chat message received in room:', data.room);
-          // console.log('current messages:', messages);
-          setMessages((prevMessages) => [...prevMessages, data]);
-        }
-      };
-      // Add the chat message listener
-      socket.on('chat message', handleMessage);
-      // Remove the chat message listener when the component unmounts
-      return () => {
-        socket.off('chat message', handleMessage);
-      };
+    try {
+      if (socket) {
+        const handleMessage = (data) => {
+          if (data.room === room) {
+            setMessages((prevMessages) => [...prevMessages, data]);
+          }
+        };
+        socket.on('chat message', handleMessage);
+        return () => {
+          socket.off('chat message', handleMessage);
+        };
+      }
+    } catch (error) {
+      console.error('Error in useEffect:', error);
     }
   }, [socket, messages, room]);
 
+
   useEffect(() => {
-    if (socket) {
-      const handleTyping = (data) => {
-        console.log('typing: ', data.username);
-        // Add the user who is typing to the typingUsers array
-        setTypingUsers((prevTypingUsers) => [...prevTypingUsers, data.username]);
-      };
-      const handleStopTyping = (data) => {
-        console.log('stop typing: ', data.username);
-        // Remove the user who stopped typing from the typingUsers array
-        setTypingUsers((prevTypingUsers) => prevTypingUsers.filter((user) => user !== data.username));
-      };
-      console.log('typingUsers: ', typingUsers);
-      // Add the typing and stop typing listeners
-      socket.on('typing', handleTyping);
-      socket.on('stop typing', handleStopTyping);
-      // Remove the typing and stop typing listeners when the component unmounts
-      return () => {
-        socket.off('typing', handleTyping);
-        socket.off('stop typing', handleStopTyping);
-      };
+    try {
+      // Set isPulsing to true when new messages arrive
+      setIsPulsing(true);
+      // Remove the animate-pulse class after 1 second
+      setTimeout(() => {
+        setIsPulsing(false);
+      }, 1000);
+    } catch (error) {
+      console.error('Error in useEffect:', error);
     }
-  }, [socket, typingUsers]);
-  useEffect(() => {
-    // Set isPulsing to true when new messages arrive
-    setIsPulsing(true);
-    // Remove the animate-pulse class after 1 second
-    setTimeout(() => {
-      setIsPulsing(false);
-    }, 1000);
   }, [messages]);
+
+  const handleTyping = ({username}) => {
+    try {
+      console.log('typing: ', username);
+      setTypingUsers((prevTypingUsers) => [...prevTypingUsers, username]);
+    } catch (error) {
+      console.error('Error updating typingUsers state:', error);
+    }
+  };
+
+  const handleStopTyping = ({username}) => {
+    try {
+      console.log('stop typing: ', username);
+      setTypingUsers((prevTypingUsers) => prevTypingUsers.filter((user) => user !== username));
+    } catch (error) {
+      console.error('Error updating typingUsers state:', error);
+    }
+  };
+
+  useEffect(() => {
+    try {
+      if (socket) {
+        socket.on('typing', handleTyping);
+        return () => {
+          socket.off('typing', handleTyping);
+        };
+      }
+    } catch (error) {
+      console.error('Error in useEffect:', error);
+    }
+  }, [socket]);
+
+  useEffect(() => {
+    try {
+      if (socket) {
+        socket.on('stop typing', handleStopTyping);
+        return () => {
+          socket.off('stop typing', handleStopTyping);
+        };
+      }
+    } catch (error) {
+      console.error('Error in useEffect:', error);
+    }
+  }, [socket]);
+
   return (
     <div className='flex flex-col'>
       {typingUsers.length > 0 && (
