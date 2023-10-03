@@ -108,12 +108,10 @@ const Chat = ({username, countryid}) => {
 
   const handleTyping = ({username}) => {
     try {
-      // Check if the username is already in the typingUsers array
-      if (!typingUsers.includes(username)) {
-        console.log('typingUsers: ', typingUsers);
-        console.log('typing: ', username);
-        setTypingUsers((prevTypingUsers) => [...prevTypingUsers, username]);
-      }
+      // Create a new Set with the current typingUsers array and the new username
+      const uniqueTypingUsers = [...new Set([...typingUsers, username])];
+      console.log('typing: ', username);
+      setTypingUsers(uniqueTypingUsers);
     } catch (error) {
       console.error('Error updating typingUsers state:', error);
     }
@@ -156,7 +154,7 @@ const Chat = ({username, countryid}) => {
 
   return (
     <div className='flex flex-col'>
-      {console.table(typingUsers)}
+
       {typingUsers.length > 0 && (
         <div className={`text-md text-white bg-black ${isPulsing ? 'animate-pulse' : ''}`}>
           <span className="mr-1">{typingUsers.join(", ")}</span>
