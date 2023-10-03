@@ -11,29 +11,14 @@ const Chat = ({username, countryid}) => {
   const [isPulsing, setIsPulsing] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [typingUsers, setTypingUsers] = useState([]);
-  let typingTimeout;
 
   const handleTypingIntoServer = (event) => {
     if (event.target.value !== "") {
       setIsTyping(true);
-
-      // Clear the previous timeout (if any)
-      clearTimeout(typingTimeout);
-
-      // Set a new timeout for sending the "typing" event
-      typingTimeout = setTimeout(() => {
-        socket.emit("typing", {username, room});
-      }, 1000); // Delay the typing event by 1 second (1000 milliseconds)
+      socket.emit("typing", {username, room});
     } else {
       setIsTyping(false);
-
-      // Clear the previous timeout (if any)
-      clearTimeout(typingTimeout);
-
-      // Set a new timeout for sending the "stop typing" event
-      typingTimeout = setTimeout(() => {
-        socket.emit("stop typing", {username, room});
-      }, 1000); // Delay the stop typing event by 1 second (1000 milliseconds)
+      socket.emit("stop typing", {username, room});
     }
   };
   // Function to handle room changes
