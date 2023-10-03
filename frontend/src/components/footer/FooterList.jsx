@@ -20,6 +20,7 @@ const FooterList = () => {
             <ul className="flex flex-col ">
                 <FooterListButton name="terms of service" />
                 <FooterListButton name="privacy policy" />
+                <FooterListButton name="schedule" />
                 
 
             </ul>
