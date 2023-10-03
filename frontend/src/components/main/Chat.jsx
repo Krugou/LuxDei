@@ -33,8 +33,10 @@ const Chat = ({username, countryid}) => {
       setIsTyping(true);
       socket.emit("typing", {username, room});
     } else {
-      setIsTyping(false);
-      socket.emit("stop typing", {username, room});
+      setTimeout(() => {
+        setIsTyping(false);
+        socket.emit("stop typing", {username, room});
+      }, 5000);
     }
   };
   // Function to handle room changes
