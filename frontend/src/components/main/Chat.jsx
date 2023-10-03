@@ -11,13 +11,17 @@ const Chat = ({username, countryid}) => {
   const [isPulsing, setIsPulsing] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [typingUsers, setTypingUsers] = useState([]);
-  const handleTyping = (event) => {
+  const handleTypingIntoServer = (event) => {
     if (event.target.value !== "") {
       setIsTyping(true);
-      socket.emit("typing", {username, room});
+      setTimeout(() => {
+        socket.emit("typing", {username, room});
+      }, 1000); // Delay the typing event by 1 second (1000 milliseconds)
     } else {
       setIsTyping(false);
-      socket.emit("stop typing", {username, room});
+      setTimeout(() => {
+        socket.emit("stop typing", {username, room});
+      }, 1000); // Delay the stop typing event by 1 second (1000 milliseconds)
     }
   };
   // Function to handle room changes
@@ -51,7 +55,7 @@ const Chat = ({username, countryid}) => {
   useEffect(() => {
     // Create a new socket connection when the component mounts
     const newSocket = io('/', {path: '/socket.io', transports: ['websocket']});
-    // const newSocket = io('/');
+    // const newSocket = io('http://localhost:3001/');
     setSocket(newSocket);
 
     // Remove the socket connection when the component unmounts
@@ -71,23 +75,38 @@ const Chat = ({username, countryid}) => {
           setMessages((prevMessages) => [...prevMessages, data]);
         }
       };
-      socket.on("typing", ({username}) => {
-        setTypingUsers((typingUsers) => [...typingUsers, username]);
-        console.log('typingUsers: ', typingUsers);
-      });
-
-      socket.on("stop typing", ({username}) => {
-        setTypingUsers((typingUsers) => typingUsers.filter((user) => user !== username));
-      });
       // Add the chat message listener
       socket.on('chat message', handleMessage);
-
       // Remove the chat message listener when the component unmounts
       return () => {
         socket.off('chat message', handleMessage);
       };
     }
   }, [socket, messages, room]);
+
+  useEffect(() => {
+    if (socket) {
+      const handleTyping = (data) => {
+        console.log('typing: ', data.username);
+        // Add the user who is typing to the typingUsers array
+        setTypingUsers((prevTypingUsers) => [...prevTypingUsers, data.username]);
+      };
+      const handleStopTyping = (data) => {
+        console.log('stop typing: ', data.username);
+        // Remove the user who stopped typing from the typingUsers array
+        setTypingUsers((prevTypingUsers) => prevTypingUsers.filter((user) => user !== data.username));
+      };
+      console.log('typingUsers: ', typingUsers);
+      // Add the typing and stop typing listeners
+      socket.on('typing', handleTyping);
+      socket.on('stop typing', handleStopTyping);
+      // Remove the typing and stop typing listeners when the component unmounts
+      return () => {
+        socket.off('typing', handleTyping);
+        socket.off('stop typing', handleStopTyping);
+      };
+    }
+  }, [socket, typingUsers]);
   useEffect(() => {
     // Set isPulsing to true when new messages arrive
     setIsPulsing(true);
@@ -160,8 +179,8 @@ const Chat = ({username, countryid}) => {
               placeholder="Type your message here"
               value={message}
               onChange={(event) => setMessage(event.target.value)}
-              onKeyDown={handleTyping}
-              onKeyUp={handleTyping}
+              onKeyDown={handleTypingIntoServer}
+              onKeyUp={handleTypingIntoServer}
               aria-label='Type your message here'
             />
 
