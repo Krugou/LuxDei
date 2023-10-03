@@ -5,6 +5,8 @@ import { createServer } from 'http';
 import mongoose from 'mongoose';
 import userRoutes from './routes/userRoutes.js';
 import authRoute from './routes/authRoute.js';
+import secureRoute from './routes/secureRoute.js';
+
 import passport from './utils/pass.js';
 import { config } from 'dotenv';
 
@@ -19,7 +21,9 @@ const app = express();
 const http = createServer(app);
 
 const startTime = new Date();
-console.log(' Backend database server start time: ' + startTime.toLocaleString());
+console.log(
+  ' Backend database server start time: ' + startTime.toLocaleString()
+);
 app.get('/', (req, res) => {
   const uptime = process.uptime();
   const hours = Math.floor(uptime / 3600);
@@ -56,6 +60,11 @@ mongoose
 // Use user routes
 app.use('/users', userRoutes);
 app.use('/auth', authRoute);
+app.use(
+  '/secure',
+  passport.authenticate('jwt', { session: false }),
+  secureRoute
+);
 
 http.listen(connectPort, () => {
   console.log('Server started on port ' + connectPort);
