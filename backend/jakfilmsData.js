@@ -60,7 +60,11 @@ mongoose
 // Use user routes
 app.use('/users', userRoutes);
 app.use('/auth', authRoute);
-app.use('/secure', secureRoute);
+app.use(
+  '/secure',
+  passport.authenticate('jwt', { session: false }),
+  secureRoute
+);
 
 http.listen(connectPort, () => {
   console.log('Server started on port ' + connectPort);

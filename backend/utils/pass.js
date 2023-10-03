@@ -16,8 +16,8 @@ passport.use(
     try {
       // Find a user in the database with the provided username
       const user = await User.findOne({ name: params });
-      // console.log(params, 'paramsasdasd');
-      // console.log('Local strategy', user); // Log the user (result is a binary row)
+      console.log(params, 'paramsasdasd');
+      console.log('Local strategy', user); // Log the user (result is a binary row)
 
       // Check if the user exists
       if (user === undefined) {
@@ -51,7 +51,7 @@ passport.use(
   new JWTStrategy(
     {
       jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-      secretOrKey: 'väliaikainenkusetus', // Secret key for JWT verification
+      secretOrKey: process.env.JWT_SECRET, // Secret key for JWT verification
     },
     (jwtPayload, done) => {
       console.log('JWTStrategy', process.env.JWT_SECRET); // Log the JWT payload
