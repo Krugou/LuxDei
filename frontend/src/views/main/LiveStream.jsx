@@ -35,7 +35,7 @@ const LiveStream = () => {
             // videojs.log('player will dispose');
         });
     };
-
+// only for testing
     const generateUsername = () => {
         const adjectives = ['happy', 'sad', 'angry', 'excited', 'sleepy', 'hungry', 'thirsty', 'silly', 'goofy', 'crazy'];
         const nouns = ['cat', 'dog', 'bird', 'fish', 'hamster', 'turtle', 'lion', 'tiger', 'bear', 'elephant'];
@@ -43,14 +43,15 @@ const LiveStream = () => {
         const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
         return `${randomAdjective}-${randomNoun}`;
     };
+    const countries = ['FI', 'DK', 'NO', 'SE', 'IS', 'EE'];
+    const randomCountry = countries[Math.floor(Math.random() * countries.length)];
 
-    console.log(generateUsername()); // Example output: "happy-turtle"
     return (
         <section className="border rounded flex flex-col md:flex-row justify-center items-center md:items-start p-2 ">
 
 
             <VideoPlayer className="w-2/3 h-full " options={videoJsOptions} onReady={handlePlayerReady} />
-            <Chat className=" " username={generateUsername()} countryid={'FI'} />
+            <Chat className=" " username={generateUsername()} countryid={randomCountry} />
             {/* <Chat className=" " username={username} countryid={countryId} /> */}
 
         </section>
