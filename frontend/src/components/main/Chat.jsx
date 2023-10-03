@@ -7,10 +7,26 @@ const Chat = ({username, countryid}) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [room, setRoom] = useState('room1');
+  const [currentRoom, setCurrentRoom] = useState('room1');
   const [socket, setSocket] = useState(null);
   const [isPulsing, setIsPulsing] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [typingUsers, setTypingUsers] = useState([]);
+  useEffect(() => {
+    try {
+      // Create a new socket connection when the component mounts
+      // const newSocket = io('/', {path: '/socket.io', transports: ['websocket']});
+      const newSocket = io('http://localhost:3001/');
+      setSocket(newSocket);
+      newSocket.emit('join room', room);
+      // Remove the socket connection when the component unmounts
+      return () => {
+        newSocket.disconnect();
+      };
+    } catch (error) {
+      console.error('Error establishing socket connection:', error);
+    }
+  }, []);
 
   const handleTypingIntoServer = (event) => {
     if (event.target.value !== "") {
@@ -23,22 +39,22 @@ const Chat = ({username, countryid}) => {
   };
   // Function to handle room changes
   const handleRoomChange = (event) => {
-    // console.log('room change happened');
     const newRoom = event.target.value;
 
     setRoom(newRoom);
+    setCurrentRoom(newRoom);
     setMessages([]); // Clear messages when changing rooms
 
     // Emit leave room and join room events to the server
     socket.emit('leave room', room);
     socket.emit('join room', newRoom);
-    socket.emit('get messages', newRoom);
   };
 
   // Function to handle message submission
   const handleSubmit = (event) => {
     event.preventDefault();
     const newMessage = {
+      countryid,
       username,
       message,
       room,
@@ -52,28 +68,16 @@ const Chat = ({username, countryid}) => {
     }
   };
 
-  useEffect(() => {
-    try {
-      // Create a new socket connection when the component mounts
-      // const newSocket = io('/', {path: '/socket.io', transports: ['websocket']});
-      const newSocket = io('http://localhost:3001/');
-      setSocket(newSocket);
-
-      // Remove the socket connection when the component unmounts
-      return () => {
-        newSocket.disconnect();
-      };
-    } catch (error) {
-      console.error('Error establishing socket connection:', error);
-    }
-  }, []);
 
   useEffect(() => {
     try {
       if (socket) {
         const handleMessage = (data) => {
           if (data.room === room) {
+
+            // console.log('message received:', data.countryid, data.username, data.message, data.room);
             setMessages((prevMessages) => [...prevMessages, data]);
+            setIsPulsing(true);
           }
         };
         socket.on('chat message', handleMessage);
@@ -129,7 +133,7 @@ const Chat = ({username, countryid}) => {
     } catch (error) {
       console.error('Error in useEffect:', error);
     }
-  }, [socket]);
+  }, [socket, messages, room]);
 
   useEffect(() => {
     try {
@@ -142,7 +146,7 @@ const Chat = ({username, countryid}) => {
     } catch (error) {
       console.error('Error in useEffect:', error);
     }
-  }, [socket]);
+  }, [socket, messages, room]);
 
   return (
     <div className='flex flex-col'>
@@ -167,14 +171,15 @@ const Chat = ({username, countryid}) => {
                 : "bg-black text-white"
                 }`}
             >
-              <p className={`text-sm ${isPulsing ? 'animate-bounce' : ''}`}>{message.message}</p>
+              <p className={`text-sm ${isPulsing && message === messages[messages.length - 1] && room === currentRoom ? 'animate-bounce' : ''}`}>{message.message}</p>
             </div>
             <span
               className={`text-xs mt-1 border rounded ${message.username === username ? "text-right" : "text-left"
                 }`}
             >
-              {message.username}
-              <FlagIcon code={countryid} size={20} />
+              {message.username.charAt(0).toUpperCase() + message.username.slice(1)}
+              <FlagIcon className={` mx-2 ${message.username === username ? "float-right" : "float-left"
+                }`} code={message.countryid} size={20} />
             </span>
 
           </li>
@@ -200,7 +205,8 @@ const Chat = ({username, countryid}) => {
 
           {/* Message input */}
           <div className='flex flex-row rounded border'>
-            <textarea
+            <input
+              required
               id="m"
               rows="1"
               className=" p-4  w-full h-50    "
