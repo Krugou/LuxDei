@@ -156,6 +156,7 @@ const Chat = ({username, countryid}) => {
 
   return (
     <div className='flex flex-col'>
+      {console.table(typingUsers)}
       {typingUsers.length > 0 && (
         <div className={`text-md text-white bg-black ${isPulsing ? 'animate-pulse' : ''}`}>
           <span className="mr-1">{typingUsers.join(", ")}</span>
