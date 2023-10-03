@@ -110,7 +110,7 @@ const Chat = ({username, countryid}) => {
     try {
       // Create a new Set with the current typingUsers array and the new username
       const uniqueTypingUsers = [...new Set([...typingUsers, username])];
-      console.log('typing: ', username);
+      // console.log('typing: ', username);
       setTypingUsers(uniqueTypingUsers);
     } catch (error) {
       console.error('Error updating typingUsers state:', error);
@@ -119,7 +119,7 @@ const Chat = ({username, countryid}) => {
 
   const handleStopTyping = ({username}) => {
     try {
-      console.log('stop typing: ', username);
+      // console.log('stop typing: ', username);
       setTypingUsers((prevTypingUsers) => prevTypingUsers.filter((user) => user !== username));
     } catch (error) {
       console.error('Error updating typingUsers state:', error);
