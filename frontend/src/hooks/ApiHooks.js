@@ -1,7 +1,6 @@
 const baseUrl = 'https://jakfilms.northeurope.cloudapp.azure.com/backend/';
 
 const doFetch = async (url, options) => {
-  console.log('jpejep');
   const response = await fetch(url, options);
   const json = await response.json();
   console.log(json, 'dofetch json');
@@ -37,9 +36,22 @@ const useUser = () => {
     return await doFetch(baseUrl + 'auth/login', options);
   };
 
+  const getUserInfoByToken = async (token) => {
+    console.log(token);
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+    console.log(await doFetch(baseUrl + 'secure/', options));
+    return await doFetch(baseUrl + 'secure/', options);
+  };
+
   return {
     postUser,
     postLogin,
+    getUserInfoByToken,
   };
 };
 export { useUser };

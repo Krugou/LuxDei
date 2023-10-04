@@ -1,37 +1,67 @@
-import React, {useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HeaderListButton from './buttons/HeaderListButton';
-import {UserContext} from '../contexts/UserContext';
+import { UserContext } from '../../contexts/UserContext';
+import { useUser } from '../../hooks/ApiHooks';
+
 const NavElement = () => {
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const {username} = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+  const { getUserInfoByToken } = useUser();
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
 
+  const getUserInfo = async () => {
+    const userToken = localStorage.getItem('userToken');
+    if (userToken) {
+      const user = await getUserInfoByToken(userToken);
+
+      console.log(user, 'userinfomaan');
+      if (user) {
+        setUser(user);
+        const target = location.pathname === '/' ? '/' : location.pathname;
+        navigate(target);
+        return;
+      }
+    }
+    navigate('/');
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []); // jos taulukko tyhjä, ajetaan vain kerran
+
   return (
     <nav className='p-4 bg-gray-700 sticky top-0 w-full z-10'>
       <div className='container mx-auto flex justify-between items-center relative'>
-        <button onClick={() => {navigate('/')}} className='text-white text-2xl font-bold'>
+        <button
+          onClick={() => {
+            navigate('/');
+          }}
+          className='text-white text-2xl font-bold'
+        >
           Jak Films
         </button>
         <ul id='nav-links' className={isNavOpen ? 'md:flex' : 'hidden md:flex'}>
-
-          {username ? (
+          {user ? (
             <>
-              <HeaderListButton name="profile" navigate={navigate} />
+              <HeaderListButton name='profile' navigate={navigate} />
             </>
           ) : (
             <>
-              <HeaderListButton name="login" navigate={navigate} />
-              <HeaderListButton name="register" navigate={navigate} />
+              <HeaderListButton name='login' navigate={navigate} />
+              <HeaderListButton name='register' navigate={navigate} />
             </>
           )}
 
-          <HeaderListButton name="livestream" navigate={navigate}  />
-          <HeaderListButton name="articles" navigate={navigate} lastItem={true} />
-
+          <HeaderListButton name='livestream' navigate={navigate} />
+          <HeaderListButton
+            name='articles'
+            navigate={navigate}
+            lastItem={true}
+          />
         </ul>
         <div
           id='mobile-menu-button'
