@@ -44,14 +44,24 @@ const useUser = () => {
         Authorization: 'Bearer ' + token,
       },
     };
-    console.log(await doFetch(baseUrl + 'secure/', options));
     return await doFetch(baseUrl + 'secure/', options);
   };
 
+  const putUser = async (data, token) => {
+    const options = {
+      method: 'PUT',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify(data),
+    };
+    return await doFetch(baseUrl + 'users', options);
+  };
   return {
     postUser,
     postLogin,
     getUserInfoByToken,
+    putUser,
   };
 };
 export { useUser };

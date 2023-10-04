@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { FlagIcon } from 'react-flag-kit';
 
 const Profile = () => {
   const { user } = useContext(UserContext);
@@ -15,9 +16,12 @@ const Profile = () => {
           <p className='mb-2'>
             <span className='font-semibold'>Email:</span> {user.email}
           </p>
-          <p className='mb-2'>
-            <span className='font-semibold'>Country ID:</span> {user.countryid}
-          </p>
+          <FlagIcon
+            code={user.countryid.toUpperCase()}
+            className='ml-2'
+            alt={`Flag for ${user.countryid}`}
+            size={240}
+          />
           <div className='mt-4 space-x-4'>
             <button className='bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded'>
               Edit Profile
