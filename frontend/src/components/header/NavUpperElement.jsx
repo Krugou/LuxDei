@@ -34,18 +34,18 @@ const NavUpperElement = ({startSeconds, endSeconds}) => {
   }, [animationDuration]);
 
   return (
-    <div key={animationDuration} className="relative overflow-hidden w-full h-6">
+    <div key={animationDuration} className="relative overflow-hidden w-full h-8">
       <img
         id="police-car"
         ref={policeCarRef}
-        className="absolute w-auto h-6 left-full ease-in-out delay-200 animate-police-car"
-        src="https://clipart-library.com/images/BigKkbeMT.gif"
+        className="absolute w-auto h-8 left-full ease-in-out delay-200 animate-police-car"
+        src="./gifs/car.webp"
         alt="Police Car"
         style={{animationDuration: `${animationDuration}ms`}}
       />
       <img id='Robber'
         className="absolute w-auto h-6 left-full ease-in-out  animate-robber"
-        src="https://media.istockphoto.com/id/469270246/vector/running-thief-cartoon-illustration.jpg?s=612x612&w=0&k=20&c=_eYw8R0PGvuhWJnRwxtY_YcM5Py2cZLGo-xJafwoi6g="
+        src="./gifs/robber.gif"
         alt="Robber"
         style={{animationDuration: `${animationDuration}ms`}}
       />
