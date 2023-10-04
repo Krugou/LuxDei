@@ -1,9 +1,17 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 const HeaderTitle = () => {
+  const navigate = useNavigate();
   return (
     <>
-      <h1 className='flex flex-col text-blue'>
-       
-      </h1>
+      <button
+        onClick={() => {
+          navigate('/');
+        }}
+        className='text-white text-2xl font-bold'
+      >
+        Jak Films
+      </button>
     </>
   );
 };
