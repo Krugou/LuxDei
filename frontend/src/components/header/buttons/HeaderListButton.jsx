@@ -30,12 +30,12 @@ const HeaderListButton = ({name, navigate, lastItem = false}) => {
 
 
                 <div className="md:hidden">
-                    {name === 'login' && <LoginIcon />}
-                    {name === 'logout' && <LogoutIcon />}
-                    {name === 'profile' && <PortraitIcon />}
-                    {name === 'register' && <AppRegistrationIcon />}
-                    {name === 'articles' && <ArticleIcon />}
-                    {name === 'livestream' && <LiveTvIcon />}
+                    {name === 'login' && <LoginIcon aria-hidden="true" />}
+                    {name === 'logout' && <LogoutIcon aria-hidden="true" />}
+                    {name === 'profile' && <PortraitIcon aria-hidden="true" />}
+                    {name === 'register' && <AppRegistrationIcon aria-hidden="true" />}
+                    {name === 'articles' && <ArticleIcon aria-hidden="true" />}
+                    {name === 'livestream' && <LiveTvIcon aria-hidden="true" />}
                 </div>
                 <div className="hidden md:block">{capitalized}</div>
             </button>
