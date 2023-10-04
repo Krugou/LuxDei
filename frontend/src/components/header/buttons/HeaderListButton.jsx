@@ -12,7 +12,7 @@ const HeaderListButton = ({name, navigate, lastItem = false}) => {
     return (
         <li>
             <button
-                className={` nav-button mx-4 text-lg text-white transition-all hover:text-gray-300 hover:text-xl`}
+                className={` nav-button ${lastItem ? 'mx-5' : 'mx-5'} text-lg text-white transition-all hover:text-gray-300 hover:text-xl`}
                 onClick={() => {
                     navigate(`/${name}`);
                 }}
