@@ -1,15 +1,15 @@
-import React, {useContext, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {UserContext} from '../../contexts/UserContext';
-import {useUser} from '../../hooks/ApiHooks';
+import React, { useContext, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
+import { useUser } from '../../hooks/ApiHooks';
 import useForm from '../../hooks/FormHooks';
 
 const Login = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
-  const {postLogin} = useUser();
+  const { postLogin } = useUser();
   const navigate = useNavigate();
-  const {setUsername, setCountryId} = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
@@ -24,10 +24,8 @@ const Login = () => {
       const loginResult = await postLogin(inputs);
       localStorage.setItem('userToken', loginResult.token);
       //setUser(loginResult.user);
-      setUsername(loginResult.user.username);
-      console.log('username:', loginResult.user.username);
-      setCountryId(loginResult.user.countryId);
-      console.log('countryId:', loginResult.user.countryId);
+      setUser(loginResult.user);
+      console.log('username:', loginResult.user.name);
       navigate('/');
     } catch (error) {
       console.log(error.message);
@@ -53,7 +51,7 @@ const Login = () => {
             id='username'
             type='text'
             autoFocus
-            autoComplete="username"
+            autoComplete='username'
             ref={usernameRef}
             placeholder='Enter your username'
             aria-label='Username input'

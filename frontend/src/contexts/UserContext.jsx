@@ -1,14 +1,18 @@
-import {createContext, useState} from 'react';
+import { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
 
 export const UserContext = createContext();
 
-export const UserProvider = ({children}) => {
-    const [username, setUsername] = useState('');
-    const [countryId, setCountryId] = useState('');
+export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState('');
 
-    return (
-        <UserContext.Provider value={{username, setUsername, countryId, setCountryId}}>
-            {children}
-        </UserContext.Provider>
-    );
+  return (
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+
+UserProvider.propTypes = {
+  children: PropTypes.node,
 };
