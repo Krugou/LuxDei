@@ -37,9 +37,9 @@ const Login = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className='flex flex-col items-center justify-center '
+      className='flex bg-gray-100  flex-col items-center justify-center '
     >
-      <div className='bg-white shadowz-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col'>
+      <div className='bg-gray-100  shadowz-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col'>
         <div className='mb-4'>
           <label
             className='block text-gray-700 font-bold mb-2'

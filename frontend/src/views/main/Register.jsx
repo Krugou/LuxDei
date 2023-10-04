@@ -75,7 +75,7 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col items-center'>
+    <form onSubmit={handleSubmit} className='flex bg-gray-100  flex-col items-center'>
       <label className='flex flex-col items-start mt-4'>
         <span className='block text-gray-700 font-bold mb-2'>Username</span>
         <input
