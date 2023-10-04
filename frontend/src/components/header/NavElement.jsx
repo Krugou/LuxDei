@@ -66,7 +66,7 @@ const NavElement = () => {
         </ul>
         <div
           id='mobile-menu-button'
-          className='text-white md:hidden cursor-pointer'
+          className='text-white md:hidden block cursor-pointer'
           onClick={toggleNav}
         >
           <svg
