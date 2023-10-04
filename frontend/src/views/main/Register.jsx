@@ -77,11 +77,11 @@ const Register = () => {
   return (
     <form onSubmit={handleSubmit} className='flex flex-col items-center'>
       <label className='flex flex-col items-start mt-4'>
-        <span className='text-lg font-medium mb-2'>Username:</span>
+        <span className='block text-gray-700 font-bold mb-2'>Username</span>
         <input
           type='text'
           ref={usernameRef}
-          className='border border-gray-400 rounded-lg p-2 w-full'
+          className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
           aria-label='Username'
           autoComplete='username'
         />
@@ -89,27 +89,27 @@ const Register = () => {
         {errorMessage && <p className='text-orange-500'>{errorMessage}</p>}
       </label>
       <label className='flex flex-col items-start mt-4'>
-        <span className='text-lg font-medium mb-2'>Email:</span>
+        <span className='block text-gray-700 font-bold mb-2'>Email</span>
         <input
           type='email'
           ref={emailRef}
-          className='border border-gray-400 rounded-lg p-2 w-full'
+          className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
           aria-label='Email'
           autoComplete='email'
         />
       </label>
       <label className='flex flex-col items-start mt-4'>
-        <span className='text-lg font-medium mb-2'>Password:</span>
+        <span className='block text-gray-700 font-bold mb-2'>Password</span>
         <input
           type='password'
           ref={passwordRef}
-          className='border border-gray-400 rounded-lg p-2 w-full'
+          className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
           aria-label='Password'
           autoComplete='new-password'
         />
       </label>
-      <label className='flex flex-col items-start mt-4'>
-        <span className='text-lg font-medium mb-2'>Country:</span>
+      <label className='flex flex-col items-center mt-4'>
+        <span className='block text-gray-700 font-bold mb-2'>Country</span>
         <select
           ref={countryRef}
           className='border border-gray-400 rounded-lg p-2 w-full'
@@ -125,7 +125,7 @@ const Register = () => {
       </label>
       <button
         type='submit'
-        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4'
+        className='bg-gray-700 hover:bg-gray-500 text-white mb-7 mt-7 font-bold py-2 px-4 rounded mt-4'
       >
         Register
       </button>
