@@ -75,7 +75,7 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col items-center'>
+    <form onSubmit={handleSubmit} className='flex bg-gray-100  flex-col items-center'>
       <label className='flex flex-col items-start mt-4'>
         <span className='block text-gray-700 font-bold mb-2'>Username</span>
         <input
@@ -112,7 +112,7 @@ const Register = () => {
         <span className='block text-gray-700 font-bold mb-2'>Country</span>
         <select
           ref={countryRef}
-          className='border border-gray-400 rounded-lg p-2 w-full'
+          className='border font-bold border-gray-400 text-white bg-gray-700 rounded-lg p-2 w-full'
         >
           <option value='FI'>Finland</option>
           <option value='DK'>Denmark</option>
