@@ -4,6 +4,7 @@ import VideoPlayer from '../../components/main/VideoPlayer';
 import {UserContext} from '../../contexts/UserContext';
 const LiveStream = () => {
     const {username, countryId} = useContext(UserContext);
+    console.log('LiveStream', username, countryId);
     const playerRef = React.useRef(null);
 
 
