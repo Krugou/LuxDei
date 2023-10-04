@@ -3,6 +3,8 @@
 [Project link here!](https://jakfilms.northeurope.cloudapp.azure.com/)
 lux dei - (the light of God)
 
+[Server Side Settings](serversideconf/serversidesettings.md)
+
 ## Joonas Lamminmäki
 
 [Jonsson-123](https://github.com/Jonsson-123)
