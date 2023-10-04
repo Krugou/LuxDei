@@ -15,4 +15,15 @@ router.get('/', (req, res, next) => {
     return;
   }
 });
+router.put('/users', (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.error('put users validation', errors.array());
+    res.json({
+      message: 'Invalid inputs',
+    });
+    next(httpError('Invalid data', 400));
+    return;
+  }
+});
 export default router;

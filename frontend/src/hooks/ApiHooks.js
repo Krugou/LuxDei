@@ -55,7 +55,7 @@ const useUser = () => {
       },
       body: JSON.stringify(data),
     };
-    return await doFetch(baseUrl + 'users', options);
+    return await doFetch(baseUrl + 'secure/users', options);
   };
   return {
     postUser,
