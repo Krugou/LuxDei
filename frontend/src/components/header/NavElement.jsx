@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import HeaderListButton from './buttons/HeaderListButton';
-
+import {UserContext} from '../contexts/UserContext';
 const NavElement = () => {
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
-
+  const {username} = useContext(UserContext);
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
@@ -18,8 +18,16 @@ const NavElement = () => {
         </button>
         <ul id='nav-links' className={isNavOpen ? 'md:flex' : 'hidden md:flex'}>
 
-          <HeaderListButton name="login" navigate={navigate} />
-          <HeaderListButton name="register" navigate={navigate} />
+          {username ? (
+            <>
+              <HeaderListButton name="profile" navigate={navigate} />
+            </>
+          ) : (
+            <>
+              <HeaderListButton name="login" navigate={navigate} />
+              <HeaderListButton name="register" navigate={navigate} />
+            </>
+          )}
 
           <HeaderListButton name="livestream" navigate={navigate}  />
           <HeaderListButton name="articles" navigate={navigate} lastItem={true} />
