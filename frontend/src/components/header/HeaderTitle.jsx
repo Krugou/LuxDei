@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 const HeaderTitle = () => {
   const navigate = useNavigate();
   return (
@@ -8,7 +8,7 @@ const HeaderTitle = () => {
         onClick={() => {
           navigate('/');
         }}
-        className='text-white text-2xl font-bold'
+        className=' text-white text-2xl font-bold '
       >
         Jak Films
       </button>
