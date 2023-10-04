@@ -39,7 +39,7 @@ router.put('/users', (req, res, next) => {
   }
 });
 
-router.delete('/', async (req, res, next) => {
+router.delete('/',  (req, res, next) => {
   res.send('asdasd');
   try {
     // Check if the user is authenticated and exists in the request
