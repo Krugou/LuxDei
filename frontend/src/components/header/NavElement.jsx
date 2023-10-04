@@ -44,7 +44,7 @@ const NavElement = () => {
         >
           Jak Films
         </button>
-        <ul id='nav-links' className={isNavOpen ? 'md:flex' : 'hidden md:flex'}>
+        <ul id='nav-links' className={isNavOpen ? 'flex flex-row ' : 'hidden flex '}>
           {user ? (
             <>
               <HeaderListButton name='profile' navigate={navigate} />
