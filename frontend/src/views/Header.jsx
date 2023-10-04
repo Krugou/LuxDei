@@ -7,7 +7,7 @@ const Header = () => {
     <header>
       <NavUpperElement startSeconds={50} endSeconds={200} />
       <NavElement />
-      <HeaderTitle />
+     
     </header>
   );
 };
