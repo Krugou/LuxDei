@@ -1,13 +1,23 @@
+/**
+ * A button component for the header navigation list.
+ * @param {Object} props - The component props.
+ * @param {string} props.name - The name of the button.
+ * @param {function} props.navigate - The function to navigate to the button's destination.
+ * @param {boolean} [props.lastItem=false] - Whether the button is the last item in the list.
+ * @returns {JSX.Element} - The HeaderListButton component.
+ */
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import ArticleIcon from '@mui/icons-material/Article';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PortraitIcon from '@mui/icons-material/Portrait';
-import LiveTvIcon from '@mui/icons-material/LiveTv';
 import PropTypes from 'prop-types';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import ArticleIcon from '@mui/icons-material/Article';
 import React from 'react';
+
 const HeaderListButton = ({name, navigate, lastItem = false}) => {
-    const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+    const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+    const capitalized = capitalize(name);
 
     return (
         <li>
@@ -17,6 +27,8 @@ const HeaderListButton = ({name, navigate, lastItem = false}) => {
                     navigate(`/${name}`);
                 }}
             >
+
+
                 <div className="md:hidden">
                     {name === 'login' && <LoginIcon />}
                     {name === 'logout' && <LogoutIcon />}
@@ -24,8 +36,6 @@ const HeaderListButton = ({name, navigate, lastItem = false}) => {
                     {name === 'register' && <AppRegistrationIcon />}
                     {name === 'articles' && <ArticleIcon />}
                     {name === 'livestream' && <LiveTvIcon />}
-                    
-
                 </div>
                 <div className="hidden md:block">{capitalized}</div>
             </button>
