@@ -49,28 +49,6 @@ const Banner = () => {
             Experience at the JAK-Films Festival
           </h2>
         </div>
-        <div className='flex justify-center mt-4'>
-          <button
-            onClick={() => changeImage(currentImageIndex - 1)}
-            className='text-white mr-4 hover:text-gray-400 p-2 rounded-lg bg-gmmidnightgreen hover:bg-gmpictonblue transition-all duration-300 ease-in-out border-black border-solid border'
-          >
-            Previous
-          </button>
-          <button
-            onClick={() => changeImage(currentImageIndex + 1)}
-            className='text-white p-2 rounded-lg bg-gmmidnightgreen hover:bg-gmpictonblue hover:text-white transition-all duration-300 ease-in-out border-black border-solid border'
-          >
-            Next
-          </button>
-        </div>
-        <button
-          onClick={() => {
-            navigate('/articles');
-          }}
-          className='lg:text-xl font-semibold text-white mt-4 rounded p-1 bg-gmmidnightgreen hover:bg-gmpictonblue hover:text-white transition-all duration-300 ease-in-out border-black border-solid border'
-        >
-          Latest articles
-        </button>
       </div>
     </div>
   );
