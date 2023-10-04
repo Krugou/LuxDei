@@ -25,7 +25,9 @@ const Login = () => {
       localStorage.setItem('userToken', loginResult.token);
       //setUser(loginResult.user);
       setUsername(loginResult.user.username);
+      console.log('username:', loginResult.user.username);
       setCountryId(loginResult.user.countryId);
+      console.log('countryId:', loginResult.user.countryId);
       navigate('/');
     } catch (error) {
       console.log(error.message);
