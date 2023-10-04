@@ -48,6 +48,7 @@ const NavElement = () => {
           {user ? (
             <>
               <HeaderListButton name='profile' navigate={navigate} />
+              <HeaderListButton name='logout' navigate={navigate} />
             </>
           ) : (
             <>
