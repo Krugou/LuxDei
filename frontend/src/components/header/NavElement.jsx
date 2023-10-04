@@ -1,14 +1,14 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, {useContext, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {UserContext} from '../../contexts/UserContext';
+import {useUser} from '../../hooks/ApiHooks';
 import HeaderListButton from './buttons/HeaderListButton';
-import { UserContext } from '../../contexts/UserContext';
-import { useUser } from '../../hooks/ApiHooks';
 
 const NavElement = () => {
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const { user, setUser } = useContext(UserContext);
-  const { getUserInfoByToken } = useUser();
+  const {user, setUser} = useContext(UserContext);
+  const {getUserInfoByToken} = useUser();
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
@@ -44,7 +44,7 @@ const NavElement = () => {
         >
           Jak Films
         </button>
-        <ul id='nav-links' className={isNavOpen ? 'flex flex-row ' : 'hidden flex '}>
+        <ul id='nav-links' className={` md:flex flex-row ${isNavOpen ? 'flex' : 'hidden '}`}>
           {user ? (
             <>
               <HeaderListButton name='profile' navigate={navigate} />
@@ -66,7 +66,7 @@ const NavElement = () => {
         </ul>
         <div
           id='mobile-menu-button'
-          className='text-white md:hidden block cursor-pointer'
+          className='text-white md:hidden cursor-pointer'
           onClick={toggleNav}
         >
           <svg
