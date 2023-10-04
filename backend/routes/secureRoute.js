@@ -52,7 +52,7 @@ router.delete('/users', async (req, res, next) => {
     console.log(userId, 'USER IDDDD');
     // Use the User model to delete the user from the database
     const result = await User.deleteOne({ _id: userId });
-
+    console.log(result, 'USER DELETE RESULT');
     // Check if the user was successfully deleted
     if (result.deletedCount === 1) {
       res.json({ message: 'User deleted successfully' });
