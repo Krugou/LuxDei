@@ -39,4 +39,46 @@ server dns: jakfilms.northeurope.cloudapp.azure.com
 
 ```
 
+## azure firewall settings
+
+## Azure Firewall Settings
+
+| Priority | Name                           | Port       | Protocol | Source            | Destination    | Action |
+| -------- | ------------------------------ | ---------- | -------- | ----------------- | -------------- | ------ |
+| 300      | SSH                            | 22         | TCP      | Any               | Any            | Allow  |
+| 320      | HTTPS                          | 443        | TCP      | Any               | Any            | Allow  |
+| 340      | HTTP                           | 80         | TCP      | Any               | Any            | Allow  |
+| 65000    | AllowVnetInBound               | Any        | Any      | VirtualNetwork    | VirtualNetwork | Allow  |
+| 65001    | AllowAzureLoadBalancerInBound  | Any        | Any      | AzureLoadBalancer | Any            | Allow  |
+| 65500    | DenyAllInBound                 | Any        | Any      | Any               | Any            | Deny   |
+
+## update script
+
+```bash
+
+#!/bin/bash
+
+# Change to the project directory
+cd /home/aanderson/LuxDei
+
+# Start the SSH agent and add the SSH key
+eval `ssh-agent -s`
+ssh-add /home/aanderson/.ssh/id_ed25519
+
+# Perform a Git pull to update the code
+git pull
+
+# Check if changes were pulled (git diff will show changes)
+if [[ -n $(git diff) ]]; then
+  # If changes were pulled, navigate to the frontend directory
+  cd frontend
+  npm install
+  npm run build
+  cd ..
+  cd backend
+  npm i
+fi
+
+```
+
 [update-script.sh](update-script.sh)
