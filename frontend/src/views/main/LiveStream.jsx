@@ -76,14 +76,14 @@ const LiveStream = () => {
         onReady={handlePlayerReady}
       />
       {/* dev usage only */}
-      <Chat
+      {/* <Chat
         className=' '
         username={generateUsername()}
         countryid={randomCountry}
-      />
+      /> */}
       {/* <Chat className=" " username={''} countryid={''} /> */}
       {/* real one next  */}
-      {/* <Chat className=" " username={user.name} countryid={user.countryid} /> */}
+      <Chat className=" " username={user.name} countryid={user.countryid} />
     </section>
   );
 };
