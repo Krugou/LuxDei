@@ -8,8 +8,8 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
   console.log(req.user, 'USER ASDASD');
+  res.json({ user: req.user });
   try {
-    res.json({ user: req.user });
   } catch (error) {
     next(httpError('User info not available', 403));
     return;
