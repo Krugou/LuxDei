@@ -7,12 +7,12 @@ import httpError from '../utils/errors.js';
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
+  console.log(req.user, 'USER ASDASD');
   try {
     return req.user;
   } catch (error) {
     next(httpError('User info not available', 403));
     return;
   }
-  console.log(req.user, 'USER ASDASD');
 });
 export default router;
