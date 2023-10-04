@@ -19,6 +19,7 @@ router.get('/', (req, res, next) => {
 });
 router.put('/users', (req, res, next) => {
   res.json(req.user);
+  return;
   try {
     if (!req.user) {
       next(httpError('User info not available', 403));
