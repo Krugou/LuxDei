@@ -3,7 +3,9 @@ import {useNavigate} from 'react-router-dom';
 import {UserContext} from '../../contexts/UserContext';
 import {useUser} from '../../hooks/ApiHooks';
 import HeaderListButton from './buttons/HeaderListButton';
-
+import HeaderTitle from './HeaderTitle';
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 const NavElement = () => {
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -36,14 +38,7 @@ const NavElement = () => {
   return (
     <nav className='p-4 bg-gray-700 sticky top-0 w-full z-10'>
       <div className='container mx-auto flex justify-between items-center relative'>
-        <button
-          onClick={() => {
-            navigate('/');
-          }}
-          className='text-white text-2xl font-bold'
-        >
-          Jak Films
-        </button>
+       <HeaderTitle />
         <ul id='nav-links' className={` md:flex flex-row ${isNavOpen ? 'flex' : 'hidden '}`}>
           {user ? (
             <>
@@ -69,20 +64,7 @@ const NavElement = () => {
           className='text-white md:hidden cursor-pointer'
           onClick={toggleNav}
         >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6'
-            fill='none'
-            viewBox='0 0 24 24'
-            stroke='currentColor'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              d='M4 6h16M4 12h16M4 18h16'
-            ></path>
-          </svg>
+         {isNavOpen ? <MenuOpenIcon /> : <MenuIcon />}
         </div>
       </div>
     </nav>
