@@ -1,10 +1,15 @@
 import React, { useContext, useState } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { FlagIcon } from 'react-flag-kit';
+import { useNavigate } from 'react-router-dom';
+
+import { useUser } from '../../hooks/ApiHooks';
 
 const Profile = () => {
   const { user } = useContext(UserContext);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+  const { deleteUser } = useUser();
+  const navigate = useNavigate();
 
   const openDeleteModal = () => {
     setDeleteModalOpen(true);
@@ -14,12 +19,22 @@ const Profile = () => {
     setDeleteModalOpen(false);
   };
 
-  const handleDeleteProfile = () => {
+  const handleDeleteProfile = async () => {
+    const token = localStorage.getItem('userToken');
+    try {
+      const deleteResponse = await deleteUser(token);
+      console.log(deleteResponse);
+      navigate('/logout');
+    } catch (error) {
+      console.log(error.message);
+    }
+
     // Handle the profile deletion here
     // You can make an API call to delete the profile
     // or perform any other necessary actions
     // After deletion, you can navigate to a different page
     // or update the user context as needed
+
     closeDeleteModal();
   };
 

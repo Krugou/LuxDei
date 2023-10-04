@@ -57,11 +57,21 @@ const useUser = () => {
     };
     return await doFetch(baseUrl + 'secure/users', options);
   };
+  const deleteUser = async (token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+    return await doFetch(baseUrl + 'secure/users', options);
+  };
   return {
     postUser,
     postLogin,
     getUserInfoByToken,
     putUser,
+    deleteUser,
   };
 };
 export { useUser };

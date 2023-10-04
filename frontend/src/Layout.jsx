@@ -14,7 +14,7 @@ import TermsOfService from './views/main/TermsofService';
 import NotFound from './views/main/NotFound';
 import Schedule from './views/main/Schedule';
 import Profile from './views/main/Profile';
-
+import Logout from './views/main/Logout';
 const Layout = () => {
   return (
     <UserProvider>
@@ -37,6 +37,7 @@ const Layout = () => {
               <Route path='/team' element={<Team />} />
               <Route path='/schedule' element={<Schedule />} />
               <Route path='/profile' element={<Profile />} />
+              <Route path='/logout' element={<Logout />} />
             </Routes>
           </main>
           <Footer />
