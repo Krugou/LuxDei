@@ -39,7 +39,7 @@ router.put('/users', (req, res, next) => {
   }
 });
 
-router.delete('/', async (req, res, next) => {
+router.delete('/users/delete', async (req, res, next) => {
   res.json(req.user);
   try {
     // Check if the user is authenticated and exists in the request
