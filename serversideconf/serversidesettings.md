@@ -39,18 +39,16 @@ server dns: jakfilms.northeurope.cloudapp.azure.com
 
 ```
 
-## azure firewall settings
-
 ## Azure Firewall Settings
 
-| Priority | Name                           | Port       | Protocol | Source            | Destination    | Action |
-| -------- | ------------------------------ | ---------- | -------- | ----------------- | -------------- | ------ |
-| 300      | SSH                            | 22         | TCP      | Any               | Any            | Allow  |
-| 320      | HTTPS                          | 443        | TCP      | Any               | Any            | Allow  |
-| 340      | HTTP                           | 80         | TCP      | Any               | Any            | Allow  |
-| 65000    | AllowVnetInBound               | Any        | Any      | VirtualNetwork    | VirtualNetwork | Allow  |
-| 65001    | AllowAzureLoadBalancerInBound  | Any        | Any      | AzureLoadBalancer | Any            | Allow  |
-| 65500    | DenyAllInBound                 | Any        | Any      | Any               | Any            | Deny   |
+| Priority | Name                          | Port | Protocol | Source            | Destination    | Action |
+| -------- | ----------------------------- | ---- | -------- | ----------------- | -------------- | ------ |
+| 300      | SSH                           | 22   | TCP      | Any               | Any            | Allow  |
+| 320      | HTTPS                         | 443  | TCP      | Any               | Any            | Allow  |
+| 340      | HTTP                          | 80   | TCP      | Any               | Any            | Allow  |
+| 65000    | AllowVnetInBound              | Any  | Any      | VirtualNetwork    | VirtualNetwork | Allow  |
+| 65001    | AllowAzureLoadBalancerInBound | Any  | Any      | AzureLoadBalancer | Any            | Allow  |
+| 65500    | DenyAllInBound                | Any  | Any      | Any               | Any            | Deny   |
 
 ## update script
 
