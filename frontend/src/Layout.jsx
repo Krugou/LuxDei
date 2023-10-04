@@ -1,5 +1,5 @@
-import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-import {UserProvider} from './contexts/UserContext';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { UserProvider } from './contexts/UserContext';
 import Footer from './views/Footer';
 import Header from './views/Header';
 import About from './views/main/About';
@@ -13,6 +13,7 @@ import Team from './views/main/Team';
 import TermsOfService from './views/main/TermsofService';
 import NotFound from './views/main/NotFound';
 import Schedule from './views/main/Schedule';
+import Profile from './views/main/Profile';
 
 const Layout = () => {
   return (
@@ -35,7 +36,7 @@ const Layout = () => {
               <Route path='/termsofservice' element={<TermsOfService />} />
               <Route path='/team' element={<Team />} />
               <Route path='/schedule' element={<Schedule />} />
-
+              <Route path='/profile' element={<Profile />} />
             </Routes>
           </main>
           <Footer />
