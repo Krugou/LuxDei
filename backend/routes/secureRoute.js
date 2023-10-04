@@ -49,7 +49,7 @@ router.delete('/users', async (req, res, next) => {
 
     // Get the user's ID from the authenticated user
     const userId = req.user._id;
-
+    console.log(userId, 'USER IDDDD');
     // Use the User model to delete the user from the database
     const result = await User.deleteOne({ _id: userId });
 
