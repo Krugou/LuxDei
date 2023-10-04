@@ -18,6 +18,7 @@ router.get('/', (req, res, next) => {
   }
 });
 router.put('/users', (req, res, next) => {
+  res.json(req.user);
   try {
     if (!req.user) {
       next(httpError('User info not available', 403));
@@ -39,7 +40,7 @@ router.put('/users', (req, res, next) => {
   }
 });
 
-router.delete('/users/delete', async (req, res, next) => {
+router.delete('/users', async (req, res, next) => {
   res.json(req.user);
   try {
     // Check if the user is authenticated and exists in the request
