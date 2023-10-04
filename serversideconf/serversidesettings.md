@@ -1,6 +1,7 @@
 # Server Info
 
 ubuntu 22.04
+
 server dns: jakfilms.northeurope.cloudapp.azure.com
 
 ## Server SSL Configuration
