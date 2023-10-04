@@ -40,7 +40,7 @@ const Banner = () => {
       <div className='flex justify-between items-center h-full flex-col'>
         <header className='text-white'>
           <h1 className='text-xl lg:text-2xl mt-12 ml-4 mr-4 bg-black rounded font-bold p-1'>
-             TESTi Celebrating cinema, one click at a time
+             Celebrating cinema, one click at a time
           </h1>
         </header>
         <div className='w-full h-full flex justify-center items-center lg:max-w-3xl sm:max-w-md text-center'>
