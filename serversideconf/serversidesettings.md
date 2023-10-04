@@ -39,4 +39,4 @@ server dns: jakfilms.northeurope.cloudapp.azure.com
 
 ```
 
-[update-script.sh](URL)
+[update-script.sh](update-script.sh)
