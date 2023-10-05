@@ -1,11 +1,11 @@
+import MenuIcon from '@mui/icons-material/Menu';
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {UserContext} from '../../contexts/UserContext';
 import {useUser} from '../../hooks/ApiHooks';
-import HeaderListButton from './buttons/HeaderListButton';
 import HeaderTitle from './HeaderTitle';
-import MenuIcon from '@mui/icons-material/Menu';
-import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import HeaderListButton from './buttons/HeaderListButton';
 import WeatherData from './weather/WeatherData';
 const NavElement = () => {
   const navigate = useNavigate();
@@ -70,7 +70,7 @@ const NavElement = () => {
           className='text-white md:hidden cursor-pointer'
           onClick={toggleNav}
         >
-         {isNavOpen ? <MenuOpenIcon /> : <MenuIcon />}
+          {isNavOpen ? <MenuOpenIcon /> : <MenuIcon />}
         </div>
       </div>
     </nav>
