@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 
 const Banner = () => {
-  const images = ['bg-inspiskuva1', 'bg-inspiskuva2', 'bg-inspiskuva3']; // Array of background image class names
+  const images = ['bg-inspiskuva1', 'bg-inspiskuva2', 'bg-inspiskuva3','bg-inspiskuva4']; // Array of background image class names
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Function to update the current image index
@@ -47,6 +47,7 @@ const Banner = () => {
       <img src={'./assets/images/inspiskuva1.jpg'} alt='' className='hidden preload' />
       <img src={'./assets/images/inspiskuva2.jpg'} alt='' className='hidden preload' />
       <img src={'./assets/images/inspiskuva3.jpg'} alt='' className='hidden preload' />
+      <img  src={'./assets/images/inspiskuva4.jpg'} alt='' className='hidden preload' />
     </div>
 
   );
