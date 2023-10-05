@@ -322,10 +322,7 @@ const Chat = ({username, countryid}) => {
     </>
   );
 };
-Chat.defaultProps = {
-  username: 'anon',
-  countryid: 'FI',
-};
+
 Chat.propTypes = {
   username: PropTypes.string.isRequired,
   countryid: PropTypes.string.isRequired,
