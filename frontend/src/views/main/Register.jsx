@@ -108,7 +108,7 @@ const Register = () => {
             aria-label='Username'
             autoComplete='username'
             required
-            placeholder='atleast 8 char one capital letter'
+            placeholder='atleast 3 char'
           />
           {/* Display the error message */}
           {errorMessage && <p className='text-orange-500'>{errorMessage}</p>}
@@ -122,7 +122,6 @@ const Register = () => {
             aria-label='Email'
             autoComplete='email'
             required
-            placeholder='atleast 3 char'
           />
         </label>
         <label className='flex flex-col items-start mt-4'>
@@ -134,6 +133,7 @@ const Register = () => {
             aria-label='Password'
             autoComplete='new-password'
             required
+            placeholder='atleast 8 char one capital letter'
           />
         </label>
         <label className='flex flex-col items-center mt-4'>
