@@ -41,6 +41,7 @@ router.put('/users', async (req, res, next) => {
     if (data.password) {
       const salt = bcrypt.genSaltSync(10);
       const pwd = bcrypt.hashSync(data.password, salt);
+      delete data.password;
       data = {
         ...data,
         password: pwd,
