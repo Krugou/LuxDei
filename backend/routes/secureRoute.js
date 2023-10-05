@@ -17,12 +17,15 @@ router.get('/', (req, res, next) => {
     return;
   }
 });
-router.put('/users', (req, res, next) => {
+router.put('/users', async (req, res, next) => {
   try {
     if (!req.user) {
       next(httpError('User info not available', 403));
       return;
     }
+
+    const userId = req.user._id; // Extract userId from the request params
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.error('put users validation', errors.array());
@@ -32,6 +35,16 @@ router.put('/users', (req, res, next) => {
       next(httpError('Invalid data', 400));
       return;
     }
+
+    const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
+      new: true,
+    });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    return res.status(200).json(updatedUser);
   } catch (error) {
     console.error('Error modifying user', error);
     next(httpError('Internal server error', 500));
