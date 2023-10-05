@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { FlagIcon } from 'react-flag-kit';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,11 @@ const Profile = () => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const { deleteUser } = useUser();
   const navigate = useNavigate();
-
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
   const openDeleteModal = () => {
     setDeleteModalOpen(true);
   };
