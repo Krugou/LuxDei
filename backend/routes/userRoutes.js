@@ -52,7 +52,7 @@ router.post(
     body('password').matches(/(?=.*\p{Lu}).{8,}/u),
 
     // Validate username: Minimum length 3, alphanumeric characters only
-    body('username')
+    body('name')
       .isLength({ min: 3 })
       .matches(/^[a-zA-Z0-9]+$/),
   ],
