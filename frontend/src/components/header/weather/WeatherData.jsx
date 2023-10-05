@@ -3,27 +3,11 @@ import {useEffect, useState} from 'react';
 const WeatherData = () => {
     const [weatherData, setWeatherData] = useState(null);
     const [coords, setCoords] = useState(null);
-    useEffect(() => {
-        const setDefaultCoords = () => {
-            setCoords({lat: 60.2052, lon: 24.6564}); // Default coordinates for Espoo
-        };
+    const [retryCount, setRetryCount] = useState(0);
 
-        navigator.geolocation.getCurrentPosition(
-            async (position) => {
-                const {latitude, longitude} = position.coords;
-                setCoords({lat: latitude, lon: longitude});
-
-            },
-            (error) => {
-                console.error(error);
-                setDefaultCoords();
-            }
-        );
-    }, []);
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // console.log(coords.lat, coords.lon);
                 const response = await fetch(
                     `https://api.met.no/weatherapi/locationforecast/2.0/classic?lat=${coords.lat}&lon=${coords.lon}`
                 );
@@ -40,30 +24,60 @@ const WeatherData = () => {
                 const temperatureOutput = temperature + '°C';
 
                 setWeatherData({windSpeedOutput, temperatureOutput, windDirectionDegreeReversed, weatherCode});
+                setRetryCount(0); // Reset retry count on successful request
             } catch (error) {
-                console.error(error);
+                if (retryCount < 2) { // Limit retries to 2
+                    setRetryCount(retryCount + 1);
+                    setTimeout(() => {
+                        fetchData();
+                    }, 1000);
+                } else {
+                    setDefaultCoords();
+                }
             }
         };
 
-        fetchData();
-    }, []);
+        const setDefaultCoords = () => {
+            setCoords({lat: 60.2052, lon: 24.6564}); // Default coordinates for Espoo
+        };
 
+        navigator.geolocation.getCurrentPosition(
+            async (position) => {
+                const {latitude, longitude} = position.coords;
+                setCoords({lat: latitude, lon: longitude});
+                setTimeout(() => {
+                    fetchData();
+                }, 1000); // Fetch weather data one second after getting position
+            },
+            (error) => {
+                // console.error(error);
+                setDefaultCoords();
+            }
+        );
+    }, [retryCount]);
 
+    if (!weatherData) {
+        return null;
+    }
 
     const {temperatureOutput, windSpeedOutput, windDirectionDegreeReversed, weatherCode} = weatherData;
 
     return (
         <div id="weatherdata" className='flex flex-col md:flex-row '>
+            <div className="flex flex-row" >
             <p className="text-white">{temperatureOutput}</p>
-            <img src={`./weather/png/${weatherCode}.png`} alt='Weather icon' className='w-6 h-6 bg-white rounded-full p-1 mx-2 my-2 md:my-0 inline-block align-middle transform transition duration-500 ease-in-out' />
+                <img src={`./weather/png/${weatherCode}.png`} alt='Weather icon' className='w-6 h-6 bg-white rounded-full p-1 mx-2 my-0  inline-block align-middle transform transition duration-500 ease-in-out' />
+             </div>
+            <div className="flex flex-row  " >
             <p className="text-white">{windSpeedOutput}</p>
 
             <img
                 src="./png/up-arrow2.png"
                 alt="Wind direction arrow"
-                className="arrow w-6 h-6 bg-white rounded-full p-1 mx-2 my-2 md:my-0 inline-block align-middle transform transition duration-500 ease-in-out"
+                className="arrow w-6 h-6 bg-white rounded-full p-1 mx-2 my-0  inline-block align-middle transform transition duration-500 ease-in-out"
                 style={{transform: `rotate(${windDirectionDegreeReversed}deg)`}}
             />
+            </div>
         </div>
     );
 };
