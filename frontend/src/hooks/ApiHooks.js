@@ -16,7 +16,7 @@ const testDatabaseConnection = async () => {
     method: 'GET',
   };
   try {
-    const response = await doFetch(baseUrl, options);
+    const response = await doFetch(baseUrl + 'users', options);
     if (response.status === 200) {
       return true;
     } else {
@@ -87,8 +87,8 @@ const useUser = () => {
     getUserInfoByToken,
     putUser,
     deleteUser,
-    
+
   };
 };
-export {useUser, testDatabaseConnection};
+export {testDatabaseConnection, useUser};
 
