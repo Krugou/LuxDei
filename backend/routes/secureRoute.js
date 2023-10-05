@@ -35,7 +35,7 @@ router.put('/users', async (req, res, next) => {
       next(httpError('Invalid data', 400));
       return;
     }
-
+    console.log(req.body, 'body info put user');
     const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
       new: true,
     });
