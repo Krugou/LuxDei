@@ -16,8 +16,8 @@ const Profile = () => {
   const navigate = useNavigate();
 
   const [editData, setEditData] = useState({
-    name: user ? user.name : '',
-    email: user ? user.email : '',
+    name: '',
+    email: '',
     password: '',
     countryid: user ? user.countryid : 'FI',
   });
