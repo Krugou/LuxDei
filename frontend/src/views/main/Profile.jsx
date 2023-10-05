@@ -164,9 +164,9 @@ const Profile = () => {
                   Country
                 </span>
                 <select
-                  value={editData.country}
+                  value={editData.countryid}
                   onChange={(e) =>
-                    setEditData({ ...editData, country: e.target.value })
+                    setEditData({ ...editData, countryid: e.target.value })
                   }
                   className='border font-bold border-gray-400 text-white bg-gray-700 rounded-lg p-2 w-full'
                 >
