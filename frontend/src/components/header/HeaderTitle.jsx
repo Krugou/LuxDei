@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {testDatabaseConnection} from '../../hooks/ApiHooks';
 
@@ -21,7 +21,8 @@ const HeaderTitle = () => {
         onClick={() => {
           navigate('/');
         }}
-        className='text-white text-2xl font-bold'
+        className={`text-white text-2xl font-bold ${databaseOnlineStatus ? '' : 'animate-spinSlightly'
+          }`}
       >
         {databaseOnlineStatus ? 'Jak Films' : 'jakfilms'}
       </button>
