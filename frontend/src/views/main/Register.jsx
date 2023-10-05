@@ -55,6 +55,7 @@ const Register = () => {
         setTimeout(() => {
           setErrorMessage('');
         }, 2500);
+        return;
       }
       setAlert(error.message);
       console.log(error.message, 'error message');
