@@ -1,13 +1,13 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {UserContext} from '../../contexts/UserContext';
-import {useUser} from '../../hooks/ApiHooks';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
+import { useUser } from '../../hooks/ApiHooks';
 
 const Register = () => {
-  const {postUser} = useUser();
+  const { postUser } = useUser();
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const usernameRef = useRef('');
   const emailRef = useRef('');
   const passwordRef = useRef('');
@@ -44,8 +44,13 @@ const Register = () => {
       console.log(response, 'Register Response');
       navigate('/');
     } catch (error) {
-      error.message === 'Username already taken' &&
-        setErrorMessage(error.message);
+      // Set the error message
+      setErrorMessage(error.message);
+
+      // Clear the error message after 3 seconds (adjust the duration as needed)
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 2500);
       console.log(error.message, 'error message');
     }
 
@@ -80,7 +85,10 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='flex bg-gray-100  flex-col items-center'>
+    <form
+      onSubmit={handleSubmit}
+      className='flex bg-gray-100  flex-col items-center'
+    >
       <label className='flex flex-col items-start mt-4'>
         <span className='block text-gray-700 font-bold mb-2'>Username</span>
         <input
@@ -125,13 +133,9 @@ const Register = () => {
           <option value='SE'>Sweden</option>
           <option value='IS'>Iceland</option>
           <option value='EE'>Estonia</option>
-
         </select>
       </label>
-      <button
-        type='submit'
-        className='button mb-7 mt-7'
-      >
+      <button type='submit' className='button mb-7 mt-7'>
         Register
       </button>
     </form>
