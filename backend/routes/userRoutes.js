@@ -3,7 +3,7 @@
 import express from 'express';
 import User from '../models/User.js';
 import httpError from '../utils/errors.js';
-import { validationResult } from 'express-validator';
+import { body, validationResult } from 'express-validator';
 import bcrypt from 'bcryptjs';
 const router = express.Router();
 
@@ -42,51 +42,66 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.post('/', async (req, res) => {
-  console.log('router post');
-  // Extract the validation errors from a request.
+router.post(
+  '/',
+  [
+    // Validate email
+    body('email').isEmail(),
 
-  const errors = validationResult(req);
+    // Validate password: At least 8 characters with at least one uppercase letter (Unicode)
+    body('password').matches(/(?=.*\p{Lu}).{8,}/u),
 
-  if (!errors.isEmpty()) {
-    // There are errors.
-    // Error messages can be returned in an array using `errors.array()`.
-    console.error('get_UserProfileLimited validation', errors.array());
+    // Validate username: Minimum length 3, alphanumeric characters only
+    body('username')
+      .isLength({ min: 3 })
+      .matches(/^[a-zA-Z0-9]+$/),
+  ],
+  async (req, res) => {
+    console.log('router post');
+    // Extract the validation errors from a request.
 
-    return httpError('Invalid data', 400);
-  }
+    const errors = validationResult(req);
 
-  try {
-    // encrypt password
-    const salt = bcrypt.genSaltSync(10);
-    const pwd = bcrypt.hashSync(req.body.password, salt);
-    const newUser = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: pwd,
-      countryid: req.body.countryid,
-    });
+    if (!errors.isEmpty()) {
+      // There are errors.
+      // Error messages can be returned in an array using `errors.array()`.
+      console.error('get_UserProfileLimited validation', errors.array());
 
-    // Check if username is already taken:
-    const existingUser = await User.findOne({ name: newUser.name });
-
-    if (existingUser) {
-      throw new Error('Username already taken');
+      return httpError('Invalid data', 400);
     }
 
-    // Save the new user if the username is not taken
-    await newUser.save();
-    res.json({ message: 'User saved to the database' });
-  } catch (error) {
-    console.error('Error:', error.message);
+    try {
+      // encrypt password
+      const salt = bcrypt.genSaltSync(10);
+      const pwd = bcrypt.hashSync(req.body.password, salt);
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: pwd,
+        countryid: req.body.countryid,
+      });
 
-    if (error.message === 'Username already taken') {
-      res.status(400).json({ error: 'Username already taken' });
-    } else {
-      res.status(500).json({ error: 'An error occurred' });
+      // Check if username is already taken:
+      const existingUser = await User.findOne({ name: newUser.name });
+
+      if (existingUser) {
+        throw new Error('Username already taken');
+      }
+
+      // Save the new user if the username is not taken
+      await newUser.save();
+      res.json({ message: 'User saved to the database' });
+    } catch (error) {
+      console.error('Error:', error.message);
+
+      if (error.message === 'Username already taken') {
+        res.status(400).json({ error: 'Username already taken' });
+      } else {
+        res.status(500).json({ error: 'An error occurred' });
+      }
     }
   }
-});
+);
 
 router.put('/:id', (req, res) => {
   User.findByIdAndUpdate(
