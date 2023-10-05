@@ -25,6 +25,11 @@ router.put('/users', async (req, res, next) => {
       next(httpError('User info not available', 403));
       return;
     }
+    // Check if username is already taken:
+    const existingUser = await User.findOne({ name: data.name });
+    if (existingUser) {
+      return res.status(404).json({ message: 'Username already exists' });
+    }
 
     const userId = req.user._id; // Extract userId from the request user info
 
@@ -41,12 +46,14 @@ router.put('/users', async (req, res, next) => {
     if (data.password) {
       const salt = bcrypt.genSaltSync(10);
       const pwd = bcrypt.hashSync(data.password, salt);
+
       delete data.password;
       data = {
         ...data,
         password: pwd,
       };
     }
+
     console.log(data, 'DATA');
     const updatedUser = await User.findByIdAndUpdate(userId, data, {
       new: true,
