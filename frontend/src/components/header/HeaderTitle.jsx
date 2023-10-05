@@ -8,8 +8,9 @@ const HeaderTitle = () => {
 
   const checkDatabaseConnection = async () => {
     const response = await testDatabaseConnection();
-    console.log('HeaderTitle.jsx - checkDatabaseConnection: response:', response);
+    // console.log('HeaderTitle.jsx - checkDatabaseConnection: response:', response);
     setDatabaseOnlineStatus(response);
+    
   };
 
   useEffect(() => {
