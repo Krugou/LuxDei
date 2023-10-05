@@ -7,9 +7,9 @@ import useForm from '../../hooks/FormHooks';
 const Login = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
-  const { postLogin , user } = useUser();
+  const { postLogin , } = useUser();
   const navigate = useNavigate();
-  const {setUser} = useContext(UserContext);
+  const {setUser, user} = useContext(UserContext);
   useEffect(() => {
     if (user) {
       navigate('/');
