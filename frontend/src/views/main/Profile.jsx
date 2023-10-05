@@ -55,17 +55,17 @@ const Profile = () => {
           </p>
           <FlagIcon
             code={user.countryid.toUpperCase()}
-            className='ml-2'
+            className='ml-2 mt-7 mb-7'
             alt={`Flag for ${user.countryid}`}
             size={240}
           />
-          <div className='mt-4 space-x-4'>
-            <button className='bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded'>
+          <div className='mt-4 flex justify-between space-x-4'>
+            <button className='bg-gray-700 transition hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>
               Edit Profile
             </button>
             <button
               onClick={openDeleteModal}
-              className='bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded'
+              className='bg-gray-700 transition hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
             >
               Delete Profile
             </button>
