@@ -40,11 +40,9 @@ const NavElement = () => {
     <nav className='p-4 bg-gray-700 sticky top-0 w-full z-10'>
       <div className='container mx-auto flex justify-between items-center relative'>
         <HeaderTitle />
-        {/* {isNavOpen ? (
-          ''
-        ) : (
-          <WeatherData />
-        )} */}
+
+        <WeatherData />
+
         <ul id='nav-links' className={` md:flex flex-row ${isNavOpen ? 'flex' : 'hidden '}`}>
           {user ? (
             <>
