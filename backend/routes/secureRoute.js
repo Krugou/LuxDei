@@ -47,7 +47,7 @@ router.put('/users', async (req, res, next) => {
         password: pwd,
       };
     }
-
+    console.log(data, 'DATA');
     const updatedUser = await User.findByIdAndUpdate(userId, data, {
       new: true,
     });
