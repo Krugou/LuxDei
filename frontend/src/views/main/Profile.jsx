@@ -60,12 +60,12 @@ const Profile = () => {
             size={240}
           />
           <div className='mt-4 flex justify-between space-x-4'>
-            <button className='bg-gray-700 transition hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'>
+            <button className='button'>
               Edit Profile
             </button>
             <button
               onClick={openDeleteModal}
-              className='bg-gray-700 transition hover:bg-gray-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+              className='button'
             >
               Delete Profile
             </button>
