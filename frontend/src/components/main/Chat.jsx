@@ -161,7 +161,9 @@ const Chat = ({username, countryid}) => {
   const messagesRef = useRef(null);
 
   useEffect(() => {
-    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    if (messagesRef.current) {
+      messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+    }
   }, [messages]);
   return (
     <>
