@@ -31,6 +31,11 @@
                 <mxCell id="20" style="edgeStyle=none;html=1;" edge="1" parent="1" source="6" target="10">
                     <mxGeometry relative="1" as="geometry"/>
                 </mxCell>
+                <mxCell id="26" style="edgeStyle=none;html=1;" edge="1" parent="1" source="6" target="24">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="-260" y="570" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
                 <mxCell id="6" value="videomikseri" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="-230" y="540" width="120" height="60" as="geometry"/>
                 </mxCell>
@@ -66,6 +71,15 @@
                 </mxCell>
                 <mxCell id="15" value="nettisivu" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
                     <mxGeometry x="60" y="100" width="120" height="60" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" style="edgeStyle=none;html=1;" edge="1" parent="1" source="24" target="25">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="24" value="hdmi" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-360" y="530" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="monitori" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="-560" y="540" width="120" height="60" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>
