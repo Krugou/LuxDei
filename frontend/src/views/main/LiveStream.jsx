@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import Chat from '../../components/main/Chat';
-import NoChat from '../../components/main/NoUser';
+import NoUser from '../../components/main/NoUser';
 import VideoPlayer from '../../components/main/VideoPlayer';
 import {UserContext} from '../../contexts/UserContext';
 const LiveStream = () => {
@@ -87,7 +87,7 @@ const LiveStream = () => {
       {user ? (
         <Chat className='' username={user.name} countryid={user.countryid} />
       ) : (
-        <NoChat />
+          <NoUser />
       )}
     </section>
   );
