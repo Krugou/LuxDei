@@ -13,9 +13,8 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PortraitIcon from '@mui/icons-material/Portrait';
 import PropTypes from 'prop-types';
-import React from 'react';
-
-const HeaderListButton = ({name, navigate, lastItem = false}) => {
+import React, {useEffect, useRef, useState} from 'react';
+const HeaderListButton = ({name, navigate, lastItem = false, }) => {
     const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
     const capitalized = capitalize(name);
 
@@ -37,7 +36,7 @@ const HeaderListButton = ({name, navigate, lastItem = false}) => {
                     {name === 'articles' && <ArticleIcon aria-hidden="true" />}
                     {name === 'livestream' && <LiveTvIcon aria-hidden="true" />}
                 </div>
-                <div className="hidden md:block">{capitalized}</div>
+                <div className="hidden md:block" >{capitalized}</div>
             </button>
         </li>
     );
@@ -45,7 +44,7 @@ const HeaderListButton = ({name, navigate, lastItem = false}) => {
 HeaderListButton.propTypes = {
     name: PropTypes.string.isRequired,
     navigate: PropTypes.func.isRequired,
-    lastItem: PropTypes.bool
+    lastItem: PropTypes.bool,
 };
 
 export default HeaderListButton;
