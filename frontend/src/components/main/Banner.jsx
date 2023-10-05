@@ -8,8 +8,8 @@ const Banner = () => {
   // Function to update the current image index
   const changeImage = (nextIndex) => {
     setCurrentImageIndex((prevIndex) => {
-      // Wrap around to the beginning if reaching the end
       if (nextIndex < 0) {
+        // Wrap around to the beginning if reaching the end
         return images.length - 1;
       } else if (nextIndex >= images.length) {
         return 0;
@@ -17,7 +17,6 @@ const Banner = () => {
       return nextIndex;
     });
   };
-
   useEffect(() => {
     // Set an interval to change the image every 10 seconds
     const intervalId = setInterval(
@@ -30,12 +29,7 @@ const Banner = () => {
   }, [currentImageIndex]);
 
   return (
-    <div className={`bg-banner ${currentImageIndex === 0
-      ? 'bg-inspiskuva1'
-      : currentImageIndex === 1
-        ? 'bg-inspiskuva2'
-        : 'bg-inspiskuva3'
-      }`}>
+    <div className={`bg-banner ${images[currentImageIndex]}`}>
       <div className='flex justify-between items-center h-full flex-col'>
         <div className='w-full h-full flex justify-center items-center lg:max-w-3xl sm:max-w-md text-center'>
           <h2 className='text-white text-xl lg:text-4xl'>
