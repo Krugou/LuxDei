@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import { useUser } from '../../hooks/ApiHooks';
@@ -7,9 +7,14 @@ import useForm from '../../hooks/FormHooks';
 const Login = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
-  const { postLogin } = useUser();
+  const { postLogin , user } = useUser();
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const {setUser} = useContext(UserContext);
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
