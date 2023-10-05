@@ -42,7 +42,6 @@ router.post(
       console.error('Login validation errors', errors.array());
       return res.status(400).json({
         message: 'Invalid data',
-        errors: errors.array(),
       });
     }
 
