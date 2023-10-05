@@ -36,6 +36,11 @@ router.put('/users', async (req, res, next) => {
       return;
     }
     console.log(req.body, 'body info put user');
+
+    if (req.body.password) {
+      const salt = bcrypt.genSaltSync(10);
+      req.body.password = bcrypt.hashSync(req.body.password, salt);
+    }
     const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
       new: true,
     });
