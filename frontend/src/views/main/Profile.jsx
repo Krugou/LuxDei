@@ -19,7 +19,7 @@ const Profile = () => {
     name: user ? user.name : '',
     email: user ? user.email : '',
     password: '',
-    country: user ? user.countryid : 'FI',
+    countryid: user ? user.countryid : 'FI',
   });
 
   useEffect(() => {
@@ -65,6 +65,7 @@ const Profile = () => {
       console.log(editData, 'EDIT DATA');
       const updateResponse = await putUser(editData, token);
       console.log(updateResponse);
+      navigate('/logout');
     } catch (error) {
       setAlert(error.message);
     }
