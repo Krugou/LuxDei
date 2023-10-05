@@ -62,6 +62,7 @@ const useUser = () => {
     const options = {
       method: 'PUT',
       headers: {
+        'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token,
       },
       body: JSON.stringify(data),
@@ -83,8 +84,6 @@ const useUser = () => {
     getUserInfoByToken,
     putUser,
     deleteUser,
-
   };
 };
-export {testDatabaseConnection, useUser};
-
+export { testDatabaseConnection, useUser };

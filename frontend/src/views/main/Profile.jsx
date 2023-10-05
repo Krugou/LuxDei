@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { FlagIcon } from 'react-flag-kit';
 import { useNavigate } from 'react-router-dom';
+import ErrorAlert from '../../components/main/ErrorAlert';
 
 import { useUser } from '../../hooks/ApiHooks';
 
@@ -9,11 +10,13 @@ const Profile = () => {
   const { user } = useContext(UserContext);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const { deleteUser, updateUser } = useUser();
+  const [alert, setAlert] = useState('');
+
+  const { deleteUser, putUser } = useUser();
   const navigate = useNavigate();
 
   const [editData, setEditData] = useState({
-    username: user ? user.name : '',
+    name: user ? user.name : '',
     email: user ? user.email : '',
     password: '',
     country: user ? user.countryid : 'FI',
@@ -48,7 +51,7 @@ const Profile = () => {
       console.log(deleteResponse);
       navigate('/logout');
     } catch (error) {
-      console.log(error.message);
+      setAlert(error.message);
     }
     closeDeleteModal();
   };
@@ -56,16 +59,22 @@ const Profile = () => {
   const handleEditProfile = async () => {
     const token = localStorage.getItem('userToken');
     try {
-      const updateResponse = await updateUser(token, editData);
+      for (const [key, value] of Object.entries(editData)) {
+        if (value === '') delete editData[key];
+      }
+      console.log(editData, 'EDIT DATA');
+      const updateResponse = await putUser(editData, token);
       console.log(updateResponse);
     } catch (error) {
-      console.log(error.message);
+      setAlert(error.message);
     }
     closeEditModal();
   };
 
   return (
     <div className='container mx-auto mt-4 p-4 border rounded shadow-lg'>
+      {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
+
       <h1 className='text-2xl font-semibold mb-4'>Profile</h1>
       {user && (
         <div>
@@ -110,9 +119,9 @@ const Profile = () => {
                 </span>
                 <input
                   type='text'
-                  value={editData.username}
+                  value={editData.name}
                   onChange={(e) =>
-                    setEditData({ ...editData, username: e.target.value })
+                    setEditData({ ...editData, name: e.target.value })
                   }
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   aria-label='Username'
