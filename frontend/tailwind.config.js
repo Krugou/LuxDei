@@ -27,6 +27,7 @@ export default {
         'inspiskuva1': `url('./assets/images/inspiskuva1.jpg')`,
         'inspiskuva2': `url('./assets/images/inspiskuva2.jpg')`,
         'inspiskuva3': `url('./assets/images/inspiskuva3.jpg')`,
+        'inspiskuva4': `url('./assets/images/inspiskuva4.jpg')`,
       },
       keyframes: {
         movementRighToLeft: {
