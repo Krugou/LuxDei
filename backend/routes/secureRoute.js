@@ -5,6 +5,7 @@ import { body, validationResult } from 'express-validator';
 import passport from 'passport';
 import httpError from '../utils/errors.js';
 import User from '../models/User.js';
+import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
