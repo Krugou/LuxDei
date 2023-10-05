@@ -66,10 +66,8 @@ router.post(
       // There are errors.
       // Error messages can be returned in an array using `errors.array()`.
       console.error('get_UserProfileLimited validation', errors.array());
-      res.json({
-        message: 'Invalid inputs',
-      });
-      return httpError('Invalid data', 400);
+
+      res.status(400).json({ error: 'Invalid inputs' });
     }
 
     try {
