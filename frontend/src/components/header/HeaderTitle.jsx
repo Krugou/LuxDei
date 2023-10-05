@@ -1,16 +1,29 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {testDatabaseConnection} from '../../hooks/ApiHooks';
+
 const HeaderTitle = () => {
   const navigate = useNavigate();
+  const [databaseOnlineStatus, setDatabaseOnlineStatus] = useState(false);
+
+  const checkDatabaseConnection = async () => {
+    const response = await testDatabaseConnection();
+    setDatabaseOnlineStatus(response);
+  };
+
+  useEffect(() => {
+    checkDatabaseConnection();
+  }, []);
+
   return (
     <>
       <button
         onClick={() => {
           navigate('/');
         }}
-        className=' text-white text-2xl font-bold '
+        className='text-white text-2xl font-bold'
       >
-        Jak Films
+        {databaseOnlineStatus ? 'Jak Films' : 'jakfilms'}
       </button>
     </>
   );
