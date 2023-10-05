@@ -19,6 +19,7 @@ router.get('/', (req, res, next) => {
 });
 router.put('/users', async (req, res, next) => {
   try {
+    let data = req.body;
     if (!req.user) {
       next(httpError('User info not available', 403));
       return;
@@ -35,13 +36,17 @@ router.put('/users', async (req, res, next) => {
       next(httpError('Invalid data', 400));
       return;
     }
-    console.log(req.body, 'body info put user');
 
-    if (req.body.password) {
+    if (data.password) {
       const salt = bcrypt.genSaltSync(10);
-      req.body.password = bcrypt.hashSync(req.body.password, salt);
+      const pwd = bcrypt.hashSync(data.password, salt);
+      data = {
+        ...data,
+        password: pwd,
+      };
     }
-    const updatedUser = await User.findByIdAndUpdate(userId, req.body, {
+
+    const updatedUser = await User.findByIdAndUpdate(userId, data, {
       new: true,
     });
 
