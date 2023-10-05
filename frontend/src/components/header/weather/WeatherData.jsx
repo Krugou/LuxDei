@@ -23,7 +23,7 @@ const WeatherData = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log(coords.lattimantti , coords.lon);
+                // console.log(coords.lat, coords.lon);
                 const response = await fetch(
                     `https://api.met.no/weatherapi/locationforecast/2.0/classic?lat=${coords.lat}&lon=${coords.lon}`
                 );
@@ -48,9 +48,7 @@ const WeatherData = () => {
         fetchData();
     }, []);
 
-    if (!weatherData) {
-        return null;
-    }
+
 
     const {temperatureOutput, windSpeedOutput, windDirectionDegreeReversed, weatherCode} = weatherData;
 
