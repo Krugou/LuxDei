@@ -11,7 +11,22 @@ const doFetch = async (url, options) => {
   }
   return json;
 };
-
+const testDatabaseConnection = async () => {
+  const options = {
+    method: 'GET',
+  };
+  try {
+    const response = await doFetch(baseUrl, options);
+    if (response.status === 200) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    // console.log(error);
+    return false;
+  }
+};
 const useUser = () => {
   const postUser = async (inputs) => {
     const options = {
@@ -72,6 +87,8 @@ const useUser = () => {
     getUserInfoByToken,
     putUser,
     deleteUser,
+    
   };
 };
-export { useUser };
+export {useUser, testDatabaseConnection};
+
