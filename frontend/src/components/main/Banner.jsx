@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+
 
 const Banner = () => {
-  const navigate = useNavigate();
   const images = ['bg-inspiskuva1', 'bg-inspiskuva2', 'bg-inspiskuva3']; // Array of background image class names
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -50,7 +49,12 @@ const Banner = () => {
           </h2>
         </header>
       </div>
+      {/* only for preloading background images */}
+      <img src={'./ assets / images / inspiskuva1.jpg'} alt='' className='hidden preload' />
+      <img src={'./ assets / images / inspiskuva2.jpg'} alt='' className='hidden preload' />
+      <img src={'./ assets / images / inspiskuva3.jpg'} alt='' className='hidden preload' />
     </div>
+
   );
 };
 
