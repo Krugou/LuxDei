@@ -1,17 +1,22 @@
-import React, { useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useUser } from '../../hooks/ApiHooks';
+import React, {useContext, useEffect, useRef, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {UserContext} from '../../contexts/UserContext';
+import {useUser} from '../../hooks/ApiHooks';
 
 const Register = () => {
-  const { postUser } = useUser();
+  const {postUser} = useUser();
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-
+  const {user} = useContext(UserContext);
   const usernameRef = useRef('');
   const emailRef = useRef('');
   const passwordRef = useRef('');
   const countryRef = useRef('fi'); // Set the initial value for the select
-
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
@@ -120,7 +125,7 @@ const Register = () => {
           <option value='SE'>Sweden</option>
           <option value='IS'>Iceland</option>
           <option value='EE'>Estonia</option>
-          
+
         </select>
       </label>
       <button
