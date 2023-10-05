@@ -21,7 +21,7 @@ const testDatabaseConnection = async () => {
     return true;
   } catch (error) {
     console.log(error);
-    // return false;
+    return false;
   }
 };
 const useUser = () => {
