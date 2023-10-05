@@ -14,6 +14,7 @@ export default {
         'police-car': 'movementRighToLeft',
         'flash': 'flash 1s infinite',
         'robber': 'secondmovementRighToLeft',
+        'spinSlightly': 'spinSlightly 4s infinite',
       },
       colors: {
         example: '#464660',
@@ -41,7 +42,12 @@ export default {
         flash: {
           '0%': {opacity: 1},
           '100%': {opacity: 0}
-        }
+        },
+        spinSlightly: {
+          '0%': {transform: 'rotate(5deg)'},
+          '50%': {transform: 'rotate(-15deg)'},
+          '100%': {transform: 'rotate(15deg)'},
+        },
       }
 
     },
