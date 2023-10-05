@@ -35,38 +35,38 @@ const LiveStream = () => {
     });
   };
   // only for testing
-  const generateUsername = () => {
-    const adjectives = [
-      'happy',
-      'sad',
-      'angry',
-      'excited',
-      'sleepy',
-      'hungry',
-      'thirsty',
-      'silly',
-      'goofy',
-      'crazy',
-    ];
-    const nouns = [
-      'cat',
-      'dog',
-      'bird',
-      'fish',
-      'hamster',
-      'turtle',
-      'lion',
-      'tiger',
-      'bear',
-      'elephant',
-    ];
-    const randomAdjective =
-      adjectives[Math.floor(Math.random() * adjectives.length)];
-    const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
-    return `${randomAdjective}-${randomNoun}`;
-  };
-  const countries = ['FI', 'DK', 'NO', 'SE', 'IS', 'EE'];
-  const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+  // const generateUsername = () => {
+  //   const adjectives = [
+  //     'happy',
+  //     'sad',
+  //     'angry',
+  //     'excited',
+  //     'sleepy',
+  //     'hungry',
+  //     'thirsty',
+  //     'silly',
+  //     'goofy',
+  //     'crazy',
+  //   ];
+  //   const nouns = [
+  //     'cat',
+  //     'dog',
+  //     'bird',
+  //     'fish',
+  //     'hamster',
+  //     'turtle',
+  //     'lion',
+  //     'tiger',
+  //     'bear',
+  //     'elephant',
+  //   ];
+  //   const randomAdjective =
+  //     adjectives[Math.floor(Math.random() * adjectives.length)];
+  //   const randomNoun = nouns[Math.floor(Math.random() * nouns.length)];
+  //   return `${randomAdjective}-${randomNoun}`;
+  // };
+  // const countries = ['FI', 'DK', 'NO', 'SE', 'IS', 'EE'];
+  // const randomCountry = countries[Math.floor(Math.random() * countries.length)];
 
   return (
     <section className='border rounded flex flex-col md:flex-row justify-center items-center md:items-start p-2 '>
