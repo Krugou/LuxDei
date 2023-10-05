@@ -10,10 +10,10 @@ const Logout = () => {
   useEffect(() => {
     setUser(null);
     localStorage.removeItem('userToken');
-    setMessage('You have been logged out.');
+    setMessage('Logging out...');
     setTimeout(() => {
       navigate('/');
-    }, 3000);
+    }, 2000);
   }, [setUser, navigate]);
 
   return (
