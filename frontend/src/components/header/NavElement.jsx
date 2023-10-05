@@ -6,6 +6,7 @@ import HeaderListButton from './buttons/HeaderListButton';
 import HeaderTitle from './HeaderTitle';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import WeatherData from './weather/WeatherData';
 const NavElement = () => {
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -38,7 +39,12 @@ const NavElement = () => {
   return (
     <nav className='p-4 bg-gray-700 sticky top-0 w-full z-10'>
       <div className='container mx-auto flex justify-between items-center relative'>
-       <HeaderTitle />
+        <HeaderTitle />
+        {isNavOpen ? (
+          ''
+        ) : (
+          <WeatherData />
+        )}
         <ul id='nav-links' className={` md:flex flex-row ${isNavOpen ? 'flex' : 'hidden '}`}>
           {user ? (
             <>
