@@ -24,7 +24,7 @@ router.put('/users', async (req, res, next) => {
       return;
     }
 
-    const userId = req.user._id; // Extract userId from the request params
+    const userId = req.user._id; // Extract userId from the request user info
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
