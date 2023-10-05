@@ -17,6 +17,7 @@ const testDatabaseConnection = async () => {
   };
   try {
     const response = await doFetch(baseUrl + 'users', options);
+    console.log(response);
     return response.status === 200;
   } catch (error) {
     // console.log(error);
