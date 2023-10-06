@@ -10,6 +10,7 @@ const FooterList = () => {
                 <FooterListButton name="about" />
                 <FooterListButton name="articles" />
                 <FooterListButton name="livestream" />
+                <FooterListButton name="archive" />
 
             </ul>
 
