@@ -1,15 +1,15 @@
 // app.js
 
-import { config } from 'dotenv';
+import {config} from 'dotenv';
 config();
 
 import express from 'express';
-import { createServer } from 'http';
+import {createServer} from 'http';
 import mongoose from 'mongoose';
-import userRoutes from './routes/userRoutes.js';
+import {Server} from 'socket.io';
 import authRoute from './routes/authRoute.js';
 import secureRoute from './routes/secureRoute.js';
-import {Server} from 'socket.io';
+import userRoutes from './routes/userRoutes.js';
 
 import passport from './utils/pass.js';
 
@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 
 // Middleware for JSON parsing
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({extended: true}));
 app.use(passport.initialize());
 
 // Serve static files
@@ -61,27 +61,30 @@ app.use('/users', userRoutes);
 app.use('/auth', authRoute);
 app.use(
   '/secure',
-  passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', {session: false}),
   secureRoute
 );
-let viewCount = 0;
+let totalViewers = 0;
+let liveViewers = 0;
 io.on('connection', (socket) => {
 
-  
+  socket.on('NewLiveViewer', (data) => {
+    console.log('NewLiveViewer', data);
+    liveViewers++;
+    totalViewers++;
+    io.emit('LiveViewers', liveViewers);
+    io.emit('TotalViewers', totalViewers);
+  });
 
 
   console.log(socket.id, ' has entered the building');
-  const ip = socket.request.connection.remoteAddress;
+  // const ip = socket.request.connection.remoteAddress;
 
-
-  console.log(`Client connected with IP address: ${ip}`);
-
-
+  // console.log(`Client connected with IP address: ${ip}`);
   socket.on('disconnect', () => {
     console.log(socket.id, ' has left the building');
-    
-    
-
+    liveViewers--;
+    io.emit('LiveViewers', liveViewers);
   });
   socket.on('join room', (room) => {
     console.log(socket.id, ' joined room: ', room);
