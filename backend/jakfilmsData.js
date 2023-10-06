@@ -83,7 +83,9 @@ io.on('connection', (socket) => {
   // console.log(`Client connected with IP address: ${ip}`);
   socket.on('disconnect', () => {
     console.log(socket.id, ' has left the building');
-    liveViewers--;
+    if (liveViewers > 0) {
+      liveViewers--;
+    }
     io.emit('LiveViewers', liveViewers);
   });
   socket.on('join room', (room) => {
