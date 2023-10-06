@@ -53,7 +53,7 @@ router.post(
 
     // Validate username: Minimum length 3, alphanumeric characters only
     body('name')
-      .isLength({ min: 3, max: 14 })
+      .isLength({ min: 3, max: 15 })
       .matches(/^[a-zA-Z0-9]+$/),
 
     body('countryid').escape(),
