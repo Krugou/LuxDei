@@ -41,7 +41,7 @@ export const VideoPlayer = (props) => {
         setTotalViewCount(data);
       });
     }
-  }
+  }, [socket]
   );
 
   useEffect(() => {
