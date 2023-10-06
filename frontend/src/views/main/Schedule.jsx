@@ -1,67 +1,18 @@
-import React from 'react';
-
+import React, {useEffect, useState} from 'react';
+import {getSchedule} from '../../hooks/ApiHooks';
 const Schedule = () => {
-    const scheduleData = [
-        {
-            "day": "Day 1 - Opening Night",
-            "schedule": [
-                {
-                    "time": "5:00 PM",
-                    "title": "Red Carpet Arrival"
-                },
-                {
-                    "time": "7:00 PM",
-                    "title": "Opening Film: \"The Grand Premiere\""
-                },
-                {
-                    "time": "9:30 PM",
-                    "title": "Welcome Reception"
-                }
-            ]
-        },
-        {
-            "day": "Day 2 - Spotlight Films",
-            "schedule": [
-                {
-                    "time": "10:00 AM",
-                    "title": "\"Cinematic Wonders\" Documentary"
-                },
-                {
-                    "time": "1:30 PM",
-                    "title": "\"A Journey Through Time\" Panel Discussion"
-                },
-                {
-                    "time": "4:00 PM",
-                    "title": "\"Director's Vision\" Q&A Session"
-                },
-                {
-                    "time": "7:30 PM",
-                    "title": "Spotlight Film: \"The Masterpiece\""
-                }
-            ]
-        },
-        {
-            "day": "Day 3 - Closing Day",
-            "schedule": [
-                {
-                    "time": "11:00 AM",
-                    "title": "Film Workshop: \"Behind the Scenes\""
-                },
-                {
-                    "time": "2:00 PM",
-                    "title": "Award Ceremony: \"Best of the Fest\""
-                },
-                {
-                    "time": "5:30 PM",
-                    "title": "Closing Film: \"The Farewell\""
-                },
-                {
-                    "time": "8:00 PM",
-                    "title": "Farewell Party"
-                }
-            ]
-        }
-    ];
+    const [scheduleData, setScheduleData] = useState([]);
+    useEffect(() => {
+        const fetchSchedule = async () => {
+            try {
+                const data = await getSchedule();
+                setScheduleData(data);
+            } catch (e) {
+                console.error(e);
+            }
+        };
+        fetchSchedule();
+    }, []);
     return (
         <div className='bg-white container mx-auto p-6 md:p-10 m-4'>
             <h1 className="text-2xl md:text-4xl font-bold ">Festival Schedule</h1>
