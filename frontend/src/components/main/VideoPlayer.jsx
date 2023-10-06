@@ -72,16 +72,8 @@ export const VideoPlayer = (props) => {
 
       player.autoplay(options.autoplay);
       player.src(options.sources);
-
-      // Dispose the Video.js player when unmounting
-      return () => {
-        if (playerRef.current && !playerRef.current.isDisposed()) {
-          playerRef.current.dispose();
-          playerRef.current = null;
-        }
-      };
     }
-  });
+  }, [options, onReady]);
 
   return (
     <>
