@@ -89,12 +89,14 @@ export const VideoPlayer = (props) => {
               height: 100%;
             }
           `}</style>
-          <div className="absolute bottom-12 right-0 bg-gray-800 z-10 text-white p-2 opacity-20 hover:opacity-80 transition-opacity duration-300 bg-transparent">
-            <div className="text-lg font-bold">Viewers: {liveViewerCount}</div>
-            <div className="text-sm">Viewed: {totalViewerCount}</div>
-          </div>
+          {liveViewerCount > 0 && totalViewerCount > 0 && (
+            <div className="absolute bottom-12 right-0 bg-gray-800 z-10 text-white p-2 opacity-20 hover:opacity-80 transition-opacity duration-300 bg-transparent">
+              <div className="text-lg font-bold">Viewers: {liveViewerCount}</div>
+              <div className="text-sm">Viewed: {totalViewerCount}</div>
+            </div>
+          )}
         </div>
-        
+
       </div>
     </>
   );
