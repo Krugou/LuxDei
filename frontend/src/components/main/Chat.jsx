@@ -16,8 +16,8 @@ const Chat = ({username, countryid}) => {
   useEffect(() => {
     try {
       // Create a new socket connection when the component mounts
-      const newSocket = io('/', {
-        path: '/backend/socket.io',
+      const newSocket = io('/backend', {
+        path: '/socket.io',
         transports: ['websocket'],
       });
       // const newSocket = io('http://localhost:3001/');
