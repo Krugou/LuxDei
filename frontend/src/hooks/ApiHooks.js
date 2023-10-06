@@ -140,22 +140,22 @@ const getFestivalMovies = async () => {
     method: 'GET',
   }; const fakeMovies = [
     {
-      id: 1, title: 'The Shawshank Redemption',
+      id: 1, title: 'The Shawshank Redemption', img: 'https://mymodernmet.com/wp/wp-content/uploads/2023/06/royal-roys-succession-wes-anderson-1-2.jpg',
       runningTime: 8520000, // 2 hours and 22 minutes in milliseconds
       description: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.'
     },
     {
-      id: 2, title: 'The Godfather',
+      id: 2, title: 'The Godfather', img: 'https://mymodernmet.com/wp/wp-content/uploads/2023/06/royal-roys-succession-wes-anderson-1-2.jpg',
       runningTime: 10500000, // 2 hours and 55 minutes in milliseconds
       description: 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.'
     },
     {
-      id: 3, title: 'The Godfather: Part II',
+      id: 3, title: 'The Godfather: Part II', img: 'https://mymodernmet.com/wp/wp-content/uploads/2023/06/royal-roys-succession-wes-anderson-1-2.jpg',
       runningTime: 12120000, // 3 hours and 22 minutes in milliseconds
       description: 'The early life and career of Vito Corleone in 1920s New York City are portrayed, while his son, Michael, expands and tightens his grip on the family crime syndicate.'
     },
     {
-      id: 4, title: 'The Dark Knight',
+      id: 4, title: 'The Dark Knight', img: 'https://mymodernmet.com/wp/wp-content/uploads/2023/06/royal-roys-succession-wes-anderson-1-2.jpg',
       runningTime: 9120000, // 2 hours and 32 minutes in milliseconds
       description: 'When the menace known as The Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham. Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.'
     },
