@@ -13,18 +13,30 @@ const lastMessages = {};
 const port = 3001;
 const maxSavedMessages = 10;
 const startTime = new Date();
+
 console.log(' Backend chat/frontend server start time: ' + startTime.toLocaleString());
 app.use(express.static('jakfilms'));
 app.get('*', (req, res) => {
   res.sendFile('index.html', {root: 'jakfilms'});
 });
+let viewCount = 0;
 io.on('connection', (socket) => {
+
+      viewCount++;
+
+      io.emit('updateViewerCount', viewCount);
   console.log(socket.id, ' has entered the building');
   const ip = socket.request.connection.remoteAddress;
+
   // console.log(`Client connected with IP address: ${ip}`);
+
 
   socket.on('disconnect', () => {
     console.log(socket.id, ' has left the building');
+    viewCount--;
+
+    io.emit('updateViewerCount', viewCount);
+
   });
   socket.on('join room', (room) => {
     // console.log(socket.id, ' joined room: ', room);
@@ -102,17 +114,4 @@ http.listen(port, () => {
   );
 });
 
-let viewCount = 0;
 
-io.on('connection', (socket) => {
-  socket.emit('viewCount', viewCount);
-
-  socket.on('incrementViewCount', () => {
-    viewCount++;
-    io.emit('viewCount', viewCount);
-  });
-});
-
-server.listen(3001, () => {
-  console.log('WebSocket server is running on port 3001');
-});
