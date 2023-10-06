@@ -4,7 +4,7 @@ import {testDatabaseConnection} from '../../hooks/ApiHooks';
 
 const HeaderTitle = () => {
   const navigate = useNavigate();
-  const [databaseOnlineStatus, setDatabaseOnlineStatus] = useState(false);
+  const [databaseOnlineStatus, setDatabaseOnlineStatus] = useState(true);
 
   const checkDatabaseConnection = async () => {
     const response = await testDatabaseConnection();
