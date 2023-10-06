@@ -13,6 +13,7 @@ const Chat = ({username, countryid}) => {
   const [isPulsing, setIsPulsing] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [typingUsers, setTypingUsers] = useState([]);
+  const [userCount, setUserCount] = useState(0);
   useEffect(() => {
     try {
       // Create a new socket connection when the component mounts
@@ -159,6 +160,20 @@ const Chat = ({username, countryid}) => {
       console.error('Error in useEffect:', error);
     }
   }, [socket, messages, room]);
+  useEffect(() => {
+    try {
+      if (socket) {
+        socket.on('user count', (count) => {
+          setUserCount(count);
+        });
+        return () => {
+          socket.off('user count');
+        };
+      }
+    } catch (error) {
+      console.error('Error in useEffect:', error);
+    }
+  }, [socket]);
   const messagesRef = useRef(null);
 
   useEffect(() => {
@@ -231,6 +246,7 @@ const Chat = ({username, countryid}) => {
         >
           {/* Room selection dropdown */}
           <div className='flex  p-4 flex-col  justify-center items-center'>
+            <span className='mr-2'>Users: {userCount}</span>
             <select
               title='selector'
               name='room'
