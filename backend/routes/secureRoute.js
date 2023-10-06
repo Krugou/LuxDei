@@ -79,6 +79,7 @@ router.put(
         const pwd = bcrypt.hashSync(data.password, salt);
 
         delete data.password;
+        if (data.userrole) delete data.userrole; // makes it so that users can't make themselves admin
         data = {
           ...data,
           password: pwd,
