@@ -127,7 +127,7 @@ const Profile = () => {
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   aria-label='Username'
                   autoComplete='username'
-                  placeholder='atleast 3 char'
+                  placeholder='atleast 3 char max 15'
                 />
               </label>
               <label className='flex flex-col items-start mt-4'>

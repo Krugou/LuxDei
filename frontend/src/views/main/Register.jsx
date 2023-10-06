@@ -108,7 +108,7 @@ const Register = () => {
             aria-label='Username'
             autoComplete='username'
             required
-            placeholder='atleast 3 char'
+            placeholder='atleast 3 char max 15'
           />
           {/* Display the error message */}
           {errorMessage && <p className='text-orange-500'>{errorMessage}</p>}
