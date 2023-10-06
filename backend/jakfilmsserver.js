@@ -22,13 +22,13 @@ app.get('*', (req, res) => {
 let viewCount = 0;
 io.on('connection', (socket) => {
 
-  console.log(socket.id, ' has entered the building');
+      viewCount++;
+      io.emit('updateViewCount', viewCount);
+
+
+      console.log(socket.id, ' has entered the building');
   const ip = socket.request.connection.remoteAddress;
 
-      socket.on('userJoined', () => {
-        viewCount++;
-        io.emit('updateViewCount', viewCount);
-      });
 
   // console.log(`Client connected with IP address: ${ip}`);
 
@@ -36,8 +36,7 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log(socket.id, ' has left the building');
     viewCount--;
-
-    io.emit('updateViewerCount', viewCount);
+    io.emit('updateViewCount', viewCount);
 
   });
   socket.on('join room', (room) => {

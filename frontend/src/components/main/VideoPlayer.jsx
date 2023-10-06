@@ -1,4 +1,3 @@
-// src/components/VideoPlayer.js
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import videojs from 'video.js';
@@ -9,16 +8,24 @@ import io from 'socket.io-client';
 export const VideoPlayer = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
-  const [viewCount, setViewCount] = useState(0);
+  const [viewCount, setViewCount] = useState(1); // Initialize view count to 1
   const { options, onReady } = props;
 
-  React.useEffect(() => {
-    // Establish a WebSocket connection to the server
+  useEffect(() => {
     const socket = io('http://localhost:3001');
 
-    // Notify the server that a user joined and update the view count
+    // Notify the server that a user joined
     socket.emit('userJoined');
-    setViewCount((prevCount) => prevCount + 1); // Increment count by 1
+
+    // Listen for WebSocket updates to the view count
+    socket.on('updateViewCount', (count) => {
+      setViewCount(count);
+    });
+
+    // Listen for user leaves and decrement the view count
+    socket.on('userLeft', () => {
+      setViewCount((prevCount) => Math.max(0, prevCount - 1));
+    });
 
     if (!playerRef.current) {
       const videoElement = document.createElement('video-js');
@@ -30,31 +37,28 @@ export const VideoPlayer = (props) => {
         onReady && onReady(player);
       }));
 
-      // Listen for WebSocket updates to the view count
-      socket.on('updateViewCount', (count) => {
-        setViewCount(count);
-      });
+      // Dispose the Video.js player when unmounting
+      return () => {
+        if (playerRef.current && !playerRef.current.isDisposed()) {
+          playerRef.current.dispose();
+          playerRef.current = null;
+        }
+      };
     } else {
       const player = playerRef.current;
 
       player.autoplay(options.autoplay);
       player.src(options.sources);
 
-      // Listen for WebSocket updates to the view count
-      socket.on('updateViewCount', (count) => {
-        setViewCount(count);
-      });
+      // Dispose the Video.js player when unmounting
+      return () => {
+        if (playerRef.current && !playerRef.current.isDisposed()) {
+          playerRef.current.dispose();
+          playerRef.current = null;
+        }
+      };
     }
-
-    // Dispose the Video.js player and close the WebSocket connection when unmounting
-    return () => {
-      if (playerRef.current && !playerRef.current.isDisposed()) {
-        playerRef.current.dispose();
-        playerRef.current = null;
-      }
-      socket.disconnect(); // Close the WebSocket connection
-    };
-  }, [options, videoRef, onReady]);
+  }, [options, onReady]);
 
   return (
       <>
@@ -67,7 +71,7 @@ export const VideoPlayer = (props) => {
             }
           `}</style>
           </div>
-          <div>View Count: {viewCount}</div>
+          <div>Live View Count: {viewCount}</div>
         </div>
       </>
   );
