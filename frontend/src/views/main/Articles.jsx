@@ -43,7 +43,10 @@ const Articles = () => {
 
 
   return (
-    <><ArticleViewer articles={articles.slice(-3)} /></>
+    <div className='bg-gray-100 p-8 mx-auto px-4 sm:px-6 lg:px-8'>
+      <h1 className='text-3xl font-bold text-center mt-8 mb-4'>Articles</h1>
+      <ArticleViewer articles={articles.slice(-3)} />
+    </div>
   );
 };
 
