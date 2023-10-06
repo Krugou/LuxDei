@@ -164,7 +164,7 @@ const Chat = ({username, countryid}) => {
     try {
       if (socket) {
         socket.on('user count', (count) => {
-          console.log('user count: ', count)
+          // console.log('user count: ', count)
           setUserCount(count);
         });
         return () => {
@@ -247,7 +247,7 @@ const Chat = ({username, countryid}) => {
         >
           {/* Room selection dropdown */}
           <div className='flex  p-4 flex-col  justify-center items-center'>
-            <span className='mr-2'>Users: {userCount}</span>
+            <span className='mr-2'>Users in current room: {userCount}</span>
             <select
               title='selector'
               name='room'
