@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 
-import '@videojs/themes/dist/city/index.css';
+// import '@videojs/themes/dist/city/index.css';
 export const VideoPlayer = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
@@ -61,6 +61,8 @@ export const VideoPlayer = (props) => {
         const countText = `Live Viewers: ${liveViewerCount} | Total Viewers: ${totalViewerCount}`;
         const cue = new VTTCue(0, 0, countText);
         countTrack.addCue(cue);
+        console.log('updateCount', countText)
+        
       };
       updateCount();
       socket.on('LiveViewers', updateCount);
