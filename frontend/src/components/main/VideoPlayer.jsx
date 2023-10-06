@@ -1,10 +1,10 @@
-import '@videojs/themes/dist/city/index.css';
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 import io from 'socket.io-client';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 
+import '@videojs/themes/dist/city/index.css';
 export const VideoPlayer = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
