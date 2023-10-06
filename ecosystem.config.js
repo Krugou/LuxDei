@@ -1,14 +1,14 @@
 module.exports = {
   apps : [{
     name: "FileServer",
-    script: "./jakfilmsserver.js",
+    script: "./backend/jakfilmsserver.js",
     watch: true,
     watch_delay: 1000,
     min_uptime: 10000,
   },
   {
     name   : "ChatDatabase",
-    script: "./jakfilmsData.js",
+    script: "./backend/jakfilmsData.js",
     watch: true,
     watch_delay: 1000,
     min_uptime: 10000,
