@@ -101,3 +101,18 @@ http.listen(port, () => {
     '/index.html '
   );
 });
+
+let viewCount = 0;
+
+io.on('connection', (socket) => {
+  socket.emit('viewCount', viewCount);
+
+  socket.on('incrementViewCount', () => {
+    viewCount++;
+    io.emit('viewCount', viewCount);
+  });
+});
+
+server.listen(3001, () => {
+  console.log('WebSocket server is running on port 3001');
+});

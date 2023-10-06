@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NodeCG Bundle Example</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex; /* Use flexbox for centering */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            height: 100vh; /* Make the body fill the viewport height */
+            margin: 0; /* Remove default margin */
+        }
+
+        #content {
+            text-align: center;
+            animation: fadeIn 2s; /* Add a fade-in animation */
+        }
+
+        h1 {
+            font-size: 50px;
+        }
+
+        p {
+            font-size: 30px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .scaleAnimation {
+            animation: scaleIn 1s;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="content">
+    <h1 id="header">Header Text</h1>
+    <p id="subtext">Smaller Text Below</p>
+</div>
+<!-- Include any JavaScript libraries you need here -->
+<script src="bundle.js"></script>
+</body>
+</html>
