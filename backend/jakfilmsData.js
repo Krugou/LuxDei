@@ -95,7 +95,7 @@ io.on('connection', (socket) => {
       .sort({createdAt: -1})
       .limit(maxSavedMessages)
       .then((messages) => {
-        messages.reverse().forEach((message) => {
+        messages.forEach((message) => {
           socket.emit('chat message', {
             countryid: message.countryid,
             username: message.username,
