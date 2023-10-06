@@ -12,12 +12,12 @@ import secureRoute from './routes/secureRoute.js';
 import userRoutes from './routes/userRoutes.js';
 
 import passport from './utils/pass.js';
+import ChatMessage from './models/ChatMessage.js';
 
 const connectPort = 3002;
 const app = express();
 const http = createServer(app);
 const io = new Server(http);
-const lastMessages = {};
 const maxSavedMessages = 10;
 const startTime = new Date();
 console.log(
@@ -91,20 +91,20 @@ io.on('connection', (socket) => {
   socket.on('join room', (room) => {
     // console.log(socket.id, ' joined room: ', room);
     socket.join(room);
-    if (lastMessages) {
-      for (const room in lastMessages) {
-        if (lastMessages.hasOwnProperty(room)) {
-          lastMessages[room].forEach((message) => {
-            socket.emit('chat message', {
-              message: message.message,
-              username: message.username,
-              room: message.room,
-              countryid: message.countryid,
-            });
+    ChatMessage.find({room: room})
+      .sort({createdAt: -1})
+      .limit(maxSavedMessages)
+      .then((messages) => {
+        messages.reverse().forEach((message) => {
+          socket.emit('chat message', {
+            countryid: message.countryid,
+            username: message.username,
+            message: message.message,
+            room: message.room,
           });
-        }
-      }
-    }
+        });
+      })
+      .catch((err) => console.error('Error retrieving chat messages from MongoDB', err));
   });
   socket.on('leave room', (room) => {
     // console.log(socket.id, ' left room: ', room);
@@ -112,22 +112,25 @@ io.on('connection', (socket) => {
   });
   socket.on('chat message', (data) => {
     // console.log('chat message received:', data);
-    if (!lastMessages[data.room]) {
-      lastMessages[data.room] = [];
-    }
-    if (lastMessages[data.room].length > maxSavedMessages) {
-      lastMessages[data.room].shift();
-    }
-    lastMessages[data.room].push(data);
 
-    // console.log('data.room: ', data.room);
-    // console.log('data.countryid: ', data.countryid);
-    io.to(data.room).emit('chat message', {
+    // Save chat message to MongoDB
+    const chatMessage = new ChatMessage({
       countryid: data.countryid,
       username: data.username,
       message: data.message,
       room: data.room,
     });
+    chatMessage.save()
+      .then(() => {
+        console.log('Chat message saved to MongoDB');
+        io.to(data.room).emit('chat message', {
+          countryid: data.countryid,
+          username: data.username,
+          message: data.message,
+          room: data.room,
+        });
+      })
+      .catch((err) => console.error('Error saving chat message to MongoDB', err));
   });
   socket.on('typing', ({username, room}) => {
     // console.log('typing: ', username, room);
@@ -140,20 +143,25 @@ io.on('connection', (socket) => {
   });
   socket.on('get messages', (room) => {
     // console.log('get messages for room: ', room);
-    if (lastMessages[room]) {
-      const latestMessage = lastMessages[room][lastMessages[room].length - 1];
-      console.log('latest message: ', latestMessage);
-      socket.broadcast.to(room).emit("typing", {username});
-      socket.emit('chat message', {
-        countryid: latestMessage.countryid,
-        username: latestMessage.username,
-        message: latestMessage.message,
-        room: latestMessage.room,
-      });
-    }
+    ChatMessage.find({room: room})
+      .sort({createdAt: -1})
+      .limit(1)
+      .then((messages) => {
+        if (messages.length > 0) {
+          const latestMessage = messages[0];
+          console.log('latest message: ', latestMessage);
+          socket.broadcast.to(room).emit("typing", {username});
+          socket.emit('chat message', {
+            countryid: latestMessage.countryid,
+            username: latestMessage.username,
+            message: latestMessage.message,
+            room: latestMessage.room,
+          });
+        }
+      })
+      .catch((err) => console.error('Error retrieving chat messages from MongoDB', err));
   });
-}
-);
+});
 http.listen(connectPort, () => {
   console.log('Server started on port ' + connectPort);
 });
