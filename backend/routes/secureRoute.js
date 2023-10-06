@@ -21,21 +21,21 @@ router.get('/', (req, res, next) => {
 router.put(
   '/users',
   [
-    // Validate email
+    // Validate email, optional
     body('email').isEmail().optional({ checkFalsy: true }),
 
-    // Validate password: At least 8 characters with at least one uppercase letter (Unicode)
+    // Validate password: At least 8 characters with at least one uppercase letter (Unicode) optional
     body('password')
       .matches(/(?=.*\p{Lu}).{8,}/u)
       .optional({ checkFalsy: true }),
 
-    // Validate username: Minimum length 3, alphanumeric characters only
+    // Validate username: Minimum length 3, alphanumeric characters only optional
     body('name')
       .isLength({ min: 3 })
       .matches(/^[a-zA-Z0-9]+$/)
       .optional({ checkFalsy: true }),
 
-    body('countryid').escape().optional({ checkFalsy: true }),
+    body('countryid').escape().optional({ checkFalsy: true }), // optional input
   ],
   async (req, res, next) => {
     // Extract the validation errors from a request.
