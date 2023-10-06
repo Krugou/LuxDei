@@ -7,7 +7,7 @@
 		"dev": "vite --port 8080 --open  --host",
 		"devBrutal": "vite --port 8080 --open -d --force --host",
 		"devDebug": "vite --port 8080 --open -d --host",
-		"build": "vite build --outDir ../backend/jakfilms --emptyOutDir --minify --manifest  --sourcemap --base / ",
+		"build": "vite build --outDir ../backend/jakfilms --minify --manifest  --sourcemap --base / ",
 		"buildWatch":"vite build --outDir ../backend/jakfilms --emptyOutDir --minify --manifest  --sourcemap --base / --watch",
 		"lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
