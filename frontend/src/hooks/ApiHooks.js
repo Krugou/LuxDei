@@ -3,8 +3,8 @@ const baseUrl = 'https://jakfilms.northeurope.cloudapp.azure.com/backend/';
 const doFetch = async (url, options) => {
   const response = await fetch(url, options);
   const json = await response.json();
-  console.log(json, 'dofetch json');
-  console.log(response, 'dofetch response');
+  // console.log(json, 'dofetch json');
+  // console.log(response, 'dofetch response');
   if (!response.ok) {
     const message = json.error ? `${json.error}` : json.message;
     throw new Error(message || response.statusText);
@@ -274,7 +274,7 @@ const useUser = () => {
   };
 
   const getUserInfoByToken = async (token) => {
-    console.log(token);
+    // console.log(token);
     const options = {
       method: 'GET',
       headers: {
