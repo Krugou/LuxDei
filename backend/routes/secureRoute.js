@@ -18,58 +18,76 @@ router.get('/', (req, res, next) => {
     return;
   }
 });
-router.put('/users', async (req, res, next) => {
-  try {
-    let data = req.body;
-    if (!req.user) {
-      next(httpError('User info not available', 403));
-      return;
-    }
-    // Check if username is already taken:
-    const existingUser = await User.findOne({ name: data.name });
-    if (existingUser) {
-      return res.status(404).json({ message: 'Username already exists' });
-    }
+router.put(
+  '/users',
+  [
+    // Validate email
+    body('email').isEmail().optional({ checkFalsy: true }),
 
-    const userId = req.user._id; // Extract userId from the request user info
+    // Validate password: At least 8 characters with at least one uppercase letter (Unicode)
+    body('password')
+      .matches(/(?=.*\p{Lu}).{8,}/u)
+      .optional({ checkFalsy: true }),
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      console.error('put users validation', errors.array());
-      res.json({
-        message: 'Invalid inputs',
+    // Validate username: Minimum length 3, alphanumeric characters only
+    body('name')
+      .isLength({ min: 3 })
+      .matches(/^[a-zA-Z0-9]+$/)
+      .optional({ checkFalsy: true }),
+  ],
+  async (req, res, next) => {
+    try {
+      let data = req.body;
+      if (!req.user) {
+        next(httpError('User info not available', 403));
+        return;
+      }
+      // Check if username is already taken:
+      const existingUser = await User.findOne({ name: data.name });
+      if (existingUser) {
+        return res.status(404).json({ message: 'Username already exists' });
+      }
+
+      const userId = req.user._id; // Extract userId from the request user info
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        console.error('put users validation', errors.array());
+        res.json({
+          message: 'Invalid inputs',
+        });
+        next(httpError('Invalid data', 400));
+        return;
+      }
+
+      if (data.password) {
+        const salt = bcrypt.genSaltSync(10);
+        const pwd = bcrypt.hashSync(data.password, salt);
+
+        delete data.password;
+        data = {
+          ...data,
+          password: pwd,
+        };
+      }
+
+      console.log(data, 'DATA');
+      const updatedUser = await User.findByIdAndUpdate(userId, data, {
+        new: true,
       });
-      next(httpError('Invalid data', 400));
+
+      if (!updatedUser) {
+        return res.status(404).json({ message: 'User not found' });
+      }
+
+      return res.status(200).json(updatedUser);
+    } catch (error) {
+      console.error('Error modifying user', error);
+      next(httpError('Internal server error', 500));
       return;
     }
-
-    if (data.password) {
-      const salt = bcrypt.genSaltSync(10);
-      const pwd = bcrypt.hashSync(data.password, salt);
-
-      delete data.password;
-      data = {
-        ...data,
-        password: pwd,
-      };
-    }
-
-    console.log(data, 'DATA');
-    const updatedUser = await User.findByIdAndUpdate(userId, data, {
-      new: true,
-    });
-
-    if (!updatedUser) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    return res.status(200).json(updatedUser);
-  } catch (error) {
-    console.error('Error modifying user', error);
-    next(httpError('Internal server error', 500));
-    return;
   }
-});
+);
 
 router.delete('/users', async (req, res, next) => {
   try {
