@@ -167,7 +167,7 @@ socket.on('get messages', (room) => {
     })
     .catch((err) => console.error('Error retrieving chat messages from MongoDB', err));
 });
-});
+
 http.listen(connectPort, () => {
   console.log('Server started on port ' + connectPort);
 });
