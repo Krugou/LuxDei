@@ -1,16 +1,16 @@
+import '@videojs/themes/dist/city/index.css';
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
+import io from 'socket.io-client';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import '@videojs/themes/dist/city/index.css';
-import io from 'socket.io-client';
 
 export const VideoPlayer = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
-  const [viewCount, setViewCount] = useState(1); // Initialize view count to 1
-  const { options, onReady } = props;
-  const [room] = useState('room1');
+  const [liveViewerCount, setViewCount] = useState(0);
+  const [totalViewerCount, setTotalViewCount] = useState(0);
+  const {options, onReady} = props;
   const [socket, setSocket] = useState(null);
   useEffect(() => {
     try {
@@ -32,9 +32,17 @@ export const VideoPlayer = (props) => {
     }
   }, []);
 
-
-
-
+  useEffect(() => {
+    if (socket) {
+      socket.on('LiveViewers', (data) => {
+        setViewCount(data);
+      });
+      socket.on('TotalViewers', (data) => {
+        setTotalViewCount(data);
+      });
+    }
+  }
+  );
 
   useEffect(() => {
     if (!playerRef.current) {
@@ -68,22 +76,23 @@ export const VideoPlayer = (props) => {
         }
       };
     }
-  })
+  });
 
   return (
-      <>
-        <div data-vjs-player className="w-full h-full">
-          <div ref={videoRef} className="video-js vjs-theme-city">
-            <style jsx>{`
+    <>
+      <div data-vjs-player className="w-full h-full">
+        <div ref={videoRef} className="video-js vjs-theme-city">
+          <style jsx>{`
             .video-js {
               width: 100%;
               height: 100%;
             }
           `}</style>
-          </div>
-          <div>Live View Count: {viewCount}</div>
         </div>
-      </>
+        <div>Live View Count: {liveViewerCount}</div>
+        <div>Total View Count: {totalViewerCount}</div>
+      </div>
+    </>
   );
 };
 
