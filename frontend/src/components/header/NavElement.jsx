@@ -49,8 +49,7 @@ const NavElement = () => {
         >
           {user && user.userrole === 0 ? (
             <>
-              <HeaderListButton name='newarticle' navigate={navigate} />
-              <HeaderListButton name='newschedule' navigate={navigate} />
+              <HeaderListButton name='admin' navigate={navigate} />
               <HeaderListButton name='profile' navigate={navigate} />
               <HeaderListButton name='logout' navigate={navigate} />
             </>
