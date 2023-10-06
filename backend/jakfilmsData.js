@@ -18,7 +18,7 @@ const connectPort = 3002;
 const app = express();
 const http = createServer(app);
 const io = new Server(http);
-const maxSavedMessages = 10;
+const maxSavedMessages = 300;
 const startTime = new Date();
 console.log(
   ' Backend database server start time: ' + startTime.toLocaleString()
