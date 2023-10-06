@@ -1,24 +1,25 @@
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import { UserProvider } from './contexts/UserContext';
+import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+import {UserProvider} from './contexts/UserContext';
 import Footer from './views/Footer';
 import Header from './views/Header';
+import AdminStats from './views/admin/Adminstats';
+import CreateArticles from './views/admin/CreateArticles';
+import CreateSchedules from './views/admin/CreateSchedules';
 import About from './views/main/About';
+import Archive from './views/main/Archive';
 import Articles from './views/main/Articles';
 import LandingPage from './views/main/LandingPage';
 import LiveStream from './views/main/LiveStream';
 import Login from './views/main/Login';
-import PrivacyPolicy from './views/main/PrivacyPolicy';
-import Register from './views/main/Register';
-import Team from './views/main/Team';
-import TermsOfService from './views/main/TermsofService';
-import NotFound from './views/main/NotFound';
-import Schedule from './views/main/Schedule';
-import Profile from './views/main/Profile';
 import Logout from './views/main/Logout';
 import Movies from './views/main/Movies';
-import Archive from './views/main/Archive';
-import CreateArticles from './views/admin/CreateArticles';
-import CreateSchedules from './views/admin/CreateSchedules';
+import NotFound from './views/main/NotFound';
+import PrivacyPolicy from './views/main/PrivacyPolicy';
+import Profile from './views/main/Profile';
+import Register from './views/main/Register';
+import Schedule from './views/main/Schedule';
+import Team from './views/main/Team';
+import TermsOfService from './views/main/TermsofService';
 const Layout = () => {
   return (
     <UserProvider>
@@ -44,8 +45,10 @@ const Layout = () => {
               <Route path='/logout' element={<Logout />} />
               <Route path='/movies' element={<Movies />} />
               <Route path='/archive' element={<Archive />} />
-              <Route path='/newarticle' element={<CreateArticles />} />
-              <Route path='/newschedule' element={<CreateSchedules />} />
+              <Route path='/admin' element={<AdminStats />}>
+                <Route path='newarticle' element={<CreateArticles />} />
+                <Route path='newschedule' element={<CreateSchedules />} />
+              </Route>
             </Routes>
           </main>
           <Footer />
