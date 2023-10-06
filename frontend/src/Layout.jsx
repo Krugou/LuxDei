@@ -17,6 +17,8 @@ import Profile from './views/main/Profile';
 import Logout from './views/main/Logout';
 import Movies from './views/main/Movies';
 import Archive from './views/main/Archive';
+import CreateArticles from './views/admin/CreateArticles';
+import CreateSchedules from './views/admin/CreateSchedules';
 const Layout = () => {
   return (
     <UserProvider>
@@ -42,7 +44,8 @@ const Layout = () => {
               <Route path='/logout' element={<Logout />} />
               <Route path='/movies' element={<Movies />} />
               <Route path='/archive' element={<Archive />} />
-
+              <Route path='/newarticle' element={<CreateArticles />} />
+              <Route path='/newschedule' element={<CreateSchedules />} />
             </Routes>
           </main>
           <Footer />
