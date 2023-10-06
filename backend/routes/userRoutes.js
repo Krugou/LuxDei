@@ -70,6 +70,7 @@ router.post(
       console.error('postuser validation', errors.array());
 
       res.status(400).json({ error: 'Invalid inputs' });
+      return;
     }
 
     try {

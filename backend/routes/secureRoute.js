@@ -48,6 +48,7 @@ router.put(
       console.error('get_UserProfileLimited validation', errors.array());
 
       res.status(400).json({ error: 'Invalid inputs' });
+      return;
     }
     try {
       let data = req.body;

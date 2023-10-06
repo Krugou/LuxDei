@@ -43,6 +43,7 @@ router.post(
       return res.status(400).json({
         message: 'Invalid data',
       });
+      return;
     }
 
     // Call the authenticate function to handle passport authentication
