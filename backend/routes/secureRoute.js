@@ -145,7 +145,7 @@ router.post(
     if (req.user.userrole !== 0) {
       return res.status(403).json({ error: 'Access denied' });
     }
-
+    console.log(req.body, 'post schedule body');
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
