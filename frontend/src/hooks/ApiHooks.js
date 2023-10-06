@@ -23,6 +23,30 @@ const testDatabaseConnection = async () => {
     return false;
   }
 };
+
+const postSchedule = async (data, token) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+    body: JSON.stringify(data),
+  };
+  return await doFetch(baseUrl + 'admin/schedule', options);
+};
+const postArticle = async (data, token) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+    body: JSON.stringify(data),
+  };
+  return await doFetch(baseUrl + 'admin/article', options);
+};
+
 const getSchedule = async () => {
   const options = {
     method: 'GET',
@@ -294,4 +318,6 @@ export {
   getAllArticles,
   getSchedule,
   getFestivalMovies,
+  postArticle,
+  postSchedule,
 };
