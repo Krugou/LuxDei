@@ -138,11 +138,14 @@ router.post(
   [
     // Validate schedule data
     body('day').notEmpty().trim(),
-    body('time').notEmpty().trim(),
-    body('title').notEmpty().trim(),
+    body('schedule.*.time').notEmpty().trim(),
+    body('schedule.*.title').notEmpty().trim(),
   ],
   async (req, res, next) => {
-    if (req.user.userrole !== 0) return; // return if the user is not an admin
+    if (req.user.userrole !== 0) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 
@@ -151,8 +154,7 @@ router.post(
       // Error messages can be returned in an array using `errors.array()`.
       console.error('Create Schedule validation', errors.array());
 
-      res.status(400).json({ error: 'Invalid inputs' });
-      return;
+      return res.status(400).json({ error: 'Invalid inputs' });
     }
 
     try {
@@ -168,7 +170,6 @@ router.post(
     } catch (error) {
       console.error('Error creating schedule item', error);
       res.status(500).json({ error: 'Internal server error' });
-      return;
     }
   }
 );
