@@ -105,6 +105,11 @@ io.on('connection', (socket) => {
         });
       })
       .catch((err) => console.error('Error retrieving chat messages from MongoDB', err));
+    // Count the number of users in the room
+    const roomSize = io.sockets.adapter.rooms.get(room)?.size || 0;
+
+    // Emit the user count to all users in the room
+    io.to(room).emit('user count', roomSize);
   });
   socket.on('leave room', (room) => {
     // console.log(socket.id, ' left room: ', room);
