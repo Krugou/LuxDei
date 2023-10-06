@@ -16,37 +16,7 @@ export const VideoPlayer = (props) => {
 
 
 
-  useEffect(() => {
-      try {
-        // Create a new socket connection when the component mounts
-        const newSocket = io('/', {
-          path: '/backend/socket.io',
-          transports: ['websocket'],
-        });
-        // const newSocket = io('http://localhost:3001/');
-        setSocket(newSocket);
-        newSocket.emit('join room', room);
-        // Remove the socket connection when the component unmounts
-        return () => {
-          newSocket.disconnect();
-        };
-      } catch (error) {
-        console.error('Error establishing socket connection:', error);
-      }
 
-    // Notify the server that a user joined
-    socket.emit('userJoined');
-
-    // Listen for WebSocket updates to the view count
-    socket.on('updateViewCount', (count) => {
-      setViewCount(count);
-    });
-
-    // Listen for user leaves and decrement the view count
-    socket.on('userLeft', () => {
-      setViewCount((prevCount) => Math.max(0, prevCount - 1));
-    });
-  }, [options, onReady]);
 
   useEffect(() => {
     if (!playerRef.current) {
