@@ -12,7 +12,25 @@ export const VideoPlayer = (props) => {
   const { options, onReady } = props;
   const [room] = useState('room1');
   const [socket, setSocket] = useState(null);
+  useEffect(() => {
+    try {
+      // Create a new socket connection when the component mounts
+      const newSocket = io('/', {
+        path: '/backend/socket.io',
+        transports: ['websocket'],
+      });
+      // const newSocket = io('http://localhost:3001/');
+      setSocket(newSocket);
+      newSocket.emit('NewLiveViewer', true);
 
+      // Remove the socket connection when the component unmounts
+      return () => {
+        newSocket.disconnect();
+      };
+    } catch (error) {
+      console.error('Error establishing socket connection:', error);
+    }
+  }, []);
 
 
 
