@@ -67,8 +67,7 @@ app.use(
 let viewCount = 0;
 io.on('connection', (socket) => {
 
-  viewCount++;
-  io.emit('updateViewCount', viewCount);
+  
 
 
   console.log(socket.id, ' has entered the building');
@@ -80,8 +79,8 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log(socket.id, ' has left the building');
-    viewCount--;
-    io.emit('updateViewCount', viewCount);
+    
+    
 
   });
   socket.on('join room', (room) => {
