@@ -5,12 +5,24 @@ const NotFound = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const timeoutId = setTimeout(() => {
+        let timeoutId = setTimeout(() => {
             navigate('/');
         }, 10000);
 
+        const resetTimeout = () => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                navigate('/');
+            }, 10000);
+        };
+
+        window.addEventListener('mousemove', resetTimeout);
+        window.addEventListener('keydown', resetTimeout);
+
         return () => {
             clearTimeout(timeoutId);
+            window.removeEventListener('mousemove', resetTimeout);
+            window.removeEventListener('keydown', resetTimeout);
         };
     }, [navigate]);
 
