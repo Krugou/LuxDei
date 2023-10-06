@@ -2,7 +2,7 @@ import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import {UserProvider} from './contexts/UserContext';
 import Footer from './views/Footer';
 import Header from './views/Header';
-import AdminStats from './views/admin/Adminstats';
+import AdminStats from './views/admin/AdminStats';
 import CreateArticles from './views/admin/CreateArticles';
 import CreateSchedules from './views/admin/CreateSchedules';
 import About from './views/main/About';
