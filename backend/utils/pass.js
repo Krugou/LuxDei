@@ -1,6 +1,8 @@
 'use strict';
 import { config } from 'dotenv';
 config();
+console.log(process.env.JWT_SECRET);
+
 // Import necessary modules and dependencies
 import bcrypt from 'bcryptjs';
 import passport from 'passport';
