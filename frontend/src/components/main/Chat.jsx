@@ -23,6 +23,7 @@ const Chat = ({username, countryid}) => {
       // const newSocket = io('http://localhost:3001/');
       setSocket(newSocket);
       newSocket.emit('join room', room);
+
       // Remove the socket connection when the component unmounts
       return () => {
         newSocket.disconnect();
