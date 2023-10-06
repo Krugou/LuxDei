@@ -21,7 +21,7 @@ const NavElement = () => {
     if (userToken) {
       const user = await getUserInfoByToken(userToken);
 
-      console.log(user, 'userinfomaan');
+      // console.log(user, 'userinfomaan');
       if (user) {
         setUser(user);
         const target = location.pathname === '/' ? '/' : location.pathname;
