@@ -31,7 +31,7 @@ router.put(
 
     // Validate username: Minimum length 3, alphanumeric characters only optional
     body('name')
-      .isLength({ min: 3, max: 15 })
+      .isLength({ min: 3, max: 14 })
       .matches(/^[a-zA-Z0-9]+$/)
       .optional({ checkFalsy: true }),
 
