@@ -7,13 +7,13 @@ const NotFound = () => {
     useEffect(() => {
         let timeoutId = setTimeout(() => {
             navigate('/');
-        }, 10000);
+        }, 5000);
 
         const resetTimeout = () => {
             clearTimeout(timeoutId);
             timeoutId = setTimeout(() => {
                 navigate('/');
-            }, 10000);
+            }, 5000);
         };
 
         window.addEventListener('mousemove', resetTimeout);
@@ -37,6 +37,14 @@ const NotFound = () => {
             <p className='text-base md:text-lg mybasetext mt-2 md:mt-4' aria-label='Instructions'>
                 It seems like you've taken a wrong turn. Please check the URL or navigate back to the home page.
             </p>
+            <div className='flex justify-center mt-4'>
+                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-4' onClick={() => navigate('/')}>
+                    Home
+                </button>
+                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => navigate('/about')}>
+                    About
+                </button>
+            </div>
         </div>
     );
 };
