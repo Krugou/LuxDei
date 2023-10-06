@@ -16,6 +16,7 @@ import Schedule from './views/main/Schedule';
 import Profile from './views/main/Profile';
 import Logout from './views/main/Logout';
 import Movies from './views/main/Movies';
+import Archive from './views/main/Archive';
 const Layout = () => {
   return (
     <UserProvider>
@@ -40,6 +41,7 @@ const Layout = () => {
               <Route path='/profile' element={<Profile />} />
               <Route path='/logout' element={<Logout />} />
               <Route path='/movies' element={<Movies />} />
+              <Route path='/archive' element={<Archive />} />
 
             </Routes>
           </main>
