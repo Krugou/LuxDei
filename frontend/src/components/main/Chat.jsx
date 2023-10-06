@@ -164,6 +164,7 @@ const Chat = ({username, countryid}) => {
     try {
       if (socket) {
         socket.on('user count', (count) => {
+          console.log('user count: ', count)
           setUserCount(count);
         });
         return () => {
