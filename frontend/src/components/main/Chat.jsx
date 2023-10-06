@@ -16,8 +16,8 @@ const Chat = ({username, countryid}) => {
   useEffect(() => {
     try {
       // Create a new socket connection when the component mounts
-      const newSocket = io('/backend', {
-        path: '/socket.io',
+      const newSocket = io('/', {
+        path: '/backend/socket.io',
         transports: ['websocket'],
       });
       // const newSocket = io('http://localhost:3001/');
@@ -167,139 +167,139 @@ const Chat = ({username, countryid}) => {
   }, [messages]);
   return (
     <>
-      
-        <div className='flex flex-col  h-full   '>
-          {typingUsers.length > 0 && (
-            <div
-              className={`text-md text-white bg-black ${isPulsing ? 'animate-pulse' : ''
+
+      <div className='flex flex-col  h-full   '>
+        {typingUsers.length > 0 && (
+          <div
+            className={`text-md text-white bg-black ${isPulsing ? 'animate-pulse' : ''
+              }`}
+          >
+            <span className='mr-1'>{typingUsers.join(', ')}</span>
+            <span>{typingUsers.length === 1 ? 'is' : 'are'} typing...</span>
+          </div>
+        )}
+        <ul
+          id='messages'
+          ref={messagesRef}
+          className={`flex flex-col bg-white m-4 md:h-96 h-full  mt-auto shadow-lg rounded-md p-4  overflow-y-auto `}
+        >
+          {messages.map((message, index) => (
+            <li
+              key={index}
+              className={`flex flex-col mb-2 ${message.username === username ? 'items-end' : 'items-start'
                 }`}
             >
-              <span className='mr-1'>{typingUsers.join(', ')}</span>
-              <span>{typingUsers.length === 1 ? 'is' : 'are'} typing...</span>
-            </div>
-          )}
-          <ul
-            id='messages'
-            ref={messagesRef}
-            className={`flex flex-col bg-white m-4 md:h-96 h-full  mt-auto shadow-lg rounded-md p-4  overflow-y-auto `}
-          >
-            {messages.map((message, index) => (
-              <li
-                key={index}
-                className={`flex flex-col mb-2 ${message.username === username ? 'items-end' : 'items-start'
+              <div
+                className={`rounded-lg py-2 px-3 ${message.username === username
+                  ? 'bg-black text-white'
+                  : 'bg-black text-white'
                   }`}
               >
-                <div
-                  className={`rounded-lg py-2 px-3 ${message.username === username
-                    ? 'bg-black text-white'
-                    : 'bg-black text-white'
+                <p
+                  className={`text-sm ${isPulsing &&
+                    message === messages[messages.length - 1] &&
+                    room === currentRoom
+                    ? 'animate-bounce'
+                    : ''
                     }`}
                 >
-                  <p
-                    className={`text-sm ${isPulsing &&
-                      message === messages[messages.length - 1] &&
-                      room === currentRoom
-                      ? 'animate-bounce'
-                      : ''
-                      }`}
-                  >
-                    {message.message}
-                  </p>
-                </div>
-                <span
-                  className={`text-xs mt-1 border rounded ${message.username === username ? 'text-right' : 'text-left'
-                    }`}
-                >
-                  {message.username.charAt(0).toUpperCase() +
-                    message.username.slice(1)}
-                  <FlagIcon
-                    className={` mx-2 ${message.username === username
-                      ? 'float-right'
-                      : 'float-left'
-                      }`}
-                    code={message.countryid}
-                    size={20}
-                  />
-                </span>
-              </li>
-            ))}
-          </ul>
-          <form
-            className='flex items-center justify-end align-end mt-auto'
-            onSubmit={handleSubmit}
-          >
-            {/* Room selection dropdown */}
-            <div className='flex  p-4 flex-col  justify-center items-center'>
-              <select
-                title='selector'
-                name='room'
-                id='room'
-                value={room}
-                onChange={handleRoomChange}
-                className={`text-white block w-full py-2 px-3 border border-gray-400 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${room === 'room1'
-                  ? 'bg-black text-white'
-                  : room === 'room2'
-                    ? 'bg-black text-white'
-                    : 'bg-black text-white'
-                  }focus:border-transparent `}
-                aria-label='Select a chat room'
-              >
-                <option className='bg-black text-white ' value='room1'>
-                  Silver Screen Lounge
-                </option>
-                <option className='bg-black text-white' value='room2'>
-                  Director's Cut Den
-                </option>
-                <option className='bg-black text-white' value='room3'>
-                  Cinephile's Hangout
-                </option>
-              </select>
-
-              {/* Message input */}
-              <div className='flex flex-row rounded border'>
-                <input
-                  required
-                  id='m'
-                  rows='1'
-                  className=' p-4  w-full h-50    '
-                  type='text'
-                  placeholder='Type your message here'
-                  value={message}
-                  onChange={(event) => setMessage(event.target.value)}
-                  onKeyDown={handleTypingIntoServer}
-                  onKeyUp={handleTypingIntoServer}
-                  aria-label='Type your message here'
-                />
-
-                {/* Submit button */}
-                <button
-                  type='submit'
-                  className='inline-flex justify-center my-auto mx-2 border rounded   cursor-pointer hover:bg-gmpictonblue '
-                >
-                  <svg
-                    fill='currentColor'
-                    className='w-6 h-6 '
-                    version='1.1'
-                    id='Layer_1'
-                    xmlns='http://www.w3.org/2000/svg'
-                    xmlnsXlink='http://www.w3.org/1999/xlink'
-                    x='0px'
-                    y='0px'
-                    viewBox='0 0 80.593 122.88'
-                    enableBackground='new 0 0 80.593 122.88'
-                    xmlSpace='preserve'
-                  >
-                    {/* Your submit button icon */}
-                    <g>
-                      <polygon points='0,0 30.82,0 80.593,61.44 30.82,122.88 0,122.88 49.772,61.44 0,0' />
-                    </g>
-                  </svg>
-                </button>
+                  {message.message}
+                </p>
               </div>
+              <span
+                className={`text-xs mt-1 border rounded ${message.username === username ? 'text-right' : 'text-left'
+                  }`}
+              >
+                {message.username.charAt(0).toUpperCase() +
+                  message.username.slice(1)}
+                <FlagIcon
+                  className={` mx-2 ${message.username === username
+                    ? 'float-right'
+                    : 'float-left'
+                    }`}
+                  code={message.countryid}
+                  size={20}
+                />
+              </span>
+            </li>
+          ))}
+        </ul>
+        <form
+          className='flex items-center justify-end align-end mt-auto'
+          onSubmit={handleSubmit}
+        >
+          {/* Room selection dropdown */}
+          <div className='flex  p-4 flex-col  justify-center items-center'>
+            <select
+              title='selector'
+              name='room'
+              id='room'
+              value={room}
+              onChange={handleRoomChange}
+              className={`text-white block w-full py-2 px-3 border border-gray-400 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${room === 'room1'
+                ? 'bg-black text-white'
+                : room === 'room2'
+                  ? 'bg-black text-white'
+                  : 'bg-black text-white'
+                }focus:border-transparent `}
+              aria-label='Select a chat room'
+            >
+              <option className='bg-black text-white ' value='room1'>
+                Silver Screen Lounge
+              </option>
+              <option className='bg-black text-white' value='room2'>
+                Director's Cut Den
+              </option>
+              <option className='bg-black text-white' value='room3'>
+                Cinephile's Hangout
+              </option>
+            </select>
+
+            {/* Message input */}
+            <div className='flex flex-row rounded border'>
+              <input
+                required
+                id='m'
+                rows='1'
+                className=' p-4  w-full h-50    '
+                type='text'
+                placeholder='Type your message here'
+                value={message}
+                onChange={(event) => setMessage(event.target.value)}
+                onKeyDown={handleTypingIntoServer}
+                onKeyUp={handleTypingIntoServer}
+                aria-label='Type your message here'
+              />
+
+              {/* Submit button */}
+              <button
+                type='submit'
+                className='inline-flex justify-center my-auto mx-2 border rounded   cursor-pointer hover:bg-gmpictonblue '
+              >
+                <svg
+                  fill='currentColor'
+                  className='w-6 h-6 '
+                  version='1.1'
+                  id='Layer_1'
+                  xmlns='http://www.w3.org/2000/svg'
+                  xmlnsXlink='http://www.w3.org/1999/xlink'
+                  x='0px'
+                  y='0px'
+                  viewBox='0 0 80.593 122.88'
+                  enableBackground='new 0 0 80.593 122.88'
+                  xmlSpace='preserve'
+                >
+                  {/* Your submit button icon */}
+                  <g>
+                    <polygon points='0,0 30.82,0 80.593,61.44 30.82,122.88 0,122.88 49.772,61.44 0,0' />
+                  </g>
+                </svg>
+              </button>
             </div>
-          </form>
-        </div>
-     
+          </div>
+        </form>
+      </div>
+
     </>
   );
 };
