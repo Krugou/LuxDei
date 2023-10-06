@@ -59,16 +59,17 @@ export const VideoPlayer = (props) => {
       // Update the viewer count when it changes
       const updateCount = () => {
         const countText = `Live Viewers: ${liveViewerCount} | Total Viewers: ${totalViewerCount}`;
-        const cue = new VTTCue(0, 0, countText);
+        const cue = new VTTCue(0, 999999999, countText);
         countTrack.addCue(cue);
-        console.log('updateCount', countText)
-
       };
       updateCount();
       socket.on('LiveViewers', updateCount);
       socket.on('TotalViewers', updateCount);
+
+    
+
     }
-  }, [socket, liveViewerCount, totalViewerCount]);
+  }, [playerRef.current, socket, liveViewerCount, totalViewerCount]);
   useEffect(() => {
     if (!playerRef.current) {
       const videoElement = document.createElement('video-js');
