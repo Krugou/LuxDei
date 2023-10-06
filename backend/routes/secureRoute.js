@@ -5,6 +5,7 @@ import { body, validationResult } from 'express-validator';
 import passport from 'passport';
 import httpError from '../utils/errors.js';
 import User from '../models/User.js';
+import Schedule from '../models/Schedule.js';
 import bcrypt from 'bcryptjs';
 
 const router = express.Router();
@@ -131,4 +132,45 @@ router.delete('/users', async (req, res, next) => {
     return;
   }
 });
+
+router.post(
+  '/schedule',
+  [
+    // Validate schedule data
+    body('day').notEmpty().trim(),
+    body('time').notEmpty().trim(),
+    body('title').notEmpty().trim(),
+  ],
+  async (req, res, next) => {
+    if (req.user.userrole !== 0) return; // return if the user is not an admin
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // There are errors.
+      // Error messages can be returned in an array using `errors.array()`.
+      console.error('Create Schedule validation', errors.array());
+
+      res.status(400).json({ error: 'Invalid inputs' });
+      return;
+    }
+
+    try {
+      const scheduleData = req.body;
+
+      // Create a new schedule item
+      const newScheduleItem = new Schedule(scheduleData);
+
+      // Save the new schedule item to the database
+      await newScheduleItem.save();
+
+      res.status(201).json({ message: 'Schedule item created successfully' });
+    } catch (error) {
+      console.error('Error creating schedule item', error);
+      res.status(500).json({ error: 'Internal server error' });
+      return;
+    }
+  }
+);
+
 export default router;
