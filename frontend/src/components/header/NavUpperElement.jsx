@@ -39,13 +39,13 @@ const NavUpperElement = ({startSeconds, endSeconds}) => {
         id="police-car"
         ref={policeCarRef}
         className="absolute w-auto h-8 left-full ease-in-out delay-200 animate-police-car"
-        src="./gifs/car.webp"
+        src="/gifs/car.webp"
         alt="Police Car"
         style={{animationDuration: `${animationDuration}ms`}}
       />
       <img id='Robber'
         className="absolute w-auto h-6 left-full ease-in-out  animate-robber"
-        src="./gifs/robber.gif"
+        src="/gifs/robber.gif"
         alt="Robber"
         style={{animationDuration: `${animationDuration}ms`}}
       />
