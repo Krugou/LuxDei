@@ -69,7 +69,7 @@ let liveViewers = 0;
 io.on('connection', (socket) => {
 
   socket.on('NewLiveViewer', (data) => {
-    console.log('NewLiveViewer', data);
+    // console.log('NewLiveViewer', data);
     liveViewers++;
     totalViewers++;
     io.emit('LiveViewers', liveViewers);
@@ -77,19 +77,19 @@ io.on('connection', (socket) => {
   });
 
 
-  console.log(socket.id, ' has entered the building');
+  // console.log(socket.id, ' has entered the building');
   // const ip = socket.request.connection.remoteAddress;
 
   // console.log(`Client connected with IP address: ${ip}`);
   socket.on('disconnect', () => {
-    console.log(socket.id, ' has left the building');
+    // console.log(socket.id, ' has left the building');
     if (liveViewers > 0) {
       liveViewers--;
     }
     io.emit('LiveViewers', liveViewers);
   });
   socket.on('join room', (room) => {
-    console.log(socket.id, ' joined room: ', room);
+    // console.log(socket.id, ' joined room: ', room);
     socket.join(room);
     if (lastMessages) {
       for (const room in lastMessages) {
@@ -107,11 +107,11 @@ io.on('connection', (socket) => {
     }
   });
   socket.on('leave room', (room) => {
-    console.log(socket.id, ' left room: ', room);
+    // console.log(socket.id, ' left room: ', room);
     socket.leave(room);
   });
   socket.on('chat message', (data) => {
-    console.log('chat message received:', data);
+    // console.log('chat message received:', data);
     if (!lastMessages[data.room]) {
       lastMessages[data.room] = [];
     }
@@ -120,8 +120,8 @@ io.on('connection', (socket) => {
     }
     lastMessages[data.room].push(data);
 
-    console.log('data.room: ', data.room);
-    console.log('data.countryid: ', data.countryid);
+    // console.log('data.room: ', data.room);
+    // console.log('data.countryid: ', data.countryid);
     io.to(data.room).emit('chat message', {
       countryid: data.countryid,
       username: data.username,
@@ -130,16 +130,16 @@ io.on('connection', (socket) => {
     });
   });
   socket.on('typing', ({username, room}) => {
-    console.log('typing: ', username, room);
+    // console.log('typing: ', username, room);
     socket.broadcast.to(room).emit("typing", {username});
-    console.log('typing event emitted successfully');
+    // console.log('typing event emitted successfully');
   });
   socket.on('stop typing', ({username, room}) => {
-    console.log('stop typing: ', username, room);
+    // console.log('stop typing: ', username, room);
     socket.broadcast.to(room).emit("stop typing", {username});
   });
   socket.on('get messages', (room) => {
-    console.log('get messages for room: ', room);
+    // console.log('get messages for room: ', room);
     if (lastMessages[room]) {
       const latestMessage = lastMessages[room][lastMessages[room].length - 1];
       console.log('latest message: ', latestMessage);
