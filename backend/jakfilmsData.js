@@ -95,7 +95,7 @@ io.on('connection', (socket) => {
       .sort({createdAt: -1})
       .limit(maxSavedMessages)
       .then((messages) => {
-        messages.reverse().forEach((message) => {
+        messages.forEach((message) => {
           socket.emit('chat message', {
             countryid: message.countryid,
             username: message.username,
@@ -122,7 +122,7 @@ io.on('connection', (socket) => {
     });
     chatMessage.save()
       .then(() => {
-        console.log('Chat message saved to MongoDB');
+        console.log('Mongodb saved message: ' + data.message);
         io.to(data.room).emit('chat message', {
           countryid: data.countryid,
           username: data.username,
