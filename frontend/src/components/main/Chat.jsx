@@ -1,36 +1,14 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 import {FlagIcon} from 'react-flag-kit';
-import {useNavigate} from 'react-router-dom';
-import io from 'socket.io-client';
-const Chat = ({username, countryid}) => {
-  const navigate = useNavigate();
+const Chat = ({socket,username, countryid ,room ,setRoom}) => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
-  const [room, setRoom] = useState('room1');
   const [currentRoom, setCurrentRoom] = useState('room1');
-  const [socket, setSocket] = useState(null);
   const [isPulsing, setIsPulsing] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const [typingUsers, setTypingUsers] = useState([]);
-  useEffect(() => {
-    try {
-      // Create a new socket connection when the component mounts
-      const newSocket = io('/', {
-        path: '/backend/socket.io',
-        transports: ['websocket'],
-      });
-      // const newSocket = io('http://localhost:3001/');
-      setSocket(newSocket);
-      newSocket.emit('join room', room);
-      // Remove the socket connection when the component unmounts
-      return () => {
-        newSocket.disconnect();
-      };
-    } catch (error) {
-      console.error('Error establishing socket connection:', error);
-    }
-  }, []);
+
 
   const handleTypingIntoServer = (event) => {
     if (event.target.value !== '') {
@@ -305,8 +283,11 @@ const Chat = ({username, countryid}) => {
 };
 
 Chat.propTypes = {
+  socket: PropTypes.object.isRequired,
   username: PropTypes.string.isRequired,
   countryid: PropTypes.string.isRequired,
+  room: PropTypes.string.isRequired,
+  setRoom: PropTypes.func.isRequired,
 };
 
 export default Chat;
