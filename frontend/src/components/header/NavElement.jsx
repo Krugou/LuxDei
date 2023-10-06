@@ -1,17 +1,17 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import React, {useContext, useEffect, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {UserContext} from '../../contexts/UserContext';
-import {useUser} from '../../hooks/ApiHooks';
+import React, { useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
+import { useUser } from '../../hooks/ApiHooks';
 import HeaderTitle from './HeaderTitle';
 import HeaderListButton from './buttons/HeaderListButton';
 import WeatherData from './weather/WeatherData';
 const NavElement = () => {
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const {user, setUser} = useContext(UserContext);
-  const {getUserInfoByToken} = useUser();
+  const { user, setUser } = useContext(UserContext);
+  const { getUserInfoByToken } = useUser();
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
@@ -43,8 +43,18 @@ const NavElement = () => {
 
         <WeatherData />
 
-        <ul id='nav-links' className={` md:flex flex-row ${isNavOpen ? 'flex' : 'hidden '}`}>
-          {user ? (
+        <ul
+          id='nav-links'
+          className={` md:flex flex-row ${isNavOpen ? 'flex' : 'hidden '}`}
+        >
+          {user && user.userrole === 0 ? (
+            <>
+              <HeaderListButton name='newarticle' navigate={navigate} />
+              <HeaderListButton name='newschedule' navigate={navigate} />
+              <HeaderListButton name='profile' navigate={navigate} />
+              <HeaderListButton name='logout' navigate={navigate} />
+            </>
+          ) : user ? (
             <>
               <HeaderListButton name='profile' navigate={navigate} />
               <HeaderListButton name='logout' navigate={navigate} />
