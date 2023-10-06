@@ -95,7 +95,7 @@ io.on('connection', (socket) => {
       .sort({createdAt: -1})
       .limit(maxSavedMessages)
       .then((messages) => {
-        messages.forEach((message) => {
+        messages.reverse().forEach((message) => {
           socket.emit('chat message', {
             countryid: message.countryid,
             username: message.username,
@@ -122,7 +122,7 @@ io.on('connection', (socket) => {
     });
     chatMessage.save()
       .then(() => {
-        console.log('Mongodb saved message: ' + data.message);
+        console.log('Chat message saved to MongoDB');
         io.to(data.room).emit('chat message', {
           countryid: data.countryid,
           username: data.username,
@@ -131,42 +131,45 @@ io.on('connection', (socket) => {
         });
       })
       .catch((err) => console.error('Error saving chat message to MongoDB', err));
+
+    // Delete chat messages older than 48 hours from MongoDB
+    const cutoffDate = new Date(Date.now() - 48 * 60 * 60 * 1000);
+    ChatMessage.deleteMany({createdAt: {$lt: cutoffDate}})
+      .then(() => console.log('Chat messages older than 48 hours deleted from MongoDB'))
+      .catch((err) => console.error('Error deleting chat messages from MongoDB', err));
   });
-  // Delete chat messages older than 48 hours from MongoDB
-  const cutoffDate = new Date(Date.now() - 48 * 60 * 60 * 1000);
-  ChatMessage.deleteMany({createdAt: {$lt: cutoffDate}})
-    .then(() => console.log('Chat messages older than 48 hours deleted from MongoDB'))
-    .catch((err) => console.error('Error deleting chat messages from MongoDB', err));
+  socket.on('typing', ({username, room}) => {
+    // console.log('typing: ', username, room);
+    socket.broadcast.to(room).emit("typing", {username});
+    // console.log('typing event emitted successfully');
+  });
+  socket.on('stop typing', ({username, room}) => {
+    // console.log('stop typing: ', username, room);
+    socket.broadcast.to(room).emit("stop typing", {username});
+  });
+  socket.on('get messages', (room) => {
+    // console.log('get messages for room: ', room);
+    ChatMessage.find({room: room})
+      .sort({createdAt: -1})
+      .limit(1)
+      .then((messages) => {
+        if (messages.length > 0) {
+          const latestMessage = messages[0];
+          console.log('latest message: ', latestMessage);
+          socket.broadcast.to(room).emit("typing", {username});
+          socket.emit('chat message', {
+            countryid: latestMessage.countryid,
+            username: latestMessage.username,
+            message: latestMessage.message,
+            room: latestMessage.room,
+          });
+        }
+      })
+      .catch((err) => console.error('Error retrieving chat messages from MongoDB', err));
+  });
 });
-socket.on('typing', ({username, room}) => {
-  // console.log('typing: ', username, room);
-  socket.broadcast.to(room).emit("typing", {username});
-  // console.log('typing event emitted successfully');
-});
-socket.on('stop typing', ({username, room}) => {
-  // console.log('stop typing: ', username, room);
-  socket.broadcast.to(room).emit("stop typing", {username});
-});
-socket.on('get messages', (room) => {
-  // console.log('get messages for room: ', room);
-  ChatMessage.find({room: room})
-    .sort({createdAt: -1})
-    .limit(1)
-    .then((messages) => {
-      if (messages.length > 0) {
-        const latestMessage = messages[0];
-        console.log('latest message: ', latestMessage);
-        socket.broadcast.to(room).emit("typing", {username});
-        socket.emit('chat message', {
-          countryid: latestMessage.countryid,
-          username: latestMessage.username,
-          message: latestMessage.message,
-          room: latestMessage.room,
-        });
-      }
-    })
-    .catch((err) => console.error('Error retrieving chat messages from MongoDB', err));
-});
+
+
 
 http.listen(connectPort, () => {
   console.log('Server started on port ' + connectPort);
