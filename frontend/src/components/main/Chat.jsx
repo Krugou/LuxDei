@@ -17,7 +17,7 @@ const Chat = ({username, countryid}) => {
     try {
       // Create a new socket connection when the component mounts
       const newSocket = io('/', {
-        path: '/socket.io',
+        path: '/backend/socket.io',
         transports: ['websocket'],
       });
       // const newSocket = io('http://localhost:3001/');
