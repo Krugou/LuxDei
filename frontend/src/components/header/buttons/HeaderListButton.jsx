@@ -12,6 +12,7 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PortraitIcon from '@mui/icons-material/Portrait';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 const HeaderListButton = ({name, navigate, lastItem = false, }) => {
@@ -29,6 +30,7 @@ const HeaderListButton = ({name, navigate, lastItem = false, }) => {
 
 
                 <div className="md:hidden">
+                    {name === 'admin' && <AdminPanelSettingsIcon aria-hidden="true" />}
                     {name === 'login' && <LoginIcon aria-hidden="true" />}
                     {name === 'logout' && <LogoutIcon aria-hidden="true" />}
                     {name === 'profile' && <PortraitIcon aria-hidden="true" />}
