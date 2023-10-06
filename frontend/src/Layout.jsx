@@ -15,6 +15,7 @@ import NotFound from './views/main/NotFound';
 import Schedule from './views/main/Schedule';
 import Profile from './views/main/Profile';
 import Logout from './views/main/Logout';
+import Movies from './views/main/Movies';
 const Layout = () => {
   return (
     <UserProvider>
@@ -38,6 +39,8 @@ const Layout = () => {
               <Route path='/schedule' element={<Schedule />} />
               <Route path='/profile' element={<Profile />} />
               <Route path='/logout' element={<Logout />} />
+              <Route path='/movies' element={<Movies />} />
+
             </Routes>
           </main>
           <Footer />
