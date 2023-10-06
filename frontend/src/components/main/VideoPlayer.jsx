@@ -10,9 +10,29 @@ export const VideoPlayer = (props) => {
   const playerRef = React.useRef(null);
   const [viewCount, setViewCount] = useState(1); // Initialize view count to 1
   const { options, onReady } = props;
+  const [room] = useState('room1');
+  const [socket, setSocket] = useState(null);
+
+
+
 
   useEffect(() => {
-    const socket = io('http://localhost:3001');
+      try {
+        // Create a new socket connection when the component mounts
+        const newSocket = io('/', {
+          path: '/socket.io',
+          transports: ['websocket'],
+        });
+        // const newSocket = io('http://localhost:3001/');
+        setSocket(newSocket);
+        newSocket.emit('join room', room);
+        // Remove the socket connection when the component unmounts
+        return () => {
+          newSocket.disconnect();
+        };
+      } catch (error) {
+        console.error('Error establishing socket connection:', error);
+      }
 
     // Notify the server that a user joined
     socket.emit('userJoined');
@@ -26,7 +46,9 @@ export const VideoPlayer = (props) => {
     socket.on('userLeft', () => {
       setViewCount((prevCount) => Math.max(0, prevCount - 1));
     });
+  }, [options, onReady]);
 
+  useEffect(() => {
     if (!playerRef.current) {
       const videoElement = document.createElement('video-js');
 
@@ -58,7 +80,7 @@ export const VideoPlayer = (props) => {
         }
       };
     }
-  }, [options, onReady]);
+  })
 
   return (
       <>
