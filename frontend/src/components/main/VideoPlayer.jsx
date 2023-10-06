@@ -8,7 +8,7 @@ import '@videojs/themes/dist/city/index.css';
 export const VideoPlayer = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
-  const [liveViewerCount, setViewCount] = useState(0);
+  const [liveViewerCount, setLiveViewCount] = useState(0);
   const [totalViewerCount, setTotalViewCount] = useState(0);
   const {options, onReady} = props;
   const [socket, setSocket] = useState(null);
@@ -35,7 +35,7 @@ export const VideoPlayer = (props) => {
   useEffect(() => {
     if (socket) {
       socket.on('LiveViewers', (data) => {
-        setViewCount(data);
+        setLiveViewCount(data);
       });
       socket.on('TotalViewers', (data) => {
         setTotalViewCount(data);
@@ -43,7 +43,30 @@ export const VideoPlayer = (props) => {
     }
   }
   );
+  useEffect(() => {
+    if (playerRef.current) {
+      // Create a custom text track to display the viewer count
+      const countTrack = playerRef.current.addRemoteTextTrack(
+        {
+          kind: 'metadata',
+          label: 'Viewer Count',
+          language: 'en',
+        },
+        false
+      );
+      countTrack.mode = 'showing';
 
+      // Update the viewer count when it changes
+      const updateCount = () => {
+        const countText = `Live Viewers: ${liveViewerCount} | Total Viewers: ${totalViewerCount}`;
+        const cue = new VTTCue(0, 0, countText);
+        countTrack.addCue(cue);
+      };
+      updateCount();
+      socket.on('LiveViewers', updateCount);
+      socket.on('TotalViewers', updateCount);
+    }
+  }, [playerRef.current, liveViewerCount, totalViewerCount]);
   useEffect(() => {
     if (!playerRef.current) {
       const videoElement = document.createElement('video-js');
