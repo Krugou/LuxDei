@@ -62,13 +62,13 @@ export const VideoPlayer = (props) => {
         const cue = new VTTCue(0, 0, countText);
         countTrack.addCue(cue);
         console.log('updateCount', countText)
-        
+
       };
       updateCount();
       socket.on('LiveViewers', updateCount);
       socket.on('TotalViewers', updateCount);
     }
-  }, [playerRef.current, liveViewerCount, totalViewerCount]);
+  }, [socket, liveViewerCount, totalViewerCount]);
   useEffect(() => {
     if (!playerRef.current) {
       const videoElement = document.createElement('video-js');
