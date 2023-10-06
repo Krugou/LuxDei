@@ -43,7 +43,10 @@ const Archive = () => {
 
 
     return (
-        <><ArticleViewer articles={articles} /></>
+        <div className='bg-gray-100 p-8 mx-auto px-4 sm:px-6 lg:px-8'>
+            <h1 className='text-3xl font-bold text-center mt-8 mb-4'>Archive</h1>
+            <ArticleViewer articles={articles} />
+        </div>
     );
 };
 
