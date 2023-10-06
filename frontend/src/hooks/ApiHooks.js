@@ -23,6 +23,12 @@ const testDatabaseConnection = async () => {
     return false;
   }
 };
+const getAllArticles = async () => {
+  const options = {
+    method: 'GET',
+  };
+  return await doFetch(baseUrl + 'articles', options);
+};
 const useUser = () => {
   const postUser = async (inputs) => {
     const options = {
@@ -32,7 +38,7 @@ const useUser = () => {
       },
       body: JSON.stringify(inputs),
     };
-    console.debug('ApiHooks.js - handleInputChange: Inputs:', inputs);
+    // console.debug('ApiHooks.js - handleInputChange: Inputs:', inputs);
     return await doFetch(baseUrl + 'users', options);
   };
 
@@ -86,4 +92,4 @@ const useUser = () => {
     deleteUser,
   };
 };
-export { testDatabaseConnection, useUser };
+export {testDatabaseConnection, useUser, getAllArticles };
