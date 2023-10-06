@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import MovieDetailsCard from '../../components/main/MovieDetailsCard';
+import {getFestivalMovies} from '../../hooks/ApiHooks';
 
 const Movies = () => {
     const [movies, setMovies] = useState([]);
@@ -8,61 +9,17 @@ const Movies = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
-        // Set movies data from constant array
-        const fakeMovies = [
-            {
-                id: 1, title: 'The Shawshank Redemption',
-                runningTime: 8520000, // 2 hours and 22 minutes in milliseconds
-                description: 'Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.'
-            },
-            {
-                id: 2, title: 'The Godfather',
-                runningTime: 10500000, // 2 hours and 55 minutes in milliseconds
-                description: 'The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.'
-            },
-            {
-                id: 3, title: 'The Godfather: Part II',
-                runningTime: 12120000, // 3 hours and 22 minutes in milliseconds
-                description: 'The early life and career of Vito Corleone in 1920s New York City are portrayed, while his son, Michael, expands and tightens his grip on the family crime syndicate.'
-            },
-            {
-                id: 4, title: 'The Dark Knight',
-                runningTime: 9120000, // 2 hours and 32 minutes in milliseconds
-                description: 'When the menace known as The Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham. Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.'
-            },
-            {
-                id: 5, title: '12 Angry Men',
-                runningTime: 5760000, // 1 hour and 36 minutes in milliseconds
-                description: 'A jury holdout attempts to prevent a miscarriage of justice by forcing his colleagues to reconsider the evidence.'
-            },
-            {
-                id: 6, title: "Schindler's List",
-                runningTime: 11700000, // 3 hours and 15 minutes in milliseconds
-                description: 'In German-occupied Poland during World War II, Oskar Schindler gradually becomes concerned for his Jewish workforce after witnessing their persecution by the Nazis.'
-            },
-            {
-                id: 7, title: 'The Lord of the Rings: The Return of the King',
-                runningTime: 12060000, // 3 hours and 21 minutes in milliseconds
-                description: 'Gandalf and Aragorn lead the World of Men against Sauron’s army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.'
-            },
-            {
-                id: 8, title: 'Pulp Fiction',
-                runningTime: 9264000, // 2 hours and 34 minutes in milliseconds
-                description: 'The lives of two mob hitmen, a boxer, a gangster and his wife, and a pair of diner bandits intertwine in four tales of violence and redemption.'
-            },
-            {
-                id: 9, title: 'The Good, the Bad and the Ugly',
-                runningTime: 10680000, // 2 hours and 58 minutes in milliseconds
-                description: 'A bounty hunting scam joins two men in an uneasy alliance against a third in a race to find a fortune in gold buried in a remote cemetery.'
-            },
-            {
-                id: 10, title: 'Fight Club',
-                runningTime: 8352000, // 2 hours and 19 minutes in milliseconds
-                description: 'An insomniac office worker and a devil-may-care soapmaker form an underground fight club that evolves into something much, much more.'
+        const fetchMovies = async () => {
+            try {
+                const data = await getFestivalMovies();
+                setMovies(data);
+            } catch (e) {
+                console.error(e);
             }
-        ];
-        setMovies(fakeMovies);
+        };
+        fetchMovies();
     }, []);
+    
     const handleMovieSelect = (movie) => {
         setSelectedMovie(movie);
         setIsModalOpen(true);
