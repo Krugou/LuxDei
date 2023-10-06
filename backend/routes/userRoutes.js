@@ -55,6 +55,8 @@ router.post(
     body('name')
       .isLength({ min: 3 })
       .matches(/^[a-zA-Z0-9]+$/),
+
+    body('countryid').escape(),
   ],
   async (req, res) => {
     console.log('router post');

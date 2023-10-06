@@ -34,6 +34,8 @@ router.put(
       .isLength({ min: 3 })
       .matches(/^[a-zA-Z0-9]+$/)
       .optional({ checkFalsy: true }),
+
+    body('countryid').escape().optional({ checkFalsy: true }),
   ],
   async (req, res, next) => {
     // Extract the validation errors from a request.
