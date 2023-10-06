@@ -7,7 +7,7 @@ const MovieDetailsCard = ({movie, onClose}) => {
     return (
         <div className="flex flex-col md:flex-row">
             <div className="md:w-1/3">
-                <img src="https://via.placeholder.com/300x450" alt={movie.title} className="w-full" />
+                <img src={movie.img} alt={movie.title} className="w-full" />
             </div>
             <div className="md:w-2/3 md:pl-4">
                 <h2 className="text-2xl font-bold mb-2">{movie.title}</h2>
