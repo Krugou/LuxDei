@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 
-// import '@videojs/themes/dist/city/index.css';
+import '@videojs/themes/dist/city/index.css';
 export const VideoPlayer = (props) => {
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
@@ -43,33 +43,7 @@ export const VideoPlayer = (props) => {
     }
   }
   );
-  useEffect(() => {
-    if (playerRef.current) {
-      // Create a custom text track to display the viewer count
-      const countTrack = playerRef.current.addRemoteTextTrack(
-        {
-          kind: 'metadata',
-          label: 'Viewer Count',
-          language: 'en',
-        },
-        false
-      );
-      countTrack.mode = 'showing';
 
-      // Update the viewer count when it changes
-      const updateCount = () => {
-        const countText = `Live Viewers: ${liveViewerCount} | Total Viewers: ${totalViewerCount}`;
-        const cue = new VTTCue(0, 999999999, countText);
-        countTrack.addCue(cue);
-      };
-      updateCount();
-      socket.on('LiveViewers', updateCount);
-      socket.on('TotalViewers', updateCount);
-
-    
-
-    }
-  }, [playerRef.current, socket, liveViewerCount, totalViewerCount]);
   useEffect(() => {
     if (!playerRef.current) {
       const videoElement = document.createElement('video-js');
@@ -106,17 +80,21 @@ export const VideoPlayer = (props) => {
 
   return (
     <>
-      <div data-vjs-player className="w-full h-full">
+      <div data-vjs-player className=" relative w-full h-full">
         <div ref={videoRef} className="video-js vjs-theme-city">
+
           <style jsx>{`
             .video-js {
               width: 100%;
               height: 100%;
             }
           `}</style>
+          <div className="absolute bottom-12 right-0 bg-gray-800 z-10 text-white p-2 opacity-20 hover:opacity-80 transition-opacity duration-300 bg-transparent">
+            <div className="text-lg font-bold">Viewers: {liveViewerCount}</div>
+            <div className="text-sm">Viewed: {totalViewerCount}</div>
+          </div>
         </div>
-        <div>Live View Count: {liveViewerCount}</div>
-        <div>Total View Count: {totalViewerCount}</div>
+        
       </div>
     </>
   );
