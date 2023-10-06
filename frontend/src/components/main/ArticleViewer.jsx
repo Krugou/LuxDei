@@ -1,8 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+
+
 const ArticleViewer = ({articles}) => {
-
-
     return (
         <div className='bg-gray-100 p-8 mx-auto px-4 sm:px-6 lg:px-8'>
             <h1 className='text-3xl font-bold text-center mt-8 mb-4'>Articles</h1>
@@ -26,7 +26,8 @@ const ArticleViewer = ({articles}) => {
         </div>
     );
 };
-ArticleViewer.PropTypes = {
+
+ArticleViewer.propTypes = {
     articles: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.number.isRequired,
@@ -38,3 +39,5 @@ ArticleViewer.PropTypes = {
 };
 
 export default ArticleViewer;
+
+
