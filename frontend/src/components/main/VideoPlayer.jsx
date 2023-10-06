@@ -18,7 +18,7 @@ export const VideoPlayer = (props) => {
 
     // Notify the server that a user joined and update the view count
     socket.emit('userJoined');
-    setViewCount((prevCount) => prevCount + 1);
+    setViewCount((prevCount) => prevCount + 1); // Increment count by 1
 
     if (!playerRef.current) {
       const videoElement = document.createElement('video-js');
@@ -30,9 +30,9 @@ export const VideoPlayer = (props) => {
         onReady && onReady(player);
       }));
 
-      // Listen for WebSocket updates when a user leaves
-      socket.on('userLeft', () => {
-        setViewCount((prevCount) => prevCount - 1);
+      // Listen for WebSocket updates to the view count
+      socket.on('updateViewCount', (count) => {
+        setViewCount(count);
       });
     } else {
       const player = playerRef.current;
@@ -40,9 +40,9 @@ export const VideoPlayer = (props) => {
       player.autoplay(options.autoplay);
       player.src(options.sources);
 
-      // Listen for WebSocket updates when a user leaves
-      socket.on('userLeft', () => {
-        setViewCount((prevCount) => prevCount - 1);
+      // Listen for WebSocket updates to the view count
+      socket.on('updateViewCount', (count) => {
+        setViewCount(count);
       });
     }
 

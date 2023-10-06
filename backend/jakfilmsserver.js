@@ -22,11 +22,13 @@ app.get('*', (req, res) => {
 let viewCount = 0;
 io.on('connection', (socket) => {
 
-      viewCount++;
-
-      io.emit('updateViewerCount', viewCount);
   console.log(socket.id, ' has entered the building');
   const ip = socket.request.connection.remoteAddress;
+
+      socket.on('userJoined', () => {
+        viewCount++;
+        io.emit('updateViewCount', viewCount);
+      });
 
   // console.log(`Client connected with IP address: ${ip}`);
 
