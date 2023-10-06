@@ -11,8 +11,8 @@ import authRoute from './routes/authRoute.js';
 import secureRoute from './routes/secureRoute.js';
 import userRoutes from './routes/userRoutes.js';
 
-import passport from './utils/pass.js';
 import ChatMessage from './models/ChatMessage.js';
+import passport from './utils/pass.js';
 
 const connectPort = 3002;
 const app = express();
@@ -122,7 +122,7 @@ io.on('connection', (socket) => {
     });
     chatMessage.save()
       .then(() => {
-        console.log('Chat message saved to MongoDB');
+        console.log('Mongodb saved message: ' + data.message);
         io.to(data.room).emit('chat message', {
           countryid: data.countryid,
           username: data.username,
@@ -138,35 +138,35 @@ io.on('connection', (socket) => {
     .then(() => console.log('Chat messages older than 48 hours deleted from MongoDB'))
     .catch((err) => console.error('Error deleting chat messages from MongoDB', err));
 });
-  socket.on('typing', ({username, room}) => {
-    // console.log('typing: ', username, room);
-    socket.broadcast.to(room).emit("typing", {username});
-    // console.log('typing event emitted successfully');
-  });
-  socket.on('stop typing', ({username, room}) => {
-    // console.log('stop typing: ', username, room);
-    socket.broadcast.to(room).emit("stop typing", {username});
-  });
-  socket.on('get messages', (room) => {
-    // console.log('get messages for room: ', room);
-    ChatMessage.find({room: room})
-      .sort({createdAt: -1})
-      .limit(1)
-      .then((messages) => {
-        if (messages.length > 0) {
-          const latestMessage = messages[0];
-          console.log('latest message: ', latestMessage);
-          socket.broadcast.to(room).emit("typing", {username});
-          socket.emit('chat message', {
-            countryid: latestMessage.countryid,
-            username: latestMessage.username,
-            message: latestMessage.message,
-            room: latestMessage.room,
-          });
-        }
-      })
-      .catch((err) => console.error('Error retrieving chat messages from MongoDB', err));
-  });
+socket.on('typing', ({username, room}) => {
+  // console.log('typing: ', username, room);
+  socket.broadcast.to(room).emit("typing", {username});
+  // console.log('typing event emitted successfully');
+});
+socket.on('stop typing', ({username, room}) => {
+  // console.log('stop typing: ', username, room);
+  socket.broadcast.to(room).emit("stop typing", {username});
+});
+socket.on('get messages', (room) => {
+  // console.log('get messages for room: ', room);
+  ChatMessage.find({room: room})
+    .sort({createdAt: -1})
+    .limit(1)
+    .then((messages) => {
+      if (messages.length > 0) {
+        const latestMessage = messages[0];
+        console.log('latest message: ', latestMessage);
+        socket.broadcast.to(room).emit("typing", {username});
+        socket.emit('chat message', {
+          countryid: latestMessage.countryid,
+          username: latestMessage.username,
+          message: latestMessage.message,
+          room: latestMessage.room,
+        });
+      }
+    })
+    .catch((err) => console.error('Error retrieving chat messages from MongoDB', err));
+});
 });
 http.listen(connectPort, () => {
   console.log('Server started on port ' + connectPort);
