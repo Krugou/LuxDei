@@ -174,7 +174,7 @@ const Chat = ({username, countryid}) => {
     } catch (error) {
       console.error('Error in useEffect:', error);
     }
-  }, [socket]);
+  }, [socket, messages]);
   const messagesRef = useRef(null);
 
   useEffect(() => {
