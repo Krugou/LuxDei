@@ -114,6 +114,10 @@ io.on('connection', (socket) => {
   socket.on('leave room', (room) => {
     // console.log(socket.id, ' left room: ', room);
     socket.leave(room);
+    const roomSize = io.sockets.adapter.rooms.get(room)?.size || 0;
+
+    // Emit the user count to all users in the room
+    io.to(room).emit('user count', roomSize);
   });
   socket.on('chat message', (data) => {
     // console.log('chat message received:', data);
