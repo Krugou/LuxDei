@@ -1,9 +1,10 @@
+// src/components/VideoPlayer.js
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import '@videojs/themes/dist/city/index.css';
-import io from 'socket.io-client'; // Import socket.io-client
+import io from 'socket.io-client';
 
 export const VideoPlayer = (props) => {
   const videoRef = React.useRef(null);
@@ -15,6 +16,10 @@ export const VideoPlayer = (props) => {
     // Establish a WebSocket connection to the server
     const socket = io('http://localhost:3001');
 
+    // Notify the server that a user joined and update the view count
+    socket.emit('userJoined');
+    setViewCount((prevCount) => prevCount + 1);
+
     if (!playerRef.current) {
       const videoElement = document.createElement('video-js');
 
@@ -25,24 +30,21 @@ export const VideoPlayer = (props) => {
         onReady && onReady(player);
       }));
 
-      // Attach an event listener to increment viewCount when the video plays
-      player.on('play', () => {
-        setViewCount((prevCount) => prevCount + 1);
-
-        // Send a message to the server to update the view count
-        socket.emit('playVideo');
+      // Listen for WebSocket updates when a user leaves
+      socket.on('userLeft', () => {
+        setViewCount((prevCount) => prevCount - 1);
       });
     } else {
       const player = playerRef.current;
 
       player.autoplay(options.autoplay);
       player.src(options.sources);
-    }
 
-    // Listen for WebSocket updates to the view count
-    socket.on('updateViewCount', (count) => {
-      setViewCount(count);
-    });
+      // Listen for WebSocket updates when a user leaves
+      socket.on('userLeft', () => {
+        setViewCount((prevCount) => prevCount - 1);
+      });
+    }
 
     // Dispose the Video.js player and close the WebSocket connection when unmounting
     return () => {
