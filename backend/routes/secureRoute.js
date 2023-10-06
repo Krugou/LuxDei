@@ -36,6 +36,17 @@ router.put(
       .optional({ checkFalsy: true }),
   ],
   async (req, res, next) => {
+    // Extract the validation errors from a request.
+
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // There are errors.
+      // Error messages can be returned in an array using `errors.array()`.
+      console.error('get_UserProfileLimited validation', errors.array());
+
+      res.status(400).json({ error: 'Invalid inputs' });
+    }
     try {
       let data = req.body;
       if (!req.user) {
