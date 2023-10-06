@@ -2,7 +2,7 @@ import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import {UserProvider} from './contexts/UserContext';
 import Footer from './views/Footer';
 import Header from './views/Header';
-import AdminStats from './views/admin/AdminStats';
+import AdminDashboard from './views/admin/AdminDashboard';
 import CreateArticles from './views/admin/CreateArticles';
 import CreateSchedules from './views/admin/CreateSchedules';
 import About from './views/main/About';
@@ -45,10 +45,9 @@ const Layout = () => {
               <Route path='/logout' element={<Logout />} />
               <Route path='/movies' element={<Movies />} />
               <Route path='/archive' element={<Archive />} />
-              <Route path='/admin' element={<AdminStats />}>
-                <Route path='newarticle' element={<CreateArticles />} />
-                <Route path='newschedule' element={<CreateSchedules />} />
-              </Route>
+              <Route path='/admin' element={<AdminDashboard />} />
+              <Route path='/admin/newarticle' element={<CreateArticles />} />
+              <Route path='/admin/newschedule' element={<CreateSchedules />} />
             </Routes>
           </main>
           <Footer />
