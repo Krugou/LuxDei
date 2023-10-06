@@ -40,9 +40,14 @@ export const VideoPlayer = (props) => {
       socket.on('TotalViewers', (data) => {
         setTotalViewCount(data);
       });
+
+      // Remove the event listeners when the component unmounts
+      return () => {
+        socket.off('LiveViewers');
+        socket.off('TotalViewers');
+      };
     }
-  }, [socket]
-  );
+  }, [socket]);
 
   useEffect(() => {
     if (!playerRef.current) {
