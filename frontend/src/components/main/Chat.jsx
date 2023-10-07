@@ -22,7 +22,6 @@ const Chat = ({username, countryid}) => {
     if (emoji.native) {
       setMessage(message + emoji.native);
     }
-    setShowEmojiPicker(false);
   };
   const handleEmojiButtonClick = () => {
     setShowEmojiPicker(!showEmojiPicker);
