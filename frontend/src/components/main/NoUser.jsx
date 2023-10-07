@@ -6,7 +6,7 @@ const NoChat = () => {
 
     return (
         <div className='flex flex-col items-center justify-center'>
-            <h1 className='text-2xl m-2 font-bold mb-8'>
+            <h1 className='lg:text-xl text-base m-2 font-bold mb-8'>
                 Please login or register to chat
             </h1>
             <div className='flex flex-col items-center'>

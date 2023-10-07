@@ -7,7 +7,7 @@ import {useNavigate} from 'react-router-dom';
 const EventDetails = () => {
     const navigate = useNavigate();
     return (
-        <div className="bg-gmdeepblack border-t-4 border-b-4 border-gmgold min-h-50">
+        <div className="bg-gmdeepblack border-gmgold border-t-4 min-h-50">
 
             <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <div className="flex flex-col md:flex-row">

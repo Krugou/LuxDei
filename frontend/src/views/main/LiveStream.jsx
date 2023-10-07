@@ -80,7 +80,7 @@ const LiveStream = () => {
   // const randomCountry = countries[Math.floor(Math.random() * countries.length)];
 
   return (
-    <section className='border rounded flex flex-col md:flex-row justify-center items-center md:items-start p-2 '>
+    <section className='border rounded flex flex-col md:flex-row justify-around items-center md:items-start p-2 '>
       <VideoPlayer
         
         options={videoJsOptions}
