@@ -66,6 +66,7 @@ const NavElement = () => {
           )}
 
           <HeaderListButton name='livestream' navigate={navigate} />
+          <HeaderListButton name='movies' navigate={navigate} />
           <HeaderListButton
             name='articles'
             navigate={navigate}
