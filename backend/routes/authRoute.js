@@ -20,7 +20,9 @@ const authenticate = (req, res, next) => {
       if (err) {
         console.log('err2: ', err);
         next(httpError('Virhe kirjautuessa', 403));
-        return;
+        return res.status(400).json({
+          message: 'Invalid data',
+        });
       }
       const token = jwt.sign(user, process.env.JWT_SECRET);
       res.json({ user, token });
@@ -51,7 +53,6 @@ router.post(
       return res.status(400).json({
         message: 'Invalid data',
       });
-      return;
     }
 
     // Call the authenticate function to handle passport authentication
