@@ -18,12 +18,13 @@ const Chat = ({username, countryid}) => {
   const [userCount, setUserCount] = useState(0);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const handleEmojiSelect = (emoji) => {
-    setMessage(message + emoji.native);
+    if (emoji) {
+      setMessage(message + emoji.native);
+    }
     setShowEmojiPicker(false);
   };
   const handleEmojiButtonClick = () => {
     setShowEmojiPicker(!showEmojiPicker);
-
   };
   useEffect(() => {
     try {
@@ -324,7 +325,7 @@ const Chat = ({username, countryid}) => {
                   </g>
                 </svg>
               </button>
-              
+
             </div>
           </div>
         </form>
