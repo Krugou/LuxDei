@@ -167,7 +167,7 @@ const getFestivalMovies = async () => {
     {
       id: 1,
       title: 'Mikko/Evtek to Alaska',
-      img: './assets/images/mikkotoalaska.png',
+      img: './images/mikkotoalaska.png',
       runningTime: 81000, // 1min 21s
       description:
         'After graduating from Evtek, Mikko decided to move to Alaska starts working at local affliate of nbc station called kash.',
@@ -175,7 +175,7 @@ const getFestivalMovies = async () => {
     {
       id: 2,
       title: 'Morning after',
-      img: './assets/images/morningafter.png',
+      img: './images/morningafter.png',
       runningTime: 218000, // 3min 38s
       description:
         'Man finds himself in Evtek toilet and he has no idea what happened last night. See the story unfold. ',
@@ -183,7 +183,7 @@ const getFestivalMovies = async () => {
     {
       id: 3,
       title: 'Museo olohuoneena',
-      img: './assets/images/museumlivingroom.png',
+      img: './images/museumlivingroom.png',
       runningTime: 173000, // 2min 53s
       description:
         'Join people seeing exhibition in museo olohuoneena. See the exciting documentary unfold.',
@@ -191,7 +191,7 @@ const getFestivalMovies = async () => {
     {
       id: 4,
       title: 'Opiskelijaelämää 2009',
-      img: './assets/images/studentlife.png',
+      img: './images/studentlife.png',
       runningTime: 206000, // 3min 26s
       description:
         'Student in dining area of Evtek. Feel the atmosphere of student life in 2009.',
@@ -199,7 +199,7 @@ const getFestivalMovies = async () => {
     {
       id: 5,
       title: 'Democompo',
-      img: './assets/images/democompo.png',
+      img: './images/democompo.png',
       runningTime: 1188000, // 19min 48s
       description:
         'See student works of 3d animation and games.',
