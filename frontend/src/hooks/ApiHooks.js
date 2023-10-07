@@ -311,7 +311,7 @@ const useUser = () => {
       console.log('username:', loginResult.user.name);
       return loginResult.user;
     } catch (error) {
-      console.log(error.message);
+      throw new Error(error.message); // Rethrow the error
     }
   };
 

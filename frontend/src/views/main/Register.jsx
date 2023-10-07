@@ -68,7 +68,9 @@ const Register = () => {
         username: usernameRef.current.value,
         password: passwordRef.current.value,
       };
-      setUser(await doLogin(inputs));
+      const user = await doLogin(inputs);
+      // Successful login
+      setUser(user);
       navigate('/');
     } catch (error) {
       // Set the error message
