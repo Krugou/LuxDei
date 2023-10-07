@@ -97,6 +97,7 @@ const Chat = ({username, countryid}) => {
     try {
       if (socket) {
         const handleMessage = (data) => {
+          // console.log('data: ', data)
           if (data.room === room) {
             // console.log('message received:', data.countryid, data.username, data.message, data.room);
             setMessages((prevMessages) => [...prevMessages, data]);
@@ -254,6 +255,9 @@ const Chat = ({username, countryid}) => {
             </li>
           ))}
         </ul>
+        {showEmojiPicker && <Picker className='absolute bottom-0 right-0 z-10 bg-white border border-gray-300 rounded shadow-md'
+          style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}} data={data} onEmojiSelect={handleEmojiSelect} />}
+        <button onClick={handleEmojiButtonClick}>Emoji Selector 😀</button>
         <form
           className='flex items-center justify-end align-end mt-auto'
           onSubmit={handleSubmit}
@@ -285,8 +289,7 @@ const Chat = ({username, countryid}) => {
                 Cinephile's Hangout
               </option>
             </select>
-            {showEmojiPicker && <Picker className='absolute bottom-0 right-0 z-10 bg-white border border-gray-300 rounded shadow-md'
-              style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}} data={data} onEmojiSelect={handleEmojiSelect} />}
+           
             {/* Message input */}
             <div className='flex flex-row rounded border'>
               <input
@@ -302,7 +305,7 @@ const Chat = ({username, countryid}) => {
                 onKeyUp={handleTypingIntoServer}
                 aria-label='Type your message here'
               />
-              <button onClick={handleEmojiButtonClick}>😀</button>
+              
               {/* Submit button */}
               <button
                 type='submit'
