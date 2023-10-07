@@ -1,5 +1,5 @@
-import {Picker} from 'emoji-mart';
-// import 'emoji-mart/css/emoji-mart.css';
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 import {FlagIcon} from 'react-flag-kit';
@@ -322,7 +322,7 @@ const Chat = ({username, countryid}) => {
                   </g>
                 </svg>
               </button>
-              {showEmojiPicker && <Picker onSelect={handleEmojiSelect} />}
+              {showEmojiPicker && <Picker data={data} onEmojiSelect={handleEmojiSelect} />}
             </div>
           </div>
         </form>
