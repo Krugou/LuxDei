@@ -78,7 +78,7 @@ router.post(
       const salt = bcrypt.genSaltSync(10);
       const pwd = bcrypt.hashSync(req.body.password, salt);
       const newUser = new User({
-        name: req.body.name,
+        name: req.body.name.toLowerCase(),
         email: req.body.email,
         password: pwd,
         countryid: req.body.countryid,
