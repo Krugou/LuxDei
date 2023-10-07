@@ -198,7 +198,7 @@ const Chat = ({username, countryid}) => {
   return (
     <>
 
-      <div className='flex flex-col  h-full   '>
+      <div className='flex flex-col max-w-xs  h-full   '>
         {typingUsers.length > 0 && (
           <div
             className={`text-md text-white bg-black ${isPulsing ? 'animate-pulse' : ''
