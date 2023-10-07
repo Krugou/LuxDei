@@ -37,7 +37,7 @@ const NavElement = () => {
   }, []); // jos taulukko tyhjä, ajetaan vain kerran
 
   return (
-    <nav className='p-4 bg-gray-700 sticky top-0 w-full z-10'>
+    <nav className='p-4 bg-gmdeepblack border-b-4 border-gmgold  sticky top-0 w-full z-10'>
       <div className='container mx-auto flex justify-between items-center relative'>
         <HeaderTitle />
 

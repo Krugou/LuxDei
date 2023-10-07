@@ -5,7 +5,7 @@ const Footer = () => {
 
 
     return (
-        <footer className="bg-gray-800 text-gray-400 py-4">
+        <footer className="bg-gmdeepblack text-gray-400 py-4">
             <FooterList />
             <FooterCopyright
                 companyName="JakFilms"
