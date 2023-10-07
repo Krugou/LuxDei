@@ -80,7 +80,8 @@ const Profile = () => {
       {user && (
         <div>
           <p className='mb-2'>
-            <span className='font-semibold'>Name:</span> {user.name}
+            <span className='font-semibold'>Name:</span> {user.name.charAt(0).toUpperCase() +
+              user.name.slice(1)}
           </p>
           <p className='mb-2'>
             <span className='font-semibold'>Email:</span> {user.email}
