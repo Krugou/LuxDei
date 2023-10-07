@@ -92,7 +92,7 @@ const LiveStream = () => {
         username={generateUsername()}
         countryid={randomCountry}
       /> */}
-      {/* <Chat className=" " username={''} countryid={''} /> */}
+      {/* <Chat className=" " username={'anon'} countryid={'FI'} /> */}
       {/* real one next  */}
       {user ? (
         <Chat className='' username={user.name} countryid={user.countryid} />
