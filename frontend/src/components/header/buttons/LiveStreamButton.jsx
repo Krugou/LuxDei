@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 const LiveStreamButton = ({name, navigate, lastItem = false}) => {
   const [isOnline, setIsOnline] = useState(false);
@@ -24,7 +24,8 @@ const LiveStreamButton = ({name, navigate, lastItem = false}) => {
           navigate(`/${name}`);
         }}
       >
-        Livestream
+        {name.charAt(0).toUpperCase() +
+          name.slice(1)}
       </button>
     </li>
   );
