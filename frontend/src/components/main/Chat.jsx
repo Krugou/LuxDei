@@ -211,7 +211,7 @@ const Chat = ({username, countryid}) => {
         <ul
           id='messages'
           ref={messagesRef}
-          className={`flex flex-col bg-white m-4 md:h-96 h-full  mt-auto shadow-lg rounded-md p-4  overflow-y-auto `}
+          className={`flex flex-col bg-white m-4 md:h-96 h-40  mt-auto shadow-lg rounded-md p-4  overflow-y-auto `}
         >
           {messages.map((message, index) => (
             <li
@@ -288,7 +288,7 @@ const Chat = ({username, countryid}) => {
                 Cinephile's Hangout
               </option>
             </select>
-           
+
             {/* Message input */}
             <div className='flex flex-row rounded border'>
               <input
@@ -304,7 +304,7 @@ const Chat = ({username, countryid}) => {
                 onKeyUp={handleTypingIntoServer}
                 aria-label='Type your message here'
               />
-              
+
               {/* Submit button */}
               <button
                 type='submit'
