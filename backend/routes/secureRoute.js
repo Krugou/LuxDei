@@ -74,13 +74,13 @@ router.put(
         next(httpError('Invalid data', 400));
         return;
       }
-
+      if (data.userrole) delete data.userrole; // makes it so that users can't make themselves admin
+      if (data.name) data.name = data.name.toLowerCase();
       if (data.password) {
         const salt = bcrypt.genSaltSync(10);
         const pwd = bcrypt.hashSync(data.password, salt);
 
         delete data.password;
-        if (data.userrole) delete data.userrole; // makes it so that users can't make themselves admin
         data = {
           ...data,
           password: pwd,
