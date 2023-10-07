@@ -19,9 +19,11 @@ const Chat = ({username, countryid}) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const handleEmojiSelect = (emoji) => {
     setMessage(message + emoji.native);
+    setShowEmojiPicker(false);
   };
   const handleEmojiButtonClick = () => {
     setShowEmojiPicker(!showEmojiPicker);
+
   };
   useEffect(() => {
     try {
