@@ -18,10 +18,10 @@ export default {
       },
       colors: {
         gmdeepblack: '#000000',
-        gmgold: '#FFD700',
+        gmgold: '#f1c200',
         gmdeepred: '#8B0000',
         gmcoolgray: '#808080',
-        gmbondiblue: '#098eb1',
+        gmneonyellow: '#ffff00',
         gmairforceblue: '#52872a0',
       },
       backgroundImage: {
