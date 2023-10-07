@@ -13,6 +13,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PortraitIcon from '@mui/icons-material/Portrait';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import TheatersIcon from '@mui/icons-material/Theaters';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 const HeaderListButton = ({name, navigate, lastItem = false, }) => {
@@ -37,6 +38,7 @@ const HeaderListButton = ({name, navigate, lastItem = false, }) => {
                     {name === 'register' && <AppRegistrationIcon aria-hidden="true" />}
                     {name === 'articles' && <ArticleIcon aria-hidden="true" />}
                     {name === 'livestream' && <LiveTvIcon aria-hidden="true" />}
+                    {name === 'movies' && <TheatersIcon aria-hidden="true" />}
                 </div>
                 <div className="hidden md:block" >{capitalized}</div>
             </button>
