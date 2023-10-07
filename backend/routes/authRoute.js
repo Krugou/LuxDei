@@ -14,7 +14,7 @@ const authenticate = (req, res, next) => {
     console.log('err1: ', err);
     if (err || !user) {
       next(httpError('Virhe kirjautuessa', 403));
-      return res.status(400).json({
+      return res.status(403).json({
         message: 'Invalid data',
       });
     }
@@ -22,7 +22,7 @@ const authenticate = (req, res, next) => {
       if (err) {
         console.log('err2: ', err);
         next(httpError('Virhe kirjautuessa', 403));
-        return res.status(400).json({
+        return res.status(403).json({
           message: 'Invalid data',
         });
       }
