@@ -7,9 +7,9 @@ import useForm from '../../hooks/FormHooks';
 const Login = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
-  const { postLogin , } = useUser();
+  const { doLogin } = useUser();
   const navigate = useNavigate();
-  const {setUser, user} = useContext(UserContext);
+  const { setUser, user } = useContext(UserContext);
   useEffect(() => {
     if (user) {
       navigate('/');
@@ -26,11 +26,14 @@ const Login = () => {
     };
     // Add logic to authenticate user here
     try {
+      /*
+
       const loginResult = await postLogin(inputs);
       localStorage.setItem('userToken', loginResult.token);
       //setUser(loginResult.user);
-      setUser(loginResult.user);
-      console.log('username:', loginResult.user.name);
+      */
+      setUser(await doLogin(inputs));
+      // console.log('username:', loginResult.user.name);
       navigate('/');
     } catch (error) {
       console.log(error.message);
@@ -81,10 +84,7 @@ const Login = () => {
           />
         </div>
         <div className='flex items-center justify-between'>
-          <button
-            className='button'
-            type='submit'
-          >
+          <button className='button' type='submit'>
             Sign In
           </button>
         </div>

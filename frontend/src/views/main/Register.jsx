@@ -2,16 +2,18 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import { useUser } from '../../hooks/ApiHooks';
+
 import ErrorAlert from '../../components/main/ErrorAlert';
 
 const Register = () => {
-  const { postUser } = useUser();
+  const { postUser, doLogin } = useUser();
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
   const usernameRef = useRef('');
   const emailRef = useRef('');
   const passwordRef = useRef('');
+  const { setUser, user } = useContext(UserContext);
+
   const [alert, setAlert] = useState('');
 
   const countryRef = useRef('fi'); // Set the initial value for the select
@@ -20,6 +22,23 @@ const Register = () => {
       navigate('/');
     }
   }, [user, navigate]);
+
+  /*
+  const doLogin = async () => {
+    const inputs = {
+      username: usernameRef.current.value,
+      password: passwordRef.current.value,
+    };
+    try {
+      const loginResult = await postLogin(inputs);
+      localStorage.setItem('userToken', loginResult.token);
+      setUser(loginResult.user);
+      console.log('username:', loginResult.user.name);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+*/
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
@@ -45,6 +64,11 @@ const Register = () => {
       //delete withoutConfirm.confirm;
       const response = await postUser(userData);
       console.log(response, 'Register Response');
+      const inputs = {
+        username: usernameRef.current.value,
+        password: passwordRef.current.value,
+      };
+      setUser(await doLogin(inputs));
       navigate('/');
     } catch (error) {
       // Set the error message

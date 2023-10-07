@@ -304,12 +304,24 @@ const useUser = () => {
     };
     return await doFetch(baseUrl + 'secure/users', options);
   };
+  const doLogin = async (inputs) => {
+    try {
+      const loginResult = await postLogin(inputs);
+      localStorage.setItem('userToken', loginResult.token);
+      console.log('username:', loginResult.user.name);
+      return loginResult.user;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return {
     postUser,
     postLogin,
     getUserInfoByToken,
     putUser,
     deleteUser,
+    doLogin,
   };
 };
 export {

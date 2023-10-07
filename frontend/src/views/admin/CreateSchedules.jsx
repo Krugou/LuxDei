@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-
+import { postSchedule } from '../../hooks/ApiHooks';
 const CreateSchedules = () => {
   const [formData, setFormData] = useState({
     day: '',
     time: '',
     title: '',
   });
-
-  const [scheduleItems, setScheduleItems] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -17,14 +15,25 @@ const CreateSchedules = () => {
     });
   };
 
-  const handleAddScheduleItem = () => {
-    if (formData.time && formData.title) {
-      setScheduleItems([...scheduleItems, formData]);
-      setFormData({
-        ...formData,
-        time: '',
-        title: '',
-      });
+  const sendScheduleData = async () => {
+    try {
+      const token = localStorage.getItem('userToken');
+      // Create an array of schedule items from the state
+      const scheduleData = {
+        day: formData.day,
+        schedule: [
+          {
+            time: formData.time,
+            title: formData.title,
+          },
+        ],
+      };
+      const schedulePostResponse = await postSchedule(scheduleData, token);
+      console.log(schedulePostResponse);
+      // Send a POST request to your backend with the scheduleData using fetch
+    } catch (error) {
+      // Handle errors, e.g., show an error message
+      console.log(error.message);
     }
   };
 
@@ -67,21 +76,11 @@ const CreateSchedules = () => {
       <div className='mb-4'>
         <button
           type='button'
-          onClick={handleAddScheduleItem}
-          className='bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded'
+          onClick={sendScheduleData} // Call sendScheduleData when the button is clicked
+          className='bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded'
         >
-          Add Schedule Item
+          Save Schedule
         </button>
-      </div>
-      <div>
-        <h3 className='text-xl font-semibold mb-2'>Schedule Items:</h3>
-        <ul>
-          {scheduleItems.map((item, index) => (
-            <li key={index} className='mb-2'>
-              <strong>{item.day}:</strong> {item.time} - {item.title}
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   );
