@@ -8,7 +8,7 @@
 		"devBrutal": "vite --port 8080 --open -d --force --host",
 		"devDebug": "vite --port 8080 --open -d --host",
 		"build": "vite build --outDir ../backend/jakfilms --minify --manifest  --sourcemap --base / ",
-		"buildWatch":"vite build --outDir ../backend/jakfilms --emptyOutDir --minify --manifest  --sourcemap --base / --watch",
+		"buildWatch": "vite build --outDir ../backend/jakfilms --emptyOutDir --minify --manifest  --sourcemap --base / --watch",
 		"lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
 		"preview": "vite preview",
 		"filter": "vite --filter ./src/components/header/NavUpperElement.jsx "
@@ -19,6 +19,7 @@
 		"@mui/icons-material": "^5.14.11",
 		"@mui/material": "^5.14.11",
 		"@videojs/themes": "^1.0.1",
+		"emoji-mart": "^5.5.2",
 		"localforage": "^1.10.0",
 		"match-sorter": "^6.3.1",
 		"react": "^18.2.0",
