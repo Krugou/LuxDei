@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Change to the project directory
 cd /home/aanderson/LuxDei
