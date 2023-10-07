@@ -283,7 +283,7 @@ const Chat = ({username, countryid}) => {
                 Cinephile's Hangout
               </option>
             </select>
-
+            {showEmojiPicker && <Picker data={data} onEmojiSelect={handleEmojiSelect} />}
             {/* Message input */}
             <div className='flex flex-row rounded border'>
               <input
@@ -324,7 +324,7 @@ const Chat = ({username, countryid}) => {
                   </g>
                 </svg>
               </button>
-              {showEmojiPicker && <Picker data={data} onEmojiSelect={handleEmojiSelect} />}
+              
             </div>
           </div>
         </form>
