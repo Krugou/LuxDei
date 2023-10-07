@@ -1,3 +1,5 @@
+import {Picker} from 'emoji-mart';
+// import 'emoji-mart/css/emoji-mart.css';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 import {FlagIcon} from 'react-flag-kit';
@@ -14,6 +16,13 @@ const Chat = ({username, countryid}) => {
   const [isTyping, setIsTyping] = useState(false);
   const [typingUsers, setTypingUsers] = useState([]);
   const [userCount, setUserCount] = useState(0);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const handleEmojiSelect = (emoji) => {
+    setMessage(message + emoji.native);
+  };
+  const handleEmojiButtonClick = () => {
+    setShowEmojiPicker(!showEmojiPicker);
+  };
   useEffect(() => {
     try {
       // Create a new socket connection when the component mounts
@@ -288,7 +297,7 @@ const Chat = ({username, countryid}) => {
                 onKeyUp={handleTypingIntoServer}
                 aria-label='Type your message here'
               />
-
+              <button onClick={handleEmojiButtonClick}>😀</button>
               {/* Submit button */}
               <button
                 type='submit'
@@ -313,6 +322,7 @@ const Chat = ({username, countryid}) => {
                   </g>
                 </svg>
               </button>
+              {showEmojiPicker && <Picker onSelect={handleEmojiSelect} />}
             </div>
           </div>
         </form>
