@@ -4,6 +4,7 @@ const MovieDetailsCard = ({movie, onClose}) => {
     const runningTime = movie.runningTime;
     const hours = Math.floor(runningTime / 3600000);
     const minutes = Math.floor((runningTime % 3600000) / 60000);
+    const seconds = Math.floor((runningTime % 60000) / 1000);
     return (
         <div className="flex flex-col md:flex-row">
             <div className="md:w-1/3">
@@ -12,7 +13,11 @@ const MovieDetailsCard = ({movie, onClose}) => {
             <div className="md:w-2/3 md:pl-4">
                 <h2 className="text-2xl font-bold mb-2">{movie.title}</h2>
                 <p className="text-gray-700 mb-4">{movie.description}</p>
-                <p className="mb-2">Running time: {hours} hours {minutes} minutes</p>
+                {runningTime > 0 && (
+                    <p className='mb-2'>
+                        Running time: {hours} hours {minutes} minutes {seconds} seconds
+                    </p>
+                )}
                 <button onClick={onClose} className="bg-gray-800 text-white py-2 px-4 rounded-md mt-4">Close</button>
             </div>
         </div>
