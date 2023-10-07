@@ -18,6 +18,7 @@ const Chat = ({username, countryid}) => {
   const [userCount, setUserCount] = useState(0);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const handleEmojiSelect = (emoji) => {
+    console.log('handleEmojiSelect: ', emoji.native);
     if (emoji.native) {
       setMessage(message + emoji.native);
     }
