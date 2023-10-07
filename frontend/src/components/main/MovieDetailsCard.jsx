@@ -24,7 +24,8 @@ MovieDetailsCard.propTypes = {
         id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
         runningTime: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired
+        description: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired
     }).isRequired,
     onClose: PropTypes.func.isRequired
 };
