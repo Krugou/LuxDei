@@ -170,7 +170,7 @@ const getFestivalMovies = async () => {
       img: './images/mikkotoalaska.png',
       runningTime: 81000, // 1min 21s
       description:
-        'After graduating from Evtek, Mikko decided to move to Alaska starts working at local affliate of nbc station called kash.',
+        ' After graduating from Evtek, Mikko embarks on a daring journey to the wild and untamed land of Alaska, where he takes on a new adventure working at the local affiliate of NBC called KASH. Brace yourself for a thrilling ride through the Last Frontier!',
     },
     {
       id: 2,
@@ -178,7 +178,7 @@ const getFestivalMovies = async () => {
       img: './images/morningafter.png',
       runningTime: 218000, // 3min 38s
       description:
-        'Man finds himself in Evtek toilet and he has no idea what happened last night. See the story unfold. ',
+        'In the dimly lit corridors of Evtek, a man awakens with a pounding headache and a sense of bewilderment, piecing together the puzzle of the wild night before. Join him on a rollercoaster of a morning-after mystery that will keep you guessing till the very end.',
     },
     {
       id: 3,
@@ -186,7 +186,7 @@ const getFestivalMovies = async () => {
       img: './images/museumlivingroom.png',
       runningTime: 173000, // 2min 53s
       description:
-        'Join people seeing exhibition in museo olohuoneena. See the exciting documentary unfold.',
+        'Step into the world of "Museo Olohuoneena," where the boundaries between art and reality blur. Join a diverse cast of characters as they explore an exhibition that transcends the ordinary, in a documentary that promises excitement beyond your wildest dreams.',
     },
     {
       id: 4,
@@ -194,7 +194,7 @@ const getFestivalMovies = async () => {
       img: './images/studentlife.png',
       runningTime: 206000, // 3min 26s
       description:
-        'Student in dining area of Evtek. Feel the atmosphere of student life in 2009.',
+        'Transport yourself back in time to the vibrant and nostalgic world of 2009, where students gather in the bustling dining area of Evtek. Immerse yourself in the electrifying atmosphere of student life, filled with youthful exuberance and the promise of unforgettable memories.',
     },
     {
       id: 5,
@@ -202,7 +202,7 @@ const getFestivalMovies = async () => {
       img: './images/democombo.png',
       runningTime: 1188000, // 19min 48s
       description:
-        'See student works of 3d animation and games.',
+        'Get ready to be dazzled by the genius of student creators as they unveil their mesmerizing 3D animations and captivating games in "Democompo." With a runtime of 19 minutes and 48 seconds, this showcase promises a visual and auditory feast that will leave you speechless and wanting more.',
     },
 
   ];
