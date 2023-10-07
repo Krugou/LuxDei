@@ -82,7 +82,7 @@ const LiveStream = () => {
   return (
     <section className='border rounded flex flex-col md:flex-row justify-center items-center md:items-start p-2 '>
       <VideoPlayer
-        className='w-2/3 h-full '
+        className='w-2/3 md:min-w-2/3 h-full '
         options={videoJsOptions}
         onReady={handlePlayerReady}
       />
