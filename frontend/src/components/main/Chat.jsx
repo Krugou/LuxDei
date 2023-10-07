@@ -18,7 +18,6 @@ const Chat = ({username, countryid}) => {
   const [userCount, setUserCount] = useState(0);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const handleEmojiSelect = (emoji) => {
-    console.log(emoji.native);
     if (emoji.native) {
       setMessage(message + emoji.native);
     }
@@ -26,6 +25,7 @@ const Chat = ({username, countryid}) => {
   };
   const handleEmojiButtonClick = () => {
     setShowEmojiPicker(!showEmojiPicker);
+    setMessage('');
   };
   useEffect(() => {
     try {
@@ -286,7 +286,6 @@ const Chat = ({username, countryid}) => {
               </option>
             </select>
             {showEmojiPicker && <Picker data={data} onEmojiSelect={handleEmojiSelect} />}
-            <button onClick={handleEmojiButtonClick}>😀</button>
             {/* Message input */}
             <div className='flex flex-row rounded border'>
               <input
@@ -302,6 +301,7 @@ const Chat = ({username, countryid}) => {
                 onKeyUp={handleTypingIntoServer}
                 aria-label='Type your message here'
               />
+              <button onClick={handleEmojiButtonClick}>😀</button>
               {/* Submit button */}
               <button
                 type='submit'
