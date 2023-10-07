@@ -199,7 +199,7 @@ const getFestivalMovies = async () => {
     {
       id: 5,
       title: 'Democompo',
-      img: './images/democompo.png',
+      img: './images/democombo.png',
       runningTime: 1188000, // 19min 48s
       description:
         'See student works of 3d animation and games.',
