@@ -27,11 +27,19 @@ const authenticate = (req, res, next) => {
     });
   })(req, res, next);
 };
+// Middleware to convert username to lowercase
+const lowercaseUsername = (req, res, next) => {
+  if (req.body.username) {
+    req.body.username = req.body.username.toLowerCase();
+  }
+  next();
+};
 
 // Define validation and error handling for the login route
 router.post(
   '/login',
   [body('username').escape(), body('password').escape()],
+  lowercaseUsername,
   (req, res, next) => {
     // Extract the validation errors from a request.
     const errors = validationResult(req);
