@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
-import LoadingSpinner from '../loadingSpinner';
+import LoadingSpinner from '../LoadingSpinner';
+
 
 const MovieDetailsCard = ({movie, onClose, loadStatus}) => {
     const [isLoading, setIsLoading] = useState(true);
