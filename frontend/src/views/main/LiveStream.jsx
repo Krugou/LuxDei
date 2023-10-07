@@ -34,6 +34,15 @@ const LiveStream = () => {
     player.on('dispose', () => {
       // videojs.log('player will dispose');
     });
+    player.on('playing', () => {
+      // videojs.log('player is playing');
+    });
+    player.on('pause', () => {
+      // videojs.log('player is paused');
+    });
+    player.on('error', () => {
+      // videojs.log('player is error');
+    });
   };
   // only for testing
   // const generateUsername = () => {
