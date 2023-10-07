@@ -15,7 +15,10 @@ const MovieDetailsCard = ({movie, onClose}) => {
                 <p className="text-gray-700 mb-4">{movie.description}</p>
                 {runningTime > 0 && (
                     <p className='mb-2'>
-                        Running time: {hours} hours {minutes} minutes {seconds} seconds
+                        Running time:
+                        {hours > 0 && ` ${hours} hours`}
+                        {minutes > 0 && ` ${minutes} minutes`}
+                        {seconds > 0 && ` ${seconds} seconds`}
                     </p>
                 )}
                 <button onClick={onClose} className="bg-gray-800 text-white py-2 px-4 rounded-md mt-4">Close</button>
