@@ -211,7 +211,7 @@ const Chat = ({username, countryid}) => {
         <ul
           id='messages'
           ref={messagesRef}
-          className={`flex flex-col bg-white m-4 md:h-96 h-40  mt-auto shadow-lg rounded-md p-4  overflow-y-auto `}
+          className={`flex flex-col bg-white m-4 md:h-96 h-72  mt-auto shadow-lg rounded-md p-4  overflow-y-auto `}
         >
           {messages.map((message, index) => (
             <li
