@@ -10,15 +10,13 @@ import bcrypt from 'bcryptjs';
 
 const router = express.Router();
 
+// GET route to retrieve user information
 router.get('/', (req, res, next) => {
   console.log(req.user, 'USER ASDASD');
   res.json(req.user);
-  try {
-  } catch (error) {
-    next(httpError('User info not available', 403));
-    return;
-  }
 });
+
+// PUT route to update user information
 router.put(
   '/users',
   [
@@ -40,7 +38,6 @@ router.put(
   ],
   async (req, res, next) => {
     // Extract the validation errors from a request.
-
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
@@ -105,6 +102,7 @@ router.put(
   }
 );
 
+// DELETE route to delete user account
 router.delete('/users', async (req, res, next) => {
   try {
     // Check if the user is authenticated and exists in the request
@@ -133,6 +131,7 @@ router.delete('/users', async (req, res, next) => {
   }
 });
 
+// POST route to create a new schedule item
 router.post(
   '/schedule',
   [
