@@ -25,7 +25,6 @@ const Chat = ({username, countryid}) => {
   };
   const handleEmojiButtonClick = () => {
     setShowEmojiPicker(!showEmojiPicker);
-    setMessage('');
   };
   useEffect(() => {
     try {
@@ -285,7 +284,8 @@ const Chat = ({username, countryid}) => {
                 Cinephile's Hangout
               </option>
             </select>
-            {showEmojiPicker && <Picker data={data} onEmojiSelect={handleEmojiSelect} />}
+            {showEmojiPicker && <Picker className='absolute bottom-0 right-0 z-10 bg-white border border-gray-300 rounded shadow-md'
+              style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}} data={data} onEmojiSelect={handleEmojiSelect} />}
             {/* Message input */}
             <div className='flex flex-row rounded border'>
               <input
