@@ -217,11 +217,11 @@ const Chat = ({user}) => {
           {messages.map((message, index) => (
             <li
               key={index}
-              className={`flex flex-col mb-2 ${message.username === username ? 'items-end' : 'items-start'
+              className={`flex flex-col mb-2 ${message.username === user.name ? 'items-end' : 'items-start'
                 }`}
             >
               <div
-                className={`rounded-lg py-2 px-3 ${message.username === username
+                className={`rounded-lg py-2 px-3 ${message.username === user.name
                   ? 'bg-black text-white'
                   : 'bg-black text-white'
                   }`}
@@ -238,13 +238,13 @@ const Chat = ({user}) => {
                 </p>
               </div>
               <span
-                className={`text-xs mt-1 border rounded ${message.username === username ? 'text-right' : 'text-left'
+                className={`text-xs mt-1 border rounded ${message.username === user.name ? 'text-right' : 'text-left'
                   }`}
               >
                 {message.username.charAt(0).toUpperCase() +
                   message.username.slice(1)}
                 <FlagIcon
-                  className={` mx-2 ${message.username === username
+                  className={` mx-2 ${message.username === user.name
                     ? 'float-right'
                     : 'float-left'
                     }`}
