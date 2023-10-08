@@ -1,28 +1,43 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import Chat from '../../components/main/Chat';
 import NoUser from '../../components/main/NoUser';
 import VideoPlayer from '../../components/main/VideoPlayer';
 import {UserContext} from '../../contexts/UserContext';
+import {VideoFeedContext} from '../../contexts/VideoFeedContext';
 const LiveStream = () => {
   const {user} = useContext(UserContext);
-
+  const {isVideoFeedOnline} = useContext(VideoFeedContext);
   const playerRef = React.useRef(null);
+  const [videoJsOptions, setVideoJsOptions] = useState({});
+  useEffect(() => {
+    const options = {
+      autoplay: true,
+      controls: true,
+      responsive: true,
+      fluid: true,
+      playbackRates: [0.5, 1, 1.5, 2],
+      liveui: isVideoFeedOnline,
+    };
 
-  const videoJsOptions = {
-    autoplay: true,
-    controls: true,
-    responsive: true,
-    fluid: true,
-    sources: [
-      {
-        src: 'http://195.148.104.124:1935/jakelu/jakfilms/manifest.mpd',
-        type: 'application/dash+xml',
-      },
-    ],
-    playbackRates: [0.5, 1, 1.5, 2],
-    liveui: true,
-    
-  };
+    if (isVideoFeedOnline) {
+      options.sources = [
+        {
+          src: 'http://195.148.104.124:1935/jakelu/jakfilms/manifest.mpd',
+          type: 'application/dash+xml',
+        },
+      ];
+    } else {
+      options.sources = [
+        {
+          src: './videos/testitallenne.mp4',
+          type: 'video/mp4',
+        },
+      ];
+    }
+
+    setVideoJsOptions(options);
+  }, [isVideoFeedOnline]);
+
 
   const handlePlayerReady = (player) => {
     playerRef.current = player;
@@ -80,26 +95,34 @@ const LiveStream = () => {
   // const randomCountry = countries[Math.floor(Math.random() * countries.length)];
 
   return (
-    <section className='border rounded flex flex-col md:flex-row justify-around items-center md:items-start p-2 '>
-      <VideoPlayer
-        
-        options={videoJsOptions}
-        onReady={handlePlayerReady}
-      />
-      {/* dev usage only */}
-      {/* <Chat
+    <>
+      {!isVideoFeedOnline && (
+        <h2 className='text-2xl font-bold text-center md:text-left'>
+          Sorry but you missed the live stream. you can watch it later from below
+        </h2>
+      )}
+      <section className='border rounded flex flex-col md:flex-row justify-around items-center md:items-start p-2 '>
+
+        <VideoPlayer
+
+          options={videoJsOptions}
+          onReady={handlePlayerReady}
+        />
+        {/* dev usage only */}
+        {/* <Chat
         className=' '
         username={generateUsername()}
         countryid={randomCountry}
       /> */}
-      {/* <Chat className=" " username={'anon'} countryid={'FI'} /> */}
-      {/* real one next  */}
-      {user ? (
-        <Chat className='' username={user.name} countryid={user.countryid} />
-      ) : (
+        {/* <Chat className=" " username={'anon'} countryid={'FI'} /> */}
+        {/* real one next  */}
+        {user ? (
+          <Chat className='' username={user.name} countryid={user.countryid} />
+        ) : (
           <NoUser />
-      )}
-    </section>
+        )}
+      </section>
+    </>
   );
 };
 

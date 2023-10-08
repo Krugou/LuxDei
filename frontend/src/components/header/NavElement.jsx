@@ -7,6 +7,7 @@ import {useUser} from '../../hooks/ApiHooks';
 import HeaderTitle from './HeaderTitle';
 import HeaderListButton from './buttons/HeaderListButton';
 import WeatherData from './weather/WeatherData';
+import {VideoFeedContext} from '../../contexts/VideoFeedContext';
 const NavElement = () => {
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -15,23 +16,9 @@ const NavElement = () => {
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
-  const [isOnline, setIsOnline] = useState(false);
   const [position, setPosition] = useState(null);
-  const checkOnlineStatus = async () => {
-    console.log('Checking online status...');
-    try {
-      const response = await fetch('http://195.148.104.124:1935/jakelu/jakfilms/manifest.mpd');
-      console.log('Response:', response);
-      setIsOnline(response.ok);
-    } catch (error) {
-      console.error('Error:', error);
-      setIsOnline(false);
-    }
-  };
+  const {isVideoFeedOnline} = useContext(VideoFeedContext);
 
-  useEffect(() => {
-    checkOnlineStatus();
-  }, []);
   const getUserInfo = async () => {
     const userToken = localStorage.getItem('userToken');
     if (userToken) {
@@ -97,7 +84,7 @@ const NavElement = () => {
             </>
           )}
 
-          <HeaderListButton name='livestream' navigate={navigate} isOnline={isOnline} />
+          <HeaderListButton name='livestream' navigate={navigate} isOnline={isVideoFeedOnline} />
           <HeaderListButton name='movies' navigate={navigate} />
           <HeaderListButton
             name='articles'

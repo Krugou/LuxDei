@@ -1,5 +1,6 @@
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import {UserProvider} from './contexts/UserContext';
+import {VideoFeedProvider} from './contexts/VideoFeedContext';
 import Footer from './views/Footer';
 import Header from './views/Header';
 import AdminDashboard from './views/admin/AdminDashboard';
@@ -23,6 +24,7 @@ import TermsOfService from './views/main/TermsofService';
 const Layout = () => {
   return (
     <UserProvider>
+      <VideoFeedProvider>
       <div className='max-w-screen-2xl flex flex-col mx-auto justify-center'>
         <Router basename={import.meta.env.BASE_URL}>
           <Header />
@@ -52,7 +54,8 @@ const Layout = () => {
           </main>
           <Footer />
         </Router>
-      </div>
+        </div>
+      </VideoFeedProvider>
     </UserProvider>
   );
 };
