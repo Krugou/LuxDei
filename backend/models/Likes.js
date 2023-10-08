@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
 
-const VideoSchema = new mongoose.Schema({
+const LikeSchema = new mongoose.Schema({
+  name: String,
   likes: Number,
   dislikes: Number,
 });
-
-const VideoLikes = mongoose.model('VideoLikes', VideoSchema);
-
-export default VideoLikes;
+const LikeModel = (name) => mongoose.model(`${name}Likes`, LikeSchema);
+export default LikeModel;

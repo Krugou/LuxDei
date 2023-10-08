@@ -12,6 +12,7 @@ import secureRoute from './routes/secureRoute.js';
 import userRoutes from './routes/userRoutes.js';
 
 import ChatMessage from './models/ChatMessage.js';
+import Likes from './models/Likes.js';
 import passport from './utils/pass.js';
 
 const connectPort = 3002;
@@ -66,6 +67,11 @@ app.use(
 );
 let totalViewers = 0;
 let liveViewers = 0;
+
+
+const LikeDislike = mongoose.model(`${name}Likes`, LikeSchema);
+
+
 io.on('connection', (socket) => {
 
   socket.on('NewLiveViewer', (data) => {
@@ -74,6 +80,77 @@ io.on('connection', (socket) => {
     totalViewers++;
     io.emit('LiveViewers', liveViewers);
     io.emit('TotalViewers', totalViewers);
+  });
+
+
+  socket.on('likeVideo', async (userId) => {
+    console.log('Received likeVideo event');
+    if (!userActions[userId]) {
+      try {
+        const likeDislike = await LikeDislike.findOne();
+        console.log('Like before update:', likeDislike.likes);
+        socket.emit('initialCounts', { likes: likeDislike.likes, dislikes: likeDislike.dislikes });
+        likeDislike.likes += 1;
+        await likeDislike.save();
+        console.log('Like after update:', likeDislike.likes);
+        io.emit('updateLikes', likeDislike.likes);
+
+        // Mark the user's action
+        userActions[userId] = 'like';
+      } catch (error) {
+        console.error('Error updating likes:', error);
+      }
+    }
+  });
+  socket.on('dislikeVideo', async (userId) => {
+    if (!userActions[userId]) {
+      try {
+        const likeDislike = await LikeDislike.findOne();
+        socket.emit('initialCounts', { likes: likeDislike.likes, dislikes: likeDislike.dislikes });
+        likeDislike.dislikes += 1;
+        await likeDislike.save();
+        io.emit('updateDislikes', likeDislike.dislikes);
+
+        // Mark the user's action
+        userActions[userId] = 'dislike';
+      } catch (error) {
+        console.error('Error updating dislikes:', error);
+      }
+    }
+  });
+
+  socket.on('undoLikeVideo', async (userId) => {
+    if (userActions[userId] === 'like') {
+      try {
+        const likeDislike = await LikeDislike.findOne();
+        socket.emit('initialCounts', { likes: likeDislike.likes, dislikes: likeDislike.dislikes });
+        likeDislike.likes -= 1;
+        await likeDislike.save();
+        io.emit('updateLikes', likeDislike.likes);
+
+        // Remove the user's action
+        userActions[userId] = undefined;
+      } catch (error) {
+        console.error('Error undoing like:', error);
+      }
+    }
+  });
+
+  socket.on('undoDislikeVideo', async (userId) => {
+    if (userActions[userId] === 'dislike') {
+      try {
+        const likeDislike = await LikeDislike.findOne();
+        socket.emit('initialCounts', { likes: likeDislike.likes, dislikes: likeDislike.dislikes });
+        likeDislike.dislikes -= 1;
+        await likeDislike.save();
+        io.emit('updateDislikes', likeDislike.dislikes);
+
+        // Remove the user's action
+        userActions[userId] = undefined;
+      } catch (error) {
+        console.error('Error undoing dislike:', error);
+      }
+    }
   });
 
 

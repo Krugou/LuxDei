@@ -6,8 +6,6 @@ import 'video.js/dist/video-js.css';
 import { ThumbUp, ThumbDown } from '@mui/icons-material';
 import '@videojs/themes/dist/city/index.css';
 import {UserContext} from '../../contexts/UserContext';
-import Chat from './Chat.jsx';
-import NoUser from './NoUser.jsx';
 export const VideoPlayer = (props) => {
   const {user} = useContext(UserContext);
   const videoRef = React.useRef(null);
@@ -18,6 +16,7 @@ export const VideoPlayer = (props) => {
   const [dislikes, setDislikes] = useState(0);
   const {options, onReady} = props;
   const [socket, setSocket] = useState(null);
+  const [userActions, setUserActions] = useState({});
   useEffect(() => {
 
     try {
@@ -82,15 +81,56 @@ export const VideoPlayer = (props) => {
     }
   }, [options, onReady]);
 
+  useEffect(() => {
+    if (socket) {
+      socket.on('initialCounts', ({ likes, dislikes }) => {
+        setLikes(likes);
+        setDislikes(dislikes);
+      });
+    }
+  }, [socket]);
+
   const handleLike = () => {
-    setLikes(likes + 1);
-    socket.emit("likeVideo");
+    console.log('Button clicked - emitting likeVideo event');
+    if (userActions[user.id] === 'like') {
+      // If the user already liked, clicking again will undo the action
+      setLikes(likes - 1);
+      socket.emit('undoLikeVideo', user.id);
+      setUserActions((prevActions) => ({
+        ...prevActions,
+        [user.id]: undefined, // Remove the user's action
+      }));
+    } else if (!userActions[user.id]) {
+      // If the user hasn't liked, clicking will like the video
+      setLikes(likes + 1);
+      socket.emit('likeVideo', user.id);
+      setUserActions((prevActions) => ({
+        ...prevActions,
+        [user.id]: 'like',
+      }));
+    }
   };
 
   const handleDislike = () => {
-    setDislikes(dislikes + 1);
-    socket.emit("dislikeVideo");
+    if (userActions[user.id] === 'dislike') {
+      // If the user already disliked, clicking again will undo the action
+      setDislikes(dislikes - 1);
+      socket.emit('undoDislikeVideo', user.id);
+      setUserActions((prevActions) => ({
+        ...prevActions,
+        [user.id]: undefined, // Remove the user's action
+      }));
+    } else if (!userActions[user.id]) {
+      // If the user hasn't disliked, clicking will dislike the video
+      setDislikes(dislikes + 1);
+      socket.emit('dislikeVideo', user.id);
+      setUserActions((prevActions) => ({
+        ...prevActions,
+        [user.id]: 'dislike',
+      }));
+    }
   };
+
 
 
   return (
@@ -119,7 +159,12 @@ export const VideoPlayer = (props) => {
               <span className="mx-2">{dislikes}</span>
             </div>
         ) : (
-            <div></div>
+            <div className="flex mt-2">
+              <ThumbUp style={{ cursor: "pointer" }} />
+              <span className="mx-2">{likes}</span>
+              <ThumbDown style={{ cursor: "pointer" }} />
+              <span className="mx-2">{dislikes}</span>
+            </div>
         )}
       </div>
     </>
