@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
+import Countdown from './Countdown';
 
 const NavUpperElement = ({startSeconds, endSeconds}) => {
   const [animationDuration, setAnimationDuration] = useState(0);
@@ -32,24 +33,26 @@ const NavUpperElement = ({startSeconds, endSeconds}) => {
     }, animationDuration);
     return () => clearInterval(intervalId);
   }, [animationDuration]);
-
+  const unixTime = 1697014800;
   return (
-    <div key={animationDuration} className="relative overflow-hidden w-full h-8">
-      <img
-        id="police-car"
-        ref={policeCarRef}
-        className="absolute w-auto h-8 left-full ease-in-out delay-200 animate-police-car"
-        src="/gifs/car.webp"
-        alt="Police Car"
-        style={{animationDuration: `${animationDuration}ms`}}
-      />
-      <img id='Robber'
-        className="absolute w-auto h-6 left-full ease-in-out  animate-robber"
-        src="/gifs/robber.gif"
-        alt="Robber"
-        style={{animationDuration: `${animationDuration}ms`}}
-      />
-    </div>
+    <><Countdown unixTime={unixTime} />
+      <div key={animationDuration} className="relative overflow-hidden w-full h-8">
+        <img
+          id="police-car"
+          ref={policeCarRef}
+          className="absolute w-auto h-8 left-full ease-in-out delay-200 animate-police-car"
+          src="/gifs/car.webp"
+          alt="Police Car"
+          style={{animationDuration: `${animationDuration}ms`}}
+        />
+        <img id='Robber'
+          className="absolute w-auto h-6 left-full ease-in-out  animate-robber"
+          src="/gifs/robber.gif"
+          alt="Robber"
+          style={{animationDuration: `${animationDuration}ms`}}
+        />
+      </div>
+    </>
   );
 };
 NavUpperElement.propTypes = {
