@@ -9,6 +9,7 @@ const LiveStream = () => {
   const {isVideoFeedOnline} = useContext(VideoFeedContext);
   const playerRef = React.useRef(null);
   const [videoJsOptions, setVideoJsOptions] = useState({});
+  console.log(user, 'user');
   useEffect(() => {
     const options = {
       autoplay: true,
