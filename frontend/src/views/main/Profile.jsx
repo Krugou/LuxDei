@@ -207,7 +207,7 @@ const Profile = () => {
             <div className='mt-4 space-x-4'>
               <button
                 onClick={handleDeleteProfile}
-                className='bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded'
+                className='bg-gmdeepred hover:bg-red-600 text-white font-semibold py-2 px-4 rounded'
               >
                 Yes, Delete
               </button>

@@ -1,18 +1,25 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import io from 'socket.io-client';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-
+import { ThumbUp, ThumbDown } from '@mui/icons-material';
 import '@videojs/themes/dist/city/index.css';
+import {UserContext} from '../../contexts/UserContext';
+import Chat from './Chat.jsx';
+import NoUser from './NoUser.jsx';
 export const VideoPlayer = (props) => {
+  const {user} = useContext(UserContext);
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
   const [liveViewerCount, setLiveViewCount] = useState(0);
   const [totalViewerCount, setTotalViewCount] = useState(0);
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
   const {options, onReady} = props;
   const [socket, setSocket] = useState(null);
   useEffect(() => {
+
     try {
       // Create a new socket connection when the component mounts
       const newSocket = io('/', {
@@ -75,6 +82,17 @@ export const VideoPlayer = (props) => {
     }
   }, [options, onReady]);
 
+  const handleLike = () => {
+    setLikes(likes + 1);
+    socket.emit("likeVideo");
+  };
+
+  const handleDislike = () => {
+    setDislikes(dislikes + 1);
+    socket.emit("dislikeVideo");
+  };
+
+
   return (
     <>
       <div data-vjs-player className="w-full sm:w-2/3 md:min-w-2/3 h-full ">
@@ -93,7 +111,16 @@ export const VideoPlayer = (props) => {
             </div>
           )}
         </div>
-
+        {user ? (
+            <div className="flex mt-2">
+              <ThumbUp onClick={handleLike} style={{ cursor: "pointer" }} />
+              <span className="mx-2">{likes}</span>
+              <ThumbDown onClick={handleDislike} style={{ cursor: "pointer" }} />
+              <span className="mx-2">{dislikes}</span>
+            </div>
+        ) : (
+            <div></div>
+        )}
       </div>
     </>
   );
