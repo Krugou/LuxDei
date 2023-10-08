@@ -16,27 +16,12 @@ import PortraitIcon from '@mui/icons-material/Portrait';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
-const HeaderListButton = ({name, navigate, lastItem = false, }) => {
+const HeaderListButton = ({name, navigate, lastItem = false, isOnline}) => {
     const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
     const capitalized = capitalize(name);
-    const [isOnline, setIsOnline] = useState(false);
 
-    useEffect(() => {
-        if (name === 'livestream') {
-            const checkOnlineStatus = async () => {
-                console.log('Checking online status...');
-                try {
-                    const response = await fetch('http://195.148.104.124:1935/jakelu/jakfilms/manifest.mpd');
-                    console.log('Response:', response);
-                    setIsOnline(response.ok);
-                } catch (error) {
-                    console.error('Error:', error);
-                    setIsOnline(false);
-                }
-            };
-            checkOnlineStatus();
-        }
-    }, [name]);
+
+
     return (
         <li>
             <button
@@ -66,6 +51,7 @@ HeaderListButton.propTypes = {
     name: PropTypes.string.isRequired,
     navigate: PropTypes.func.isRequired,
     lastItem: PropTypes.bool,
+    isOnline: PropTypes.bool,
 };
 
 export default HeaderListButton;
