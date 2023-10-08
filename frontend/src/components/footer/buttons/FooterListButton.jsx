@@ -11,7 +11,7 @@ const FooterListButton = ({name}) => {
                 onClick={() => {
                     navigate(`/${name}`);
                 }}
-                className='mx-3 text-sm sm:text-xl text-white transition hover:text-gray-300'
+                className='mx-3 text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl text-white transition hover:text-gray-300'
                 aria-label={`Go to ${capitalized}`}
                 title={`Go to ${capitalized}`}
             >
