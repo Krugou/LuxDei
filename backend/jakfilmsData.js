@@ -194,29 +194,38 @@ io.on('connection', (socket) => {
     // Emit the user count to all users in the room
     io.to(room).emit('user count', roomSize);
   });
-  socket.on('chat message', (data) => {
-    // console.log('chat message received:', data);
+  socket.on('chat message', async (data) => {
+    try {
+      // Find the user with the matching username
+      const user = await User.findOne({username: data.username});
 
-    // Save chat message to MongoDB
-    const chatMessage = new ChatMessage({
-      countryid: data.countryid,
-      username: data.username,
-      message: data.message,
-      room: data.room,
-    });
-    chatMessage.save()
-      .then(() => {
+      // Check if the user was found and the userId matches the user._id property
+      if (user && user._id.toString() === data.userId) {
+        // Save chat message to MongoDB
+        const chatMessage = new ChatMessage({
+          countryid: data.countryid,
+          username: data.username,
+          message: data.message,
+          room: data.room,
+          userId: data.userId,
+        });
+        await chatMessage.save();
         console.log('Mongodb saved message: ' + data.message);
         io.to(data.room).emit('chat message', {
           countryid: data.countryid,
           username: data.username,
           message: data.message,
           room: data.room,
+          userId: data.userId,
         });
-      })
-      .catch((err) => console.error('Error saving chat message to MongoDB', err));
-
+      } else {
+        console.log('User not found or userId does not match');
+      }
+    } catch (error) {
+      console.error('Error saving chat message to MongoDB', error);
+    }
     // Delete chat messages older than 48 hours from MongoDB
+
     const cutoffDate = new Date(Date.now() - 48 * 60 * 60 * 1000);
     ChatMessage.deleteMany({createdAt: {$lt: cutoffDate}})
       .then(() => {
@@ -225,6 +234,8 @@ io.on('connection', (socket) => {
       })
       .catch((err) => console.error('Error deleting chat messages from MongoDB', err));
   });
+
+    
   socket.on('typing', ({username, room}) => {
     // console.log('typing: ', username, room);
     socket.broadcast.to(room).emit("typing", {username});
@@ -249,6 +260,7 @@ io.on('connection', (socket) => {
             username: latestMessage.username,
             message: latestMessage.message,
             room: latestMessage.room,
+            userId: latestMessage.userId,
           });
         }
       })
