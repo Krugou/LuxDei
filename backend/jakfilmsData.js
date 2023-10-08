@@ -13,6 +13,7 @@ import userRoutes from './routes/userRoutes.js';
 
 import ChatMessage from './models/ChatMessage.js';
 import LikeModel from './models/Likes.js';
+import User from './models/User.js';
 import passport from './utils/pass.js';
 
 const connectPort = 3002;
@@ -87,7 +88,7 @@ io.on('connection', (socket) => {
       try {
         const likeDislike = await LikeDislike.findOne();
         console.log('Like before update:', likeDislike.likes);
-        socket.emit('initialCounts', { likes: likeDislike.likes, dislikes: likeDislike.dislikes });
+        socket.emit('initialCounts', {likes: likeDislike.likes, dislikes: likeDislike.dislikes});
         likeDislike.likes += 1;
         await likeDislike.save();
         console.log('Like after update:', likeDislike.likes);
@@ -104,7 +105,7 @@ io.on('connection', (socket) => {
     if (!userActions[userId]) {
       try {
         const likeDislike = await LikeDislike.findOne();
-        socket.emit('initialCounts', { likes: likeDislike.likes, dislikes: likeDislike.dislikes });
+        socket.emit('initialCounts', {likes: likeDislike.likes, dislikes: likeDislike.dislikes});
         likeDislike.dislikes += 1;
         await likeDislike.save();
         io.emit('updateDislikes', likeDislike.dislikes);
@@ -121,7 +122,7 @@ io.on('connection', (socket) => {
     if (userActions[userId] === 'like') {
       try {
         const likeDislike = await LikeDislike.findOne();
-        socket.emit('initialCounts', { likes: likeDislike.likes, dislikes: likeDislike.dislikes });
+        socket.emit('initialCounts', {likes: likeDislike.likes, dislikes: likeDislike.dislikes});
         likeDislike.likes -= 1;
         await likeDislike.save();
         io.emit('updateLikes', likeDislike.likes);
@@ -138,7 +139,7 @@ io.on('connection', (socket) => {
     if (userActions[userId] === 'dislike') {
       try {
         const likeDislike = await LikeDislike.findOne();
-        socket.emit('initialCounts', { likes: likeDislike.likes, dislikes: likeDislike.dislikes });
+        socket.emit('initialCounts', {likes: likeDislike.likes, dislikes: likeDislike.dislikes});
         likeDislike.dislikes -= 1;
         await likeDislike.save();
         io.emit('updateDislikes', likeDislike.dislikes);
@@ -196,18 +197,18 @@ io.on('connection', (socket) => {
   });
   socket.on('chat message', async (data) => {
     try {
+      console.log(data.username, ' sent message: ', data.message);
       // Find the user with the matching username
-      const user = await User.findOne({username: data.username});
+      const user = await User.findOne({name: data.username});
 
       // Check if the user was found and the userId matches the user._id property
-      if (user && user._id.toString() === data.userId) {
+      if (user && user._id.toString() === data.user_id) {
         // Save chat message to MongoDB
         const chatMessage = new ChatMessage({
           countryid: data.countryid,
           username: data.username,
           message: data.message,
           room: data.room,
-          userId: data.userId,
         });
         await chatMessage.save();
         console.log('Mongodb saved message: ' + data.message);
@@ -216,7 +217,6 @@ io.on('connection', (socket) => {
           username: data.username,
           message: data.message,
           room: data.room,
-          userId: data.userId,
         });
       } else {
         console.log('User not found or userId does not match');
@@ -235,7 +235,7 @@ io.on('connection', (socket) => {
       .catch((err) => console.error('Error deleting chat messages from MongoDB', err));
   });
 
-    
+
   socket.on('typing', ({username, room}) => {
     // console.log('typing: ', username, room);
     socket.broadcast.to(room).emit("typing", {username});
