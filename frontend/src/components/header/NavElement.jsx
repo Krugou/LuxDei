@@ -51,8 +51,8 @@ const NavElement = () => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const {latitude, longitude} = position.coords;
-        console.log('Latitude is :', latitude);
-        console.log('Longitude is :', longitude);
+        // console.log('Latitude is :', latitude);
+        // console.log('Longitude is :', longitude);
         setPosition({lat: latitude, lon: longitude});
       },
       (error) => {
