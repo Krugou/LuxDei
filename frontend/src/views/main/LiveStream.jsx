@@ -118,7 +118,7 @@ const LiveStream = () => {
         {/* <Chat className=" " username={'anon'} countryid={'FI'} /> */}
         {/* real one next  */}
         {user ? (
-          <Chat className='' username={user.name} countryid={user.countryid} />
+          <Chat className='' user={user}  />
         ) : (
           <NoUser />
         )}
