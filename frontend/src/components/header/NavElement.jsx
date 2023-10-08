@@ -1,22 +1,22 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuOpenIcon from '@mui/icons-material/MenuOpen';
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../../contexts/UserContext';
-import { useUser } from '../../hooks/ApiHooks';
+import React, {useContext, useEffect, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
+import {UserContext} from '../../contexts/UserContext';
+import {useUser} from '../../hooks/ApiHooks';
 import HeaderTitle from './HeaderTitle';
 import HeaderListButton from './buttons/HeaderListButton';
 import WeatherData from './weather/WeatherData';
 const NavElement = () => {
   const navigate = useNavigate();
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const { user, setUser } = useContext(UserContext);
-  const { getUserInfoByToken } = useUser();
+  const {user, setUser} = useContext(UserContext);
+  const {getUserInfoByToken} = useUser();
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
   const [isOnline, setIsOnline] = useState(false);
-
+  const [position, setPosition] = useState(null);
   const checkOnlineStatus = async () => {
     console.log('Checking online status...');
     try {
@@ -47,7 +47,23 @@ const NavElement = () => {
     }
     navigate('/');
   };
-
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const {latitude, longitude} = position.coords;
+        console.log('Latitude is :', latitude);
+        console.log('Longitude is :', longitude);
+        setPosition({lat: latitude, lon: longitude});
+      },
+      (error) => {
+        console.error(error);
+        setDefaultCoords();
+      }
+    );
+  }, []);
+  const setDefaultCoords = () => {
+    setPosition({lat: 60.2052, lon: 24.6564}); // Default coordinates for Espoo
+  };
   useEffect(() => {
     getUserInfo();
   }, []); // jos taulukko tyhjä, ajetaan vain kerran
@@ -57,7 +73,7 @@ const NavElement = () => {
       <div className='container mx-auto flex justify-between items-center relative'>
         <HeaderTitle />
 
-        <WeatherData />
+        {position && <WeatherData coords={position} />}
 
         <ul
           id='nav-links'
