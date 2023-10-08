@@ -1,21 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-.bg-banner {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 50vh;
-  transition: background-image 0.5s ease-in-out;
-}
-.preload {
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
-  visibility: hidden;
-}
-@layer components {
 
+@layer components {
+.bg-banner {
+  @apply bg-cover bg-center bg-no-repeat h-1/2 transition duration-500 ease-in-out;
+}
+
+.preload {
+  @apply absolute top-[-9999px] left-[-9999px] invisible;
+}
   .paragraph {
     @apply m-1 text-lg p-4 bg-white rounded-lg shadow-xl
   }
