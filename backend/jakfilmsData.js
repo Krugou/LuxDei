@@ -197,7 +197,7 @@ io.on('connection', (socket) => {
   });
   socket.on('chat message', async (data) => {
     try {
-      console.log(data.username, ' sent message: ', data.message);
+      // console.log(data.username, ' sent message: ', data.message);
       // Find the user with the matching username
       const user = await User.findOne({name: data.username});
 
