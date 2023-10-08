@@ -12,7 +12,7 @@ import secureRoute from './routes/secureRoute.js';
 import userRoutes from './routes/userRoutes.js';
 
 import ChatMessage from './models/ChatMessage.js';
-import Likes from './models/Likes.js';
+import LikeModel from './models/Likes.js';
 import passport from './utils/pass.js';
 
 const connectPort = 3002;
@@ -68,8 +68,6 @@ app.use(
 let totalViewers = 0;
 let liveViewers = 0;
 
-
-const LikeDislike = mongoose.model(`${name}Likes`, LikeSchema);
 
 
 io.on('connection', (socket) => {
