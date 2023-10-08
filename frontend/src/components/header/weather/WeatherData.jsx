@@ -1,8 +1,7 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
-const WeatherData = () => {
+const WeatherData = ({coords}) => {
     const [weatherData, setWeatherData] = useState(null);
-    const [coords, setCoords] = useState(null);
     const [retryCount, setRetryCount] = useState(0);
 
     useEffect(() => {
@@ -31,30 +30,14 @@ const WeatherData = () => {
                     setTimeout(() => {
                         fetchData();
                     }, 1000);
-                } else {
-                    setDefaultCoords();
                 }
             }
         };
 
-        const setDefaultCoords = () => {
-            setCoords({lat: 60.2052, lon: 24.6564}); // Default coordinates for Espoo
-        };
 
-        navigator.geolocation.getCurrentPosition(
-            async (position) => {
-                const {latitude, longitude} = position.coords;
-                setCoords({lat: latitude, lon: longitude});
-                setTimeout(() => {
-                    fetchData();
-                }, 1000); // Fetch weather data one second after getting position
-            },
-            (error) => {
-                // console.error(error);
-                setDefaultCoords();
-            }
-        );
-    }, [retryCount]);
+
+        fetchData();
+    }, [coords, retryCount,]);
 
     if (!weatherData) {
         return null;
@@ -65,21 +48,22 @@ const WeatherData = () => {
     return (
         <div id="weatherdata" className='flex flex-col md:flex-row '>
             <div className="flex flex-row" >
-            <p className="text-white">{temperatureOutput}</p>
+                <p className="text-white">{temperatureOutput}</p>
                 <img src={`/weather/png/${weatherCode}.png`} alt='Weather icon' className='w-6 h-6 bg-white rounded-full p-1 mx-2 my-0  inline-block align-middle transform transition duration-500 ease-in-out' />
-             </div>
+            </div>
             <div className="flex flex-row  " >
-            <p className="text-white">{windSpeedOutput}</p>
+                <p className="text-white">{windSpeedOutput}</p>
 
-            <img
-                src="/png/up-arrow2.png"
-                alt="Wind direction arrow"
-                className="arrow w-6 h-6 bg-white rounded-full p-1 mx-2 my-0  inline-block align-middle transform transition duration-500 ease-in-out"
-                style={{transform: `rotate(${windDirectionDegreeReversed}deg)`}}
-            />
+                <img
+                    src="/png/up-arrow2.png"
+                    alt="Wind direction arrow"
+                    className="arrow w-6 h-6 bg-white rounded-full p-1 mx-2 my-0  inline-block align-middle transform transition duration-500 ease-in-out"
+                    style={{transform: `rotate(${windDirectionDegreeReversed}deg)`}}
+                />
             </div>
         </div>
     );
 };
+
 
 export default WeatherData;
