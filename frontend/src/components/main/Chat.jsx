@@ -5,7 +5,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {FlagIcon} from 'react-flag-kit';
 import {useNavigate} from 'react-router-dom';
 import io from 'socket.io-client';
-const Chat = ({username, countryid}) => {
+const Chat = ({user}) => {
   const navigate = useNavigate();
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
@@ -50,15 +50,15 @@ const Chat = ({username, countryid}) => {
     if (event.target.value !== '') {
       if (!isTyping) {
         setIsTyping(true);
-        socket.emit('typing', {username, room});
+        socket.emit('typing', {name: user.name, room});
         setTimeout(() => {
           setIsTyping(false);
-          socket.emit('stop typing', {username, room});
+          socket.emit('stop typing', {name: user.name, room});
         }, 2000);
       }
     } else {
       setIsTyping(false);
-      socket.emit('stop typing', {username, room});
+      socket.emit('stop typing', {name: user.name, room});
     }
   };
   // Function to handle room changes
@@ -78,10 +78,11 @@ const Chat = ({username, countryid}) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const newMessage = {
-      countryid,
-      username,
-      message,
-      room,
+      countryid: user.countryid,
+      username: user.name,
+      message: message,
+      room: room,
+      user_id: user._id,
     };
     try {
       // Emit the new message to the server
@@ -126,22 +127,22 @@ const Chat = ({username, countryid}) => {
     }
   }, [messages]);
 
-  const handleTyping = ({username}) => {
+  const handleTyping = ({name}) => {
     try {
-      // Create a new Set with the current typingUsers array and the new username
-      const uniqueTypingUsers = [...new Set([...typingUsers, username])];
-      // console.log('typing: ', username);
+      // Create a new Set with the current typingUsers array and the new user.name
+      const uniqueTypingUsers = [...new Set([...typingUsers, name])];
+      // console.log('typing: ', user.name);
       setTypingUsers(uniqueTypingUsers);
     } catch (error) {
       console.error('Error updating typingUsers state:', error);
     }
   };
 
-  const handleStopTyping = ({username}) => {
+  const handleStopTyping = ({name}) => {
     try {
-      // console.log('stop typing: ', username);
+      // console.log('stop typing: ', user.name);
       setTypingUsers((prevTypingUsers) =>
-        prevTypingUsers.filter((user) => user !== username)
+        prevTypingUsers.filter((user) => user !== name)
       );
     } catch (error) {
       console.error('Error updating typingUsers state:', error);
@@ -342,8 +343,7 @@ const Chat = ({username, countryid}) => {
 };
 
 Chat.propTypes = {
-  username: PropTypes.string.isRequired,
-  countryid: PropTypes.string.isRequired,
+  user: PropTypes.string,
 };
 
 export default Chat;
