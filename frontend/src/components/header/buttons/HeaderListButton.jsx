@@ -6,24 +6,38 @@
  * @param {boolean} [props.lastItem=false] - Whether the button is the last item in the list.
  * @returns {JSX.Element} - The HeaderListButton component.
  */
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ArticleIcon from '@mui/icons-material/Article';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PortraitIcon from '@mui/icons-material/Portrait';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import TheatersIcon from '@mui/icons-material/Theaters';
 import PropTypes from 'prop-types';
 import React, {useEffect, useRef, useState} from 'react';
 const HeaderListButton = ({name, navigate, lastItem = false, }) => {
     const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
     const capitalized = capitalize(name);
+    const [isOnline, setIsOnline] = useState(false);
 
+    useEffect(() => {
+        if (name === 'livestream') {
+            const checkOnlineStatus = async () => {
+                try {
+                    const response = await fetch('http://195.148.104.124:1935/jakelu/jakfilms/manifest.mpd');
+                    setIsOnline(response.ok);
+                } catch (error) {
+                    setIsOnline(false);
+                }
+            };
+            checkOnlineStatus();
+        }
+    }, [name]);
     return (
         <li>
             <button
-                className={` nav-button ${lastItem ? 'mx-2' : 'md:mx-5'} text-lg text-white transition-all hover:text-gray-300 hover:text-xl mx-2`}
+                className={` nav-button ${lastItem ? 'mx-2' : 'md:mx-5'} text-lg text-white transition-all hover:text-gray-300 hover:text-xl mx-2 ${isOnline ? 'animate-pulse' : ''}`}
                 onClick={() => {
                     navigate(`/${name}`);
                 }}
