@@ -83,7 +83,7 @@ export const VideoPlayer = (props) => {
 
   useEffect(() => {
     if (socket) {
-      socket.on('initialCounts', ({ likes, dislikes }) => {
+      socket.on('likeCountsUpdated', ({ likes, dislikes }) => {
         setLikes(likes);
         setDislikes(dislikes);
       });
