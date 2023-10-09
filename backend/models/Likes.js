@@ -1,10 +1,21 @@
 import mongoose from 'mongoose';
 
 const LikeSchema = new mongoose.Schema({
-	likes: Number,
-	dislikes: Number,
+	likes: {
+		type: Number,
+		default: 0, // Initialize likes count to 0
+	},
+	dislikes: {
+		type: Number,
+		default: 0, // Initialize dislikes count to 0
+	},
 	location: String,
 	likedBy: [
+		{
+			userId: String,
+		},
+	],
+	disLikedBy: [
 		{
 			userId: String,
 		},
