@@ -175,7 +175,7 @@ router.post(
 );
 
 router.post(
-  '/contacts',
+  '/contact',
   [
     // Validate contact data
     body('name').notEmpty().trim(),
