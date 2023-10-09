@@ -3,9 +3,9 @@ import React, {useEffect, useState, useContext} from 'react';
 import io from 'socket.io-client';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import { ThumbUp, ThumbDown } from '@mui/icons-material';
 import '@videojs/themes/dist/city/index.css';
 import {UserContext} from '../../contexts/UserContext';
+import LikeDislikeButtons from './LikesDislikes.jsx';
 export const VideoPlayer = (props) => {
   const {user} = useContext(UserContext);
   const videoRef = React.useRef(null);
@@ -106,73 +106,6 @@ export const VideoPlayer = (props) => {
     }
   }, [socket]);
 
-  const handleLike = () => {
-    if (hasLiked) {
-      // If the user has already liked the video, clicking again will undo the action
-      // Decrease the likes count and emit an 'undoLikeVideo' event to the server
-      setLikes(likes - 1);
-      socket.emit('undoLikeVideo', user.id);
-      // Remove the like status from localStorage
-      localStorage.removeItem('likeStatus');
-    } else if (!hasDisliked) {
-      // If the user hasn't liked the video yet and has not disliked it, proceed to like it
-      // Increase the likes count and emit a 'likeVideo' event to the server
-      setLikes(likes + 1);
-      socket.emit('likeVideo', user.id);
-      // Set the like status in localStorage
-      localStorage.setItem('likeStatus', 'liked');
-      // Remove the dislike status from localStorage (if any)
-      localStorage.removeItem('dislikeStatus');
-    } else if (hasDisliked) {
-      // If the user has disliked the video and clicks on like, remove the dislike
-      // Decrease the dislikes count and emit an 'undoDislikeVideo' event to the server
-      setDislikes(dislikes - 1);
-      socket.emit('undoDislikeVideo', user.id);
-      // Proceed to like the video
-      setLikes(likes + 1);
-      socket.emit('likeVideo', user.id);
-      // Update the local storage accordingly
-      localStorage.setItem('likeStatus', 'liked');
-      localStorage.removeItem('dislikeStatus');
-    }
-    setHasLiked(!hasLiked); // Toggle the hasLiked state
-    setHasDisliked(false); // Ensure hasDisliked is set to false
-  };
-
-  const handleDislike = () => {
-    if (hasDisliked) {
-      // If the user has already disliked the video, clicking again will undo the action
-      // Decrease the dislikes count and emit an 'undoDislikeVideo' event to the server
-      setDislikes(dislikes - 1);
-      socket.emit('undoDislikeVideo', user.id);
-      // Remove the dislike status from localStorage
-      localStorage.removeItem('dislikeStatus');
-    } else if (!hasLiked) {
-      // If the user hasn't disliked the video yet and has not liked it, proceed to dislike it
-      // Increase the dislikes count and emit a 'dislikeVideo' event to the server
-      setDislikes(dislikes + 1);
-      socket.emit('dislikeVideo', user.id);
-      // Set the dislike status in localStorage
-      localStorage.setItem('dislikeStatus', 'disliked');
-      // Remove the like status from localStorage (if any)
-      localStorage.removeItem('likeStatus');
-    } else if (hasLiked) {
-      // If the user has liked the video and clicks on dislike, remove the like
-      // Decrease the likes count and emit an 'undoLikeVideo' event to the server
-      setLikes(likes - 1);
-      socket.emit('undoLikeVideo', user.id);
-      // Proceed to dislike the video
-      setDislikes(dislikes + 1);
-      socket.emit('dislikeVideo', user.id);
-      // Update the local storage accordingly
-      localStorage.setItem('dislikeStatus', 'disliked');
-      localStorage.removeItem('likeStatus');
-    }
-    setHasDisliked(!hasDisliked); // Toggle the hasDisliked state
-    setHasLiked(false); // Ensure hasLiked is set to false
-  };
-
-
 
   return (
       <>
@@ -193,19 +126,14 @@ export const VideoPlayer = (props) => {
             )}
           </div>
           {user ? (
-              <div className="flex mt-2">
-                <ThumbUp onClick={handleLike} style={{ cursor: "pointer" }} />
-                <span className="mx-2">{likes}</span>
-                <ThumbDown onClick={handleDislike} style={{ cursor: "pointer" }} />
-                <span className="mx-2">{dislikes}</span>
-              </div>
+              <LikeDislikeButtons
+                  likes={likes}
+                  dislikes={dislikes}
+                  onLike={handleLike}
+                  onDislike={handleDislike}
+              />
           ) : (
-              <div className="flex mt-2">
-                <ThumbUp style={{ cursor: "pointer" }} />
-                <span className="mx-2">{likes}</span>
-                <ThumbDown style={{ cursor: "pointer" }} />
-                <span className="mx-2">{dislikes}</span>
-              </div>
+              <LikeDislikeButtons likes={likes} dislikes={dislikes} />
           )}
         </div>
       </>
