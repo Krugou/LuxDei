@@ -93,7 +93,7 @@ const handleLikeOrDislike = (likedstatus) => {
 					/>
 					<span className='mx-2'>{likes}</span>
 					<ThumbDown
-						onClick={handledisLike}
+						onClick={handleDislike}
 						style={{cursor: 'pointer'}}
 					/>
 					<span className='mx-2'>{dislikes}</span>
