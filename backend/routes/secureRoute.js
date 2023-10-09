@@ -182,7 +182,6 @@ router.post(
     body('email').isEmail().notEmpty().trim(),
     body('message').notEmpty().trim(),
   ],
-  passport.authenticate('jwt', { session: false }), // Secure the route with JWT authentication
   async (req, res, next) => {
     // Check if the user is authenticated and exists in the request
     if (!req.user) {
@@ -221,29 +220,25 @@ router.post(
   }
 );
 
-router.get(
-  '/contact',
-  passport.authenticate('jwt', { session: false }),
-  async (req, res, next) => {
-    // Check if the user is authenticated and exists in the request
-    if (!req.user) {
-      next(httpError('User info not available', 403));
-      return;
-    }
-
-    if (req.user.userrole !== 0) {
-      return res.status(403).json({ error: 'Access denied' });
-    }
-    try {
-      // Fetch all contacts from the database
-      const contacts = await Contact.find();
-
-      // Return the list of contacts
-      res.status(200).json(contacts);
-    } catch (error) {
-      console.error('Error fetching contacts', error);
-      res.status(500).json({ error: 'Internal server error' });
-    }
+router.get('/contact', async (req, res, next) => {
+  // Check if the user is authenticated and exists in the request
+  if (!req.user) {
+    next(httpError('User info not available', 403));
+    return;
   }
-);
+
+  if (req.user.userrole !== 0) {
+    return res.status(403).json({ error: 'Access denied' });
+  }
+  try {
+    // Fetch all contacts from the database
+    const contacts = await Contact.find();
+
+    // Return the list of contacts
+    res.status(200).json(contacts);
+  } catch (error) {
+    console.error('Error fetching contacts', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 export default router;
