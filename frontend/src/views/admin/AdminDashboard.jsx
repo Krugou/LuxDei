@@ -25,6 +25,7 @@ const AdminDashboard = () => {
     chatmessages: 'not available',
     users: 'not available',
     contacts: 'not available',
+    latestMessageTimestamp: 'not available',
   });
 
   // Initialize the sorting option in a useState
@@ -150,6 +151,10 @@ const AdminDashboard = () => {
               </p>
               <p className='text-gray-600'>
                 Help requests in database: {databaseInfo.contacts}
+              </p>
+              <p className='text-gray-600'>
+                Latest message:{' '}
+                {formatDate(databaseInfo.latestMessageTimestamp)}
               </p>
             </div>
 
