@@ -265,7 +265,7 @@ router.delete('/contact/:contactID', async (req, res, next) => {
     // Check if the user has permission to delete the contact (e.g., only admins can delete)
 
     // Delete the contact from the database
-    await contact.remove();
+    await Contact.findByIdAndRemove(contactID);
 
     res.json({ message: 'Contact deleted successfully' });
   } catch (error) {
