@@ -8,7 +8,7 @@ import User from '../models/User.js';
 import Schedule from '../models/Schedule.js';
 import bcrypt from 'bcryptjs';
 import Contact from '../models/Contact.js';
-
+import ChatMessage from '../models/ChatMessage.js';
 const router = express.Router();
 
 // GET route to retrieve user information
@@ -290,4 +290,31 @@ router.delete('/contact/:contactID', async (req, res, next) => {
     next(httpError('Internal server error', 500));
   }
 });
+
+// Add the getDatabaseInfo route
+router.get('/dbinfo', async (req, res, next) => {
+  try {
+    if (req.user.userrole !== 0) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+
+    // Fetch the counts of users, comments, and contacts
+    const userCount = await User.countDocuments();
+    const chatMessageCount = await ChatMessage.countDocuments(); // Assuming you have a Comment model
+    const contactCount = await Contact.countDocuments();
+
+    // Create an object to hold the counts
+    const databaseInfo = {
+      users: userCount,
+      chatmessages: chatCount,
+      contacts: contactCount,
+    };
+
+    res.status(200).json(databaseInfo);
+  } catch (error) {
+    console.error('Error fetching database info', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 export default router;

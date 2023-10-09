@@ -67,6 +67,16 @@ const getContact = async (token) => {
   };
   return await doFetch(baseUrl + 'secure/contact', options);
 };
+
+const getDatabaseInfo = async (token) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+  return await doFetch(baseUrl + 'secure/dbinfo', options);
+};
 const DeleteContact = async (contactID, token) => {
   const options = {
     method: 'DELETE',
@@ -325,4 +335,5 @@ export {
   postContact,
   getContact,
   DeleteContact,
+  getDatabaseInfo,
 };

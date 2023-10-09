@@ -1,5 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { getContact, DeleteContact } from '../../hooks/ApiHooks';
+import {
+  getContact,
+  DeleteContact,
+  getDatabaseInfo,
+} from '../../hooks/ApiHooks';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
@@ -17,6 +21,7 @@ const AdminDashboard = () => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const token = localStorage.getItem('userToken');
+  const [databaseInfo, setDatabaseInfo] = useState([]);
 
   // Initialize the sorting option in a useState
   const [sortOption, setSortOption] = useState('Oldest'); // Default sorting option
@@ -26,7 +31,7 @@ const AdminDashboard = () => {
       try {
         const response = await getContact(token);
 
-        console.log(response, 'GET RESPONSE');
+        console.log(response, 'GET contacts RESPONSE');
         setContacts(response);
       } catch (error) {
         setError(error);
@@ -40,6 +45,17 @@ const AdminDashboard = () => {
 
     // Update the sorting option in the useState
     setSortOption(selectedSortOption);
+  };
+
+  const fetchDatabaseInfo = async () => {
+    const token = localStorage.getItem('userToken');
+    try {
+      const databaseResponse = await getDatabaseInfo(token);
+      console.log(databaseResponse, 'DATABASE RESPONSE');
+      setDatabaseInfo(databaseResponse);
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   useEffect(() => {
@@ -63,6 +79,10 @@ const AdminDashboard = () => {
     // Update the sorting option in the useState
     setFilteredContacts(sortedContacts);
   }, [contacts, searchQuery, sortOption]);
+
+  useEffect(() => {
+    fetchDatabaseInfo();
+  }, []);
 
   const handleDeleteContact = async (contactID) => {
     try {
