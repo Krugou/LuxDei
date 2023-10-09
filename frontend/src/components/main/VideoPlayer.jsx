@@ -3,9 +3,9 @@ import React, {useEffect, useState, useContext} from 'react';
 import io from 'socket.io-client';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
+import { ThumbUp, ThumbDown } from '@mui/icons-material';
 import '@videojs/themes/dist/city/index.css';
 import {UserContext} from '../../contexts/UserContext';
-import LikeDislikeButtons from './LikesDislikes.jsx';
 export const VideoPlayer = (props) => {
   const {user} = useContext(UserContext);
   const videoRef = React.useRef(null);
@@ -66,9 +66,11 @@ export const VideoPlayer = (props) => {
 
     if (storedLikeStatus === 'liked') {
       setHasLiked(true);
-    } else if (storedDislikeStatus === 'disliked') {
+    } else if (storedLikeStatus === 'disliked') {
       setHasDisliked(true);
     }
+
+    // Rest of your code...
   }, []);
 
   useEffect(() => {
@@ -106,6 +108,49 @@ export const VideoPlayer = (props) => {
     }
   }, [socket]);
 
+  const handleLike = () => {
+    if (hasLiked) {
+      // If the user has already liked the video, clicking again will undo the action
+      // Decrease the likes count and emit an 'undoLikeVideo' event to the server
+      setLikes(likes - 1);
+      socket.emit('undoLikeVideo', user.id);
+      // Remove the like status from localStorage
+      localStorage.removeItem('likeStatus');
+    } else if (!hasDisliked) { // Check if the user has not disliked the video
+      // If the user hasn't liked the video yet and has not disliked it, proceed to like it
+      // Increase the likes count and emit a 'likeVideo' event to the server
+      setLikes(likes + 1);
+      socket.emit('likeVideo', user.id);
+      // Set the like status in localStorage
+      localStorage.setItem('likeStatus', 'liked');
+      // Remove the dislike status from localStorage (if any)
+      localStorage.removeItem('dislikeStatus');
+    }
+    setHasLiked(!hasLiked); // Toggle the hasLiked state
+  };
+
+  const handleDislike = () => {
+    if (hasDisliked) {
+      // If the user has already disliked the video, clicking again will undo the action
+      // Decrease the dislikes count and emit an 'undoDislikeVideo' event to the server
+      setDislikes(dislikes - 1);
+      socket.emit('undoDislikeVideo', user.id);
+      // Remove the dislike status from localStorage
+      localStorage.removeItem('dislikeStatus');
+    } else {
+      // If the user hasn't disliked the video yet, proceed to dislike it
+      // Increase the dislikes count and emit a 'dislikeVideo' event to the server
+      setDislikes(dislikes + 1);
+      socket.emit('dislikeVideo', user.id);
+      // Set the dislike status in localStorage
+      localStorage.setItem('dislikeStatus', 'disliked');
+      // Remove the like status from localStorage (if any)
+      localStorage.removeItem('likeStatus');
+    }
+    setHasDisliked(!hasDisliked); // Toggle the hasDisliked state
+  };
+
+
 
   return (
       <>
@@ -126,14 +171,19 @@ export const VideoPlayer = (props) => {
             )}
           </div>
           {user ? (
-              <LikeDislikeButtons
-                  likes={likes}
-                  dislikes={dislikes}
-                  onLike={handleLike}
-                  onDislike={handleDislike}
-              />
+              <div className="flex mt-2">
+                <ThumbUp onClick={handleLike} style={{ cursor: "pointer" }} />
+                <span className="mx-2">{likes}</span>
+                <ThumbDown onClick={handleDislike} style={{ cursor: "pointer" }} />
+                <span className="mx-2">{dislikes}</span>
+              </div>
           ) : (
-              <LikeDislikeButtons likes={likes} dislikes={dislikes} />
+              <div className="flex mt-2">
+                <ThumbUp style={{ cursor: "pointer" }} />
+                <span className="mx-2">{likes}</span>
+                <ThumbDown style={{ cursor: "pointer" }} />
+                <span className="mx-2">{dislikes}</span>
+              </div>
           )}
         </div>
       </>
