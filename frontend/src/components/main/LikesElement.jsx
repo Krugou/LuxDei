@@ -99,7 +99,7 @@ const LikesElement = ({user, location}) => {
 					<span className='mx-2'>{dislikes}</span>
 				</div>
 			) : (
-				<div className='flex mt-2'>
+				<div className='flex mt-2 justify-end mb-5'>
 					<ThumbUp style={{cursor: 'pointer'}} />
 					<span className='mx-2'>{likes}</span>
 					<ThumbDown style={{cursor: 'pointer'}} />
