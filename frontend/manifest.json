@@ -1,7 +1,7 @@
 {
   "name": "JakFilms Movie Festival",
   "short_name": "JakFilms",
-  "start_url": "/",
+  "start_url": "https://jakfilms.northeurope.cloudapp.azure.com/",
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
