@@ -100,7 +100,7 @@ io.on('connection', (socket) => {
 		}
 		isHandlingLike = true;
 		try {
-			console.log('liked: ', data.userId, data.location);
+			// console.log('liked: ', data.userId, data.location);
 			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
 			const Like = LikeModel(locationCleaned);
 
@@ -126,7 +126,7 @@ io.on('connection', (socket) => {
 					{location: data.location},
 					{$push: {likedBy: {userId: data.userId}}, $inc: {likes: 1}}
 				);
-				io.emit('likeSuccess', data.location);
+				// io.emit('likeSuccess', data.location);
 				// Update the like counts for the location and emit the new counts to all clients
 				const likeDocuments = await Like.find();
 				let likes = 0;
@@ -136,7 +136,7 @@ io.on('connection', (socket) => {
 					dislikes += likeDocument.dislikes;
 				});
 				console.log(
-					`Like counts updated: likes=${likes}, dislikes=${dislikes}`
+					// `Like counts updated: likes=${likes}, dislikes=${dislikes}`
 				);
 				io.emit('likeCountsUpdated', {likes, dislikes});
 			}
@@ -156,7 +156,7 @@ io.on('connection', (socket) => {
 		}
 		isHandlingDislike = true;
 		try {
-			console.log('disliked: ', data.userId, data.location);
+			// console.log('disliked: ', data.userId, data.location);
 			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
 			const Like = LikeModel(locationCleaned);
 
@@ -165,7 +165,7 @@ io.on('connection', (socket) => {
 				'disLikedBy.userId': data.userId,
 			});
 			if (likeDocument) {
-				console.log(`User ${data.userId} has already disliked this location.`);
+				// console.log(`User ${data.userId} has already disliked this location.`);
 			} else {
 				const existingLike = await Like.findOne({location: data.location});
 				if (!existingLike) {
