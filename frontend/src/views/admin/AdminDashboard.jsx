@@ -108,6 +108,11 @@ const AdminDashboard = () => {
             >
               {name2}
             </button>
+            <p className='text-gray-600'>Messages in database: 123</p>
+            <p className='text-gray-600 '>Users in database: 123</p>
+            <p className='text-gray-600'>Users chatting: 123</p>
+            <p className='text-gray-600 '>Help requests in database: 123</p>
+            <p className='text-gray-600'>Users chatting: 123</p>
           </div>
           <FormControl>
             <Typography variant='sort-by' sx={{ ml: 1 }}>
