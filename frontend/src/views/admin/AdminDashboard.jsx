@@ -12,8 +12,6 @@ import { FormControl, MenuItem, Select, Typography } from '@mui/material';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
-  const name = 'newarticle';
-  const name2 = 'newschedule';
   const { update, setUpdate } = useContext(UserContext);
 
   const [contacts, setContacts] = useState([]);
@@ -116,29 +114,6 @@ const AdminDashboard = () => {
         <div className='absolute inset-0 bg-gradient-to-r from-yellow-400 to-indigo-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl'></div>
         <div className='relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20'>
           <h1 className='text-3xl font-bold text-gray-900'>Admin Dashboard</h1>
-
-          <div className='mt-6'>
-            <button
-              onClick={() => {
-                navigate(`./${name}`);
-              }}
-              className='mx-3 text-sm sm:text-xl text-black transition hover:text-gray-300'
-              aria-label={`Go to ${name}`}
-              title={`Go to ${name}`}
-            >
-              {name}
-            </button>
-            <button
-              onClick={() => {
-                navigate(`./${name2}`);
-              }}
-              className='mx-3 text-sm sm:text-xl text-black transition hover:text-gray-300'
-              aria-label={`Go to ${name2}`}
-              title={`Go to ${name2}`}
-            >
-              {name2}
-            </button>
-          </div>
 
           <div className='flex flex-col md:flex-row justify-between items-center'>
             <div className='md:w-1/2'>
