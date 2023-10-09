@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-const Countdown = (unixTime) => {
+const Countdown = ({unixTime}) => {
     const [timeLeft, setTimeLeft] = useState(0);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const Countdown = (unixTime) => {
                     Time left until showtime: {formatTime(timeLeft)}
                 </p>
             ) : (
-                <p className="text-2xl font-bold"></p>
+                <p className="text-2xl font-bold">Showtime!</p>
             )}
         </div>
     );
