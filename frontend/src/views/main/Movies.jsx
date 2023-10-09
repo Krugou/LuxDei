@@ -36,7 +36,7 @@ const Movies = () => {
             {loadStatus === 'loading' ? (
                 <LoadingSpinner />
             ) : (
-                <div className="container mx-auto">
+                <div className="container p-5 mx-auto">
                     <h1 className="text-3xl font-bold mb-4">Movie List</h1>
                     <input type="text" placeholder="Search movies..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="border border-gray-400 rounded-md px-4 py-2 mb-4" />
                     <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

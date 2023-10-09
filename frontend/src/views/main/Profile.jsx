@@ -117,7 +117,7 @@ const Profile = () => {
               onClick={() => {
                 navigate('/contactus');
               }}
-              className='button'
+              className='button '
             >
               Request Help
             </button>
@@ -128,7 +128,7 @@ const Profile = () => {
       {/* Edit Profile Modal */}
       {isEditModalOpen && (
         <div className='fixed inset-0 flex items-center justify-center z-50'>
-          <div className='bg-white w-full md:w-1/2 lg:w-1/3 p-4 rounded-lg shadow-lg'>
+          <div className='bg-white w-11/12 lg:w-1/3 sm:w-1/2 p-4 rounded-lg shadow-lg'>
             <h2 className='text-2xl font-semibold mb-4'>Edit Information</h2>
             <form
               onSubmit={(e) => {
@@ -223,7 +223,7 @@ const Profile = () => {
       {/* Delete Profile Modal */}
       {isDeleteModalOpen && (
         <div className='fixed inset-0 flex items-center justify-center z-50'>
-          <div className='bg-white w-full md:w-1/2 lg:w-1/3 p-4 rounded-lg shadow-lg'>
+          <div className='bg-white w-10/12 lg:w-1/3 sm:w-1/2 p-4 rounded-lg shadow-lg'>
             <h2 className='text-2xl font-semibold mb-4'>Confirm Deletion</h2>
             <p>Are you sure you want to delete your profile?</p>
             <div className='mt-4 space-x-4'>
