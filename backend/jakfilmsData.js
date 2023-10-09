@@ -75,29 +75,142 @@ io.on('connection', (socket) => {
 
 	socket.on('getInitialLikeCounts', async (location) => {
 		try {
-			console.log('getInitialLikeCounts', location);
-			// const locationCleaned = `${location.replace(/\s+/g, '')}Likes`;
-			// const likeDocuments = await LikeModel.find({locationCleaned});
-			// let likes = 0;
-			// let dislikes = 0;
-			// likeDocuments.forEach((likeDocument) => {
-			// 	likes += likeDocument.likes;
-			// 	dislikes += likeDocument.dislikes;
-			// });
-			// socket.emit('initialLikeCounts', {likes, dislikes});
+			const locationCleaned = `${location.replace(/\s+/g, '')}`;
+			const collectionName = locationCleaned;
+			const collectionExists = await mongoose.connection.db
+				.listCollections({name: collectionName})
+				.hasNext();
+			if (!collectionExists) {
+				await mongoose.connection.db.createCollection(collectionName);
+				console.log(`Collection ${collectionName} created.`);
+			} else {
+				console.log(`Collection ${collectionName} already exists.`);
+			}
+			const Like = LikeModel(collectionName);
+			const likeDocuments = await Like.find();
+			let likes = 0;
+			let dislikes = 0;
+			likeDocuments.forEach((likeDocument) => {
+				likes += likeDocument.likes;
+				dislikes += likeDocument.dislikes;
+			});
+			console.log('initialLikeCounts: ', likes, dislikes);
+			socket.emit('initialLikeCounts', {likes, dislikes});
 		} catch (error) {
 			console.error('Error getting initial like counts:', error);
 		}
 	});
 
-	socket.on('liked', async ({data}) => {
+	let isHandlingLike = false;
+
+	socket.on('liked', async (data) => {
+		if (isHandlingLike) {
+			return;
+		}
+		isHandlingLike = true;
 		try {
-			console.log('liked', data);
-			// if userId is found in the likedBy array, do nothing
-			// const likeDocuments = await LikeModel.find({data.location});
-			// console.log('likeDocuments: ', likeDocuments);
+			console.log('liked: ', data.userId, data.location);
+			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
+			const Like = LikeModel(locationCleaned);
+
+			// Check if userId is found in the likedBy array
+			const likeDocument = await Like.findOne({'likedBy.userId': data.userId});
+			if (likeDocument) {
+				console.log(`User ${data.userId} has already liked this location.`);
+				return;
+			}
+
+			const existingLike = await Like.findOne({location: data.location});
+			if (!existingLike) {
+				const like = new Like({
+					location: data.location,
+					likedBy: [{userId: data.userId}],
+					dislikedBy: [],
+					likes: 0,
+					dislikes: 0,
+				});
+				await like.save();
+			} else {
+				// console.log(`Like for location ${data.location} already exists.`);
+			}
+			await Like.updateOne(
+				{location: data.location},
+				{$push: {likedBy: {userId: data.userId}}, $inc: {likes: 1}}
+			);
+			io.emit('likeSuccess', data.location);
+			// Update the like counts for the location and emit the new counts to all clients
+			const likeDocuments = await Like.find();
+			let likes = 0;
+			let dislikes = 0;
+			likeDocuments.forEach((likeDocument) => {
+				likes += likeDocument.likes;
+				dislikes += likeDocument.dislikes;
+			});
+			console.log(`Like counts updated: likes=${likes}, dislikes=${dislikes}`);
+			io.emit('likeCountsUpdated', {likes, dislikes});
 		} catch (error) {
-			console.error('Test error', error);
+			console.error('Error handling like:', error);
+			io.emit('likeError', error.message);
+		} finally {
+			isHandlingLike = false;
+		}
+	});
+
+	let isHandlingDislike = false;
+
+	socket.on('disliked', async (data) => {
+		if (isHandlingDislike) {
+			return;
+		}
+		isHandlingDislike = true;
+		try {
+			console.log('disliked: ', data.userId, data.location);
+			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
+			const Like = LikeModel(locationCleaned);
+
+			// Check if userId is found in the dislikedBy array
+			const likeDocument = await Like.findOne({
+				'dislikedBy.userId': data.userId,
+			});
+			if (likeDocument) {
+				console.log(`User ${data.userId} has already disliked this location.`);
+				return;
+			}
+
+			const existingLike = await Like.findOne({location: data.location});
+			if (!existingLike) {
+				const like = new Like({
+					location: data.location,
+					likedBy: [],
+					dislikedBy: [{userId: data.userId}],
+					likes: 0,
+					dislikes: 0,
+				});
+				await like.save();
+			} else {
+				// console.log(`Like for location ${data.location} already exists.`);
+			}
+			await Like.updateOne(
+				{location: data.location},
+				{$push: {dislikedBy: {userId: data.userId}}, $inc: {dislikes: 1}}
+			);
+			io.emit('disLikeSuccess', data.location);
+
+			// Update the like counts for the location and emit the new counts to all clients
+			const likeDocuments = await Like.find();
+			let likes = 0;
+			let dislikes = 0;
+			likeDocuments.forEach((likeDocument) => {
+				likes += likeDocument.likes;
+				dislikes += likeDocument.dislikes;
+			});
+			console.log(`Like counts updated: likes=${likes}, dislikes=${dislikes}`);
+			io.emit('likeCountsUpdated', {likes, dislikes});
+		} catch (error) {
+			console.error('Error handling dislike:', error);
+			io.emit('dislikeError', error.message);
+		} finally {
+			isHandlingDislike = false;
 		}
 	});
 
