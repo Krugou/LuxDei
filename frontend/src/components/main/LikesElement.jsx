@@ -67,6 +67,20 @@ const LikesElement = ({user, location}) => {
 			setLikeClicked(true);
 			setdisLikeClicked(false); // undo dislike
 			try {
+				socket.emit('undisliked', data, (response) => {
+					if (response.error) {
+						console.error(response.error);
+						return;
+					}
+					if (response.data.location === location) {
+						setDislikes(dislikes + -1);
+					}
+				});
+			} catch (error) {
+				console.error(error);
+				return;
+			}
+			try {
 				socket.emit('liked', data, (response) => {
 					if (response.error) {
 						console.error(response.error);
@@ -104,6 +118,20 @@ const LikesElement = ({user, location}) => {
 		} else {
 			setdisLikeClicked(true);
 			setLikeClicked(false); // undo like
+			try {
+				socket.emit('unliked', data, (response) => {
+					if (response.error) {
+						console.error(response.error);
+						return;
+					}
+					if (response.data.location === location) {
+						setLikes(likes + -1);
+					}
+				});
+			} catch (error) {
+				console.error(error);
+				return;
+			}
 			try {
 				socket.emit('disliked', data, (response) => {
 					if (response.error) {
