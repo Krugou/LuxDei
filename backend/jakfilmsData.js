@@ -88,12 +88,12 @@ io.on('connection', (socket) => {
 		}
 	});
 
-	socket.on('liked', async ({location, userId}) => {
+	socket.on('liked', async ({data}) => {
 		try {
+			console.log('liked', data);
 			// if userId is found in the likedBy array, do nothing
-      const likeDocuments = await LikeModel.find({location});
-      console.log('likeDocuments: ', likeDocuments);
-		
+			// const likeDocuments = await LikeModel.find({data.location});
+			// console.log('likeDocuments: ', likeDocuments);
 		} catch (error) {
 			console.error('Test error', error);
 		}
