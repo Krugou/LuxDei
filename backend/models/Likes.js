@@ -1,21 +1,16 @@
 import mongoose from 'mongoose';
 
-
-
 const LikeSchema = new mongoose.Schema({
-
-  name: String,
-
-  likes: Number,
-
-  dislikes: Number,
-
+	likes: Number,
+	dislikes: Number,
+	location: String,
+	likedBy: [
+		{
+			userId: String,
+		},
+	],
 });
 
-
-
-const LikeModel = (name) => mongoose.model(`${name}Likes`, LikeSchema);
-
-
+const LikeModel = (location) => mongoose.model(`${location}Likes`, LikeSchema);
 
 export default LikeModel;
