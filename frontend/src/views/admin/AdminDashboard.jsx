@@ -35,6 +35,18 @@ const AdminDashboard = () => {
       setError(error);
     }
   };
+  const formatDate = (dateString) => {
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+    };
+    const date = new Date(dateString);
+    return date.toLocaleDateString('fi-FI', options);
+  };
 
   return (
     <div className='min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12'>
@@ -42,6 +54,7 @@ const AdminDashboard = () => {
         <div className='absolute inset-0 bg-gradient-to-r from-yellow-400 to-indigo-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl'></div>
         <div className='relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20'>
           <h1 className='text-3xl font-bold text-gray-900'>Admin Stats</h1>
+
           <div className='mt-6'>
             <button
               onClick={() => {
@@ -83,6 +96,9 @@ const AdminDashboard = () => {
                   </p>
                   <p className='text-gray-600 mt-2'>
                     Message: {contact.message}
+                  </p>
+                  <p className='text-gray-600 mt-2'>
+                    Received: {formatDate(contact.createdAt)}
                   </p>
                 </div>
                 {/* Delete button */}
