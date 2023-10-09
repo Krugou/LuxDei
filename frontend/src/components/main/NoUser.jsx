@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import {useNavigate} from 'react-router-dom';
 
-const NoUser = (name) => {
+const NoUser = ({name}) => {
 	const navigate = useNavigate();
 
 	return (
@@ -23,6 +24,9 @@ const NoUser = (name) => {
 			</div>
 		</div>
 	);
+};
+NoUser.propTypes = {
+	name: PropTypes.string.isRequired,
 };
 
 export default NoUser;
