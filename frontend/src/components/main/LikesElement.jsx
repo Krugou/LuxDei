@@ -47,41 +47,41 @@ const LikesElement = ({user, location}) => {
 		}
 	}, [socket]);
 
-const handleLike = () => {
-	const data = {location: location, userId: user.id};
-	socket.emit('liked', data);
-	setLikes(likes + 1);
-	localStorage.setItem(`${location}LikeStatus`, true);
-	setPrevLikedStatus(true);
-	handleLikeOrDislike(true); // Call handleLikeOrDislike with true parameter
-};
+// const handleLike = () => {
+// 	const data = {location: location, userId: user.id};
+// 	socket.emit('liked', data);
+// 	setLikes(likes + 1);
+// 	localStorage.setItem(`${location}LikeStatus`, true);
+// 	setPrevLikedStatus(true);
+// 	handleLikeOrDislike(true); // Call handleLikeOrDislike with true parameter
+// };
 
-const handleDislike = () => {
-	const data = {location: location, userId: user.id};
-	socket.emit('disliked', data);
-	setDislikes(dislikes + 1);
-	localStorage.setItem(`${location}LikeStatus`, false);
-	setPrevLikedStatus(false);
-	handleLikeOrDislike(false); // Call handleLikeOrDislike with false parameter
-};
+// const handleDislike = () => {
+// 	const data = {location: location, userId: user.id};
+// 	socket.emit('disliked', data);
+// 	setDislikes(dislikes + 1);
+// 	localStorage.setItem(`${location}LikeStatus`, false);
+// 	setPrevLikedStatus(false);
+// 	handleLikeOrDislike(false); // Call handleLikeOrDislike with false parameter
+// };
 
-const handleLikeOrDislike = (likedstatus) => {
-	if (likedstatus === prevLikedStatus) {
-		// If the current status is the same as the previous status
-		socket.emit('undo', {location: location, userId: user.id}); // Emit an "undo" event
-		setLikes(likes - (likedstatus ? 1 : 0)); // Decrement likes by 1 if the previous status was "liked"
-		setDislikes(dislikes - (likedstatus ? 0 : 1)); // Decrement dislikes by 1 if the previous status was "disliked"
-		localStorage.setItem('likeStatus', ''); // Clear the like status from localStorage
-		setPrevLikedStatus(false); // Reset the previous status to "not liked"
-	} else {
-		// If the current status is different from the previous status
-		if (likedstatus) {
-			handleLike();
-		} else {
-			handleDislike();
-		}
-	}
-};
+// const handleLikeOrDislike = (likedstatus) => {
+// 	if (likedstatus === prevLikedStatus) {
+// 		// If the current status is the same as the previous status
+// 		socket.emit('undo', {location: location, userId: user.id}); // Emit an "undo" event
+// 		setLikes(likes - (likedstatus ? 1 : 0)); // Decrement likes by 1 if the previous status was "liked"
+// 		setDislikes(dislikes - (likedstatus ? 0 : 1)); // Decrement dislikes by 1 if the previous status was "disliked"
+// 		localStorage.setItem('likeStatus', ''); // Clear the like status from localStorage
+// 		setPrevLikedStatus(false); // Reset the previous status to "not liked"
+// 	} else {
+// 		// If the current status is different from the previous status
+// 		if (likedstatus) {
+// 			handleLike();
+// 		} else {
+// 			handleDislike();
+// 		}
+// 	}
+// };
 
 	return (
 		<>
