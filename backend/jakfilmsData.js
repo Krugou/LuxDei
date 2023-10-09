@@ -76,18 +76,8 @@ io.on('connection', (socket) => {
 	socket.on('getInitialLikeCounts', async (location) => {
 		try {
 			const locationCleaned = `${location.replace(/\s+/g, '')}`;
-			const collectionName = locationCleaned;
-			const collectionExists = await mongoose.connection.db
-				.listCollections({name: collectionName})
-				.hasNext();
-			if (!collectionExists) {
-				await mongoose.connection.db.createCollection(collectionName);
-				console.log(`Collection ${collectionName} created.`);
-			} else {
-				console.log(`Collection ${collectionName} already exists.`);
-			}
 
-			const Like = LikeModel(collectionName);
+			const Like = LikeModel(locationCleaned);
 			const likeDocuments = await Like.find();
 			let likes = 0;
 			let dislikes = 0;
@@ -123,8 +113,8 @@ io.on('connection', (socket) => {
 				if (!existingLike) {
 					const like = new Like({
 						location: data.location,
-						likedBy: [{userId: 1}],
 						disLikedBy: [{userId: 1}],
+						likedBy: [{userId: 1}],
 						likes: 0,
 						dislikes: 0,
 					});
