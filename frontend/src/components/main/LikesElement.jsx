@@ -9,6 +9,7 @@ const LikesElement = ({user, location}) => {
 	const [socket, setSocket] = useState(null);
 	const [likeClicked, setLikeClicked] = useState(false);
 	const [disLikeClicked, setdisLikeClicked] = useState(false);
+	const [loading, setLoading] = useState(true); // add loading state
 
 	useEffect(() => {
 		try {
@@ -35,6 +36,7 @@ const LikesElement = ({user, location}) => {
 			socket.on('initialLikeCounts', ({likes, dislikes}) => {
 				setLikes(likes);
 				setDislikes(dislikes);
+				setLoading(false); // set loading to false when initial like counts are received
 			});
 			socket.on('likeCountsUpdated', ({likes, dislikes}) => {
 				setLikes(likes);
@@ -46,11 +48,6 @@ const LikesElement = ({user, location}) => {
 	const handleLike = () => {
 		const data = {location: location, userId: user._id};
 		if (likeClicked) {
-			console.log(
-				'🚀 ~ file: LikesElement.jsx:49 ~ handleLike ~ likeClicked:',
-				likeClicked
-			);
-
 			setLikeClicked(false);
 			try {
 				socket.emit('unliked', data, (response) => {
@@ -126,7 +123,11 @@ const LikesElement = ({user, location}) => {
 
 	return (
 		<>
-			{user ? (
+			{loading ? ( // show loading spinner if still loading initial like counts
+				<div className='flex mt-2'>
+					<div className='animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900'></div>
+				</div>
+			) : user ? (
 				<div className='flex mt-2 pointer'>
 					<ThumbUp
 						onClick={handleLike}
