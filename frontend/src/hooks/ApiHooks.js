@@ -58,6 +58,15 @@ const postContact = async (data, token) => {
   };
   return await doFetch(baseUrl + 'secure/contact', options);
 };
+const getContact = async (token) => {
+  const options = {
+    method: 'GET',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+  return await doFetch(baseUrl + 'secure/contact', options);
+};
 
 const getSchedule = async () => {
   const options = {
@@ -305,4 +314,5 @@ export {
   postArticle,
   postSchedule,
   postContact,
+  getContact,
 };
