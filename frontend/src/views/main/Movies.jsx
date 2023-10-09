@@ -68,7 +68,7 @@ const Movies = () => {
             >
               <div className='absolute inset-0 bg-gray-900 opacity-50'></div>
               <div
-                className='bg-white rounded-lg shadow-lg z-10 overflow-y-auto sm:w-8/12 lg:w-9/12 w-11/12'
+                className='bg-white rounded-lg shadow-lg z-10 overflow-y-auto sm:w-8/12 lg:w-9/12 xl:w-8/12 w-11/12'
                 onClick={handleModalClose}
               >
                 <div className='p-4'>
