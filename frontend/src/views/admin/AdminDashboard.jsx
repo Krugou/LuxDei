@@ -13,7 +13,9 @@ const AdminDashboard = () => {
   const [sortOption, setSortOption] = useState('Oldest'); // Default sorting option
 
   const [contacts, setContacts] = useState([]);
+  const [filteredContacts, setFilteredContacts] = useState([]);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const token = localStorage.getItem('userToken');
 
   useEffect(() => {
@@ -29,6 +31,14 @@ const AdminDashboard = () => {
     };
     fetchContacts();
   }, [token, update]);
+
+  useEffect(() => {
+    // Filter contacts based on searchQuery
+    const filtered = contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredContacts(filtered);
+  }, [contacts, searchQuery]);
 
   const handleDeleteContact = async (contactID) => {
     try {
@@ -54,7 +64,7 @@ const AdminDashboard = () => {
   const handleChange = (event) => {
     const selectedSortOption = event.target.value;
 
-    let sortedContacts = [...contacts];
+    let sortedContacts = [...filteredContacts];
 
     if (selectedSortOption === 'Latest') {
       sortedContacts.sort((a, b) => {
@@ -67,8 +77,9 @@ const AdminDashboard = () => {
     }
 
     setSortOption(selectedSortOption);
-    setContacts(sortedContacts);
+    setFilteredContacts(sortedContacts);
   };
+
   return (
     <div className='min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12'>
       <div className='relative py-3 sm:max-w-xl md:max-w-full sm:mx-auto'>
@@ -122,9 +133,21 @@ const AdminDashboard = () => {
               </MenuItem>
             </Select>
           </FormControl>
+
+          {/* Search bar */}
+          <div className='mt-6'>
+            <input
+              type='text'
+              placeholder='Search by name'
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className='px-3 py-2 border rounded-lg'
+            />
+          </div>
+
           {/* Display contact cards */}
           <div className='mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
-            {contacts.map((contact) => (
+            {filteredContacts.map((contact) => (
               <div
                 key={contact._id}
                 className='bg-white p-6 rounded-lg shadow-lg flex flex-col items-start justify-between'
