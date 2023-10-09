@@ -47,6 +47,18 @@ const postArticle = async (data, token) => {
   return await doFetch(baseUrl + 'admin/article', options);
 };
 
+const postContact = async (data, token) => {
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token,
+    },
+    body: JSON.stringify(data),
+  };
+  return await doFetch(baseUrl + 'secure/contact', options);
+};
+
 const getSchedule = async () => {
   const options = {
     method: 'GET',
@@ -204,7 +216,6 @@ const getFestivalMovies = async () => {
       description:
         'Get ready to be dazzled by the genius of student creators as they unveil their mesmerizing 3D animations and captivating games in "Democompo." With a runtime of 19 minutes and 48 seconds, this showcase promises a visual and auditory feast that will leave you speechless and wanting more.',
     },
-
   ];
   return fakeMovies;
   // return await doFetch(baseUrl + 'movies', options);
@@ -293,4 +304,5 @@ export {
   getFestivalMovies,
   postArticle,
   postSchedule,
+  postContact,
 };

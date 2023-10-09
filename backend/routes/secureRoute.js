@@ -7,6 +7,7 @@ import httpError from '../utils/errors.js';
 import User from '../models/User.js';
 import Schedule from '../models/Schedule.js';
 import bcrypt from 'bcryptjs';
+import Contact from '../models/Contact.js';
 
 const router = express.Router();
 
@@ -168,6 +169,50 @@ router.post(
       res.status(201).json({ message: 'Schedule item created successfully' });
     } catch (error) {
       console.error('Error creating schedule item', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+);
+
+router.post(
+  '/contacts',
+  [
+    // Validate contact data
+    body('name').notEmpty().trim(),
+    body('email').isEmail().notEmpty().trim(),
+    body('message').notEmpty().trim(),
+  ],
+  passport.authenticate('jwt', { session: false }), // Secure the route with JWT authentication
+  async (req, res, next) => {
+    // Check if the user is authenticated and exists in the request
+    if (!req.user) {
+      next(httpError('User info not available', 403));
+      return;
+    }
+
+    // Extract the validation errors from a request.
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      // There are errors.
+      // Error messages can be returned in an array using `errors.array()`.
+      console.error('Create Contact validation', errors.array());
+
+      return res.status(400).json({ error: 'Invalid inputs' });
+    }
+
+    try {
+      const contactData = req.body;
+
+      // Create a new contact
+      const newContact = new Contact(contactData);
+
+      // Save the new contact to the database
+      await newContact.save();
+
+      res.status(201).json({ message: 'Contact created successfully' });
+    } catch (error) {
+      console.error('Error creating contact', error);
       res.status(500).json({ error: 'Internal server error' });
     }
   }

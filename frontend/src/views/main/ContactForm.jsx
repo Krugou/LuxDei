@@ -1,7 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { postContact } from '../../hooks/ApiHooks';
+import { useNavigate } from 'react-router-dom';
 
 const ContactForm = () => {
+  const navigate = useNavigate();
+
   const { user } = useContext(UserContext);
 
   // Use the "||" operator for default values to simplify the initial state
@@ -19,17 +23,42 @@ const ContactForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can handle form submission logic here
-    console.log(formData);
 
-    // Clear the form after submission (optional)
-    setFormData({
-      name: '',
-      email: '',
-      message: '',
-    });
+    try {
+      const token = localStorage.getItem('userToken');
+      // You can handle form submission logic here
+      console.log(formData);
+
+      // Create an object with the form data
+      const dataToSend = {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+      };
+
+      // Make a POST request to your server to save the form data
+      const response = await postContact(dataToSend, token);
+      console.log(response, ' post response');
+      if (response.ok) {
+        // Form data successfully submitted
+        console.log('Form data submitted successfully');
+
+        // Clear the form after successful submission
+        setFormData({
+          name: '',
+          email: '',
+          message: '',
+        });
+        navigate('/');
+      } else {
+        // Handle the case where the server returns an error
+        console.error('Form data submission failed');
+      }
+    } catch (error) {
+      console.error('Error submitting form data:', error);
+    }
   };
 
   return (
