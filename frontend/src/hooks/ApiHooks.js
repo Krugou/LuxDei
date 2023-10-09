@@ -67,6 +67,15 @@ const getContact = async (token) => {
   };
   return await doFetch(baseUrl + 'secure/contact', options);
 };
+const DeleteContact = async (contactID, token) => {
+  const options = {
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Bearer ' + token,
+    },
+  };
+  return await doFetch(baseUrl + 'secure/contact/' + contactID, options);
+};
 
 const getSchedule = async () => {
   const options = {
@@ -315,4 +324,5 @@ export {
   postSchedule,
   postContact,
   getContact,
+  DeleteContact,
 };

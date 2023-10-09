@@ -241,4 +241,36 @@ router.get('/contact', async (req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
+router.delete('/contact/:contactID', async (req, res, next) => {
+  // Check if the user is authenticated and exists in the request
+  if (!req.user) {
+    next(httpError('User info not available', 403));
+    return;
+  }
+
+  try {
+    if (req.user.userrole !== 0) {
+      return res.status(403).json({ error: 'Access denied' });
+    }
+    const contactID = req.params.contactID;
+
+    // Check if the contact with the specified ID exists
+    const contact = await Contact.findById(contactID);
+
+    if (!contact) {
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+
+    // Check if the user has permission to delete the contact (e.g., only admins can delete)
+
+    // Delete the contact from the database
+    await contact.remove();
+
+    res.json({ message: 'Contact deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting contact', error);
+    next(httpError('Internal server error', 500));
+  }
+});
 export default router;

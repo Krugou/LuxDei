@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getContact } from '../../hooks/ApiHooks';
+import { getContact, DeleteContact } from '../../hooks/ApiHooks';
 import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
@@ -9,9 +9,9 @@ const AdminDashboard = () => {
 
   const [contacts, setContacts] = useState([]);
   const [error, setError] = useState(null);
+  const token = localStorage.getItem('userToken');
 
   useEffect(() => {
-    const token = localStorage.getItem('userToken');
     const fetchContacts = async () => {
       try {
         const response = await getContact(token);
@@ -26,7 +26,16 @@ const AdminDashboard = () => {
     fetchContacts();
   }, []);
 
-  const handleDeleteContact = async () => {};
+  const handleDeleteContact = async (contactID) => {
+    try {
+      const response = await DeleteContact(contactID, token);
+
+      console.log(response, 'GET RESPONSE');
+      setContacts(response);
+    } catch (error) {
+      setError(error);
+    }
+  };
 
   return (
     <div className='min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12'>
