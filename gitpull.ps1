@@ -6,7 +6,7 @@ while ($true) {
     else {
         Write-Host "Git pull failed"
     }
-    $randomSeconds = Get-Random -Minimum 20 -Maximum 200
+    $randomSeconds = Get-Random -Minimum 20 -Maximum 50
     Write-Host "Next pull in $randomSeconds seconds"
     Start-Sleep -Seconds $randomSeconds
 }
