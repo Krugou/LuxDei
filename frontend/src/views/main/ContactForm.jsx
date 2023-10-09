@@ -23,8 +23,8 @@ const ContactForm = () => {
     message: '',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setFormData({
       ...formData,
       [name]: value,
@@ -55,11 +55,6 @@ const ContactForm = () => {
         'Thank you for contacting us. We have received your message and are working on helping you'
       );
       // Clear the form after successful submission
-      setFormData({
-        name: '',
-        email: '',
-        message: '',
-      });
     } catch (error) {
       console.error('Error submitting form data:', error);
       setAlert(error.message);
