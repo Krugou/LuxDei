@@ -14,6 +14,10 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  usernameofsender: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now,

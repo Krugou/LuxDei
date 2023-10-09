@@ -202,8 +202,11 @@ router.post(
     }
 
     try {
-      const contactData = req.body;
-
+      let contactData = req.body;
+      contactData = {
+        ...contactData,
+        usernameofsender: req.user.name,
+      };
       // Create a new contact
       const newContact = new Contact(contactData);
 
