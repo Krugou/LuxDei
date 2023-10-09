@@ -153,7 +153,7 @@ const AdminDashboard = () => {
                 Help requests in database: {databaseInfo.contacts}
               </p>
               <p className='text-gray-600'>
-                Latest message:{' '}
+                Latest chat message:{' '}
                 {formatDate(databaseInfo.latestMessageTimestamp)}
               </p>
             </div>
