@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { getContact, DeleteContact } from '../../hooks/ApiHooks';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
@@ -11,19 +11,21 @@ const AdminDashboard = () => {
   const name = 'newarticle';
   const name2 = 'newschedule';
   const { update, setUpdate } = useContext(UserContext);
+
   const [contacts, setContacts] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState([]);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const token = localStorage.getItem('userToken');
 
-  // Initialize the sorting option using useRef
-  const sortOptionRef = useRef('Oldest');
+  // Initialize the sorting option in a useState
+  const [sortOption, setSortOption] = useState('Oldest'); // Default sorting option
 
   useEffect(() => {
     const fetchContacts = async () => {
       try {
         const response = await getContact(token);
+
         console.log(response, 'GET RESPONSE');
         setContacts(response);
       } catch (error) {
@@ -32,6 +34,26 @@ const AdminDashboard = () => {
     };
     fetchContacts();
   }, [token, update]);
+
+  const handleChange = (event) => {
+    const selectedSortOption = event.target.value;
+
+    let sortedContacts = [...filteredContacts];
+
+    if (selectedSortOption === 'Latest') {
+      sortedContacts.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+    } else if (selectedSortOption === 'Oldest') {
+      sortedContacts.sort((a, b) => {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      });
+    }
+
+    // Update the sorting option in the useState
+    setSortOption(selectedSortOption);
+    setFilteredContacts(sortedContacts);
+  };
 
   useEffect(() => {
     // Filter contacts based on searchQuery
@@ -62,47 +84,6 @@ const AdminDashboard = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString('fi-FI', options);
   };
-
-  const handleChange = (event) => {
-    const selectedSortOption = event.target.value;
-
-    let sortedContacts = [...filteredContacts];
-
-    if (selectedSortOption === 'Latest') {
-      sortedContacts.sort((a, b) => {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
-    } else if (selectedSortOption === 'Oldest') {
-      sortedContacts.sort((a, b) => {
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      });
-    }
-
-    // Update the sorting option using the ref
-    sortOptionRef.current = selectedSortOption;
-
-    setFilteredContacts(sortedContacts);
-  };
-
-  useEffect(() => {
-    // Use the sorting option from the ref
-    const selectedSortOption = sortOptionRef.current;
-
-    let sortedContacts = [...filteredContacts];
-
-    if (selectedSortOption === 'Latest') {
-      sortedContacts.sort((a, b) => {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
-    } else if (selectedSortOption === 'Oldest') {
-      sortedContacts.sort((a, b) => {
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      });
-    }
-
-    setFilteredContacts(sortedContacts);
-  }, [update]); // Re-sort the contacts when update changes
-
   return (
     <div className='min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12'>
       <div className='relative py-3 sm:max-w-xl md:max-w-full sm:mx-auto'>
@@ -151,10 +132,7 @@ const AdminDashboard = () => {
               <Select
                 className='favorite-selector'
                 value={sortOption}
-                onChange={(event) => {
-                  const selectedSortOption = event.target.value;
-                  handleSortChange(selectedSortOption);
-                }}
+                onChange={handleChange}
               >
                 <MenuItem value='Latest'>
                   <div className='item-selector'>
