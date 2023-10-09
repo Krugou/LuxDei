@@ -81,7 +81,7 @@ const Profile = () => {
   };
 
   return (
-    <div className='container mx-auto mt-4 p-4 border rounded shadow-lg'>
+    <div className=' max-w-screen-md mx-auto mt-4 p-4 border rounded shadow-lg'>
       {successAlert && (
         <SuccessAlert
           onClose={() => setSuccessAlert(null)}
@@ -92,21 +92,24 @@ const Profile = () => {
 
       <h1 className='text-2xl font-semibold mb-4'>Profile</h1>
       {user && (
-        <div>
-          <p className='mb-2'>
-            <span className='font-semibold'>Name:</span>{' '}
-            {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
-          </p>
-          <p className='mb-2'>
-            <span className='font-semibold'>Email:</span> {user.email}
-          </p>
-          <FlagIcon
-            code={user.countryid.toUpperCase()}
-            className='ml-2 mt-7 mb-7'
-            alt={`Flag for ${user.countryid}`}
-            size={240}
-          />
-          <div className='mt-4 flex justify-between space-x-4'>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+          <div>
+            <p>
+              <span className='font-semibold'>Name:</span>{' '}
+              {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
+            </p>
+            <p>
+              <span className='font-semibold'>Email:</span> {user.email}
+            </p>
+          </div>
+          <div className='col-span-2'>
+            <FlagIcon
+              code={user.countryid.toUpperCase()}
+              alt={`Flag for ${user.countryid}`}
+              size={120} // Adjust the size as needed
+            />
+          </div>
+          <div className='col-span-3 mt-4 space-x-4 flex'>
             <button className='button' onClick={openEditModal}>
               Edit Profile
             </button>
@@ -117,7 +120,7 @@ const Profile = () => {
               onClick={() => {
                 navigate('/contactus');
               }}
-              className='button '
+              className='button'
             >
               Request Help
             </button>
