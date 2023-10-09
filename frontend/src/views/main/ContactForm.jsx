@@ -53,7 +53,9 @@ const ContactForm = () => {
 
       // Form data successfully submitted
       console.log('Form data submitted successfully');
-      setSuccessAlert('Thank you for your submission');
+      setSuccessAlert(
+        'Thank you for your submission, we will contact you via email.'
+      );
       // Clear the form after successful submission
     } catch (error) {
       console.error('Error submitting form data:', error);
