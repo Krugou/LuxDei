@@ -29,8 +29,9 @@ export const VideoPlayer = (props) => {
       setSocket(newSocket);
       newSocket.emit('NewLiveViewer', true);
 
-      // Fetch the initial like/dislike status from the server
+      // Fetch the initial like/dislike status and counts from the server
       newSocket.emit('getInitialLikeStatus', user.id);
+      newSocket.emit('getInitialLikeCounts', user.id);
 
       // Remove the socket connection when the component unmounts
       return () => {
@@ -47,6 +48,10 @@ export const VideoPlayer = (props) => {
         setHasLiked(hasLiked);
         setHasDisliked(hasDisliked);
       });
+      socket.on('initialLikeCounts', ({ likes, dislikes }) => {
+        setLikes(likes);
+        setDislikes(dislikes);
+      });
       socket.on('LiveViewers', (data) => {
         setLiveViewCount(data);
       });
@@ -57,6 +62,7 @@ export const VideoPlayer = (props) => {
       // Remove the event listeners when the component unmounts
       return () => {
         socket.off('initialLikeStatus');
+        socket.off('initialLikeCounts');
         socket.off('LiveViewers');
         socket.off('TotalViewers');
       };
