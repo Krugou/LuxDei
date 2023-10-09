@@ -75,14 +75,16 @@ io.on('connection', (socket) => {
 
 	socket.on('getInitialLikeCounts', async (location) => {
 		try {
-			const likeDocuments = await LikeModel.find({location});
-			let likes = 0;
-			let dislikes = 0;
-			likeDocuments.forEach((likeDocument) => {
-				likes += likeDocument.likes;
-				dislikes += likeDocument.dislikes;
-			});
-			socket.emit('initialLikeCounts', {likes, dislikes});
+      console.log('getInitialLikeCounts', location);
+      // `${location.replace(/\s+/g, '')}Likes`;
+			// const likeDocuments = await LikeModel.find({location});
+			// let likes = 0;
+			// let dislikes = 0;
+			// likeDocuments.forEach((likeDocument) => {
+			// 	likes += likeDocument.likes;
+			// 	dislikes += likeDocument.dislikes;
+			// });
+			// socket.emit('initialLikeCounts', {likes, dislikes});
 		} catch (error) {
 			console.error('Error getting initial like counts:', error);
 		}
