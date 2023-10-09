@@ -8,7 +8,6 @@ const LikesElement = ({user, location}) => {
 	const [dislikes, setDislikes] = useState(0);
 	const [socket, setSocket] = useState(null);
 	const [prevLikedStatus, setPrevLikedStatus] = useState(false);
-
 	useEffect(() => {
 		try {
 			// Create a new socket connection when the component mounts
@@ -47,59 +46,56 @@ const LikesElement = ({user, location}) => {
 		}
 	}, [socket]);
 
-// const handleLike = () => {
-// 	const data = {location: location, userId: user.id};
-// 	socket.emit('liked', data);
-// 	setLikes(likes + 1);
-// 	localStorage.setItem(`${location}LikeStatus`, true);
-// 	setPrevLikedStatus(true);
-// 	handleLikeOrDislike(true); // Call handleLikeOrDislike with true parameter
-// };
+	const handleLike = () => {
+		const data = {location: location, userId: user._id};
+		// console.log('liked: ', data);
+		socket.emit('liked', data);
+		setLikes(likes + 1);
+		localStorage.setItem(`${location}LikeStatus`, true);
+		setPrevLikedStatus(true);
+		// handleLikeOrDislike(true); // Call handleLikeOrDislike with true parameter
+	};
 
-// const handleDislike = () => {
-// 	const data = {location: location, userId: user.id};
-// 	socket.emit('disliked', data);
-// 	setDislikes(dislikes + 1);
-// 	localStorage.setItem(`${location}LikeStatus`, false);
-// 	setPrevLikedStatus(false);
-// 	handleLikeOrDislike(false); // Call handleLikeOrDislike with false parameter
-// };
+	// const handleDislike = () => {
+	// 	const data = {location: location, userId: user.id};
+	// 	socket.emit('disliked', data);
+	// 	setDislikes(dislikes + 1);
+	// 	localStorage.setItem(`${location}LikeStatus`, false);
+	// 	setPrevLikedStatus(false);
+	// 	handleLikeOrDislike(false); // Call handleLikeOrDislike with false parameter
+	// };
 
-// const handleLikeOrDislike = (likedstatus) => {
-// 	if (likedstatus === prevLikedStatus) {
-// 		// If the current status is the same as the previous status
-// 		socket.emit('undo', {location: location, userId: user.id}); // Emit an "undo" event
-// 		setLikes(likes - (likedstatus ? 1 : 0)); // Decrement likes by 1 if the previous status was "liked"
-// 		setDislikes(dislikes - (likedstatus ? 0 : 1)); // Decrement dislikes by 1 if the previous status was "disliked"
-// 		localStorage.setItem('likeStatus', ''); // Clear the like status from localStorage
-// 		setPrevLikedStatus(false); // Reset the previous status to "not liked"
-// 	} else {
-// 		// If the current status is different from the previous status
-// 		if (likedstatus) {
-// 			handleLike();
-// 		} else {
-// 			handleDislike();
-// 		}
-// 	}
-// };
+	// const handleLikeOrDislike = (likedstatus) => {
+	// 	if (likedstatus === prevLikedStatus) {
+	// 		// If the current status is the same as the previous status
+	// 		socket.emit('undo', {location: location, userId: user.id}); // Emit an "undo" event
+	// 		setLikes(likes - (likedstatus ? 1 : 0)); // Decrement likes by 1 if the previous status was "liked"
+	// 		setDislikes(dislikes - (likedstatus ? 0 : 1)); // Decrement dislikes by 1 if the previous status was "disliked"
+	// 		localStorage.setItem('likeStatus', ''); // Clear the like status from localStorage
+	// 		setPrevLikedStatus(false); // Reset the previous status to "not liked"
+	// 	} else {
+	// 		// If the current status is different from the previous status
+	// 		if (likedstatus) {
+	// 			handleLike();
+	// 		} else {
+	// 			handleDislike();
+	// 		}
+	// 	}
+	// };
 
 	return (
 		<>
 			{user ? (
-				<div className='flex mt-2'>
-					<ThumbUp
-						// onClick={handleLike}
-						style={{cursor: 'pointer'}}
-					/>
+				<div className='flex mt-2 pointer'>
+					<ThumbUp onClick={handleLike} />
 					<span className='mx-2'>{likes}</span>
 					<ThumbDown
-						// onClick={handleDislike}
-						style={{cursor: 'pointer'}}
+					// onClick={handleDislike}
 					/>
 					<span className='mx-2'>{dislikes}</span>
 				</div>
 			) : (
-				<div className='flex mt-2 justify-end mb-5'>
+				<div className='flex mt-2'>
 					<ThumbUp style={{cursor: 'pointer'}} />
 					<span className='mx-2'>{likes}</span>
 					<ThumbDown style={{cursor: 'pointer'}} />
@@ -111,7 +107,7 @@ const LikesElement = ({user, location}) => {
 };
 LikesElement.propTypes = {
 	user: PropTypes.shape({
-		id: PropTypes.string.isRequired,
+		_id: PropTypes.string.isRequired,
 	}).isRequired,
 	location: PropTypes.string.isRequired,
 };
