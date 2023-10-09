@@ -118,7 +118,7 @@ const AdminDashboard = () => {
             Admin Dashboard
           </h1>
 
-          <div className='flex flex-col md:flex-row justify-between items-center border-b border-black'>
+          <div className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-black'>
             <div className='md:w-1/2'>
               {/* Info paragraphs */}
               <div className='info-paragraphs'>
@@ -138,10 +138,8 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <FormControl className='md:w-1/4'>
-              <Typography variant='sort-by' sx={{ ml: 1 }}>
-                Sort By:
-              </Typography>
+            <FormControl className='md:w-1/4 mt-2 md:mt-0'>
+              <Typography variant='sort-by'>Sort Help Requests By:</Typography>
 
               <Select
                 className='favorite-selector'
