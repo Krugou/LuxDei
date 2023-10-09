@@ -3,10 +3,12 @@ import { UserContext } from '../../contexts/UserContext';
 import { postContact } from '../../hooks/ApiHooks';
 import { useNavigate } from 'react-router-dom';
 import ErrorAlert from '../../components/main/ErrorAlert';
+import SuccessAlert from '../../components/main/SuccessAlert';
 
 const ContactForm = () => {
   const navigate = useNavigate();
   const [alert, setAlert] = useState('');
+  const [successAlert, setSuccessAlert] = useState('');
 
   const { user } = useContext(UserContext);
 
@@ -51,9 +53,7 @@ const ContactForm = () => {
 
       // Form data successfully submitted
       console.log('Form data submitted successfully');
-      alert(
-        'Thank you for contacting us. We have received your message and are working on helping you'
-      );
+      setSuccessAlert('Thank you for your submission');
       // Clear the form after successful submission
     } catch (error) {
       console.error('Error submitting form data:', error);
@@ -63,6 +63,13 @@ const ContactForm = () => {
 
   return (
     <div className='max-w-md mx-auto p-6 bg-white shadow-md rounded-md'>
+      {successAlert && (
+        <SuccessAlert
+          onClose={() => setSuccessAlert(null)}
+          successAlert={successAlert}
+        />
+      )}
+
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
 
       <h2 className='text-xl font-semibold mb-4'>Contact Us</h2>
