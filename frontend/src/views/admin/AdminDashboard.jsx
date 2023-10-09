@@ -108,6 +108,7 @@ const AdminDashboard = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString('fi-FI', options);
   };
+
   return (
     <div className='min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12'>
       <div className='relative py-3 sm:max-w-xl md:max-w-full sm:mx-auto'>
@@ -118,19 +119,21 @@ const AdminDashboard = () => {
           <div className='flex flex-col md:flex-row justify-between items-center'>
             <div className='md:w-1/2'>
               {/* Info paragraphs */}
-              <p className='text-gray-600'>
-                Messages in database: {databaseInfo.chatmessages}
-              </p>
-              <p className='text-gray-600'>
-                Users in database: {databaseInfo.users}
-              </p>
-              <p className='text-gray-600'>
-                Help requests in database: {databaseInfo.contacts}
-              </p>
-              <p className='text-gray-600'>
-                Latest chat message:{' '}
-                {formatDate(databaseInfo.latestMessageTimestamp)}
-              </p>
+              <div className='info-paragraphs'>
+                <p className='text-gray-600'>
+                  Messages in database: {databaseInfo.chatmessages}
+                </p>
+                <p className='text-gray-600'>
+                  Users in database: {databaseInfo.users}
+                </p>
+                <p className='text-gray-600'>
+                  Help requests in database: {databaseInfo.contacts}
+                </p>
+                <p className='text-gray-600'>
+                  Latest chat message:{' '}
+                  {formatDate(databaseInfo.latestMessageTimestamp)}
+                </p>
+              </div>
             </div>
 
             <FormControl className='md:w-1/4'>
