@@ -67,9 +67,9 @@ const AdminDashboard = () => {
                   <h2 className='text-xl font-semibold text-gray-800'>
                     Senders name: {contact.name}
                   </h2>
-                  <h2 className='text-xl font-semibold text-gray-800'>
+                  <p className='text-gray-600'>
                     Senders account name in database: {contact.usernameofsender}
-                  </h2>
+                  </p>
                   <p className='text-gray-600'>Email: {contact.email}</p>
                   <p className='text-gray-600'>Message: {contact.message}</p>
                 </div>
