@@ -118,7 +118,7 @@ const AdminDashboard = () => {
             Admin Dashboard
           </h1>
 
-          <div className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-black'>
+          <div className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-black pb-8'>
             <div className='md:w-1/2'>
               {/* Info paragraphs */}
               <div className='info-paragraphs'>
@@ -166,7 +166,7 @@ const AdminDashboard = () => {
           <div className='mt-6'>
             <input
               type='text'
-              placeholder='Search by name'
+              placeholder='Filter by name'
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className='px-3 py-2 border rounded-lg'
