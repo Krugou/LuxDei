@@ -72,7 +72,7 @@ const ContactForm = () => {
 
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
 
-      {user ? ( // Conditionally render the form or the "NoChat" component
+      {user ? (
         <>
           <h2 className='text-xl font-semibold mb-4'>Contact Us</h2>
           <form onSubmit={handleSubmit}>
