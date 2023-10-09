@@ -46,6 +46,11 @@ const LikesElement = ({user, location}) => {
 	const handleLike = () => {
 		const data = {location: location, userId: user._id};
 		if (likeClicked) {
+			console.log(
+				'🚀 ~ file: LikesElement.jsx:49 ~ handleLike ~ likeClicked:',
+				likeClicked
+			);
+
 			setLikeClicked(false);
 			try {
 				socket.emit('unliked', data, (response) => {
@@ -54,6 +59,10 @@ const LikesElement = ({user, location}) => {
 						return;
 					}
 					if (response.data.location === location) {
+						console.log(
+							'🚀 ~ file: LikesElement.jsx:59 ~ socket.emit ~ location:',
+							location
+						);
 						setLikes(likes + -1);
 					}
 				});
@@ -71,6 +80,10 @@ const LikesElement = ({user, location}) => {
 					return;
 				}
 				if (response.data.location === location) {
+					console.log(
+						'🚀 ~ file: LikesElement.jsx:76 ~ socket.emit ~ location:',
+						location
+					);
 					setLikes(likes + 1);
 				}
 			});
@@ -81,7 +94,12 @@ const LikesElement = ({user, location}) => {
 	};
 
 	const handleDislike = () => {
+		const data = {location: location, userId: user._id};
 		if (disLikeClicked) {
+			console.log(
+				'🚀 ~ file: LikesElement.jsx:87 ~ handleDislike ~ disLikeClicked:',
+				disLikeClicked
+			);
 			setdisLikeClicked(false);
 			try {
 				socket.emit('undisliked', data, (response) => {
@@ -90,6 +108,10 @@ const LikesElement = ({user, location}) => {
 						return;
 					}
 					if (response.data.location === location) {
+						console.log(
+							'🚀 ~ file: LikesElement.jsx:96 ~ socket.emit ~ location:',
+							location
+						);
 						setLikes(likes + -1);
 					}
 				});
@@ -100,7 +122,6 @@ const LikesElement = ({user, location}) => {
 		}
 
 		setdisLikeClicked(true);
-		const data = {location: location, userId: user._id};
 		try {
 			socket.emit('disliked', data, (response) => {
 				if (response.error) {
@@ -108,6 +129,10 @@ const LikesElement = ({user, location}) => {
 					return;
 				}
 				if (response.data.location === location) {
+					console.log(
+						'🚀 ~ file: LikesElement.jsx:115 ~ socket.emit ~ location:',
+						location
+					);
 					setDislikes(dislikes + 1);
 				}
 			});
