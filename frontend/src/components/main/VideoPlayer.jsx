@@ -60,6 +60,20 @@ export const VideoPlayer = (props) => {
   }, [socket]);
 
   useEffect(() => {
+    // Check localStorage for the user's like/dislike status when the component mounts
+    const storedLikeStatus = localStorage.getItem('likeStatus');
+    const storedDislikeStatus = localStorage.getItem('dislikeStatus');
+
+    if (storedLikeStatus === 'liked') {
+      setHasLiked(true);
+    } else if (storedLikeStatus === 'disliked') {
+      setHasDisliked(true);
+    }
+
+    // Rest of your code...
+  }, []);
+
+  useEffect(() => {
     if (!playerRef.current) {
       const videoElement = document.createElement('video-js');
 
@@ -103,6 +117,8 @@ export const VideoPlayer = (props) => {
         ...prevActions,
         [user.id]: undefined, // Remove the user's action
       }));
+      // Remove the like status from localStorage
+      localStorage.removeItem('likeStatus');
     } else {
       // If the user hasn't liked the video yet, proceed to like it
       setLikes(likes + 1);
@@ -111,6 +127,10 @@ export const VideoPlayer = (props) => {
         ...prevActions,
         [user.id]: 'like',
       }));
+      // Store the like status in localStorage
+      localStorage.setItem('likeStatus', 'liked');
+      // Remove the dislike status from localStorage (if any)
+      localStorage.removeItem('dislikeStatus');
     }
     setHasLiked(!hasLiked); // Toggle the hasLiked state
   };
@@ -124,6 +144,8 @@ export const VideoPlayer = (props) => {
         ...prevActions,
         [user.id]: undefined, // Remove the user's action
       }));
+      // Remove the dislike status from localStorage
+      localStorage.removeItem('dislikeStatus');
     } else {
       // If the user hasn't disliked the video yet, proceed to dislike it
       setDislikes(dislikes + 1);
@@ -132,6 +154,10 @@ export const VideoPlayer = (props) => {
         ...prevActions,
         [user.id]: 'dislike',
       }));
+      // Store the dislike status in localStorage
+      localStorage.setItem('dislikeStatus', 'disliked');
+      // Remove the like status from localStorage (if any)
+      localStorage.removeItem('likeStatus');
     }
     setHasDisliked(!hasDisliked); // Toggle the hasDisliked state
   };
