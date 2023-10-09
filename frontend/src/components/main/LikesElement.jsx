@@ -88,12 +88,12 @@ const LikesElement = ({user, location}) => {
 			{user ? (
 				<div className='flex mt-2'>
 					<ThumbUp
-						onClick={handleLike}
+						// onClick={handleLike}
 						style={{cursor: 'pointer'}}
 					/>
 					<span className='mx-2'>{likes}</span>
 					<ThumbDown
-						onClick={handleDislike}
+						// onClick={handleDislike}
 						style={{cursor: 'pointer'}}
 					/>
 					<span className='mx-2'>{dislikes}</span>
