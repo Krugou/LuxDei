@@ -21,7 +21,11 @@ const AdminDashboard = () => {
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const token = localStorage.getItem('userToken');
-  const [databaseInfo, setDatabaseInfo] = useState([]);
+  const [databaseInfo, setDatabaseInfo] = useState({
+    chatmessages: 'not available',
+    users: 'not available',
+    contacts: 'not available',
+  });
 
   // Initialize the sorting option in a useState
   const [sortOption, setSortOption] = useState('Oldest'); // Default sorting option
@@ -138,11 +142,15 @@ const AdminDashboard = () => {
           <div className='flex flex-col md:flex-row justify-between items-center'>
             <div className='md:w-1/2'>
               {/* Info paragraphs */}
-              <p className='text-gray-600'>Messages in database: 123</p>
-              <p className='text-gray-600'>Users in database: 123</p>
-              <p className='text-gray-600'>Users chatting: 123</p>
-              <p className='text-gray-600'>Help requests in database: 123</p>
-              <p className='text-gray-600'>Users chatting: 123</p>
+              <p className='text-gray-600'>
+                Messages in database: {databaseInfo.chatmessages}
+              </p>
+              <p className='text-gray-600'>
+                Users in database: {databaseInfo.users}
+              </p>
+              <p className='text-gray-600'>
+                Help requests in database: {databaseInfo.contacts}
+              </p>
             </div>
 
             <FormControl className='md:w-1/4'>
