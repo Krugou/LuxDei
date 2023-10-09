@@ -66,11 +66,9 @@ export const VideoPlayer = (props) => {
 
     if (storedLikeStatus === 'liked') {
       setHasLiked(true);
-    } else if (storedLikeStatus === 'disliked') {
+    } else if (storedDislikeStatus === 'disliked') {
       setHasDisliked(true);
     }
-
-    // Rest of your code...
   }, []);
 
   useEffect(() => {
@@ -116,8 +114,8 @@ export const VideoPlayer = (props) => {
       socket.emit('undoLikeVideo', user.id);
       // Remove the like status from localStorage
       localStorage.removeItem('likeStatus');
-    } else {
-      // If the user hasn't liked the video yet, proceed to like it
+    } else if (!hasDisliked) { // Check if the user has not disliked the video
+      // If the user hasn't liked the video yet and has not disliked it, proceed to like it
       // Increase the likes count and emit a 'likeVideo' event to the server
       setLikes(likes + 1);
       socket.emit('likeVideo', user.id);
@@ -137,8 +135,8 @@ export const VideoPlayer = (props) => {
       socket.emit('undoDislikeVideo', user.id);
       // Remove the dislike status from localStorage
       localStorage.removeItem('dislikeStatus');
-    } else {
-      // If the user hasn't disliked the video yet, proceed to dislike it
+    } else if (!hasLiked) { // Check if the user has not liked the video
+      // If the user hasn't disliked the video yet and has not liked it, proceed to dislike it
       // Increase the dislikes count and emit a 'dislikeVideo' event to the server
       setDislikes(dislikes + 1);
       socket.emit('dislikeVideo', user.id);
