@@ -114,7 +114,7 @@ export const VideoPlayer = (props) => {
       socket.emit('undoLikeVideo', user.id);
       // Remove the like status from localStorage
       localStorage.removeItem('likeStatus');
-    } else if (!hasDisliked) { // Check if the user has not disliked the video
+    } else if (!hasDisliked) {
       // If the user hasn't liked the video yet and has not disliked it, proceed to like it
       // Increase the likes count and emit a 'likeVideo' event to the server
       setLikes(likes + 1);
@@ -123,8 +123,20 @@ export const VideoPlayer = (props) => {
       localStorage.setItem('likeStatus', 'liked');
       // Remove the dislike status from localStorage (if any)
       localStorage.removeItem('dislikeStatus');
+    } else if (hasDisliked) {
+      // If the user has disliked the video and clicks on like, remove the dislike
+      // Decrease the dislikes count and emit an 'undoDislikeVideo' event to the server
+      setDislikes(dislikes - 1);
+      socket.emit('undoDislikeVideo', user.id);
+      // Proceed to like the video
+      setLikes(likes + 1);
+      socket.emit('likeVideo', user.id);
+      // Update the local storage accordingly
+      localStorage.setItem('likeStatus', 'liked');
+      localStorage.removeItem('dislikeStatus');
     }
     setHasLiked(!hasLiked); // Toggle the hasLiked state
+    setHasDisliked(false); // Ensure hasDisliked is set to false
   };
 
   const handleDislike = () => {
@@ -135,7 +147,7 @@ export const VideoPlayer = (props) => {
       socket.emit('undoDislikeVideo', user.id);
       // Remove the dislike status from localStorage
       localStorage.removeItem('dislikeStatus');
-    } else if (!hasLiked) { // Check if the user has not liked the video
+    } else if (!hasLiked) {
       // If the user hasn't disliked the video yet and has not liked it, proceed to dislike it
       // Increase the dislikes count and emit a 'dislikeVideo' event to the server
       setDislikes(dislikes + 1);
@@ -144,8 +156,20 @@ export const VideoPlayer = (props) => {
       localStorage.setItem('dislikeStatus', 'disliked');
       // Remove the like status from localStorage (if any)
       localStorage.removeItem('likeStatus');
+    } else if (hasLiked) {
+      // If the user has liked the video and clicks on dislike, remove the like
+      // Decrease the likes count and emit an 'undoLikeVideo' event to the server
+      setLikes(likes - 1);
+      socket.emit('undoLikeVideo', user.id);
+      // Proceed to dislike the video
+      setDislikes(dislikes + 1);
+      socket.emit('dislikeVideo', user.id);
+      // Update the local storage accordingly
+      localStorage.setItem('dislikeStatus', 'disliked');
+      localStorage.removeItem('likeStatus');
     }
     setHasDisliked(!hasDisliked); // Toggle the hasDisliked state
+    setHasLiked(false); // Ensure hasLiked is set to false
   };
 
 
