@@ -43,55 +43,74 @@ const LikesElement = ({user, location}) => {
 				setLikes(likes);
 				setDislikes(dislikes);
 			});
+			socket.on('likeCountsUpdated', ({likes, dislikes}) => {
+				setLikes(likes);
+				setDislikes(dislikes);
+			});
 		}
 	}, [socket]);
 
 	const handleLike = () => {
 		const data = {location: location, userId: user._id};
-		// console.log('liked: ', data);
-		socket.emit('liked', data);
-		setLikes(likes + 1);
-		localStorage.setItem(`${location}LikeStatus`, true);
-		setPrevLikedStatus(true);
-		// handleLikeOrDislike(true); // Call handleLikeOrDislike with true parameter
+		try {
+			socket.emit('liked', data, (response) => {
+				if (response.error) {
+					console.error(response.error);
+					return;
+				}
+				if (response.data.location === location) {
+					setLikes(likes + 1);
+				}
+			});
+		} catch (error) {
+			console.error(error);
+			return;
+		}
+
+		try {
+			localStorage.setItem(`${location}LikeStatus`, true);
+			setPrevLikedStatus(true);
+			
+		} catch (error) {
+			console.error(error);
+			return;
+		}
 	};
 
-	// const handleDislike = () => {
-	// 	const data = {location: location, userId: user.id};
-	// 	socket.emit('disliked', data);
-	// 	setDislikes(dislikes + 1);
-	// 	localStorage.setItem(`${location}LikeStatus`, false);
-	// 	setPrevLikedStatus(false);
-	// 	handleLikeOrDislike(false); // Call handleLikeOrDislike with false parameter
-	// };
+	const handleDislike = () => {
+		const data = {location: location, userId: user._id};
+		try {
+			socket.emit('disliked', data, (response) => {
+				if (response.error) {
+					console.error(response.error);
+					return;
+				}
+				if (response.data.location === location) {
+					setDislikes(dislikes + 1);
+				}
+			});
+		} catch (error) {
+			console.error(error);
+			return;
+		}
 
-	// const handleLikeOrDislike = (likedstatus) => {
-	// 	if (likedstatus === prevLikedStatus) {
-	// 		// If the current status is the same as the previous status
-	// 		socket.emit('undo', {location: location, userId: user.id}); // Emit an "undo" event
-	// 		setLikes(likes - (likedstatus ? 1 : 0)); // Decrement likes by 1 if the previous status was "liked"
-	// 		setDislikes(dislikes - (likedstatus ? 0 : 1)); // Decrement dislikes by 1 if the previous status was "disliked"
-	// 		localStorage.setItem('likeStatus', ''); // Clear the like status from localStorage
-	// 		setPrevLikedStatus(false); // Reset the previous status to "not liked"
-	// 	} else {
-	// 		// If the current status is different from the previous status
-	// 		if (likedstatus) {
-	// 			handleLike();
-	// 		} else {
-	// 			handleDislike();
-	// 		}
-	// 	}
-	// };
+		try {
+			localStorage.setItem(`${location}LikeStatus`, false);
+			setPrevLikedStatus(false);
+		} catch (error) {
+			console.error(error);
+			return;
+		}
+	};
+
 
 	return (
 		<>
 			{user ? (
-				<div className='flex mt-2 pointer'>
+				<div className='flex mt-2 '>
 					<ThumbUp onClick={handleLike} />
 					<span className='mx-2'>{likes}</span>
-					<ThumbDown
-					// onClick={handleDislike}
-					/>
+					<ThumbDown onClick={handleDislike} />
 					<span className='mx-2'>{dislikes}</span>
 				</div>
 			) : (
