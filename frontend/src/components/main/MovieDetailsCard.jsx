@@ -46,7 +46,7 @@ const MovieDetailsCard = ({movie, onClose, loadStatus}) => {
 						/>
 						<button
 							onClick={onClose}
-							className='bg-gray-800 text-white py-2 px-4 rounded-md mt-4'>
+							className='button mt-5'>
 							Close
 						</button>
 					</div>
