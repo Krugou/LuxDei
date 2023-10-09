@@ -306,7 +306,7 @@ router.get('/dbinfo', async (req, res, next) => {
     // Create an object to hold the counts
     const databaseInfo = {
       users: userCount,
-      chatmessages: chatCount,
+      chatmessages: chatMessageCount,
       contacts: contactCount,
     };
 
