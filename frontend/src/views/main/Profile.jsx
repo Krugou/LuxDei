@@ -95,15 +95,15 @@ const Profile = () => {
       {user && (
         <div className='flex flex-col'>
           <div>
-            <p>
-              <span className='font-semibold mb-2'>Name:</span>{' '}
+            <p className='mb-2'>
+              <span className='font-semibold'>Name:</span>{' '}
               {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
             </p>
-            <p>
-              <span className='font-semibold mb-2'>Email:</span> {user.email}
+            <p className='mb-2'>
+              <span className='font-semibold'>Email:</span> {user.email}
             </p>
-            <p>
-              <span className='font-semibold mb-2'>Account created:</span>{' '}
+            <p className='mb-2'>
+              <span className='font-semibold'>Account created:</span>{' '}
               {formatDate(user.timecreated)}
             </p>
           </div>
