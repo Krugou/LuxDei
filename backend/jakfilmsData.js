@@ -75,9 +75,9 @@ io.on('connection', (socket) => {
 
 	socket.on('getInitialLikeCounts', async (location) => {
 		try {
-      console.log('getInitialLikeCounts', location);
-      // `${location.replace(/\s+/g, '')}Likes`;
-			// const likeDocuments = await LikeModel.find({location});
+			console.log('getInitialLikeCounts', location);
+			const locationCleaned = `${location.replace(/\s+/g, '')}Likes`;
+			const likeDocuments = await LikeModel.find({locationCleaned});
 			// let likes = 0;
 			// let dislikes = 0;
 			// likeDocuments.forEach((likeDocument) => {
