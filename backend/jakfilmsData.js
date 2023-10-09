@@ -209,7 +209,7 @@ io.on('connection', (socket) => {
 
 	socket.on('unliked', async (data) => {
 		try {
-			// console.log('unliked: ', data.userId, data.location);
+			console.log('unliked: ', data.userId, data.location);
 			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
 			const Like = LikeModel(locationCleaned);
 			// Decrement the like count for the location in the database
@@ -235,7 +235,7 @@ io.on('connection', (socket) => {
 
 	socket.on('undisliked', async (data) => {
 		try {
-			// console.log('undisliked: ', data.userId, data.location);
+			console.log('undisliked: ', data.userId, data.location);
 			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
 			const Like = LikeModel(locationCleaned);
 			// Decrement the dislike count for the location in the database
