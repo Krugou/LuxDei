@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const LikeSchema = new mongoose.Schema({
+	location: String,
 	likes: {
 		type: Number,
 		default: 0, // Initialize likes count to 0
@@ -9,7 +10,6 @@ const LikeSchema = new mongoose.Schema({
 		type: Number,
 		default: 0, // Initialize dislikes count to 0
 	},
-	location: String,
 	likedBy: [
 		{
 			userId: String,
