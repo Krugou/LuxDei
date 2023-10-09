@@ -20,18 +20,17 @@ export const VideoPlayer = (props) => {
   const [socket, setSocket] = useState(null);
   const [userActions, setUserActions] = useState({});
   useEffect(() => {
-
     try {
       // Create a new socket connection when the component mounts
       const newSocket = io('/', {
         path: '/backend/socket.io',
         transports: ['websocket'],
       });
-      // const newSocket = io('http://localhost:3001/');
       setSocket(newSocket);
       newSocket.emit('NewLiveViewer', true);
 
-      newSocket.emit('getInitialLikeCounts', user.id);
+      // Fetch the initial like/dislike status from the server
+      newSocket.emit('getInitialLikeStatus', user.id);
 
       // Remove the socket connection when the component unmounts
       return () => {
@@ -44,6 +43,10 @@ export const VideoPlayer = (props) => {
 
   useEffect(() => {
     if (socket) {
+      socket.on('initialLikeStatus', ({ hasLiked, hasDisliked }) => {
+        setHasLiked(hasLiked);
+        setHasDisliked(hasDisliked);
+      });
       socket.on('LiveViewers', (data) => {
         setLiveViewCount(data);
       });
@@ -53,6 +56,7 @@ export const VideoPlayer = (props) => {
 
       // Remove the event listeners when the component unmounts
       return () => {
+        socket.off('initialLikeStatus');
         socket.off('LiveViewers');
         socket.off('TotalViewers');
       };
