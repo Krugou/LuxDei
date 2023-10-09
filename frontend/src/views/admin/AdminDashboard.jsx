@@ -154,7 +154,7 @@ const AdminDashboard = () => {
               >
                 <div>
                   <h2 className='text-xl font-semibold text-gray-800'>
-                    Senders preferred name: {contact.name}
+                    Senders prefered name: {contact.name}
                   </h2>
                   <p className='text-gray-600 font-bold'>
                     Senders current username: {contact.username}
