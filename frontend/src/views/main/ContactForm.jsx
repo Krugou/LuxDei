@@ -125,7 +125,7 @@ const ContactForm = () => {
             rows='4'
             className='w-full p-2 border rounded-md outline-none'
             required
-            maxLength={500} // Set your desired maximum character limit here
+            maxLength={600} // Set your desired maximum character limit here
           ></textarea>
           <p className='text-gray-500 text-sm mt-2'>
             {formData.message.length} / 500 characters

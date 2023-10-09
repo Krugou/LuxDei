@@ -179,7 +179,11 @@ router.post(
     // Validate contact data
     body('name').notEmpty().trim(),
     body('email').isEmail().notEmpty().trim(),
-    body('message').notEmpty().trim(),
+    body('message')
+      .notEmpty()
+      .trim()
+      .isLength({ max: 500 }) // Add this validation to limit the message to 500 characters
+      .withMessage('Message must not exceed 500 characters'), // Custom error message
   ],
   async (req, res, next) => {
     // Check if the user is authenticated and exists in the request
