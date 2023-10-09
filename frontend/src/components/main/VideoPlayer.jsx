@@ -111,23 +111,17 @@ export const VideoPlayer = (props) => {
   const handleLike = () => {
     if (hasLiked) {
       // If the user has already liked the video, clicking again will undo the action
+      // Decrease the likes count and emit an 'undoLikeVideo' event to the server
       setLikes(likes - 1);
       socket.emit('undoLikeVideo', user.id);
-      setUserActions((prevActions) => ({
-        ...prevActions,
-        [user.id]: undefined, // Remove the user's action
-      }));
       // Remove the like status from localStorage
       localStorage.removeItem('likeStatus');
     } else {
       // If the user hasn't liked the video yet, proceed to like it
+      // Increase the likes count and emit a 'likeVideo' event to the server
       setLikes(likes + 1);
       socket.emit('likeVideo', user.id);
-      setUserActions((prevActions) => ({
-        ...prevActions,
-        [user.id]: 'like',
-      }));
-      // Store the like status in localStorage
+      // Set the like status in localStorage
       localStorage.setItem('likeStatus', 'liked');
       // Remove the dislike status from localStorage (if any)
       localStorage.removeItem('dislikeStatus');
@@ -138,23 +132,17 @@ export const VideoPlayer = (props) => {
   const handleDislike = () => {
     if (hasDisliked) {
       // If the user has already disliked the video, clicking again will undo the action
+      // Decrease the dislikes count and emit an 'undoDislikeVideo' event to the server
       setDislikes(dislikes - 1);
       socket.emit('undoDislikeVideo', user.id);
-      setUserActions((prevActions) => ({
-        ...prevActions,
-        [user.id]: undefined, // Remove the user's action
-      }));
       // Remove the dislike status from localStorage
       localStorage.removeItem('dislikeStatus');
     } else {
       // If the user hasn't disliked the video yet, proceed to dislike it
+      // Increase the dislikes count and emit a 'dislikeVideo' event to the server
       setDislikes(dislikes + 1);
       socket.emit('dislikeVideo', user.id);
-      setUserActions((prevActions) => ({
-        ...prevActions,
-        [user.id]: 'dislike',
-      }));
-      // Store the dislike status in localStorage
+      // Set the dislike status in localStorage
       localStorage.setItem('dislikeStatus', 'disliked');
       // Remove the like status from localStorage (if any)
       localStorage.removeItem('likeStatus');
