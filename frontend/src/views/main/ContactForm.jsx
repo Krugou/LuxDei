@@ -31,7 +31,8 @@ const ContactForm = () => {
     });
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
       const token = localStorage.getItem('userToken');
       // You can handle form submission logic here
