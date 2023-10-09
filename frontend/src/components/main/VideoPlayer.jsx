@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import io from 'socket.io-client';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import { ThumbUp, ThumbDown } from '@mui/icons-material';
 import '@videojs/themes/dist/city/index.css';
-import {UserContext} from '../../contexts/UserContext';
+import { UserContext } from '../../contexts/UserContext';
+
 export const VideoPlayer = (props) => {
-  const {user} = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
   const [liveViewerCount, setLiveViewCount] = useState(0);
@@ -16,18 +17,16 @@ export const VideoPlayer = (props) => {
   const [dislikes, setDislikes] = useState(0);
   const [hasLiked, setHasLiked] = useState(false);
   const [hasDisliked, setHasDisliked] = useState(false);
-  const {options, onReady} = props;
+  const { options, onReady } = props;
   const [socket, setSocket] = useState(null);
-  const [userActions, setUserActions] = useState({});
-  useEffect(() => {
 
+  useEffect(() => {
     try {
       // Create a new socket connection when the component mounts
       const newSocket = io('/', {
         path: '/backend/socket.io',
         transports: ['websocket'],
       });
-      // const newSocket = io('http://localhost:3001/');
       setSocket(newSocket);
       newSocket.emit('NewLiveViewer', true);
 
@@ -40,7 +39,7 @@ export const VideoPlayer = (props) => {
     } catch (error) {
       console.error('Error establishing socket connection:', error);
     }
-  }, []);
+  }, [user.id]);
 
   useEffect(() => {
     if (socket) {
@@ -50,12 +49,6 @@ export const VideoPlayer = (props) => {
       socket.on('TotalViewers', (data) => {
         setTotalViewCount(data);
       });
-
-      // Remove the event listeners when the component unmounts
-      return () => {
-        socket.off('LiveViewers');
-        socket.off('TotalViewers');
-      };
     }
   }, [socket]);
 
@@ -69,14 +62,11 @@ export const VideoPlayer = (props) => {
     } else if (storedLikeStatus === 'disliked') {
       setHasDisliked(true);
     }
-
-    // Rest of your code...
   }, []);
 
   useEffect(() => {
     if (!playerRef.current) {
       const videoElement = document.createElement('video-js');
-
       videoElement.classList.add('vjs-big-play-centered');
       videoRef.current.appendChild(videoElement);
 
@@ -93,7 +83,6 @@ export const VideoPlayer = (props) => {
       };
     } else {
       const player = playerRef.current;
-
       player.autoplay(options.autoplay);
       player.src(options.sources);
     }
@@ -113,26 +102,19 @@ export const VideoPlayer = (props) => {
       // If the user has already liked the video, clicking again will undo the action
       setLikes(likes - 1);
       socket.emit('undoLikeVideo', user.id);
-      setUserActions((prevActions) => ({
-        ...prevActions,
-        [user.id]: undefined, // Remove the user's action
-      }));
+      setHasLiked(false); // Reset the hasLiked state
       // Remove the like status from localStorage
       localStorage.removeItem('likeStatus');
     } else {
       // If the user hasn't liked the video yet, proceed to like it
       setLikes(likes + 1);
       socket.emit('likeVideo', user.id);
-      setUserActions((prevActions) => ({
-        ...prevActions,
-        [user.id]: 'like',
-      }));
+      setHasLiked(true); // Set the hasLiked state
       // Store the like status in localStorage
       localStorage.setItem('likeStatus', 'liked');
       // Remove the dislike status from localStorage (if any)
       localStorage.removeItem('dislikeStatus');
     }
-    setHasLiked(!hasLiked); // Toggle the hasLiked state
   };
 
   const handleDislike = () => {
@@ -140,35 +122,25 @@ export const VideoPlayer = (props) => {
       // If the user has already disliked the video, clicking again will undo the action
       setDislikes(dislikes - 1);
       socket.emit('undoDislikeVideo', user.id);
-      setUserActions((prevActions) => ({
-        ...prevActions,
-        [user.id]: undefined, // Remove the user's action
-      }));
+      setHasDisliked(false); // Reset the hasDisliked state
       // Remove the dislike status from localStorage
       localStorage.removeItem('dislikeStatus');
     } else {
       // If the user hasn't disliked the video yet, proceed to dislike it
       setDislikes(dislikes + 1);
       socket.emit('dislikeVideo', user.id);
-      setUserActions((prevActions) => ({
-        ...prevActions,
-        [user.id]: 'dislike',
-      }));
+      setHasDisliked(true); // Set the hasDisliked state
       // Store the dislike status in localStorage
       localStorage.setItem('dislikeStatus', 'disliked');
       // Remove the like status from localStorage (if any)
       localStorage.removeItem('likeStatus');
     }
-    setHasDisliked(!hasDisliked); // Toggle the hasDisliked state
   };
-
-
 
   return (
       <>
         <div data-vjs-player className="w-full sm:w-2/3 md:min-w-2/3 h-full ">
           <div ref={videoRef} className="video-js vjs-theme-city">
-
             <style jsx>{`
             .video-js {
               width: 100%;
@@ -184,16 +156,22 @@ export const VideoPlayer = (props) => {
           </div>
           {user ? (
               <div className="flex mt-2">
-                <ThumbUp onClick={handleLike} style={{ cursor: "pointer" }} />
+                <ThumbUp
+                    onClick={handleLike}
+                    style={{ cursor: 'pointer', color: hasLiked ? 'blue' : 'gray' }}
+                />
                 <span className="mx-2">{likes}</span>
-                <ThumbDown onClick={handleDislike} style={{ cursor: "pointer" }} />
+                <ThumbDown
+                    onClick={handleDislike}
+                    style={{ cursor: 'pointer', color: hasDisliked ? 'red' : 'gray' }}
+                />
                 <span className="mx-2">{dislikes}</span>
               </div>
           ) : (
               <div className="flex mt-2">
-                <ThumbUp style={{ cursor: "pointer" }} />
+                <ThumbUp style={{ cursor: 'pointer' }} />
                 <span className="mx-2">{likes}</span>
-                <ThumbDown style={{ cursor: "pointer" }} />
+                <ThumbDown style={{ cursor: 'pointer' }} />
                 <span className="mx-2">{dislikes}</span>
               </div>
           )}
