@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { postContact } from '../../hooks/ApiHooks';
 import { useNavigate } from 'react-router-dom';
@@ -12,12 +12,6 @@ const ContactForm = () => {
 
   const { user } = useContext(UserContext);
 
-  useEffect(() => {
-    if (!user) {
-      // If there's no user, navigate to the '/login' page
-      navigate('/login');
-    }
-  }, [user, navigate]);
   // Use the "||" operator for default values to simplify the initial state
   const [formData, setFormData] = useState({
     name: user?.name || '',
@@ -57,6 +51,10 @@ const ContactForm = () => {
         'Thank you for your submission, we will contact you via email.'
       );
       // Clear the form after successful submission
+      setFormData({
+        ...formData,
+        message: '', // Clear the message field
+      });
     } catch (error) {
       console.error('Error submitting form data:', error);
       setAlert(error.message);
@@ -74,70 +72,88 @@ const ContactForm = () => {
 
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
 
-      <h2 className='text-xl font-semibold mb-4'>Contact Us</h2>
-      <form onSubmit={handleSubmit}>
-        <div className='mb-4'>
-          <label
-            htmlFor='name'
-            className='block text-gray-600 font-medium mb-2'
-          >
-            Your name
-          </label>
-          <input
-            type='text'
-            id='name'
-            name='name'
-            value={formData.name}
-            onChange={handleChange}
-            className='w-full p-2 border rounded-md outline-none'
-            required
-          />
+      {user ? ( // Conditionally render the form or the "NoChat" component
+        <>
+          <h2 className='text-xl font-semibold mb-4'>Contact Us</h2>
+          <form onSubmit={handleSubmit}>
+            <div className='mb-4'>
+              <label
+                htmlFor='name'
+                className='block text-gray-600 font-medium mb-2'
+              >
+                Your name
+              </label>
+              <input
+                type='text'
+                id='name'
+                name='name'
+                value={formData.name}
+                onChange={handleChange}
+                className='w-full p-2 border rounded-md outline-none'
+                required
+              />
+            </div>
+            <div className='mb-4'>
+              <label
+                htmlFor='email'
+                className='block text-gray-600 font-medium mb-2'
+              >
+                Your email
+              </label>
+              <input
+                type='email'
+                id='email'
+                name='email'
+                value={formData.email}
+                onChange={handleChange}
+                className='w-full p-2 border rounded-md outline-none'
+                required
+              />
+            </div>
+            <div className='mb-4'>
+              <label
+                htmlFor='message'
+                className='block text-gray-600 font-medium mb-2'
+              >
+                Message
+              </label>
+              <textarea
+                id='message'
+                name='message'
+                value={formData.message}
+                onChange={handleChange}
+                rows='4'
+                className='w-full p-2 border rounded-md outline-none'
+                required
+                maxLength={500} // Set your desired maximum character limit here
+              ></textarea>
+              <p className='text-gray-500 text-sm mt-2'>
+                {formData.message.length} / 500 characters
+              </p>
+            </div>
+            <button
+              type='submit'
+              className='w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300'
+            >
+              Submit
+            </button>
+          </form>
+        </>
+      ) : (
+        <div className='flex flex-col items-center justify-center'>
+          <h1 className='lg:text-xl text-base m-2 font-bold mb-8'>
+            You need to log in or register to request for help.
+          </h1>
+          <div className='flex flex-col items-center'>
+            <button className='button mb-5' onClick={() => navigate('/login')}>
+              Login
+            </button>
+            <button className='button' onClick={() => navigate('/register')}>
+              Register
+            </button>
+          </div>
         </div>
-        <div className='mb-4'>
-          <label
-            htmlFor='email'
-            className='block text-gray-600 font-medium mb-2'
-          >
-            Your email
-          </label>
-          <input
-            type='email'
-            id='email'
-            name='email'
-            value={formData.email}
-            onChange={handleChange}
-            className='w-full p-2 border rounded-md outline-none'
-            required
-          />
-        </div>
-        <div className='mb-4'>
-          <label
-            htmlFor='message'
-            className='block text-gray-600 font-medium mb-2'
-          >
-            Message
-          </label>
-          <textarea
-            id='message'
-            name='message'
-            value={formData.message}
-            onChange={handleChange}
-            rows='4'
-            className='w-full p-2 border rounded-md outline-none'
-            required
-            maxLength={500} // Set your desired maximum character limit here
-          ></textarea>
-          <p className='text-gray-500 text-sm mt-2'>
-            {formData.message.length} / 500 characters
-          </p>
-        </div>
-        <button
-          type='submit'
-          className='w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300'
-        >
-          Submit
-        </button>
-      </form>
+      )}
     </div>
   );
 };
