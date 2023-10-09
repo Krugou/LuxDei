@@ -154,10 +154,16 @@ const AdminDashboard = () => {
               >
                 <div>
                   <h2 className='text-xl font-semibold text-gray-800'>
-                    Senders name: {contact.name}
+                    Senders preferred name: {contact.name}
                   </h2>
                   <p className='text-gray-600 font-bold'>
-                    Senders account name in database: {contact.usernamewhensent}
+                    Senders current username: {contact.username}
+                  </p>
+                  <p className='text-gray-600 font-bold'>
+                    Senders username when sent: {contact.usernamewhensent}
+                  </p>
+                  <p className='text-gray-600 font-bold'>
+                    Senders userid: {contact.useridofsender}
                   </p>
                   <p className='text-gray-600 font-bold'>
                     Email: {contact.email}
