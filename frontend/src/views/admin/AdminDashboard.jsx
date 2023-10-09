@@ -7,7 +7,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
-
+import formatDate from '../../utils/utilities';
 import { FormControl, MenuItem, Select, Typography } from '@mui/material';
 
 const AdminDashboard = () => {
@@ -94,19 +94,6 @@ const AdminDashboard = () => {
     } catch (error) {
       setError(error);
     }
-  };
-
-  const formatDate = (dateString) => {
-    const options = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-    };
-    const date = new Date(dateString);
-    return date.toLocaleDateString('fi-FI', options);
   };
 
   return (

@@ -4,6 +4,7 @@ import { FlagIcon } from 'react-flag-kit';
 import { useNavigate } from 'react-router-dom';
 import ErrorAlert from '../../components/main/ErrorAlert';
 import SuccessAlert from '../../components/main/SuccessAlert';
+import formatDate from '../../utils/utilities';
 
 import { useUser } from '../../hooks/ApiHooks';
 
@@ -100,6 +101,10 @@ const Profile = () => {
             </p>
             <p>
               <span className='font-semibold'>Email:</span> {user.email}
+            </p>
+            <p>
+              <span className='font-semibold'>Account created:</span>{' '}
+              {formatDate(user.timecreated)}
             </p>
           </div>
           <div className='col-span-2'>
