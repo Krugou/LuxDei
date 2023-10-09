@@ -39,7 +39,7 @@ const Movies = () => {
         <LoadingSpinner />
       ) : (
         <div className='container pb-5 pt-5 mx-auto'>
-          <h1 className='text-3xl font-bold mb-4'>Movie List</h1>
+          <h1 className='text-3xl font-bold mb-4 text-center'>Movie List</h1>
           <input
             type='text'
             placeholder='Search movies...'
@@ -47,7 +47,7 @@ const Movies = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
             className='border border-gray-400 rounded-md px-4 py-2 mb-4'
           />
-          <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+          <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-gmgold gap-4'>
             {filteredMovies.map((movie) => (
               <li
                 key={movie.id}
