@@ -118,7 +118,7 @@ const AdminDashboard = () => {
             Admin Dashboard
           </h1>
 
-          <div className='flex flex-col md:flex-row justify-between items-center'>
+          <div className='flex flex-col md:flex-row justify-between items-center border-b border-black'>
             <div className='md:w-1/2'>
               {/* Info paragraphs */}
               <div className='info-paragraphs'>
