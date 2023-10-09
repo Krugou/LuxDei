@@ -128,7 +128,7 @@ const ContactForm = () => {
             maxLength={600} // Set your desired maximum character limit here
           ></textarea>
           <p className='text-gray-500 text-sm mt-2'>
-            {formData.message.length} / 500 characters
+            {formData.message.length} / 600 characters
           </p>
         </div>
         <button
