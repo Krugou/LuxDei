@@ -1,6 +1,6 @@
-import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-import {UserProvider} from './contexts/UserContext';
-import {VideoFeedProvider} from './contexts/VideoFeedContext';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { UserProvider } from './contexts/UserContext';
+import { VideoFeedProvider } from './contexts/VideoFeedContext';
 import Footer from './views/Footer';
 import Header from './views/Header';
 import AdminDashboard from './views/admin/AdminDashboard';
@@ -16,6 +16,7 @@ import Logout from './views/main/Logout';
 import Movies from './views/main/Movies';
 import NotFound from './views/main/NotFound';
 import PrivacyPolicy from './views/main/PrivacyPolicy';
+import ContactForm from './views/main/ContactForm';
 import Profile from './views/main/Profile';
 import Register from './views/main/Register';
 import Schedule from './views/main/Schedule';
@@ -25,35 +26,39 @@ const Layout = () => {
   return (
     <UserProvider>
       <VideoFeedProvider>
-      <div className='max-w-screen-2xl flex flex-col mx-auto justify-center'>
-        <Router basename={import.meta.env.BASE_URL}>
-          <Header />
-          <main>
-            <Routes>
-              <Route path='/' element={<LandingPage />} />
-              <Route path='*' element={<NotFound />} />
-              <Route path='404' element={<NotFound />} />
-              <Route path='/home' element={<LandingPage />} />
-              <Route path='/livestream' element={<LiveStream />} />
-              <Route path='/articles' element={<Articles />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/register' element={<Register />} />
-              <Route path='/about' element={<About />} />
-              <Route path='/privacypolicy' element={<PrivacyPolicy />} />
-              <Route path='/termsofservice' element={<TermsOfService />} />
-              <Route path='/team' element={<Team />} />
-              <Route path='/schedule' element={<Schedule />} />
-              <Route path='/profile' element={<Profile />} />
-              <Route path='/logout' element={<Logout />} />
-              <Route path='/movies' element={<Movies />} />
-              <Route path='/archive' element={<Archive />} />
-              <Route path='/admin' element={<AdminDashboard />} />
-              <Route path='/admin/newarticle' element={<CreateArticles />} />
-              <Route path='/admin/newschedule' element={<CreateSchedules />} />
-            </Routes>
-          </main>
-          <Footer />
-        </Router>
+        <div className='max-w-screen-2xl flex flex-col mx-auto justify-center'>
+          <Router basename={import.meta.env.BASE_URL}>
+            <Header />
+            <main>
+              <Routes>
+                <Route path='/' element={<LandingPage />} />
+                <Route path='*' element={<NotFound />} />
+                <Route path='404' element={<NotFound />} />
+                <Route path='/home' element={<LandingPage />} />
+                <Route path='/livestream' element={<LiveStream />} />
+                <Route path='/articles' element={<Articles />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/about' element={<About />} />
+                <Route path='/privacypolicy' element={<PrivacyPolicy />} />
+                <Route path='/termsofservice' element={<TermsOfService />} />
+                <Route path='/contactus' element={<ContactForm />} />
+                <Route path='/team' element={<Team />} />
+                <Route path='/schedule' element={<Schedule />} />
+                <Route path='/profile' element={<Profile />} />
+                <Route path='/logout' element={<Logout />} />
+                <Route path='/movies' element={<Movies />} />
+                <Route path='/archive' element={<Archive />} />
+                <Route path='/admin' element={<AdminDashboard />} />
+                <Route path='/admin/newarticle' element={<CreateArticles />} />
+                <Route
+                  path='/admin/newschedule'
+                  element={<CreateSchedules />}
+                />
+              </Routes>
+            </main>
+            <Footer />
+          </Router>
         </div>
       </VideoFeedProvider>
     </UserProvider>
