@@ -135,9 +135,10 @@ io.on('connection', (socket) => {
 					likes += likeDocument.likes;
 					dislikes += likeDocument.dislikes;
 				});
-				console.log(
+				console
+					.log
 					// `Like counts updated: likes=${likes}, dislikes=${dislikes}`
-				);
+					();
 				io.emit('likeCountsUpdated', {likes, dislikes});
 			}
 		} catch (error) {
@@ -156,7 +157,7 @@ io.on('connection', (socket) => {
 		}
 		isHandlingDislike = true;
 		try {
-			// console.log('disliked: ', data.userId, data.location);
+			console.log('disliked: ', data.userId, data.location);
 			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
 			const Like = LikeModel(locationCleaned);
 
@@ -165,7 +166,7 @@ io.on('connection', (socket) => {
 				'disLikedBy.userId': data.userId,
 			});
 			if (likeDocument) {
-				// console.log(`User ${data.userId} has already disliked this location.`);
+				console.log(`User ${data.userId} has already disliked this location.`);
 			} else {
 				const existingLike = await Like.findOne({location: data.location});
 				if (!existingLike) {
@@ -184,7 +185,6 @@ io.on('connection', (socket) => {
 					{location: data.location},
 					{$push: {disLikedBy: {userId: data.userId}}, $inc: {dislikes: 1}}
 				);
-				io.emit('disLikeSuccess', data.location);
 
 				// Update the like counts for the location and emit the new counts to all clients
 				const likeDocuments = await Like.find();
@@ -204,6 +204,58 @@ io.on('connection', (socket) => {
 			io.emit('dislikeError', error.message);
 		} finally {
 			isHandlingDislike = false;
+		}
+	});
+
+	socket.on('unliked', async (data) => {
+		try {
+			// console.log('unliked: ', data.userId, data.location);
+			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
+			const Like = LikeModel(locationCleaned);
+			// Decrement the like count for the location in the database
+			await Like.updateOne(
+				{location: data.location},
+				{$pull: {likedBy: {userId: data.userId}}, $inc: {likes: -1}}
+			);
+
+			// Update the like counts for the location and emit the new counts to all clients
+			const likeDocuments = await Like.find();
+			let likes = 0;
+			let dislikes = 0;
+			likeDocuments.forEach((likeDocument) => {
+				likes += likeDocument.likes;
+				dislikes += likeDocument.dislikes;
+			});
+			console.log(`Like counts updated: likes=${likes}, dislikes=${dislikes}`);
+			io.emit('likeCountsUpdated', {likes, dislikes});
+		} catch (err) {
+			console.error(err);
+		}
+	});
+
+	socket.on('undisliked', async (data) => {
+		try {
+			// console.log('undisliked: ', data.userId, data.location);
+			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
+			const Like = LikeModel(locationCleaned);
+			// Decrement the dislike count for the location in the database
+			await Like.updateOne(
+				{location: data.location},
+				{$pull: {disLikedBy: {userId: data.userId}}, $inc: {dislikes: -1}}
+			);
+
+			// Update the like counts for the location and emit the new counts to all clients
+			const likeDocuments = await Like.find();
+			let likes = 0;
+			let dislikes = 0;
+			likeDocuments.forEach((likeDocument) => {
+				likes += likeDocument.likes;
+				dislikes += likeDocument.dislikes;
+			});
+			console.log(`Like counts updated: likes=${likes}, dislikes=${dislikes}`);
+			io.emit('likeCountsUpdated', {likes, dislikes});
+		} catch (err) {
+			console.error(err);
 		}
 	});
 
