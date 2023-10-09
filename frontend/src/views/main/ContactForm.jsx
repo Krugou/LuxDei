@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { postContact } from '../../hooks/ApiHooks';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +8,12 @@ const ContactForm = () => {
 
   const { user } = useContext(UserContext);
 
+  useEffect(() => {
+    if (!user) {
+      // If there's no user, navigate to the '/login' page
+      navigate('/login');
+    }
+  }, [user, navigate]);
   // Use the "||" operator for default values to simplify the initial state
   const [formData, setFormData] = useState({
     name: user?.name || '',
@@ -41,21 +47,17 @@ const ContactForm = () => {
       // Make a POST request to your server to save the form data
       const response = await postContact(dataToSend, token);
       console.log(response, ' post response');
-      if (response.ok) {
-        // Form data successfully submitted
-        console.log('Form data submitted successfully');
 
-        // Clear the form after successful submission
-        setFormData({
-          name: '',
-          email: '',
-          message: '',
-        });
-        navigate('/');
-      } else {
-        // Handle the case where the server returns an error
-        console.error('Form data submission failed');
-      }
+      // Form data successfully submitted
+      console.log('Form data submitted successfully');
+
+      // Clear the form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        message: '',
+      });
+      navigate('/');
     } catch (error) {
       console.error('Error submitting form data:', error);
     }
