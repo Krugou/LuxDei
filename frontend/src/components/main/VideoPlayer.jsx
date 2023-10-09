@@ -20,17 +20,17 @@ export const VideoPlayer = (props) => {
   const [socket, setSocket] = useState(null);
   const [userActions, setUserActions] = useState({});
   useEffect(() => {
+
     try {
       // Create a new socket connection when the component mounts
       const newSocket = io('/', {
         path: '/backend/socket.io',
         transports: ['websocket'],
       });
+      // const newSocket = io('http://localhost:3001/');
       setSocket(newSocket);
       newSocket.emit('NewLiveViewer', true);
 
-      // Fetch the initial like/dislike status and counts from the server
-      newSocket.emit('getInitialLikeStatus', user.id);
       newSocket.emit('getInitialLikeCounts', user.id);
 
       // Remove the socket connection when the component unmounts
@@ -44,14 +44,6 @@ export const VideoPlayer = (props) => {
 
   useEffect(() => {
     if (socket) {
-      socket.on('initialLikeStatus', ({ hasLiked, hasDisliked }) => {
-        setHasLiked(hasLiked);
-        setHasDisliked(hasDisliked);
-      });
-      socket.on('initialLikeCounts', ({ likes, dislikes }) => {
-        setLikes(likes);
-        setDislikes(dislikes);
-      });
       socket.on('LiveViewers', (data) => {
         setLiveViewCount(data);
       });
@@ -61,8 +53,6 @@ export const VideoPlayer = (props) => {
 
       // Remove the event listeners when the component unmounts
       return () => {
-        socket.off('initialLikeStatus');
-        socket.off('initialLikeCounts');
         socket.off('LiveViewers');
         socket.off('TotalViewers');
       };
@@ -175,40 +165,40 @@ export const VideoPlayer = (props) => {
 
 
   return (
-    <>
-      <div data-vjs-player className="w-full sm:w-2/3 md:min-w-2/3 h-full ">
-        <div ref={videoRef} className="video-js vjs-theme-city">
+      <>
+        <div data-vjs-player className="w-full sm:w-2/3 md:min-w-2/3 h-full ">
+          <div ref={videoRef} className="video-js vjs-theme-city">
 
-          <style jsx>{`
+            <style jsx>{`
             .video-js {
               width: 100%;
               height: 100%;
             }
           `}</style>
-          {liveViewerCount > 0 && totalViewerCount > 0 && (
-            <div className="absolute bottom-12 right-0 bg-gray-800 z-10 text-white p-2 opacity-20 hover:opacity-80 transition-opacity duration-300 bg-transparent">
-              <div className="text-lg font-bold">Viewers: {liveViewerCount}</div>
-              <div className="text-sm">Viewed: {totalViewerCount}</div>
-            </div>
+            {liveViewerCount > 0 && totalViewerCount > 0 && (
+                <div className="absolute bottom-12 right-0 bg-gray-800 z-10 text-white p-2 opacity-20 hover:opacity-80 transition-opacity duration-300 bg-transparent">
+                  <div className="text-lg font-bold">Viewers: {liveViewerCount}</div>
+                  <div className="text-sm">Viewed: {totalViewerCount}</div>
+                </div>
+            )}
+          </div>
+          {user ? (
+              <div className="flex mt-2">
+                <ThumbUp onClick={handleLike} style={{ cursor: "pointer" }} />
+                <span className="mx-2">{likes}</span>
+                <ThumbDown onClick={handleDislike} style={{ cursor: "pointer" }} />
+                <span className="mx-2">{dislikes}</span>
+              </div>
+          ) : (
+              <div className="flex mt-2">
+                <ThumbUp style={{ cursor: "pointer" }} />
+                <span className="mx-2">{likes}</span>
+                <ThumbDown style={{ cursor: "pointer" }} />
+                <span className="mx-2">{dislikes}</span>
+              </div>
           )}
         </div>
-        {user ? (
-            <div className="flex mt-2">
-              <ThumbUp onClick={handleLike} style={{ cursor: "pointer" }} />
-              <span className="mx-2">{likes}</span>
-              <ThumbDown onClick={handleDislike} style={{ cursor: "pointer" }} />
-              <span className="mx-2">{dislikes}</span>
-            </div>
-        ) : (
-            <div className="flex mt-2">
-              <ThumbUp style={{ cursor: "pointer" }} />
-              <span className="mx-2">{likes}</span>
-              <ThumbDown style={{ cursor: "pointer" }} />
-              <span className="mx-2">{dislikes}</span>
-            </div>
-        )}
-      </div>
-    </>
+      </>
   );
 };
 
