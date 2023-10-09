@@ -6,7 +6,7 @@ const FooterCopyright = (props) => {
 
   return (
     <p
-      className='text-center text-gray-500 text-sm border-t border-white sm:text-base md:text-lg lg:text-xl'
+      className='pt-4 text-center text-gray-500 text-sm border-t border-white sm:text-base md:text-lg lg:text-xl'
       aria-label={`Copyright ${new Date().getFullYear()} ${companyName}`}
       title={`Copyright ${new Date().getFullYear()} ${companyName}`}
     >
