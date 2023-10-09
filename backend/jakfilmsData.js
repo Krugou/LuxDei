@@ -85,11 +85,11 @@ io.on('connection', (socket) => {
   socket.on('likeVideo', async (userId) => {
     try {
       // Find the 'video_likes' document
-      let likeData = await LikeModel.findOne({ name: 'video_likes' });
+      let likeData = await LikeModel.findOne({name: userId });
 
       // If 'likeData' is null or undefined, create a new document with initial values
       if (!likeData) {
-        likeData = new LikeModel({ name: 'video_likes', likes: 0, dislikes: 0 });
+        likeData = new LikeModel({ name: userId, likes: 0, dislikes: 0 });
       }
 
       // Increment the 'likes' count
@@ -107,13 +107,21 @@ io.on('connection', (socket) => {
 
   socket.on('dislikeVideo', async (userId) => {
     try {
-      const likeDocument = await LikeModel.findOne({ name: userId });
+      // Find the like document for the user
+      let likeDocument = await LikeModel.findOne({ name: userId });
+
+      // If 'likeDocument' is null or undefined, create a new document with initial values
       if (!likeDocument) {
-        await LikeModel.create({ name: userId, likes: 0, dislikes: 1 });
+        likeDocument = new LikeModel({ name: userId, likes: 0, dislikes: 1 });
       } else {
+        // Increment the 'dislikes' count
         likeDocument.dislikes += 1;
-        await likeDocument.save();
       }
+
+      // Save the updated like document back to the database
+      await likeDocument.save();
+
+      // Emit the updated like counts to all connected clients
       io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
     } catch (error) {
       console.error('Error disliking video:', error);
@@ -122,12 +130,19 @@ io.on('connection', (socket) => {
 
   socket.on('undoLikeVideo', async (userId) => {
     try {
+      // Find the like document for the user
       const likeDocument = await LikeModel.findOne({ name: userId });
+
+      // If 'likeDocument' exists and has more than 0 likes, decrement the 'likes' count
       if (likeDocument && likeDocument.likes > 0) {
         likeDocument.likes -= 1;
+
+        // Save the updated like document back to the database
         await likeDocument.save();
+
+        // Emit the updated like counts to all connected clients
+        io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
       }
-      io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
     } catch (error) {
       console.error('Error undoing like video:', error);
     }
@@ -135,12 +150,19 @@ io.on('connection', (socket) => {
 
   socket.on('undoDislikeVideo', async (userId) => {
     try {
+      // Find the like document for the user
       const likeDocument = await LikeModel.findOne({ name: userId });
+
+      // If 'likeDocument' exists and has more than 0 dislikes, decrement the 'dislikes' count
       if (likeDocument && likeDocument.dislikes > 0) {
         likeDocument.dislikes -= 1;
+
+        // Save the updated like document back to the database
         await likeDocument.save();
+
+        // Emit the updated like counts to all connected clients
+        io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
       }
-      io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
     } catch (error) {
       console.error('Error undoing dislike video:', error);
     }
