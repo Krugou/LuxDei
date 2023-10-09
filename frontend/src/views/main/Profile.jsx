@@ -81,7 +81,7 @@ const Profile = () => {
   };
 
   return (
-    <div className=' max-w-screen-md mx-auto mt-4 p-4 border rounded shadow-lg'>
+    <div className=' max-w-screen-md mx-auto mt-4 mb-4 p-4 border rounded shadow-lg'>
       {successAlert && (
         <SuccessAlert
           onClose={() => setSuccessAlert(null)}
