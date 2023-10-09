@@ -81,25 +81,40 @@ io.on('connection', (socket) => {
     io.emit('TotalViewers', totalViewers);
   });
 
+  socket.on('getInitialLikeCounts', async (userId) => {
+    try {
+      const likeDocument = await LikeModel.findOne({ name: userId });
+      if (likeDocument) {
+        socket.emit('initialLikeCounts', {
+          likes: likeDocument.likes,
+          dislikes: likeDocument.dislikes,
+        });
+      }
+    } catch (error) {
+      console.error('Error getting initial like counts:', error);
+    }
+  });
+
+
 
   socket.on('likeVideo', async (userId) => {
     try {
-      // Find the 'video_likes' document
-      let likeData = await LikeModel.findOne({name: userId });
+      // Find the like document for the user
+      let likeDocument = await LikeModel.findOne({ name: userId });
 
-      // If 'likeData' is null or undefined, create a new document with initial values
-      if (!likeData) {
-        likeData = new LikeModel({ name: userId, likes: 0, dislikes: 0 });
+      // If 'likeDocument' is null or undefined, create a new document with initial values
+      if (!likeDocument) {
+        likeDocument = new LikeModel({ name: userId, likes: 1, dislikes: 0 });
+      } else {
+        // Increment the 'likes' count
+        likeDocument.likes += 1;
       }
 
-      // Increment the 'likes' count
-      likeData.likes += 1;
+      // Save the updated like document back to the database
+      await likeDocument.save();
 
-      // Save the updated like data back to the database
-      await likeData.save();
-
-      // Emit the updated 'likes' count to all connected clients
-      io.emit('updateLikes', likeData.likes);
+      // Emit the updated like counts to all connected clients
+      io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
     } catch (error) {
       console.error('Error liking video:', error);
     }
