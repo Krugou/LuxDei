@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { getContact, DeleteContact } from '../../hooks/ApiHooks';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../contexts/UserContext';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const name = 'newarticle';
   const name2 = 'newschedule';
+  const { update, setUpdate } = useContext(UserContext);
 
   const [contacts, setContacts] = useState([]);
   const [error, setError] = useState(null);
@@ -22,21 +24,17 @@ const AdminDashboard = () => {
         setError(error);
       }
     };
-
     fetchContacts();
-  }, []);
+  }, [token, update]); // Make sure to include token as a dependency here
 
   const handleDeleteContact = async (contactID) => {
     try {
-      const response = await DeleteContact(contactID, token);
-
-      console.log(response, 'GET RESPONSE');
-      setContacts(response);
+      await DeleteContact(contactID, token); // Delete the contact
+      setUpdate(!update);
     } catch (error) {
       setError(error);
     }
   };
-
   return (
     <div className='min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12'>
       <div className='relative py-3 sm:max-w-xl sm:mx-auto'>
