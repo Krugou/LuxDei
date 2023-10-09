@@ -46,8 +46,7 @@ router.put(
       // Error messages can be returned in an array using `errors.array()`.
       console.error('get_UserProfileLimited validation', errors.array());
 
-      res.status(400).json({ error: 'Invalid inputs' });
-      return;
+      return res.status(400).json({ error: 'Invalid inputs' });
     }
     try {
       let data = req.body;
@@ -238,7 +237,7 @@ router.get('/contact', async (req, res, next) => {
     res.status(200).json(contacts);
   } catch (error) {
     console.error('Error fetching contacts', error);
-    res.status(500).json({ error: 'Internal server error' });
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
