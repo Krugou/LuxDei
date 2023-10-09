@@ -59,7 +59,6 @@ const LikesElement = ({user, location}) => {
 						return;
 					}
 					if (response.data.location === location) {
-						
 						setLikes(likes + -1);
 					}
 				});
@@ -67,30 +66,29 @@ const LikesElement = ({user, location}) => {
 				console.error(error);
 				return;
 			}
-		}
-
-		setLikeClicked(true);
-		try {
-			socket.emit('liked', data, (response) => {
-				if (response.error) {
-					console.error(response.error);
-					return;
-				}
-				if (response.data.location === location) {
-					
-					setLikes(likes + 1);
-				}
-			});
-		} catch (error) {
-			console.error(error);
-			return;
+		} else {
+			setLikeClicked(true);
+			setdisLikeClicked(false); // undo dislike
+			try {
+				socket.emit('liked', data, (response) => {
+					if (response.error) {
+						console.error(response.error);
+						return;
+					}
+					if (response.data.location === location) {
+						setLikes(likes + 1);
+					}
+				});
+			} catch (error) {
+				console.error(error);
+				return;
+			}
 		}
 	};
 
 	const handleDislike = () => {
 		const data = {location: location, userId: user._id};
 		if (disLikeClicked) {
-			
 			setdisLikeClicked(false);
 			try {
 				socket.emit('undisliked', data, (response) => {
@@ -99,8 +97,24 @@ const LikesElement = ({user, location}) => {
 						return;
 					}
 					if (response.data.location === location) {
-						
-						setLikes(likes + -1);
+						setDislikes(dislikes + -1);
+					}
+				});
+			} catch (error) {
+				console.error(error);
+				return;
+			}
+		} else {
+			setdisLikeClicked(true);
+			setLikeClicked(false); // undo like
+			try {
+				socket.emit('disliked', data, (response) => {
+					if (response.error) {
+						console.error(response.error);
+						return;
+					}
+					if (response.data.location === location) {
+						setDislikes(dislikes + 1);
 					}
 				});
 			} catch (error) {
@@ -108,39 +122,28 @@ const LikesElement = ({user, location}) => {
 				return;
 			}
 		}
-
-		setdisLikeClicked(true);
-		try {
-			socket.emit('disliked', data, (response) => {
-				if (response.error) {
-					console.error(response.error);
-					return;
-				}
-				if (response.data.location === location) {
-					
-					setDislikes(dislikes + 1);
-				}
-			});
-		} catch (error) {
-			console.error(error);
-			return;
-		}
 	};
 
 	return (
 		<>
 			{user ? (
-				<div className='flex mt-2 '>
-					<ThumbUp onClick={handleLike} />
+				<div className='flex mt-2 pointer'>
+					<ThumbUp
+						onClick={handleLike}
+						className={likeClicked ? 'text-green-500' : ''}
+					/>
 					<span className='mx-2'>{likes}</span>
-					<ThumbDown onClick={handleDislike} />
+					<ThumbDown
+						onClick={handleDislike}
+						className={disLikeClicked ? 'text-red-500' : ''}
+					/>
 					<span className='mx-2'>{dislikes}</span>
 				</div>
 			) : (
 				<div className='flex mt-2'>
-					<ThumbUp style={{cursor: 'pointer'}} />
+					<ThumbUp />
 					<span className='mx-2'>{likes}</span>
-					<ThumbDown style={{cursor: 'pointer'}} />
+					<ThumbDown />
 					<span className='mx-2'>{dislikes}</span>
 				</div>
 			)}
