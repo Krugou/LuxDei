@@ -302,12 +302,19 @@ router.get('/dbinfo', async (req, res, next) => {
     const userCount = await User.countDocuments();
     const chatMessageCount = await ChatMessage.countDocuments(); // Assuming you have a Comment model
     const contactCount = await Contact.countDocuments();
+    // Find the latest message using the timestamp field
+    const latestMessage = await ChatMessage.findOne(
+      {},
+      {},
+      { sort: { timestamp: -1 } }
+    );
 
     // Create an object to hold the counts
     const databaseInfo = {
       users: userCount,
       chatmessages: chatMessageCount,
       contacts: contactCount,
+      latestMessageTimestamp: latestMessage ? latestMessage.timestamp : null,
     };
 
     res.status(200).json(databaseInfo);
