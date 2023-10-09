@@ -94,38 +94,40 @@ const Profile = () => {
       <h1 className='text-2xl font-semibold mb-4'>Profile</h1>
       {user && (
         <div className='flex flex-col'>
-          <div>
-            <p className='mb-2'>
-              <span className='font-semibold'>Name:</span>{' '}
-              {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
-            </p>
-            <p className='mb-2'>
-              <span className='font-semibold'>Email:</span> {user.email}
-            </p>
-            <p className='mb-2'>
-              <span className='font-semibold'>Account created:</span>{' '}
-              {formatDate(user.timecreated)}
-            </p>
+          <div className='flex'>
+            <div>
+              <p className='mb-2'>
+                <span className='font-semibold'>Name:</span>{' '}
+                {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
+              </p>
+              <p className='mb-2'>
+                <span className='font-semibold'>Email:</span> {user.email}
+              </p>
+              <p className='mb-2'>
+                <span className='font-semibold'>Account created:</span>{' '}
+                {formatDate(user.timecreated)}
+              </p>
+            </div>
+            <div className='ml-6 md:ml-20'>
+              <FlagIcon
+                code={user.countryid.toUpperCase()}
+                alt={`Flag for ${user.countryid}`}
+                size={120} // Adjust the size as needed
+              />
+            </div>
           </div>
-          <div className='col-span-2'>
-            <FlagIcon
-              code={user.countryid.toUpperCase()}
-              alt={`Flag for ${user.countryid}`}
-              size={120} // Adjust the size as needed
-            />
-          </div>
-          <div className='col-span-3 mt-4 space-x-4 flex'>
+          <div className='mt-4 flex'>
             <button className='button' onClick={openEditModal}>
               Edit Profile
             </button>
-            <button onClick={openDeleteModal} className='button'>
+            <button onClick={openDeleteModal} className='button ml-4 md:ml-24'>
               Delete Profile
             </button>
             <button
               onClick={() => {
                 navigate('/contactus');
               }}
-              className='button'
+              className='button ml-4 md:ml-24'
             >
               Request Help
             </button>
