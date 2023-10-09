@@ -3,6 +3,7 @@ import { UserContext } from '../../contexts/UserContext';
 import { FlagIcon } from 'react-flag-kit';
 import { useNavigate } from 'react-router-dom';
 import ErrorAlert from '../../components/main/ErrorAlert';
+import SuccessAlert from '../../components/main/SuccessAlert';
 
 import { useUser } from '../../hooks/ApiHooks';
 
@@ -11,6 +12,7 @@ const Profile = () => {
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [alert, setAlert] = useState('');
+  const [successAlert, setSuccessAlert] = useState('');
 
   const { deleteUser, putUser } = useUser();
   const navigate = useNavigate();
@@ -49,7 +51,10 @@ const Profile = () => {
     try {
       const deleteResponse = await deleteUser(token);
       console.log(deleteResponse);
-      navigate('/logout');
+      setSuccessAlert('Your account has been deleted successfully');
+      setTimeout(() => {
+        navigate('/logout');
+      }, 3000);
     } catch (error) {
       setAlert(error.message);
     }
@@ -65,7 +70,10 @@ const Profile = () => {
       console.log(editData, 'EDIT DATA');
       const updateResponse = await putUser(editData, token);
       console.log(updateResponse);
-      navigate('/logout');
+      setSuccessAlert('Your data has been updated, please login again.');
+      setTimeout(() => {
+        navigate('/logout');
+      }, 3000);
     } catch (error) {
       setAlert(error.message);
     }
@@ -74,6 +82,12 @@ const Profile = () => {
 
   return (
     <div className='container mx-auto mt-4 p-4 border rounded shadow-lg'>
+      {successAlert && (
+        <SuccessAlert
+          onClose={() => setSuccessAlert(null)}
+          successAlert={successAlert}
+        />
+      )}
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
 
       <h1 className='text-2xl font-semibold mb-4'>Profile</h1>
