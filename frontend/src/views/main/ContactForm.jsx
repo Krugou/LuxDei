@@ -59,7 +59,6 @@ const ContactForm = () => {
         email: '',
         message: '',
       });
-      navigate('/');
     } catch (error) {
       console.error('Error submitting form data:', error);
       setAlert(error.message);
