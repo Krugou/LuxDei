@@ -19,6 +19,24 @@ const AdminDashboard = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const token = localStorage.getItem('userToken');
 
+  // Handle sorting change
+  const handleSortChange = (selectedSortOption) => {
+    let sortedContacts = [...filteredContacts];
+
+    if (selectedSortOption === 'Latest') {
+      sortedContacts.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+    } else if (selectedSortOption === 'Oldest') {
+      sortedContacts.sort((a, b) => {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      });
+    }
+
+    setSortOption(selectedSortOption);
+    setFilteredContacts(sortedContacts);
+  };
+
   useEffect(() => {
     const fetchContacts = async () => {
       try {
@@ -61,25 +79,6 @@ const AdminDashboard = () => {
     };
     const date = new Date(dateString);
     return date.toLocaleDateString('fi-FI', options);
-  };
-
-  const handleChange = (event) => {
-    const selectedSortOption = event.target.value;
-
-    let sortedContacts = [...filteredContacts];
-
-    if (selectedSortOption === 'Latest') {
-      sortedContacts.sort((a, b) => {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
-    } else if (selectedSortOption === 'Oldest') {
-      sortedContacts.sort((a, b) => {
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      });
-    }
-
-    setSortOption(selectedSortOption);
-    setFilteredContacts(sortedContacts);
   };
 
   return (
@@ -130,7 +129,10 @@ const AdminDashboard = () => {
               <Select
                 className='favorite-selector'
                 value={sortOption}
-                onChange={handleChange}
+                onChange={(event) => {
+                  const selectedSortOption = event.target.value;
+                  handleSortChange(selectedSortOption);
+                }}
               >
                 <MenuItem value='Latest'>
                   <div className='item-selector'>
