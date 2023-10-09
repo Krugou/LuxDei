@@ -39,7 +39,7 @@ const Movies = () => {
         <LoadingSpinner />
       ) : (
         <div className='container pb-5 pt-5 mx-auto'>
-          <h1 className='text-3xl font-bold mt-4 text-center'>Movie List</h1>
+          <h1 className='text-3xl font-bold mt-6 text-center'>Movie List</h1>
           <input
             type='text'
             placeholder='Search movies...'
