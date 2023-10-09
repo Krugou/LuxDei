@@ -5,5 +5,7 @@ const LikeSchema = new mongoose.Schema({
   likes: Number,
   dislikes: Number,
 });
-const LikeModel = (name) => mongoose.model(`${name}Likes`, LikeSchema);
+
+const LikeModel = mongoose.model('LikeModel', LikeSchema);
+
 export default LikeModel;
