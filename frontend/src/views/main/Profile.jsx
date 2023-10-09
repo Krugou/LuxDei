@@ -82,7 +82,7 @@ const Profile = () => {
   };
 
   return (
-    <div className=' max-w-screen-md mx-auto mt-4 mb-4 p-4 border rounded shadow-lg'>
+    <div className=' max-w-screen-sm mx-auto mt-4 mb-4 p-4 border rounded shadow-lg'>
       {successAlert && (
         <SuccessAlert
           onClose={() => setSuccessAlert(null)}
@@ -93,17 +93,17 @@ const Profile = () => {
 
       <h1 className='text-2xl font-semibold mb-4'>Profile</h1>
       {user && (
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+        <div className='flex flex-col'>
           <div>
             <p>
-              <span className='font-semibold'>Name:</span>{' '}
+              <span className='font-semibold mb-2'>Name:</span>{' '}
               {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
             </p>
             <p>
-              <span className='font-semibold'>Email:</span> {user.email}
+              <span className='font-semibold mb-2'>Email:</span> {user.email}
             </p>
             <p>
-              <span className='font-semibold'>Account created:</span>{' '}
+              <span className='font-semibold mb-2'>Account created:</span>{' '}
               {formatDate(user.timecreated)}
             </p>
           </div>
