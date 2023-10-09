@@ -82,19 +82,35 @@ io.on('connection', (socket) => {
   });
 
 
-  socket.on('likeVideo', async (userId) => {
-    try {
-      const likeDocument = await LikeModel.findOne({ name: userId });
-      if (!likeDocument) {
-        await LikeModel.create({ name: userId, likes: 1, dislikes: 0 });
-      } else {
-        likeDocument.likes += 1;
-        await likeDocument.save();
+  socket.on('likeVideo', (userId) => {
+    // Retrieve the like data from your MongoDB or wherever it's stored
+    LikeModel.findOne({ name: 'video_likes' }, (err, likeData) => {
+      if (err) {
+        console.error('Error retrieving like data:', err);
+        // Handle the error as needed
+        return;
       }
-      io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
-    } catch (error) {
-      console.error('Error liking video:', error);
-    }
+
+      // If 'likeData' is null or undefined, create a new document with initial values
+      if (!likeData) {
+        likeData = new LikeModel({ name: 'video_likes', likes: 0, dislikes: 0 });
+      }
+
+      // Increment the 'likes' count
+      likeData.likes += 1;
+
+      // Save the updated like data back to the database
+      likeData.save((err) => {
+        if (err) {
+          console.error('Error saving updated like data:', err);
+          // Handle the error as needed
+          return;
+        }
+
+        // Emit the updated 'likes' count to all connected clients
+        io.emit('updateLikes', likeData.likes);
+      });
+    });
   });
 
   socket.on('dislikeVideo', async (userId) => {
