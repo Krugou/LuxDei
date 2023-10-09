@@ -2,12 +2,15 @@ import React, { useEffect, useState, useContext } from 'react';
 import { getContact, DeleteContact } from '../../hooks/ApiHooks';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 
+import { FormControl, MenuItem, Select, Typography } from '@mui/material';
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const name = 'newarticle';
   const name2 = 'newschedule';
   const { update, setUpdate } = useContext(UserContext);
+  const [sortOption, setSortOption] = useState('Oldest'); // Default sorting option
 
   const [contacts, setContacts] = useState([]);
   const [error, setError] = useState(null);
@@ -48,6 +51,24 @@ const AdminDashboard = () => {
     return date.toLocaleDateString('fi-FI', options);
   };
 
+  const handleChange = (event) => {
+    const selectedSortOption = event.target.value;
+
+    let sortedContacts = [...contacts];
+
+    if (selectedSortOption === 'Latest') {
+      sortedContacts.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+    } else if (selectedSortOption === 'Oldest') {
+      sortedContacts.sort((a, b) => {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      });
+    }
+
+    setSortOption(selectedSortOption);
+    setContacts(sortedContacts);
+  };
   return (
     <div className='min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12'>
       <div className='relative py-3 sm:max-w-xl md:max-w-full sm:mx-auto'>
@@ -77,6 +98,30 @@ const AdminDashboard = () => {
               {name2}
             </button>
           </div>
+          <FormControl>
+            <Typography variant='sort-by' sx={{ ml: 1 }}>
+              Sort By:
+            </Typography>
+
+            <Select
+              className='favorite-selector'
+              value={sortOption}
+              onChange={handleChange}
+            >
+              <MenuItem value='Latest'>
+                <div className='item-selector'>
+                  <AutorenewIcon className='highest-star-selector-icon' />
+                  <span className='selector-text'>Latest</span>
+                </div>
+              </MenuItem>
+              <MenuItem value='Oldest'>
+                <div className='item-selector'>
+                  <AutorenewIcon className='highest-star-selector-icon' />
+                  <span className='selector-text'>Oldest</span>
+                </div>
+              </MenuItem>
+            </Select>
+          </FormControl>
           {/* Display contact cards */}
           <div className='mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3'>
             {contacts.map((contact) => (
