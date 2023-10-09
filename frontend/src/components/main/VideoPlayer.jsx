@@ -3,19 +3,16 @@ import React, {useEffect, useState, useContext} from 'react';
 import io from 'socket.io-client';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
-import { ThumbUp, ThumbDown } from '@mui/icons-material';
 import '@videojs/themes/dist/city/index.css';
 import {UserContext} from '../../contexts/UserContext';
+import LikesElement from './LikesElement';
 export const VideoPlayer = (props) => {
   const {user} = useContext(UserContext);
   const videoRef = React.useRef(null);
   const playerRef = React.useRef(null);
   const [liveViewerCount, setLiveViewCount] = useState(0);
   const [totalViewerCount, setTotalViewCount] = useState(0);
-  const [likes, setLikes] = useState(0);
-  const [dislikes, setDislikes] = useState(0);
-  const [hasLiked, setHasLiked] = useState(false);
-  const [hasDisliked, setHasDisliked] = useState(false);
+
   const {options, onReady} = props;
   const [socket, setSocket] = useState(null);
   const [userActions, setUserActions] = useState({});
@@ -31,7 +28,6 @@ export const VideoPlayer = (props) => {
       setSocket(newSocket);
       newSocket.emit('NewLiveViewer', true);
 
-      newSocket.emit('getInitialLikeCounts', user.id);
 
       // Remove the socket connection when the component unmounts
       return () => {
@@ -59,19 +55,7 @@ export const VideoPlayer = (props) => {
     }
   }, [socket]);
 
-  useEffect(() => {
-    // Check localStorage for the user's like/dislike status when the component mounts
-    const storedLikeStatus = localStorage.getItem('likeStatus');
-    const storedDislikeStatus = localStorage.getItem('dislikeStatus');
 
-    if (storedLikeStatus === 'liked') {
-      setHasLiked(true);
-    } else if (storedLikeStatus === 'disliked') {
-      setHasDisliked(true);
-    }
-
-    // Rest of your code...
-  }, []);
 
   useEffect(() => {
     if (!playerRef.current) {
@@ -99,56 +83,9 @@ export const VideoPlayer = (props) => {
     }
   }, [options, onReady]);
 
-  useEffect(() => {
-    if (socket) {
-      socket.on('initialLikeCounts', ({ likes, dislikes }) => {
-        setLikes(likes);
-        setDislikes(dislikes);
-      });
-    }
-  }, [socket]);
 
-  const handleLike = () => {
-    if (hasLiked) {
-      // If the user has already liked the video, clicking again will undo the action
-      // Decrease the likes count and emit an 'undoLikeVideo' event to the server
-      setLikes(likes - 1);
-      socket.emit('undoLikeVideo', user.id);
-      // Remove the like status from localStorage
-      localStorage.removeItem('likeStatus');
-    } else if (!hasDisliked) { // Check if the user has not disliked the video
-      // If the user hasn't liked the video yet and has not disliked it, proceed to like it
-      // Increase the likes count and emit a 'likeVideo' event to the server
-      setLikes(likes + 1);
-      socket.emit('likeVideo', user.id);
-      // Set the like status in localStorage
-      localStorage.setItem('likeStatus', 'liked');
-      // Remove the dislike status from localStorage (if any)
-      localStorage.removeItem('dislikeStatus');
-    }
-    setHasLiked(!hasLiked); // Toggle the hasLiked state
-  };
 
-  const handleDislike = () => {
-    if (hasDisliked) {
-      // If the user has already disliked the video, clicking again will undo the action
-      // Decrease the dislikes count and emit an 'undoDislikeVideo' event to the server
-      setDislikes(dislikes - 1);
-      socket.emit('undoDislikeVideo', user.id);
-      // Remove the dislike status from localStorage
-      localStorage.removeItem('dislikeStatus');
-    } else {
-      // If the user hasn't disliked the video yet, proceed to dislike it
-      // Increase the dislikes count and emit a 'dislikeVideo' event to the server
-      setDislikes(dislikes + 1);
-      socket.emit('dislikeVideo', user.id);
-      // Set the dislike status in localStorage
-      localStorage.setItem('dislikeStatus', 'disliked');
-      // Remove the like status from localStorage (if any)
-      localStorage.removeItem('likeStatus');
-    }
-    setHasDisliked(!hasDisliked); // Toggle the hasDisliked state
-  };
+
 
 
 
@@ -170,21 +107,7 @@ export const VideoPlayer = (props) => {
                 </div>
             )}
           </div>
-          {user ? (
-              <div className="flex mt-2">
-                <ThumbUp onClick={handleLike} style={{ cursor: "pointer" }} />
-                <span className="mx-2">{likes}</span>
-                <ThumbDown onClick={handleDislike} style={{ cursor: "pointer" }} />
-                <span className="mx-2">{dislikes}</span>
-              </div>
-          ) : (
-              <div className="flex mt-2">
-                <ThumbUp style={{ cursor: "pointer" }} />
-                <span className="mx-2">{likes}</span>
-                <ThumbDown style={{ cursor: "pointer" }} />
-                <span className="mx-2">{dislikes}</span>
-              </div>
-          )}
+          <LikesElement user={user}  location="video" />
         </div>
       </>
   );
