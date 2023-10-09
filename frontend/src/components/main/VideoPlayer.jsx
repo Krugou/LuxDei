@@ -14,6 +14,8 @@ export const VideoPlayer = (props) => {
   const [totalViewerCount, setTotalViewCount] = useState(0);
   const [likes, setLikes] = useState(0);
   const [dislikes, setDislikes] = useState(0);
+  const [hasLiked, setHasLiked] = useState(false);
+  const [hasDisliked, setHasDisliked] = useState(false);
   const {options, onReady} = props;
   const [socket, setSocket] = useState(null);
   const [userActions, setUserActions] = useState({});
@@ -93,17 +95,16 @@ export const VideoPlayer = (props) => {
   }, [socket]);
 
   const handleLike = () => {
-    console.log('Button clicked - emitting likeVideo event');
-    if (userActions[user.id] === 'like') {
-      // If the user already liked, clicking again will undo the action
+    if (hasLiked) {
+      // If the user has already liked the video, clicking again will undo the action
       setLikes(likes - 1);
       socket.emit('undoLikeVideo', user.id);
       setUserActions((prevActions) => ({
         ...prevActions,
         [user.id]: undefined, // Remove the user's action
       }));
-    } else if (!userActions[user.id]) {
-      // If the user hasn't liked, clicking will like the video
+    } else {
+      // If the user hasn't liked the video yet, proceed to like it
       setLikes(likes + 1);
       socket.emit('likeVideo', user.id);
       setUserActions((prevActions) => ({
@@ -111,19 +112,20 @@ export const VideoPlayer = (props) => {
         [user.id]: 'like',
       }));
     }
+    setHasLiked(!hasLiked); // Toggle the hasLiked state
   };
 
   const handleDislike = () => {
-    if (userActions[user.id] === 'dislike') {
-      // If the user already disliked, clicking again will undo the action
+    if (hasDisliked) {
+      // If the user has already disliked the video, clicking again will undo the action
       setDislikes(dislikes - 1);
       socket.emit('undoDislikeVideo', user.id);
       setUserActions((prevActions) => ({
         ...prevActions,
         [user.id]: undefined, // Remove the user's action
       }));
-    } else if (!userActions[user.id]) {
-      // If the user hasn't disliked, clicking will dislike the video
+    } else {
+      // If the user hasn't disliked the video yet, proceed to dislike it
       setDislikes(dislikes + 1);
       socket.emit('dislikeVideo', user.id);
       setUserActions((prevActions) => ({
@@ -131,6 +133,7 @@ export const VideoPlayer = (props) => {
         [user.id]: 'dislike',
       }));
     }
+    setHasDisliked(!hasDisliked); // Toggle the hasDisliked state
   };
 
 
