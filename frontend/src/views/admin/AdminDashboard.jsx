@@ -184,7 +184,7 @@ const AdminDashboard = () => {
               >
                 <div className='max-w-full'>
                   <h2 className='text-xl font-semibold text-gray-800'>
-                    Sender's prefered name: {contact.name}
+                    Sender's preferred name: {contact.name}
                   </h2>
                   <p className='text-gray-600 font-bold'>
                     Sender's current username: {contact.username}
