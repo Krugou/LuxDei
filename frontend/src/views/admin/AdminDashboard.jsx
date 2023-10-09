@@ -38,21 +38,8 @@ const AdminDashboard = () => {
   const handleChange = (event) => {
     const selectedSortOption = event.target.value;
 
-    let sortedContacts = [...filteredContacts];
-
-    if (selectedSortOption === 'Latest') {
-      sortedContacts.sort((a, b) => {
-        return new Date(b.createdAt) - new Date(a.createdAt);
-      });
-    } else if (selectedSortOption === 'Oldest') {
-      sortedContacts.sort((a, b) => {
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      });
-    }
-
     // Update the sorting option in the useState
     setSortOption(selectedSortOption);
-    setFilteredContacts(sortedContacts);
   };
 
   useEffect(() => {
@@ -60,8 +47,22 @@ const AdminDashboard = () => {
     const filtered = contacts.filter((contact) =>
       contact.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    setFilteredContacts(filtered);
-  }, [contacts, searchQuery]);
+
+    let sortedContacts = [...filtered];
+
+    if (sortOption === 'Latest') {
+      sortedContacts.sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt);
+      });
+    } else if (sortOption === 'Oldest') {
+      sortedContacts.sort((a, b) => {
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      });
+    }
+
+    // Update the sorting option in the useState
+    setFilteredContacts(sortedContacts);
+  }, [contacts, searchQuery, sortOption]);
 
   const handleDeleteContact = async (contactID) => {
     try {
