@@ -27,7 +27,7 @@ const Countdown = ({unixTime}) => {
                     Time left until showtime: {formatTime(timeLeft)}
                 </p>
             ) : (
-                <p className="text-2xl font-bold">Showtime!</p>
+                ''
             )}
         </div>
     );
