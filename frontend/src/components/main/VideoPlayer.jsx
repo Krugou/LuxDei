@@ -29,6 +29,8 @@ export const VideoPlayer = (props) => {
       setSocket(newSocket);
       newSocket.emit('NewLiveViewer', true);
 
+      newSocket.emit('getInitialLikeCounts', user.id);
+
       // Remove the socket connection when the component unmounts
       return () => {
         newSocket.disconnect();
@@ -83,7 +85,7 @@ export const VideoPlayer = (props) => {
 
   useEffect(() => {
     if (socket) {
-      socket.on('likeCountsUpdated', ({ likes, dislikes }) => {
+      socket.on('initialLikeCounts', ({ likes, dislikes }) => {
         setLikes(likes);
         setDislikes(dislikes);
       });
