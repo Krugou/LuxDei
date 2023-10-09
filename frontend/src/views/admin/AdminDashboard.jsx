@@ -180,7 +180,7 @@ const AdminDashboard = () => {
             {filteredContacts.map((contact) => (
               <div
                 key={contact._id}
-                className='bg-white p-6 rounded-lg shadow-lg flex flex-col items-start justify-between'
+                className='bg-white p-6 rounded-lg shadow-lg flex flex-col items-start justify-between overflow-auto'
               >
                 <div className='max-w-full'>
                   <h2 className='text-xl font-semibold text-gray-800'>
