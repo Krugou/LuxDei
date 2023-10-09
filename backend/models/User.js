@@ -9,6 +9,10 @@ const userSchema = new mongoose.Schema({
     type: Number,
     default: 1, // Set the default value to 1
   },
+  timecreated: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
 const User = mongoose.model('User', userSchema);
