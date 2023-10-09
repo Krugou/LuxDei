@@ -7,8 +7,7 @@ const AdminDashboard = () => {
   const name = 'newarticle';
   const name2 = 'newschedule';
 
-  const [contacts, setContacts] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [contacts, setContacts] = useState([]);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -17,29 +16,16 @@ const AdminDashboard = () => {
       try {
         const response = await getContact(token);
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
+        console.log(response, 'GET RESPONSE');
         const data = await response.json();
         setContacts(data);
-        setLoading(false);
       } catch (error) {
         setError(error);
-        setLoading(false);
       }
     };
 
     fetchContacts();
   }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   return (
     <div>
@@ -74,6 +60,13 @@ const AdminDashboard = () => {
             <p>Message: {contact.message}</p>
           </div>
         ))}
+
+        {/* Display error if it exists */}
+        {error && (
+          <div className='contact-card error-card'>
+            <p>Error: {error.message}</p>
+          </div>
+        )}
       </div>
     </div>
   );
