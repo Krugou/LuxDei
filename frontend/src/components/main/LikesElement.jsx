@@ -7,7 +7,9 @@ const LikesElement = ({user, location}) => {
 	const [likes, setLikes] = useState(0);
 	const [dislikes, setDislikes] = useState(0);
 	const [socket, setSocket] = useState(null);
-	const [prevLikedStatus, setPrevLikedStatus] = useState(false);
+	const [likeClicked, setLikeClicked] = useState(false);
+	const [disLikeClicked, setdisLikeClicked] = useState(false);
+
 	useEffect(() => {
 		try {
 			// Create a new socket connection when the component mounts
@@ -29,15 +31,6 @@ const LikesElement = ({user, location}) => {
 	}, []);
 
 	useEffect(() => {
-		const storedLikeStatus = localStorage.getItem(`${location}LikeStatus`);
-		if (storedLikeStatus === true) {
-			setPrevLikedStatus(true);
-		} else if (storedLikeStatus === false) {
-			setPrevLikedStatus(false);
-		}
-	}, []);
-
-	useEffect(() => {
 		if (socket) {
 			socket.on('initialLikeCounts', ({likes, dislikes}) => {
 				setLikes(likes);
@@ -52,6 +45,25 @@ const LikesElement = ({user, location}) => {
 
 	const handleLike = () => {
 		const data = {location: location, userId: user._id};
+		if (likeClicked) {
+			setLikeClicked(false);
+			try {
+				socket.emit('unliked', data, (response) => {
+					if (response.error) {
+						console.error(response.error);
+						return;
+					}
+					if (response.data.location === location) {
+						setLikes(likes + -1);
+					}
+				});
+			} catch (error) {
+				console.error(error);
+				return;
+			}
+		}
+
+		setLikeClicked(true);
 		try {
 			socket.emit('liked', data, (response) => {
 				if (response.error) {
@@ -66,18 +78,28 @@ const LikesElement = ({user, location}) => {
 			console.error(error);
 			return;
 		}
-
-		try {
-			localStorage.setItem(`${location}LikeStatus`, true);
-			setPrevLikedStatus(true);
-			
-		} catch (error) {
-			console.error(error);
-			return;
-		}
 	};
 
 	const handleDislike = () => {
+		if (disLikeClicked) {
+			setdisLikeClicked(false);
+			try {
+				socket.emit('undisliked', data, (response) => {
+					if (response.error) {
+						console.error(response.error);
+						return;
+					}
+					if (response.data.location === location) {
+						setLikes(likes + -1);
+					}
+				});
+			} catch (error) {
+				console.error(error);
+				return;
+			}
+		}
+
+		setdisLikeClicked(true);
 		const data = {location: location, userId: user._id};
 		try {
 			socket.emit('disliked', data, (response) => {
@@ -93,16 +115,7 @@ const LikesElement = ({user, location}) => {
 			console.error(error);
 			return;
 		}
-
-		try {
-			localStorage.setItem(`${location}LikeStatus`, false);
-			setPrevLikedStatus(false);
-		} catch (error) {
-			console.error(error);
-			return;
-		}
 	};
-
 
 	return (
 		<>
