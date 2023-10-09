@@ -1,8 +1,12 @@
-import React, {useEffect, useState} from 'react';
-
+import React, { useEffect, useState } from 'react';
 
 const Banner = () => {
-  const images = ['bg-inspiskuva1', 'bg-inspiskuva2', 'bg-inspiskuva3','bg-inspiskuva4']; // Array of background image class names
+  const images = [
+    'bg-inspiskuva1',
+    'bg-inspiskuva2',
+    'bg-inspiskuva3',
+    'bg-inspiskuva4',
+  ]; // Array of background image class names
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Function to update the current image index
@@ -32,7 +36,7 @@ const Banner = () => {
     <div className={`bg-banner ${images[currentImageIndex]}`}>
       <div className='flex justify-between items-center h-full flex-col'>
         <div className='w-full h-full flex justify-center items-center lg:max-w-3xl sm:max-w-md text-center'>
-          <h2 className='text-white sm:text-xl text-base lg:text-4xl'>
+          <h2 className='text-white sm:text-xl text-base font-bold lg:text-4xl'>
             Lights, Camera, Action: Join Us for an Unforgettable Cinematic
             Experience at the JAK-Films Festival
           </h2>
@@ -43,9 +47,7 @@ const Banner = () => {
           </h2>
         </header>
       </div>
-    
     </div>
-
   );
 };
 

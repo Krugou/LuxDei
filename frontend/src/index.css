@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'Open Sans';
+  src: url(./assets/fonts/OpenSans-Regular.ttf);
+}
+
+@font-face {
+  font-family: 'Open Sans Bold';
+  src: url(./assets/fonts/OpenSans-Bold.ttf);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,18 +19,14 @@
   transition: background-image 0.5s ease-in-out;
 }
 @layer components {
-
-
-.preload {
-  @apply absolute top-[-9999px] left-[-9999px] invisible;
-}
+  .preload {
+    @apply absolute top-[-9999px] left-[-9999px] invisible;
+  }
   .paragraph {
-    @apply m-1 text-lg p-4 bg-white rounded-lg shadow-xl
+    @apply m-1 text-lg p-4 bg-white rounded-lg shadow-xl;
   }
 
   .button {
-    @apply border-gmdeepblack bg-gmgold transition hover:bg-gmneonyellow font-bold py-2 px-4 rounded
+    @apply border-gmdeepblack bg-gmgold transition hover:bg-gmneonyellow font-bold py-2 px-4 rounded;
   }
-
 }
-
