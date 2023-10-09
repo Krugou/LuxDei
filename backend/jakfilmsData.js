@@ -83,72 +83,58 @@ io.on('connection', (socket) => {
 
 
   socket.on('likeVideo', async (userId) => {
-    console.log('Received likeVideo event');
-    if (!userActions[userId]) {
-      try {
-        const likeDislike = await LikeDislike.findOne();
-        console.log('Like before update:', likeDislike.likes);
-        socket.emit('initialCounts', {likes: likeDislike.likes, dislikes: likeDislike.dislikes});
-        likeDislike.likes += 1;
-        await likeDislike.save();
-        console.log('Like after update:', likeDislike.likes);
-        io.emit('updateLikes', likeDislike.likes);
-
-        // Mark the user's action
-        userActions[userId] = 'like';
-      } catch (error) {
-        console.error('Error updating likes:', error);
+    try {
+      const likeDocument = await LikeModel.findOne({ name: userId });
+      if (!likeDocument) {
+        await LikeModel.create({ name: userId, likes: 1, dislikes: 0 });
+      } else {
+        likeDocument.likes += 1;
+        await likeDocument.save();
       }
+      io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
+    } catch (error) {
+      console.error('Error liking video:', error);
     }
   });
-  socket.on('dislikeVideo', async (userId) => {
-    if (!userActions[userId]) {
-      try {
-        const likeDislike = await LikeDislike.findOne();
-        socket.emit('initialCounts', {likes: likeDislike.likes, dislikes: likeDislike.dislikes});
-        likeDislike.dislikes += 1;
-        await likeDislike.save();
-        io.emit('updateDislikes', likeDislike.dislikes);
 
-        // Mark the user's action
-        userActions[userId] = 'dislike';
-      } catch (error) {
-        console.error('Error updating dislikes:', error);
+  socket.on('dislikeVideo', async (userId) => {
+    try {
+      const likeDocument = await LikeModel.findOne({ name: userId });
+      if (!likeDocument) {
+        await LikeModel.create({ name: userId, likes: 0, dislikes: 1 });
+      } else {
+        likeDocument.dislikes += 1;
+        await likeDocument.save();
       }
+      io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
+    } catch (error) {
+      console.error('Error disliking video:', error);
     }
   });
 
   socket.on('undoLikeVideo', async (userId) => {
-    if (userActions[userId] === 'like') {
-      try {
-        const likeDislike = await LikeDislike.findOne();
-        socket.emit('initialCounts', {likes: likeDislike.likes, dislikes: likeDislike.dislikes});
-        likeDislike.likes -= 1;
-        await likeDislike.save();
-        io.emit('updateLikes', likeDislike.likes);
-
-        // Remove the user's action
-        userActions[userId] = undefined;
-      } catch (error) {
-        console.error('Error undoing like:', error);
+    try {
+      const likeDocument = await LikeModel.findOne({ name: userId });
+      if (likeDocument && likeDocument.likes > 0) {
+        likeDocument.likes -= 1;
+        await likeDocument.save();
       }
+      io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
+    } catch (error) {
+      console.error('Error undoing like video:', error);
     }
   });
 
   socket.on('undoDislikeVideo', async (userId) => {
-    if (userActions[userId] === 'dislike') {
-      try {
-        const likeDislike = await LikeDislike.findOne();
-        socket.emit('initialCounts', {likes: likeDislike.likes, dislikes: likeDislike.dislikes});
-        likeDislike.dislikes -= 1;
-        await likeDislike.save();
-        io.emit('updateDislikes', likeDislike.dislikes);
-
-        // Remove the user's action
-        userActions[userId] = undefined;
-      } catch (error) {
-        console.error('Error undoing dislike:', error);
+    try {
+      const likeDocument = await LikeModel.findOne({ name: userId });
+      if (likeDocument && likeDocument.dislikes > 0) {
+        likeDocument.dislikes -= 1;
+        await likeDocument.save();
       }
+      io.emit('likeCountsUpdated', { likes: likeDocument.likes, dislikes: likeDocument.dislikes });
+    } catch (error) {
+      console.error('Error undoing dislike video:', error);
     }
   });
 
