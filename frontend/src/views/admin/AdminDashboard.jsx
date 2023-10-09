@@ -182,7 +182,7 @@ const AdminDashboard = () => {
                 key={contact._id}
                 className='bg-white p-6 rounded-lg shadow-lg flex flex-col items-start justify-between'
               >
-                <div>
+                <div className='max-w-full'>
                   <h2 className='text-xl font-semibold text-gray-800'>
                     Senders prefered name: {contact.name}
                   </h2>
@@ -195,10 +195,10 @@ const AdminDashboard = () => {
                   <p className='text-gray-600 font-bold'>
                     Senders userid: {contact.useridofsender}
                   </p>
-                  <p className='text-gray-600 font-bold'>
+                  <p className='text-gray-600 font-bold border-b border-black'>
                     Email: {contact.email}
                   </p>
-                  <p className='text-gray-600 mt-2'>
+                  <p className='text-gray-600 mt-2 border-b border-black '>
                     Message: {contact.message}
                   </p>
                   <p className='text-gray-600 mt-2'>
