@@ -2,9 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { postContact } from '../../hooks/ApiHooks';
 import { useNavigate } from 'react-router-dom';
+import ErrorAlert from '../../components/main/ErrorAlert';
 
 const ContactForm = () => {
   const navigate = useNavigate();
+  const [alert, setAlert] = useState('');
 
   const { user } = useContext(UserContext);
 
@@ -50,7 +52,9 @@ const ContactForm = () => {
 
       // Form data successfully submitted
       console.log('Form data submitted successfully');
-
+      alert(
+        'Thank you for contacting us. We have received your message and are working on helping you'
+      );
       // Clear the form after successful submission
       setFormData({
         name: '',
@@ -60,11 +64,14 @@ const ContactForm = () => {
       navigate('/');
     } catch (error) {
       console.error('Error submitting form data:', error);
+      setAlert(error.message);
     }
   };
 
   return (
     <div className='max-w-md mx-auto p-6 bg-white shadow-md rounded-md'>
+      {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
+
       <h2 className='text-xl font-semibold mb-4'>Contact Us</h2>
       <form onSubmit={handleSubmit}>
         <div className='mb-4'>
@@ -72,7 +79,7 @@ const ContactForm = () => {
             htmlFor='name'
             className='block text-gray-600 font-medium mb-2'
           >
-            Name
+            Your name
           </label>
           <input
             type='text'
@@ -89,7 +96,7 @@ const ContactForm = () => {
             htmlFor='email'
             className='block text-gray-600 font-medium mb-2'
           >
-            Email
+            Your email
           </label>
           <input
             type='email'
