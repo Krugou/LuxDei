@@ -157,7 +157,7 @@ const AdminDashboard = () => {
                     Senders name: {contact.name}
                   </h2>
                   <p className='text-gray-600 font-bold'>
-                    Senders account name in database: {contact.usernameofsender}
+                    Senders account name in database: {contact.usernamewhensent}
                   </p>
                   <p className='text-gray-600 font-bold'>
                     Email: {contact.email}

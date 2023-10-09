@@ -203,7 +203,8 @@ router.post(
       let contactData = req.body;
       contactData = {
         ...contactData,
-        usernameofsender: req.user.name,
+        usernamewhensent: req.user.name,
+        useridofsender: req.user._id,
       };
       // Create a new contact
       const newContact = new Contact(contactData);
@@ -229,12 +230,29 @@ router.get('/contact', async (req, res, next) => {
   if (req.user.userrole !== 0) {
     return res.status(403).json({ error: 'Access denied' });
   }
+
   try {
     // Fetch all contacts from the database
     const contacts = await Contact.find();
 
-    // Return the list of contacts
-    res.status(200).json(contacts);
+    // Iterate through the contacts and get the current username of every contact
+    const contactsWithUsernames = await Promise.all(
+      contacts.map(async (contact) => {
+        // Find the corresponding user by user ID
+        const user = await User.findOne({ _id: contact.useridofsender });
+        // Extract the username from the user document
+        const username = user ? user.name : 'Unknown User';
+
+        // Create a new object with the contact and the extracted username
+        return {
+          ...contact.toObject(),
+          username,
+        };
+      })
+    );
+
+    // Return the list of contacts with usernames
+    res.status(200).json(contactsWithUsernames);
   } catch (error) {
     console.error('Error fetching contacts', error);
     return res.status(500).json({ error: 'Internal server error' });

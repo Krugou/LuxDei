@@ -14,7 +14,11 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  usernameofsender: {
+  usernamewhensent: {
+    type: String,
+    required: true,
+  },
+  useridofsender: {
     type: String,
     required: true,
   },
