@@ -17,8 +17,7 @@ const AdminDashboard = () => {
         const response = await getContact(token);
 
         console.log(response, 'GET RESPONSE');
-        const data = await response.json();
-        setContacts(data);
+        setContacts(response);
       } catch (error) {
         setError(error);
       }

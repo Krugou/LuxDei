@@ -235,7 +235,7 @@ router.get('/contact', async (req, res, next) => {
     const contacts = await Contact.find();
 
     // Return the list of contacts
-    res.status(200).json(contacts[0]);
+    res.status(200).json(contacts);
   } catch (error) {
     console.error('Error fetching contacts', error);
     res.status(500).json({ error: 'Internal server error' });
