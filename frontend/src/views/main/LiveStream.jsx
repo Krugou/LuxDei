@@ -110,7 +110,7 @@ const LiveStream = () => {
 					{message}
 				</h2>
 			)}
-			<section className='border rounded flex flex-col md:flex-row justify-around items-center md:items-start p-2 '>
+			<section className='border rounded bg-gray-100 flex flex-col md:flex-row justify-around items-center md:items-start p-2 '>
 				<VideoPlayer
 					options={videoJsOptions}
 					onReady={handlePlayerReady}
@@ -124,12 +124,12 @@ const LiveStream = () => {
 				{/* <Chat className=" " username={'anon'} countryid={'FI'} /> */}
 				{/* real one next  */}
 				{user ? (
-					<Chat
-						className=''
-						user={user}
-					/>
+						<Chat
+								className=''
+								user={user}
+						/>
 				) : (
-					<NoUser name={'chat'} />
+						<NoUser name={'chat'} />
 				)}
 			</section>
 		</>

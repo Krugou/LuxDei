@@ -231,7 +231,7 @@ const Chat = ({ user }) => {
   return (
     <>
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
-      <div className='flex flex-col max-w-xs  h-full   '>
+      <div className='flex flex-col w-full md:w-4/12 sm:w-8/12  h-full   '>
         {typingUsers.length > 0 && (
           <div
             className={`text-md text-white bg-black ${
@@ -303,7 +303,7 @@ const Chat = ({ user }) => {
             onEmojiSelect={handleEmojiSelect}
           />
         )}
-        <button className="button" onClick={handleEmojiButtonClick}>
+        <button className="button m-auto w-1/2" onClick={handleEmojiButtonClick}>
           {showEmojiPicker ? 'Click to close' : 'Emoji Selector 😀'}
         </button>
         <form

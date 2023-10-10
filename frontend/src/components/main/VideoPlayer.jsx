@@ -91,7 +91,7 @@ export const VideoPlayer = (props) => {
 
   return (
       <>
-        <div data-vjs-player className="w-full sm:w-2/3 md:min-w-2/3 h-full ">
+        <div data-vjs-player className="w-full md:w-2/3 sm:w-10/12  h-full ">
           <div ref={videoRef} className="video-js vjs-theme-city">
 
             <style jsx>{`
