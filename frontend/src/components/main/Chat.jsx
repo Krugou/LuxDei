@@ -258,7 +258,7 @@ const Chat = ({ user }) => {
               }`}
             >
               <div
-                className={`rounded-lg py-2 px-3 ${
+                className={`rounded-lg break-all word py-2 px-3 ${
                   message.username === user.name
                     ? 'bg-black text-white'
                     : 'bg-black text-white'
@@ -347,6 +347,7 @@ const Chat = ({ user }) => {
                 rows='1'
                 className=' p-4  w-full h-50    '
                 type='text'
+                maxLength={500}
                 placeholder='Type your message here'
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
