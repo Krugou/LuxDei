@@ -11,19 +11,19 @@ const Team = () => {
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mt-6">
                 <TeamMember
-                    imgSrc="../images/Joonas.PNG"
+                    imgSrc="../images/Joonas.jpg"
                     altText="Team Member 1"
                     name="Joonas Grim"
                     role="Festival Director"
                 />
                 <TeamMember
-                    imgSrc="../images/aleksi.PNG"
+                    imgSrc="../images/aleksi.jpg"
                     altText="Team Member 2"
                     name="Aleksi Nightshade"
                     role="Program Coordinator"
                 />
                 <TeamMember
-                    imgSrc="../images/Kaarle.PNG"
+                    imgSrc="../images/Kaarle.jpg"
                     altText="Team Member 3"
                     name="Kaarle Darkwood"
                     role="Marketing Manager"
