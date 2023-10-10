@@ -275,8 +275,10 @@ const Chat = ({user}) => {
 				<ul
 					id='messages'
 					ref={messagesRef}
-					className="flex flex-col bg-white mt-4 ml-4 mr-4 h-72 md:h-96
-					mt-auto shadow-lg rounded-md p-4  overflow-y-auto">
+					className={`flex flex-col bg-white mt-4 ml-4 mr-4  ${
+							showEmojiPicker ? 'h-72 md:h-96' : 'h-72 md:h-96'
+					}  mt-auto shadow-lg rounded-md p-4  overflow-y-auto `}
+				>
 					{messages.map((message, index) => (
 						<li
 							key={index}
@@ -329,18 +331,19 @@ const Chat = ({user}) => {
 						</div>
 				)}
 				{showEmojiPicker && (
-						<div className="emojiPicker">
+						<div className="absolute">
 							<Picker
 									style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}
-									emojiSize={18}
-									perLine={6}
+									emojiSize={15}
+									perLine={5}
 									data={data}
 									onEmojiSelect={handleEmojiSelect}
 							/>
 						</div>
+
 				)}
 				<button
-					className='button m-auto w-1/2 mt-5'
+					className='button m-auto w-1/2 mt-24 sm:mt-5 '
 					onClick={handleEmojiButtonClick}>
 					{showEmojiPicker ? 'Click to close' : 'Emoji Selector 😀'}
 				</button>
