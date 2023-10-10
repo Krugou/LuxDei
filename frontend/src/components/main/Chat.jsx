@@ -169,16 +169,16 @@ const Chat = ({user}) => {
 	}, [messages]);
 
 	const handleTyping = ({name}) => {
-		console.log('Handletyping: ', name);
+		// console.log('Handletyping: ', name);
 		try {
 			// Log the current typingUsers state
-			console.log('Current typingUsers:', typingUsers);
+			// console.log('Current typingUsers:', typingUsers);
 
 			// Create a new Set with the current typingUsers array and the new user.name
 			const uniqueTypingUsers = [...new Set([...typingUsers, name])];
 
 			// Log the new uniqueTypingUsers array
-			console.log('New uniqueTypingUsers:', uniqueTypingUsers);
+			// console.log('New uniqueTypingUsers:', uniqueTypingUsers);
 
 			setTypingUsers(uniqueTypingUsers);
 		} catch (error) {
