@@ -13,12 +13,8 @@ const router = express.Router();
 
 // GET route to retrieve user information
 router.get('/', (req, res, next) => {
-  if (req.user) return res.json(req.user);
-  return res
-    .status(400)
-    .json({ error: 'Token has expired, please login again.' });
-
   // console.log("🚀 ~ file: secureRoute.js:17 ~ router.get ~ req.user:", req.user)
+  res.json(req.user);
 });
 
 // PUT route to update user information
