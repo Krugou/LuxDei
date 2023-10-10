@@ -99,7 +99,9 @@ const Chat = ({ user }) => {
         setAlert('Your session has expired, please login again.');
         console.log('TOKEN ERROR');
         localStorage.removeItem('userToken');
-        setUser('');
+        setTimeout(() => {
+          setUser('');
+        }, 2000);
       }
     }
   };
@@ -229,7 +231,6 @@ const Chat = ({ user }) => {
   return (
     <>
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
-
       <div className='flex flex-col max-w-xs  h-full   '>
         {typingUsers.length > 0 && (
           <div
