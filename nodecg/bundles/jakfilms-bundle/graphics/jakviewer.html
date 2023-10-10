@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css">
     <title> SpeakerRole</title>
     <style>
-
         @font-face {
             font-family: "Open Sans";
             src: url('../../assets/fonts/OpenSans-Regular.ttf');
@@ -186,40 +185,40 @@
 </head>
 
 <body class="">
-<div class="flex">
-    <div class="container w-full h-screen flex items-start" id="lowerThird">
-        <div class=" box w-80 h-auto absolute left-0 flex justify-center flex-col p-4 bg-black ">
+    <div class="flex">
+        <div class="container w-full h-screen flex items-start" id="lowerThird">
+            <div class=" box w-80 h-auto absolute left-0 flex justify-center flex-col p-4 bg-black ">
+                <div class="title">
+                    <span class="block title-block-animation font-sans" id="blokki"></span>
+                    <h1 class="title-h1-animation" id="lahetys"></h1>
+                </div>
+
+                <div class="role">
+                    <div class="block role-block-animation" id="ekablokki"></div>
+                    <p class="role-p-animation" id="lahetystyyppi"></p>
+                </div>
+            </div>
+        </div>
+        <div class="box absolute bottom-0 w-auto h-auto flex justify-center flex-col p-6 bg-black" id="lowerSecond">
             <div class="title">
-                <span class="block title-block-animation font-sans" id="blokki"></span>
-                <h1 class="title-h1-animation" id="lahetys"></h1>
+                <span class="block title-block-animation font-sans" id="blokki2"></span>
+                <h1 class="title-h1-animation text-3xl" id="puhuja"></h1>
             </div>
 
             <div class="role">
-                <div class="block role-block-animation" id="ekablokki"></div>
-                <p class="role-p-animation" id="lahetystyyppi"></p>
+                <div class="block role-block-animation" id="tokablokki"></div>
+                <p class="role-p-animation" id="rooli"></p>
             </div>
         </div>
-    </div>
-    <div class="box absolute bottom-0 w-auto h-auto flex justify-center flex-col p-6 bg-black" id="lowerSecond">
-        <div class="title">
-            <span class="block title-block-animation font-sans" id="blokki2"></span>
-            <h1 class="title-h1-animation text-3xl" id="puhuja"></h1>
-        </div>
-
-        <div class="role">
-            <div class="block role-block-animation" id="tokablokki"></div>
-            <p class="role-p-animation" id="rooli"></p>
-        </div>
-    </div>
-    <div class="container w-full h-screen flex justify-end items-start" id="lowerFourth">
-        <div class=" box w-50 absolute right-0 h-auto flex justify-center flex-col p-4 bg-black ">
-            <div class="title">
-                <span class="block title-block-animation" id="kolmasblokki"></span>
+        <div class="container w-full h-screen flex justify-end items-start" id="lowerFourth">
+            <div class=" box w-50 absolute right-0 h-auto flex justify-center flex-col p-4 bg-black ">
+                <div class="title">
+                    <span class="block title-block-animation" id="kolmasblokki"></span>
                     <h1 class="title-h1-animation" id="laskuri">00:00:00:00</h1>
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 
 <script type="module" src="./jakviewer.js"></script>
