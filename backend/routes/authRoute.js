@@ -23,7 +23,7 @@ const authenticate = (req, res, next) => {
         console.log('err2: ', err);
         next(httpError('Virhe kirjautuessa', 403));
         return res.status(403).json({
-          message: 'Invalid data',
+          message: 'Something went wrong, check your inputs',
         });
       }
       const token = jwt.sign(user, process.env.JWT_SECRET);
