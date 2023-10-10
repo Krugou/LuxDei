@@ -275,7 +275,7 @@ const Chat = ({user}) => {
 				<ul
 					id='messages'
 					ref={messagesRef}
-					className={`flex flex-col bg-white m-4  ${
+					className={`flex flex-col bg-white mt-4 ml-4 mr-4  ${
 						showEmojiPicker ? 'h-10 md:h-10' : 'h-72 md:h-96'
 					}  mt-auto shadow-lg rounded-md p-4  overflow-y-auto `}>
 					{messages.map((message, index) => (
@@ -322,7 +322,7 @@ const Chat = ({user}) => {
 				</ul>
 				{typingUsers.length > 0 && (
 						<div
-								className={`text-md text-white p-2 bg-black w-1/3 m-auto ${
+								className={`text-md text-white p-2 bg-black w-1/3 rounded ml-4 ${
 										isPulsing ? 'animate-pulse' : ''
 								}`}>
 							<span className='mr-1'>{typingUsers.join(', ')}</span>
@@ -339,7 +339,7 @@ const Chat = ({user}) => {
 					/>
 				)}
 				<button
-					className='button m-auto w-1/2'
+					className='button m-auto w-1/2 mt-2'
 					onClick={handleEmojiButtonClick}>
 					{showEmojiPicker ? 'Click to close' : 'Emoji Selector 😀'}
 				</button>
