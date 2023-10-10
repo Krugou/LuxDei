@@ -25,12 +25,6 @@ const Profile = () => {
     countryid: user ? user.countryid : 'FI',
   });
 
-  useEffect(() => {
-    if (!user) {
-      navigate('/');
-    }
-  }, [user, navigate]);
-
   const openDeleteModal = () => {
     setDeleteModalOpen(true);
   };
@@ -57,7 +51,17 @@ const Profile = () => {
         navigate('/logout');
       }, 3000);
     } catch (error) {
-      setAlert(error.message);
+      if (error.message.includes('Unauthorized')) {
+        // Unauthorized error (401)
+        // Display an alert to the user
+        setAlert('Your session has expired, please login again.');
+        setTimeout(() => {
+          navigate('/logout');
+        }, 3000);
+      } else {
+        // Handle other errors if needed
+        setAlert(error.message);
+      }
     }
     closeDeleteModal();
   };
@@ -76,9 +80,15 @@ const Profile = () => {
         navigate('/logout');
       }, 3000);
     } catch (error) {
-      if (error.status === 401) {
-        setAlert('Your session has expired, please login again');
+      if (error.message.includes('Unauthorized')) {
+        // Unauthorized error (401)
+        // Display an alert to the user
+        setAlert('Your session has expired, please login again.');
+        setTimeout(() => {
+          navigate('/logout');
+        }, 3000);
       } else {
+        // Handle other errors if needed
         setAlert(error.message);
       }
     }

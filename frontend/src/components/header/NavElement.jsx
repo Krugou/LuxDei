@@ -37,7 +37,7 @@ const NavElement = () => {
           return;
         }
       } catch (error) {
-        setAlert('Your token has expired, please login again.');
+        setAlert('Your session has expired, please login again.');
         console.log('TOKEN ERROR');
         localStorage.removeItem('userToken');
         setUser('');

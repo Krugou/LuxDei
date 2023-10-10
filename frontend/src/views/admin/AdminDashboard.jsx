@@ -8,16 +8,17 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import formatDate from '../../utils/utilities';
+import ErrorAlert from '../../components/main/ErrorAlert';
 import { FormControl, MenuItem, Select, Typography } from '@mui/material';
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { update, setUpdate } = useContext(UserContext);
   const { user } = useContext(UserContext);
+  const [alert, setAlert] = useState('');
 
   const [contacts, setContacts] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState([]);
-  const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const token = localStorage.getItem('userToken');
   const [databaseInfo, setDatabaseInfo] = useState({
@@ -26,12 +27,6 @@ const AdminDashboard = () => {
     contacts: 'not available',
     latestMessageTimestamp: 'not available',
   });
-
-  useEffect(() => {
-    if (!user) {
-      navigate('/');
-    }
-  }, [user, navigate]);
 
   // Initialize the sorting option in a useState
   const [sortOption, setSortOption] = useState('Oldest'); // Default sorting option
@@ -44,7 +39,17 @@ const AdminDashboard = () => {
         console.log(response, 'GET contacts RESPONSE');
         setContacts(response);
       } catch (error) {
-        setError(error);
+        if (error.message.includes('Unauthorized')) {
+          // Unauthorized error (401)
+          // Display an alert to the user
+          setAlert('Your session has expired, please login again.');
+          setTimeout(() => {
+            navigate('/logout');
+          }, 3000);
+        } else {
+          // Handle other errors if needed
+          setAlert(error.message);
+        }
       }
     };
     fetchContacts();
@@ -99,7 +104,17 @@ const AdminDashboard = () => {
       await DeleteContact(contactID, token);
       setUpdate(!update);
     } catch (error) {
-      setError(error);
+      if (error.message.includes('Unauthorized')) {
+        // Unauthorized error (401)
+        // Display an alert to the user
+        setAlert('Your session has expired, please login again.');
+        setTimeout(() => {
+          navigate('/logout');
+        }, 3000);
+      } else {
+        // Handle other errors if needed
+        setAlert(error.message);
+      }
     }
   };
 
@@ -111,6 +126,7 @@ const AdminDashboard = () => {
           <h1 className='text-3xl font-bold text-gray-900 mb-8 border-b border-black '>
             Admin Dashboard
           </h1>
+          {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
 
           <div className='flex flex-col md:flex-row justify-between items-start md:items-center border-b border-black pb-8'>
             <div className='md:w-1/2'>
@@ -206,13 +222,6 @@ const AdminDashboard = () => {
                 </button>
               </div>
             ))}
-
-            {/* Display error if it exists */}
-            {error && (
-              <div className='col-span-full bg-red-100 p-4 rounded-lg shadow-lg'>
-                <p className='text-red-600'>Error: {error.message}</p>
-              </div>
-            )}
           </div>
         </div>
       </div>
