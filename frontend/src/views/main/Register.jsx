@@ -43,16 +43,13 @@ const Register = () => {
       password,
       countryid: country,
     };
-    console.log(userData);
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match');
       return;
     }
 
     try {
-      const response = await postUser(userData);
-      console.log(response, 'Register Response');
-
+      await postUser(userData);
       const loginData = {
         username,
         password,

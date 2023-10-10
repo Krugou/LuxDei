@@ -28,18 +28,10 @@ const Login = () => {
     };
     // Add logic to authenticate user here
     try {
-      /*
-
-      const loginResult = await postLogin(inputs);
-      localStorage.setItem('userToken', loginResult.token);
-      //setUser(loginResult.user);
-      */
-
       const user = await doLogin(inputs);
       // Successful login
       setUser(user);
       navigate('/');
-      // console.log('username:', loginResult.user.name);
     } catch (error) {
       console.log(error.message);
       setAlert(error.message);

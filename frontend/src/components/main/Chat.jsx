@@ -342,9 +342,9 @@ const Chat = ({ user }) => {
           </div>
         )}
         <button
-            className={`button m-auto w-1/2 mt-24 sm:mt-5 ${
-                showEmojiPicker ? 'mt-24 sm:mt-5' : 'mt-5 sm:mt-5'
-            }`}
+          className={`button m-auto w-1/2 mt-24 sm:mt-5 ${
+            showEmojiPicker ? 'mt-24 sm:mt-5' : 'mt-5 sm:mt-5'
+          }`}
           onClick={handleEmojiButtonClick}
         >
           {showEmojiPicker ? 'Click to close' : 'Emoji Selector 😀'}

@@ -52,8 +52,7 @@ const Profile = () => {
   const handleDeleteProfile = async () => {
     const token = localStorage.getItem('userToken');
     try {
-      const deleteResponse = await deleteUser(token);
-      console.log(deleteResponse);
+      await deleteUser(token);
       setSuccessAlert('Your account has been deleted successfully');
       setTimeout(() => {
         navigate('/logout');
@@ -85,9 +84,7 @@ const Profile = () => {
         closeEditModal();
         return;
       }
-      console.log(editData, 'EDIT DATA');
-      const updateResponse = await putUser(editData, token);
-      console.log(updateResponse);
+      await putUser(editData, token);
       setSuccessAlert('Your data has been updated, please login again.');
       setTimeout(() => {
         navigate('/logout');
@@ -147,7 +144,10 @@ const Profile = () => {
             <button className='button' onClick={openEditModal}>
               Edit Profile
             </button>
-            <button onClick={openDeleteModal} className='ml-4 md:ml-24 bg-gmdeepred font-bold rounded py-2 px-4 hover:bg-red-600 text-white'>
+            <button
+              onClick={openDeleteModal}
+              className='ml-4 md:ml-24 bg-gmdeepred font-bold rounded py-2 px-4 hover:bg-red-600 text-white'
+            >
               Delete Profile
             </button>
             <button

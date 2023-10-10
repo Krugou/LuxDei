@@ -17,7 +17,6 @@ const CreateArticles = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle the form submission here, e.g., send data to the server
-    console.log(formData);
     // Reset the form
     setFormData({
       title: '',

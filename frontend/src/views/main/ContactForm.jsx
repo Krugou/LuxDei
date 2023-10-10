@@ -32,7 +32,7 @@ const ContactForm = () => {
     try {
       const token = localStorage.getItem('userToken');
       // You can handle form submission logic here
-      console.log(formData);
+      // console.log(formData);
 
       // Create an object with the form data
       const dataToSend = {
@@ -42,11 +42,9 @@ const ContactForm = () => {
       };
 
       // Make a POST request to your server to save the form data
-      const response = await postContact(dataToSend, token);
-      console.log(response, ' post response');
+      await postContact(dataToSend, token);
 
       // Form data successfully submitted
-      console.log('Form data submitted successfully');
       setSuccessAlert(
         'Thank you for your submission, we will contact you via email.'
       );
