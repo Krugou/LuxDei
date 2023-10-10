@@ -159,12 +159,12 @@ const LikesElement = ({user, location}) => {
 				<div className='flex mt-5 mb-5 text-2xl justify-end pointer'>
 					<ThumbUp
 						onClick={handleLike}
-						className={likeClicked ? 'text-green-500' : ''}
+						className={likeClicked ? 'text-green-500' : 'thumb'}
 					/>
 					<span className='mx-2'>{likes}</span>
 					<ThumbDown
 						onClick={handleDislike}
-						className={disLikeClicked ? 'text-red-500' : ''}
+						className={disLikeClicked ? 'text-red-500' : 'thumb'}
 					/>
 					<span className='mx-2'>{dislikes}</span>
 				</div>
