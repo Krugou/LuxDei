@@ -11,12 +11,14 @@ const tokablokki = document.getElementById("tokablokki");
 const kolmasblokki = document.getElementById("kolmasblokki");
 const lahetys = document.getElementById("lahetys");
 const lahetystyyppi = document.getElementById("lahetystyyppi");
-const timeRep = nodecg.Replicant("timerReplicant");
 const laskuri = document.getElementById("laskuri")
 const rooli = document.getElementById("rooli");
 const isToggled = nodecg.Replicant("isToggled");
 const isToggled2 = nodecg.Replicant("isToggled2");
 const lowerthird = document.getElementById("lowerThird");
+const timerRep = nodecg.Replicant("timerReplicant");
+const countdownDisplay = document.getElementById("laskuri");
+
 
 console.log(isToggled.value);
 
@@ -30,12 +32,47 @@ isToggled.on("change", (newValue, oldValue) => {
     lowerthird.classList.add("hidden");
   }
 });
-
-timeRep.on("change", (newValue, oldValue) => {
-  console.log(`myRep changed from ${oldValue} to ${newValue}`);
-  laskuri.innerHTML = newValue;
-  timerAnimations();
+timerRep.on("change", (newValue, oldValue) => {
+  countdownDisplay.textContent = newValue;
 });
+
+
+let startTime;
+let endTime = null;
+
+
+timerRep.on("change", (newValue, oldValue) => {
+  const [hours, minutes, seconds] = newValue.split(":").map(Number);
+  const currentTime = new Date().getTime();
+  endTime = currentTime + (hours * 3600 + minutes * 60 + seconds) * 1000;
+
+  updateCountdown();
+});
+
+function updateCountdown() {
+  if (endTime === null) {
+    countdownDisplay.textContent = "00:00:00";
+    return;
+  }
+
+  const currentTime = new Date().getTime();
+  const timeRemaining = endTime - currentTime;
+
+  if (timeRemaining <= 0) {
+    countdownDisplay.textContent = "00:00:00";
+  } else {
+    const hours = Math.floor(timeRemaining / 3600000);
+    const minutes = Math.floor((timeRemaining % 3600000) / 60000);
+    const seconds = Math.floor((timeRemaining % 60000) / 1000);
+    const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    countdownDisplay.textContent = formattedTime;
+
+    setTimeout(updateCountdown);
+  }
+}
+
+updateCountdown();
+
 speakerRep.on("change", (newValue, oldValue) => {
   console.log(`myRep changed from ${oldValue} to ${newValue}`);
   puhuja.innerHTML = newValue;
@@ -56,6 +93,10 @@ broadcastRep.on("change", (newValue, oldValue) => {
   console.log(`myRep changed from ${oldValue} to ${newValue}`);
   lahetystyyppi.innerHTML = newValue;
   broadcastAnimations();
+});
+timerRep.on("change", (newValue, oldValue) => {
+  countdownDisplay.textContent = newValue;
+  timerAnimations()
 });
 
 const animations = () => {
