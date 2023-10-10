@@ -59,9 +59,6 @@ const Schedule = () => {
           )
           .map((dayData, index) => (
             <React.Fragment key={index}>
-              <h2 className='text-lg md:text-xl font-bold'>
-                {dayData.day.toDateString()}
-              </h2>
               {dayData.schedule.map((event, eventIndex) => (
                 <div
                   key={eventIndex}
