@@ -77,7 +77,7 @@ const Profile = () => {
   const handleEditProfile = async () => {
     const token = localStorage.getItem('userToken');
     try {
-      editData.countryid = country;
+      if (user.countryid !== country) editData.countryid = country;
       for (const [key, value] of Object.entries(editData)) {
         if (value === '') delete editData[key];
       }
