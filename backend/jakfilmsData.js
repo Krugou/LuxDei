@@ -79,14 +79,14 @@ io.on('connection', (socket) => {
 
 			const Like = LikeModel(locationCleaned);
 			const likeDocuments = await Like.find();
-			console.log('likeDocuments: ', likeDocuments);
+			// console.log('likeDocuments: ', likeDocuments);
 			let likes = 0;
 			let dislikes = 0;
 			likeDocuments.forEach((likeDocument) => {
 				likes += likeDocument.likes;
 				dislikes += likeDocument.dislikes;
 			});
-			console.log('initialLikeCounts: ', likes, dislikes);
+			// console.log('initialLikeCounts: ', likes, dislikes);
 			socket.emit('initialLikeCounts', {likes, dislikes});
 		} catch (error) {
 			console.error('Error getting initial like counts:', error);
@@ -108,7 +108,7 @@ io.on('connection', (socket) => {
 			// Check if userId is found in the likedBy array
 			const likeDocument = await Like.findOne({'likedBy.userId': data.userId});
 			if (likeDocument) {
-				console.log(`User ${data.userId} has already liked this location.`);
+				// console.log(`User ${data.userId} has already liked this location.`);
 			} else {
 				const existingLike = await Like.findOne({location: data.location});
 				if (!existingLike) {
@@ -158,7 +158,7 @@ io.on('connection', (socket) => {
 		}
 		isHandlingDislike = true;
 		try {
-			console.log('disliked: ', data.userId, data.location);
+			// console.log('disliked: ', data.userId, data.location);
 			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
 			const Like = LikeModel(locationCleaned);
 
@@ -167,7 +167,7 @@ io.on('connection', (socket) => {
 				'disLikedBy.userId': data.userId,
 			});
 			if (likeDocument) {
-				console.log(`User ${data.userId} has already disliked this location.`);
+				// console.log(`User ${data.userId} has already disliked this location.`);
 			} else {
 				const existingLike = await Like.findOne({location: data.location});
 				if (!existingLike) {
@@ -195,9 +195,9 @@ io.on('connection', (socket) => {
 					likes += likeDocument.likes;
 					dislikes += likeDocument.dislikes;
 				});
-				console.log(
-					`Like counts updated: likes=${likes}, dislikes=${dislikes}`
-				);
+				// console.log(
+				// 	`Like counts updated: likes=${likes}, dislikes=${dislikes}`
+				// );
 				io.emit('likeCountsUpdated', {likes, dislikes});
 			}
 		} catch (error) {
@@ -210,7 +210,7 @@ io.on('connection', (socket) => {
 
 	socket.on('unliked', async (data) => {
 		try {
-			console.log('unliked: ', data.userId, data.location);
+			// console.log('unliked: ', data.userId, data.location);
 			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
 			const Like = LikeModel(locationCleaned);
 			// Decrement the like count for the location in the database
@@ -218,7 +218,7 @@ io.on('connection', (socket) => {
 				'likedBy.userId': data.userId,
 			});
 			if (!unlikeDocument) {
-				console.log(`User ${data.userId} has already unliked this location.`);
+				// console.log(`User ${data.userId} has already unliked this location.`);
 			} else {
 				await Like.updateOne(
 					{location: data.location},
@@ -233,9 +233,9 @@ io.on('connection', (socket) => {
 					likes += likeDocument.likes;
 					dislikes += likeDocument.dislikes;
 				});
-				console.log(
-					`Like counts updated: likes=${likes}, dislikes=${dislikes}`
-				);
+				// console.log(
+				// 	`Like counts updated: likes=${likes}, dislikes=${dislikes}`
+				// );
 				io.emit('likeCountsUpdated', {likes, dislikes});
 			}
 		} catch (err) {
@@ -245,7 +245,7 @@ io.on('connection', (socket) => {
 
 	socket.on('undisliked', async (data) => {
 		try {
-			console.log('undisliked: ', data.userId, data.location);
+			// console.log('undisliked: ', data.userId, data.location);
 			const locationCleaned = `${data.location.replace(/\s+/g, '')}`;
 			const Like = LikeModel(locationCleaned);
 			// Decrement the dislike count for the location in the database
@@ -253,9 +253,9 @@ io.on('connection', (socket) => {
 				'disLikedBy.userId': data.userId,
 			});
 			if (!undislikeDocument) {
-				console.log(
-					`User ${data.userId} has already undisliked this location.`
-				);
+				// console.log(
+				// 	`User ${data.userId} has already undisliked this location.`
+				// );
 			} else {
 				await Like.updateOne(
 					{location: data.location},
@@ -270,9 +270,9 @@ io.on('connection', (socket) => {
 					likes += likeDocument.likes;
 					dislikes += likeDocument.dislikes;
 				});
-				console.log(
-					`Like counts updated: likes=${likes}, dislikes=${dislikes}`
-				);
+				// console.log(
+				// 	`Like counts updated: likes=${likes}, dislikes=${dislikes}`
+				// );
 				io.emit('likeCountsUpdated', {likes, dislikes});
 			}
 		} catch (err) {
@@ -340,7 +340,7 @@ io.on('connection', (socket) => {
 					room: data.room,
 				});
 				await chatMessage.save();
-				console.log('Mongodb saved message: ' + data.message);
+				// console.log('Mongodb saved message: ' + data.message);
 				io.to(data.room).emit('chat message', {
 					countryid: data.countryid,
 					username: data.username,
@@ -348,7 +348,7 @@ io.on('connection', (socket) => {
 					room: data.room,
 				});
 			} else {
-				console.log('User not found or userId does not match');
+				// console.log('User not found or userId does not match');
 			}
 		} catch (error) {
 			console.error('Error saving chat message to MongoDB', error);
@@ -401,5 +401,5 @@ io.on('connection', (socket) => {
 });
 
 http.listen(connectPort, () => {
-	console.log('Server started on port ' + connectPort);
+	// console.log('Server started on port ' + connectPort);
 });
