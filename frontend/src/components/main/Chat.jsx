@@ -341,7 +341,7 @@ const Chat = ({user}) => {
 						</div>
 				)}
 				<button
-					className='button m-auto w-1/2 mt-10'
+					className='button m-auto w-1/2 mt-5'
 					onClick={handleEmojiButtonClick}>
 					{showEmojiPicker ? 'Click to close' : 'Emoji Selector 😀'}
 				</button>
