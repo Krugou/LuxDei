@@ -331,7 +331,8 @@ const Chat = ({user}) => {
 				)}
 				{showEmojiPicker && (
 					<Picker
-						style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)', margin:"auto",}}
+						style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}}
+						className="m-auto"
 						emojiSize={18}
 						perLine={6}
 						data={data}
