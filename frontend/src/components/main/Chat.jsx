@@ -200,7 +200,10 @@ const Chat = ({user}) => {
 	useEffect(() => {
 		try {
 			if (socket) {
-				socket.on('typing', handleTyping);
+				socket.on('typing', ({username}) => {
+					console.log('User is typing:', username);
+					// Rest of your code...
+				});
 				return () => {
 					socket.off('typing', handleTyping);
 				};
@@ -314,13 +317,13 @@ const Chat = ({user}) => {
 					))}
 				</ul>
 				{showEmojiPicker && (
-						<Picker
-								style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}
-								emojiSize={18}
-								perLine={6}
-								data={data}
-								onEmojiSelect={handleEmojiSelect}
-						/>
+					<Picker
+						style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}}
+						emojiSize={18}
+						perLine={6}
+						data={data}
+						onEmojiSelect={handleEmojiSelect}
+					/>
 				)}
 				<button
 					className='button m-auto w-1/2'
