@@ -32,21 +32,11 @@
     "graphics": [
 
       {
-        "file": "timer.html",
-        "width": 1920,
-        "height": 1080
-      },
-     
-      {
-        "file": "index.html",
-        "width": 1920,
-        "height": 1080
-      },
-      {
-        "file": "jak.html",
+        "file": "jakviewer.html",
         "width": 1920,
         "height": 1080
       }
+     
     ]
   },
   "browserslist": {
