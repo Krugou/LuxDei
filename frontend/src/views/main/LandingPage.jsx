@@ -6,6 +6,7 @@ import LiveStreamButton
 import {useNavigate} from 'react-router-dom';
 import HeaderListButton
   from '../../components/header/buttons/HeaderListButton.jsx';
+import EventButton from '../../components/header/buttons/EventButton.jsx';
 const LandingPage = () => {
   const [count, setCount] = useState(0);
 
@@ -21,15 +22,7 @@ const LandingPage = () => {
       <div className="bg-gmdeepblack border-gmgold border-t-4 min-h-50">
 
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row">
-            <div className="md:w-1/2">
-              <img
-                  src="../../public/images/card.jpg"
-                  alt="Jakfilms"
-                  className="w-full h-auto  rounded-lg"
-              />
-
-            </div>
+          <div className="flex gap-5 sm:flex-col flex-col-reverse md:flex-row">
             <div className="md:w-1/2 md:pl-8 mt-4 md:mt-0">
               <h2 className="text-2xl font-bold text-white mb-4">Our Schedule</h2>
               <p className="text-white leading-relaxed mb-4">
@@ -40,8 +33,15 @@ const LandingPage = () => {
               </p>
               <div className="flex gap-10 mt-20 items-center">
                 <h2 className="text-xl text-white">Check out our schedule!</h2>
-                <LiveStreamButton name='schedule' navigate={navigate} />
+                <EventButton className="button" name='Schedule' navigate={navigate} />
               </div>
+            </div>
+            <div className="md:w-1/2">
+              <img
+                  src="../../public/images/card.jpg"
+                  alt="Jakfilms"
+                  className="w-full h-auto  rounded-lg"
+              />
             </div>
           </div>
         </div>
@@ -56,19 +56,18 @@ const LandingPage = () => {
                   alt="Jakfilms"
                   className="w-full h-auto  rounded-lg"
               />
-
             </div>
             <div className="md:w-1/2 md:pl-8 mt-4 md:mt-0">
               <h2 className="text-2xl font-bold text-white mb-4">Movies of the festival</h2>
               <p className="text-white leading-relaxed mb-4">
-                Welcome to our spectacular film festival, where cinematic artistry takes center stage! Our festival lineup boasts an eclectic array of films that will captivate, inspire, and leave you in awe. Our festival is not just a celebration of movies; it's a celebration of the human experience.
+                Join us for a cinematic adventure like no other, and let the magic of the silver screen transport you to new worlds, spark conversations, and create memories that will last a lifetime. Come, be part of the magic, and experience the power of storytelling through the movies of our festival.
               </p>
               <p className="text-white leading-relaxed mb-4">
                 Each movie in our festival has been meticulously chosen to showcase the best in storytelling, acting, and cinematography.
               </p>
               <div className="flex gap-10 mt-20 items-center">
-                <h2 className="text-xl text-white">Check out the our movies!</h2>
-                <LiveStreamButton name='movies' navigate={navigate} />
+                <h2 className="text-xl text-white">Check out our movies!</h2>
+                <EventButton className="button" name='Movies' navigate={navigate} />
               </div>
             </div>
           </div>
