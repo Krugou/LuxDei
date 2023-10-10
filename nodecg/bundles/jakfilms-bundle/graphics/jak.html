@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NodeCG Bundle Example</title>
     <style>
-
         @font-face {
             font-family: "Open Sans";
             src: url('../../assets/fonts/OpenSans-Regular.ttf');
@@ -19,11 +19,16 @@
         body {
             background-color: black;
             color: white;
-            display: flex; /* Use flexbox for centering */
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            height: 100vh; /* Make the body fill the viewport height */
-            margin: 0; /* Remove default margin *
+            display: flex;
+            /* Use flexbox for centering */
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+            /* Center vertically */
+            height: 100vh;
+            /* Make the body fill the viewport height */
+            margin: 0;
+            /* Remove default margin *
 
         }
 
@@ -44,18 +49,22 @@
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
         }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
         }
+
         .scaleAnimation {
             animation: scaleIn 1s;
         }
@@ -64,18 +73,39 @@
             from {
                 transform: scale(0);
             }
+
             to {
+                transform: scale(1);
+            }
+        }
+
+        #header {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
                 transform: scale(1);
             }
         }
     </style>
 </head>
+
 <body>
-<div id="content">
-    <h1 id="header">Jak Films</h1>
-    <p id="subtext">Lähetys alkaa kohta...</p>
-</div>
-<!-- Include any JavaScript libraries you need here -->
-<script src="bundle.js"></script>
+    <div id="content">
+        <h1 id="header">1</h1>
+        <p id="subtext">2</p>
+    </div>
+    <!-- Include any JavaScript libraries you need here -->
+    <script src="jak.js"></script>
 </body>
+
 </html>

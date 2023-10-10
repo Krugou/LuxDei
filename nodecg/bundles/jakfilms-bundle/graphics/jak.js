@@ -1,14 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Get references to the HTML elements
-  const headerElement = document.getElementById('header');
-  const subtextElement = document.getElementById('subtext');
+	// Get references to the HTML elements
+	// Get the URL parameters
+	const urlParams = new URLSearchParams(window.location.search);
 
-  // Update the text content of the elements
-  headerElement.textContent = 'Header Text';
-  subtextElement.textContent = 'Smaller Text Below';
+	// Set the header text to the "header" parameter value, or a default value if it's not set
+	const headerText = urlParams.get('header') || 'Jak Films';
+	document.getElementById('header').textContent = headerText;
 
-  // Add a class to the header for an additional animation (e.g., scaling)
-  headerElement.classList.add('scaleAnimation');
+	// Set the subtext to the "subtext" parameter value, or a default value if it's not set
+	const subtext = urlParams.get('subtext') || 'Lähetysalkaa kohta...';
+	document.getElementById('subtext').textContent = subtext;
 
-  // You can define more animations or behaviors here as needed
+
+	// You can define more animations or behaviors here as needed
 });
