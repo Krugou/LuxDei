@@ -26,7 +26,11 @@ const authenticate = (req, res, next) => {
           message: 'Something went wrong, check your inputs',
         });
       }
-      const token = jwt.sign(user, process.env.JWT_SECRET);
+      const token = jwt.sign(
+        user,
+        process.env.JWT_SECRET,
+        { expiresIn: '1m' } // Set the expiration time to 1 minute for testing
+      );
       res.json({ user, token });
     });
   })(req, res, next);
