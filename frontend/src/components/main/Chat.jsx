@@ -330,17 +330,18 @@ const Chat = ({user}) => {
 						</div>
 				)}
 				{showEmojiPicker && (
-					<Picker
-						style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}}
-						className="m-auto"
-						emojiSize={18}
-						perLine={6}
-						data={data}
-						onEmojiSelect={handleEmojiSelect}
-					/>
+						<div className="m-auto">
+							<Picker
+									style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}
+									emojiSize={18}
+									perLine={6}
+									data={data}
+									onEmojiSelect={handleEmojiSelect}
+							/>
+						</div>
 				)}
 				<button
-					className='button m-auto w-1/2 mt-2'
+					className='button m-auto w-1/2 mt-10'
 					onClick={handleEmojiButtonClick}>
 					{showEmojiPicker ? 'Click to close' : 'Emoji Selector 😀'}
 				</button>
