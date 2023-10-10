@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 import { useUser } from '../../hooks/ApiHooks';
+import { COUNTRIES } from '../../utils/countries';
+
+import CountrySelector from '../../components/main/CountrySelector';
 
 import ErrorAlert from '../../components/main/ErrorAlert';
 
@@ -13,11 +16,13 @@ const Register = () => {
   const emailRef = useRef('');
   const passwordRef = useRef('');
   const confirmPasswordRef = useRef('');
+  const [isOpen, setIsOpen] = useState(false);
+  const [country, setCountry] = useState('FI');
+
   const { setUser, user } = useContext(UserContext);
 
   const [alert, setAlert] = useState('');
 
-  const countryRef = useRef('FI'); // Set the initial value for the select
   useEffect(() => {
     if (user) {
       navigate('/');
@@ -32,17 +37,17 @@ const Register = () => {
     const password = passwordRef.current.value;
     const confirmPassword = confirmPasswordRef.current.value;
 
-    if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match');
-      return;
-    }
-
     const userData = {
       name: username,
       email,
       password,
-      countryid: countryRef.current.value,
+      countryid: country,
     };
+    console.log(userData);
+    if (password !== confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      return;
+    }
 
     try {
       const response = await postUser(userData);
@@ -132,17 +137,13 @@ const Register = () => {
           <span className='block text-gray-700 font-bold mb-2'>
             Select a country to represent
           </span>
-          <select
-            ref={countryRef}
-            className='border font-bold border-gray-400 text-white bg-gray-700 rounded-lg p-2 w-full'
-          >
-            <option value='FI'>Finland</option>
-            <option value='DK'>Denmark</option>
-            <option value='NO'>Norway</option>
-            <option value='SE'>Sweden</option>
-            <option value='IS'>Iceland</option>
-            <option value='EE'>Estonia</option>
-          </select>
+          <CountrySelector
+            id={'country-selector'}
+            open={isOpen}
+            onToggle={() => setIsOpen(!isOpen)}
+            onChange={setCountry}
+            selectedValue={COUNTRIES.find((option) => option.value === country)}
+          />
         </label>
         <button type='submit' className='button mb-7 mt-7'>
           Register
