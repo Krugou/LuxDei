@@ -314,12 +314,13 @@ const Chat = ({user}) => {
 					))}
 				</ul>
 				{showEmojiPicker && (
-					<Picker
-						className='absolute bottom-0 right-0 z-10 bg-white border border-gray-300 rounded shadow-md'
-						style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}}
-						data={data}
-						onEmojiSelect={handleEmojiSelect}
-					/>
+						<Picker
+								style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}
+								emojiSize={18}
+								perLine={6}
+								data={data}
+								onEmojiSelect={handleEmojiSelect}
+						/>
 				)}
 				<button
 					className='button m-auto w-1/2'
