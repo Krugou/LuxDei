@@ -34,7 +34,7 @@ const LandingPage = () => {
             </div>
             <div className="md:w-1/2">
               <img
-                  src="/public/images/card.jpg"
+                  src="../../public/images/movie.jpg"
                   alt="Jakfilms"
                   className="w-full h-auto  rounded-lg"
               />
@@ -48,7 +48,7 @@ const LandingPage = () => {
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/2">
               <img
-                  src="/public/images/movie.jpg"
+                  src="../../public/images/card.jpg"
                   alt="Jakfilms"
                   className="w-full h-auto  rounded-lg"
               />
