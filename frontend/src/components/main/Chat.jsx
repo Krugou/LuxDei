@@ -12,6 +12,7 @@ const Chat = ({ user }) => {
   const navigate = useNavigate();
 
   const [alert, setAlert] = useState('');
+  const [chatAlert, setChatAlert] = useState('');
 
   const { setUser } = useContext(UserContext);
 
@@ -111,7 +112,7 @@ const Chat = ({ user }) => {
     await getUserInfo();
 
     if (message.length > 500) {
-      setAlert('Message exceeds the maximum character limit of 500.');
+      setchatAlert('Message exceeds the maximum character limit of 500.');
       return;
     }
 
@@ -344,7 +345,7 @@ const Chat = ({ user }) => {
                 Cinephile's Hangout
               </option>
             </select>
-            {alert && <div className="text-red-500">{alert}</div>}
+            {chatAlert && <ErrorAlert onClose={() => setChatAlert(null)} chatAlert={chatAlert}/>}
             {/* Message input */}
             <div className='flex flex-row rounded border'>
               <input
@@ -353,7 +354,6 @@ const Chat = ({ user }) => {
                 rows='1'
                 className=' p-4  w-full h-50    '
                 type='text'
-                maxLength='500'
                 placeholder='Type your message here'
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
