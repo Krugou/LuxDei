@@ -29,6 +29,13 @@ const Team = () => {
                     role="Marketing Manager"
                 />
             </div>
+          <div className="md:w-1/2">
+            <img
+                src="../images/joonas.jpg"
+                alt="Jakfilms"
+                className="w-full h-auto  rounded-lg"
+            />
+          </div>
         </div>
 
     );
