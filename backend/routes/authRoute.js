@@ -15,7 +15,7 @@ const authenticate = (req, res, next) => {
     if (err || !user) {
       next(httpError('Virhe kirjautuessa', 403));
       return res.status(403).json({
-        message: 'User does not exist',
+        message: 'Something went wrong, check your inputs',
       });
     }
     req.login(user, { session: false }, (err) => {
