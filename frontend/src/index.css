@@ -32,7 +32,7 @@
 }
 
 .vjs-theme-city {
-  --vjs-theme-city--primary: #d9d968;
+  --vjs-theme-city--primary: #8b0000;
   --vjs-theme-city--secondary: #d9d968;
 }
 
@@ -84,7 +84,7 @@
   order: 2;
   flex: 8;
   font-size: 1.75em;
-  color: #d9d968
+  color: #d9d968;
 }
 
 .vjs-theme-city .vjs-volume-panel,
@@ -96,7 +96,9 @@
 }
 
 /* Volume stuff */
-.vjs-theme-city .vjs-volume-panel:hover .vjs-volume-control.vjs-volume-horizontal {
+.vjs-theme-city
+  .vjs-volume-panel:hover
+  .vjs-volume-control.vjs-volume-horizontal {
   height: 100%;
 }
 
@@ -113,9 +115,15 @@
 .vjs-theme-city .vjs-volume-panel,
 .vjs-theme-city .vjs-volume-panel:hover,
 .vjs-theme-city .vjs-volume-panel.vjs-volume-panel-horizontal:hover,
-.vjs-theme-city .vjs-volume-panel:focus .vjs-volume-control.vjs-volume-horizontal,
-.vjs-theme-city .vjs-volume-panel:hover .vjs-volume-control.vjs-volume-horizontal,
-.vjs-theme-city .vjs-volume-panel:active .vjs-volume-control.vjs-volume-horizontal,
+.vjs-theme-city
+  .vjs-volume-panel:focus
+  .vjs-volume-control.vjs-volume-horizontal,
+.vjs-theme-city
+  .vjs-volume-panel:hover
+  .vjs-volume-control.vjs-volume-horizontal,
+.vjs-theme-city
+  .vjs-volume-panel:active
+  .vjs-volume-control.vjs-volume-horizontal,
 .vjs-theme-city .vjs-volume-panel.vjs-volume-panel-horizontal:hover,
 .vjs-theme-city .vjs-volume-bar.vjs-slider-horizontal {
   width: 3em;
@@ -176,10 +184,11 @@
 
   border-style: solid;
   border-width: 0 0 1.75em 3em;
-  border-color: transparent transparent var(--vjs-theme-city--secondary) transparent;
+  border-color: transparent transparent var(--vjs-theme-city--secondary)
+    transparent;
 }
 .vjs-control {
-  color:#d9d968;
+  color: #d9d968;
 }
 .css-vubbuv {
   font-size: 2rem;
