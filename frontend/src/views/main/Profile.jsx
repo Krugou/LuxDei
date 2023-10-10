@@ -81,6 +81,10 @@ const Profile = () => {
       for (const [key, value] of Object.entries(editData)) {
         if (value === '') delete editData[key];
       }
+      if (Object.keys(editData).length > 0) {
+        closeEditModal();
+        return;
+      }
       console.log(editData, 'EDIT DATA');
       const updateResponse = await putUser(editData, token);
       console.log(updateResponse);
