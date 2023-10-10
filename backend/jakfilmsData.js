@@ -356,14 +356,15 @@ io.on('connection', (socket) => {
 		// Delete chat messages older than 48 hours from MongoDB
 
 		const cutoffDate = new Date(Date.now() - 48 * 60 * 60 * 1000);
-		ChatMessage.deleteMany({createdAt: {$lt: cutoffDate}})
-			.then(() => {
-				// Do nothing
-				// console.log('Chat messages older than 48 hours deleted from MongoDB')
+		ChatMessage.deleteMany({timestamp: {$lt: cutoffDate}})
+			.then((result) => {
+				console.log(
+					`${result.deletedCount} chat messages deleted successfully`
+				);
 			})
-			.catch((err) =>
-				console.error('Error deleting chat messages from MongoDB', err)
-			);
+			.catch((err) => {
+				console.error('Error deleting chat messages:', err);
+			});
 	});
 
 	socket.on('typing', ({username, room}) => {
