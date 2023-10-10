@@ -38,7 +38,7 @@ const Movies = () => {
 			{loadStatus === 'loading' ? (
 				<LoadingSpinner />
 			) : (
-				<div className='container pb-5 pt-5 mx-auto'>
+				<div className='container bg-gray-100 p-5 mx-auto'>
 					<h1 className='text-3xl font-bold mt-6 text-center'>Movie List</h1>
 					<input
 						type='text'

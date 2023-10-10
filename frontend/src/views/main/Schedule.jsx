@@ -25,7 +25,7 @@ const Schedule = () => {
 	};
 
 	return (
-		<div className='bg-white container mx-auto p-6 md:p-10 m-4'>
+		<div className='bg-gray-100 container mx-auto p-6 md:p-10 m-4'>
 			<h1 className='text-2xl md:text-4xl font-bold text-center'>
 				Festival Schedule
 			</h1>
@@ -65,7 +65,7 @@ const Schedule = () => {
 							{dayData.schedule.map((event, eventIndex) => (
 								<div
 									key={eventIndex}
-									className='p-4 border rounded shadow'>
+									className='p-4 border rounded shadow bg-white'>
 									<p className='font-bold'>Time: {event.time}</p>
 									<p>Event: {event.title}</p>
 								</div>

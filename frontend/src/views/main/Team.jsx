@@ -3,7 +3,7 @@ import TeamMember from '../../components/main/TeamMember';
 
 const Team = () => {
     return (
-        <div className='bg-alepurple container mx-auto p-4 m-4'>
+        <div className='container mx-auto p-4 m-4'>
             <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mybasetext">Meet the Jak-Films Festival Team</h1>
             <p className="text-base md:text-lg mybasetext mt-4">
                 Our festival wouldn't be possible without the dedicated and passionate individuals who make up our team. Get to know
