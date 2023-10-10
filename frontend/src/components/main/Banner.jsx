@@ -36,13 +36,13 @@ const Banner = () => {
     <div className={`bg-banner ${images[currentImageIndex]}`}>
       <div className='flex justify-between items-center h-full flex-col'>
         <div className='w-full h-full flex justify-center items-center lg:max-w-3xl sm:max-w-md text-center'>
-          <h2 className='text-white sm:text-xl text-base font-bold lg:text-4xl'>
+          <h2 className='text-white sm:text-2xl text-base font-bold lg:text-3xl'>
             Lights, Camera, Action: Join Us for an Unforgettable Cinematic
             Experience at the JAK-Films Festival
           </h2>
         </div>
         <header className='text-white'>
-          <h2 className='text-white sm:text-xl text-base  lg:text-2xl mb-20'>
+          <h2 className='text-white sm:text-xl font-bold text-base lg:text-2xl mb-20'>
             Celebrating cinema, one click at a time
           </h2>
         </header>
