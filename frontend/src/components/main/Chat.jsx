@@ -114,7 +114,7 @@ const Chat = ({user}) => {
 		await getUserInfo();
 
 		if (message.length > 500) {
-			setchatAlert('Message exceeds the maximum character limit of 500.');
+			setChatAlert('Message exceeds the maximum character limit of 500.');
 			return;
 		}
 
