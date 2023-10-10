@@ -106,9 +106,8 @@ const Chat = ({ user }) => {
   };
   // Function to handle message submission
   const handleSubmit = async (event) => {
-    await getUserInfo();
-
     event.preventDefault();
+    await getUserInfo();
     const newMessage = {
       countryid: user.countryid,
       username: user.name,
