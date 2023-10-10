@@ -224,7 +224,7 @@ const Profile = () => {
                   placeholder='Must incl. 8 characters and a capital letter'
                 />
               </label>
-              <label className='flex flex-col items-center sm:mt-4 w-full p-4'>
+              <label className='flex flex-col items-center sm:mt-4 w-1/2 m-auto p-4'>
                 <span className='block text-gray-700 font-bold mb-2'>
                   Change your country
                 </span>
