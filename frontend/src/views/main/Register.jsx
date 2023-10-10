@@ -133,18 +133,18 @@ const Register = () => {
             placeholder='Confirm your password'
           />
         </label>
-        <label className='flex flex-col items-center sm:mt-4 w-full sm:w-4/5 md:w-3/5 lg:w-2/6 2xl:w-3/12 p-4'>
-          <span className='block text-gray-700 font-bold mb-2'>
+        <label>
+          <span className='block text-gray-700 font-bold mb-2 mt-4'>
             Select a country to represent
           </span>
-          <CountrySelector
-            id={'country-selector'}
-            open={isOpen}
-            onToggle={() => setIsOpen(!isOpen)}
-            onChange={setCountry}
-            selectedValue={COUNTRIES.find((option) => option.value === country)}
-          />
         </label>
+        <CountrySelector
+          id={'country-selector'}
+          open={isOpen}
+          onToggle={() => setIsOpen(!isOpen)}
+          onChange={setCountry}
+          selectedValue={COUNTRIES.find((option) => option.value === country)}
+        />
         <button type='submit' className='button mb-7 mt-7'>
           Register
         </button>
