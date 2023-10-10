@@ -174,7 +174,9 @@ const Profile = () => {
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   aria-label='Username'
                   autoComplete='username'
-                  placeholder='atleast 3 char max 15'
+                  minLength='3'
+                  maxLength='15'
+                  placeholder='Enter your username (3 to 15 characters)'
                 />
               </label>
               <label className='flex flex-col items-start mt-4'>
@@ -205,7 +207,8 @@ const Profile = () => {
                   className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                   aria-label='Password'
                   autoComplete='new-password'
-                  placeholder='atleast 8 char one capital letter'
+                  minLength='8'
+                  placeholder='Must incl. 8 characters and a capital letter'
                 />
               </label>
               <label className='flex flex-col items-start mt-4'>
