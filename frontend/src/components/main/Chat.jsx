@@ -109,6 +109,12 @@ const Chat = ({ user }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await getUserInfo();
+
+    if (message.length > 500) {
+      setAlert('Message exceeds the maximum character limit of 500.');
+      return;
+    }
+
     const newMessage = {
       countryid: user.countryid,
       username: user.name,
@@ -338,7 +344,7 @@ const Chat = ({ user }) => {
                 Cinephile's Hangout
               </option>
             </select>
-
+            {alert && <div className="text-red-500">{alert}</div>}
             {/* Message input */}
             <div className='flex flex-row rounded border'>
               <input
@@ -347,7 +353,7 @@ const Chat = ({ user }) => {
                 rows='1'
                 className=' p-4  w-full h-50    '
                 type='text'
-                maxLength={500}
+                maxLength='500'
                 placeholder='Type your message here'
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
