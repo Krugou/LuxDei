@@ -7,8 +7,12 @@ import SuccessAlert from '../../components/main/SuccessAlert';
 import formatDate from '../../utils/utilities';
 
 import { useUser } from '../../hooks/ApiHooks';
+import CountrySelector from '../../components/main/CountrySelector.jsx';
+import {COUNTRIES} from '../../utils/countries.js';
 
 const Profile = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [country, setCountry] = useState('FI');
   const { user } = useContext(UserContext);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
@@ -211,24 +215,17 @@ const Profile = () => {
                   placeholder='Must incl. 8 characters and a capital letter'
                 />
               </label>
-              <label className='flex flex-col items-start mt-4'>
-                <span className='block text-gray-700 font-bold mb-2'>
-                  Country
-                </span>
-                <select
-                  value={editData.countryid}
-                  onChange={(e) =>
-                    setEditData({ ...editData, countryid: e.target.value })
-                  }
-                  className='border font-bold border-gray-400 text-white bg-gray-700 rounded-lg p-2 w-full'
-                >
-                  <option value='FI'>Finland</option>
-                  <option value='DK'>Denmark</option>
-                  <option value='NO'>Norway</option>
-                  <option value='SE'>Sweden</option>
-                  <option value='IS'>Iceland</option>
-                  <option value='EE'>Estonia</option>
-                </select>
+              <label className='flex flex-col items-center sm:mt-4 w-full sm:w-4/5 md:w-3/5 lg:w-2/6 2xl:w-3/12 p-4'>
+          <span className='block text-gray-700 font-bold mb-2'>
+            Change your country
+          </span>
+                <CountrySelector
+                    id={'country-selector'}
+                    open={isOpen}
+                    onToggle={() => setIsOpen(!isOpen)}
+                    onChange={setCountry}
+                    selectedValue={COUNTRIES.find((option) => option.value === country)}
+                />
               </label>
               <div className='flex justify-end mt-4'>
                 <button
