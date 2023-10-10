@@ -147,7 +147,7 @@ const Profile = () => {
             <button className='button' onClick={openEditModal}>
               Edit Profile
             </button>
-            <button onClick={openDeleteModal} className='button ml-4 md:ml-24'>
+            <button onClick={openDeleteModal} className='ml-4 md:ml-24 bg-gmdeepred font-bold rounded py-2 px-4 hover:bg-red-600 text-white'>
               Delete Profile
             </button>
             <button
