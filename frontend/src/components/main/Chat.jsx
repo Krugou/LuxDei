@@ -322,7 +322,7 @@ const Chat = ({user}) => {
 				</ul>
 				{typingUsers.length > 0 && (
 						<div
-								className={`text-md text-white p-2 bg-black w-3/4 rounded ml-4 ${
+								className={`text-sm text-white p-1 bg-black w-3/4 rounded-b ml-4 ${
 										isPulsing ? 'animate-pulse' : ''
 								}`}>
 							<span className='mr-1'>{typingUsers.join(', ')}</span>
