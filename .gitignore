@@ -128,3 +128,4 @@ dist
 frontend/package-lock.json
 nodecg/db/nodecg.sqlite3-shm
 nodecg/db/nodecg.sqlite3-wal
+frontend/public/videos/hidden/tallenne.mp4
