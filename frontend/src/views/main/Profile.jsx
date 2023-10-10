@@ -76,7 +76,11 @@ const Profile = () => {
         navigate('/logout');
       }, 3000);
     } catch (error) {
-      setAlert(error.message);
+      if (error.status === 401) {
+        setAlert('Your session has expired, please login again');
+      } else {
+        setAlert(error.message);
+      }
     }
     closeEditModal();
   };

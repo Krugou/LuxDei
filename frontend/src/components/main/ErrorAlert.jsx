@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ErrorAlert = ({ alert, onClose }) => {
   return (
     <div
-      className={`fixed inset-0 flex items-center justify-center ${
+      className={`fixed inset-0 z-10 flex items-center justify-center ${
         alert ? 'block' : 'hidden'
       }`}
     >

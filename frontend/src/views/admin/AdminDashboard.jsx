@@ -13,6 +13,7 @@ import { FormControl, MenuItem, Select, Typography } from '@mui/material';
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const { update, setUpdate } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   const [contacts, setContacts] = useState([]);
   const [filteredContacts, setFilteredContacts] = useState([]);
@@ -25,6 +26,12 @@ const AdminDashboard = () => {
     contacts: 'not available',
     latestMessageTimestamp: 'not available',
   });
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   // Initialize the sorting option in a useState
   const [sortOption, setSortOption] = useState('Oldest'); // Default sorting option

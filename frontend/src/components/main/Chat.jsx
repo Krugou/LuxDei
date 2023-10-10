@@ -1,12 +1,20 @@
 import data from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
 import PropTypes from 'prop-types';
-import React, {useEffect, useRef, useState} from 'react';
-import {FlagIcon} from 'react-flag-kit';
-import {useNavigate} from 'react-router-dom';
+import React, { useEffect, useRef, useState, useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext';
+import { FlagIcon } from 'react-flag-kit';
+import { useNavigate } from 'react-router-dom';
 import io from 'socket.io-client';
-const Chat = ({user}) => {
+import { useUser } from '../../hooks/ApiHooks';
+import ErrorAlert from '../../components/main/ErrorAlert';
+const Chat = ({ user }) => {
   const navigate = useNavigate();
+
+  const [alert, setAlert] = useState('');
+
+  const { setUser } = useContext(UserContext);
+
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [room, setRoom] = useState('room1');
@@ -16,7 +24,10 @@ const Chat = ({user}) => {
   const [isTyping, setIsTyping] = useState(false);
   const [typingUsers, setTypingUsers] = useState([]);
   const [userCount, setUserCount] = useState(0);
+
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const { getUserInfoByToken } = useUser();
+
   const handleEmojiSelect = (emoji) => {
     // console.log('handleEmojiSelect: ', emoji.native);
     if (emoji.native) {
@@ -50,15 +61,15 @@ const Chat = ({user}) => {
     if (event.target.value !== '') {
       if (!isTyping) {
         setIsTyping(true);
-        socket.emit('typing', {name: user.name, room});
+        socket.emit('typing', { name: user.name, room });
         setTimeout(() => {
           setIsTyping(false);
-          socket.emit('stop typing', {name: user.name, room});
+          socket.emit('stop typing', { name: user.name, room });
         }, 2000);
       }
     } else {
       setIsTyping(false);
-      socket.emit('stop typing', {name: user.name, room});
+      socket.emit('stop typing', { name: user.name, room });
     }
   };
   // Function to handle room changes
@@ -73,9 +84,30 @@ const Chat = ({user}) => {
     socket.emit('leave room', room);
     socket.emit('join room', newRoom);
   };
+  const getUserInfo = async () => {
+    if (location.pathname === '/logout') return;
 
+    const userToken = localStorage.getItem('userToken');
+    if (userToken) {
+      try {
+        const user = await getUserInfoByToken(userToken);
+        // console.log(user, 'userinfomaan');
+        if (user) {
+          setUser(user);
+          return;
+        }
+      } catch (error) {
+        setAlert('Your token has expired, please login again.');
+        console.log('TOKEN ERROR');
+        localStorage.removeItem('userToken');
+        setUser('');
+      }
+    }
+  };
   // Function to handle message submission
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
+    await getUserInfo();
+
     event.preventDefault();
     const newMessage = {
       countryid: user.countryid,
@@ -127,7 +159,7 @@ const Chat = ({user}) => {
     }
   }, [messages]);
 
-  const handleTyping = ({name}) => {
+  const handleTyping = ({ name }) => {
     try {
       // Create a new Set with the current typingUsers array and the new user.name
       const uniqueTypingUsers = [...new Set([...typingUsers, name])];
@@ -138,7 +170,7 @@ const Chat = ({user}) => {
     }
   };
 
-  const handleStopTyping = ({name}) => {
+  const handleStopTyping = ({ name }) => {
     try {
       // console.log('stop typing: ', user.name);
       setTypingUsers((prevTypingUsers) =>
@@ -198,12 +230,14 @@ const Chat = ({user}) => {
   }, [messages]);
   return (
     <>
+      {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
 
       <div className='flex flex-col max-w-xs  h-full   '>
         {typingUsers.length > 0 && (
           <div
-            className={`text-md text-white bg-black ${isPulsing ? 'animate-pulse' : ''
-              }`}
+            className={`text-md text-white bg-black ${
+              isPulsing ? 'animate-pulse' : ''
+            }`}
           >
             <span className='mr-1'>{typingUsers.join(', ')}</span>
             <span>{typingUsers.length === 1 ? 'is' : 'are'} typing...</span>
@@ -212,42 +246,49 @@ const Chat = ({user}) => {
         <ul
           id='messages'
           ref={messagesRef}
-          className={`flex flex-col bg-white m-4  ${showEmojiPicker ? 'h-10 md:h-10' : 'h-72 md:h-96'}  mt-auto shadow-lg rounded-md p-4  overflow-y-auto `}
+          className={`flex flex-col bg-white m-4  ${
+            showEmojiPicker ? 'h-10 md:h-10' : 'h-72 md:h-96'
+          }  mt-auto shadow-lg rounded-md p-4  overflow-y-auto `}
         >
           {messages.map((message, index) => (
             <li
               key={index}
-              className={`flex flex-col mb-2 ${message.username === user.name ? 'items-end' : 'items-start'
-                }`}
+              className={`flex flex-col mb-2 ${
+                message.username === user.name ? 'items-end' : 'items-start'
+              }`}
             >
               <div
-                className={`rounded-lg py-2 px-3 ${message.username === user.name
-                  ? 'bg-black text-white'
-                  : 'bg-black text-white'
-                  }`}
+                className={`rounded-lg py-2 px-3 ${
+                  message.username === user.name
+                    ? 'bg-black text-white'
+                    : 'bg-black text-white'
+                }`}
               >
                 <p
-                  className={`text-sm ${isPulsing &&
+                  className={`text-sm ${
+                    isPulsing &&
                     message === messages[messages.length - 1] &&
                     room === currentRoom
-                    ? 'animate-bounce'
-                    : ''
-                    }`}
+                      ? 'animate-bounce'
+                      : ''
+                  }`}
                 >
                   {message.message}
                 </p>
               </div>
               <span
-                className={`text-xs mt-1 border rounded ${message.username === user.name ? 'text-right' : 'text-left'
-                  }`}
+                className={`text-xs mt-1 border rounded ${
+                  message.username === user.name ? 'text-right' : 'text-left'
+                }`}
               >
                 {message.username.charAt(0).toUpperCase() +
                   message.username.slice(1)}
                 <FlagIcon
-                  className={` mx-2 ${message.username === user.name
-                    ? 'float-right'
-                    : 'float-left'
-                    }`}
+                  className={` mx-2 ${
+                    message.username === user.name
+                      ? 'float-right'
+                      : 'float-left'
+                  }`}
                   code={message.countryid}
                   size={20}
                 />
@@ -255,8 +296,14 @@ const Chat = ({user}) => {
             </li>
           ))}
         </ul>
-        {showEmojiPicker && <Picker className='absolute bottom-0 right-0 z-10 bg-white border border-gray-300 rounded shadow-md'
-          style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}} data={data} onEmojiSelect={handleEmojiSelect} />}
+        {showEmojiPicker && (
+          <Picker
+            className='absolute bottom-0 right-0 z-10 bg-white border border-gray-300 rounded shadow-md'
+            style={{ boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)' }}
+            data={data}
+            onEmojiSelect={handleEmojiSelect}
+          />
+        )}
         <button onClick={handleEmojiButtonClick}>
           {showEmojiPicker ? 'Click to close' : 'Emoji Selector 😀'}
         </button>
@@ -273,12 +320,13 @@ const Chat = ({user}) => {
               id='room'
               value={room}
               onChange={handleRoomChange}
-              className={`text-white block w-full py-2 px-3 border border-gray-400 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${room === 'room1'
-                ? 'bg-black text-white'
-                : room === 'room2'
+              className={`text-white block w-full py-2 px-3 border border-gray-400 rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                room === 'room1'
+                  ? 'bg-black text-white'
+                  : room === 'room2'
                   ? 'bg-black text-white'
                   : 'bg-black text-white'
-                }focus:border-transparent `}
+              }focus:border-transparent `}
               aria-label='Select a chat room'
             >
               <option className='bg-black text-white ' value='room1'>
@@ -332,12 +380,10 @@ const Chat = ({user}) => {
                   </g>
                 </svg>
               </button>
-
             </div>
           </div>
         </form>
       </div>
-
     </>
   );
 };
