@@ -16,7 +16,7 @@ const LiveStreamButton = ({ name, navigate, lastItem = false }) => {
           navigate(`/${name}`);
         }}
       >
-        Join {name.charAt(0).toUpperCase() + name.slice(1)}
+        {name.charAt(0).toUpperCase() + name.slice(1)}
       </button>
     </li>
   );
