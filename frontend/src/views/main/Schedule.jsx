@@ -10,6 +10,7 @@ const Schedule = () => {
 		const fetchSchedule = async () => {
 			try {
 				const data = await getSchedule();
+				// console.log(data);
 				setScheduleData(data);
 			} catch (e) {
 				console.error(e);
@@ -25,16 +26,31 @@ const Schedule = () => {
 
 	return (
 		<div className='bg-white container mx-auto p-6 md:p-10 m-4'>
-			<h1 className='text-2xl md:text-4xl font-bold '>Festival Schedule</h1>
-			<p className='text-base md:text-lg mt-4'>
+			<h1 className='text-2xl md:text-4xl font-bold text-center'>
+				Festival Schedule
+			</h1>
+			<p className='text-base md:text-lg mt-4 text-center'>
 				Explore the exciting lineup of films, events, and screenings scheduled
 				for the Jakfilms Festival. Plan your festival experience and make sure
 				you don't miss out on any of the fantastic films and activities.
 			</p>
-			<div className='mt-6'>
+			<div className='mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
 				<Calendar
 					onChange={handleDateChange}
 					value={date}
+					className='w-full'
+					tileContent={({date, view}) => {
+						// Check if the date has data
+						const hasData = scheduleData.some(
+							(dayData) =>
+								new Date(dayData.day).toDateString() === date.toDateString()
+						);
+
+						// If the date has data and the view is 'month', change the background color to purple
+						return view === 'month' && hasData ? (
+							<div className='bg-purple-500 h-full w-full'></div>
+						) : null;
+					}}
 				/>
 				{scheduleData
 					.filter(
@@ -43,11 +59,17 @@ const Schedule = () => {
 					)
 					.map((dayData, index) => (
 						<React.Fragment key={index}>
-							<div>
-								<h2>{dayData.day}</h2>
-								<p>Time: {dayData.time}</p>
-								<p>Event: {dayData.event}</p>
-							</div>
+							<h2 className='text-lg md:text-xl font-bold'>
+								{dayData.day.toDateString()}
+							</h2>
+							{dayData.schedule.map((event, eventIndex) => (
+								<div
+									key={eventIndex}
+									className='p-4 border rounded shadow'>
+									<p className='font-bold'>Time: {event.time}</p>
+									<p>Event: {event.title}</p>
+								</div>
+							))}
 						</React.Fragment>
 					))}
 			</div>
