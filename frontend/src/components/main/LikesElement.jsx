@@ -156,7 +156,7 @@ const LikesElement = ({user, location}) => {
 					<div className='animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900'></div>
 				</div>
 			) : user ? (
-				<div className='flex mt-2 mb-2 pointer'>
+				<div className='flex mt-5 mb-5 text-2xl justify-end pointer'>
 					<ThumbUp
 						onClick={handleLike}
 						className={likeClicked ? 'text-green-500' : ''}
