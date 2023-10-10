@@ -23,9 +23,6 @@
   .preload {
     @apply absolute top-[-9999px] left-[-9999px] invisible;
   }
-  .thumb {
-    @apply text-2xl !important;
-  }
   .paragraph {
     @apply m-1 text-lg p-4 bg-white rounded-lg shadow-xl;
   }
