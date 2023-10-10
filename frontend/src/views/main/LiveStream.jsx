@@ -123,10 +123,14 @@ const LiveStream = () => {
       /> */}
 				{/* <Chat className=" " username={'anon'} countryid={'FI'} /> */}
 				{/* real one next  */}
+				{user ? (
 						<Chat
 								className=''
 								user={user}
 						/>
+				) : (
+						<NoUser name={'chat'} />
+				)}
 			</section>
 		</>
 	);
