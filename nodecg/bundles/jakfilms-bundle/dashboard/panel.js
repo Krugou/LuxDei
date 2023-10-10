@@ -14,7 +14,11 @@ const broadcaster = document.getElementById("broadcaster")
 const broadcast = document.getElementById("broadcast")
 
 const isToggled = nodecg.Replicant("isToggled");
+const isToggled2 = nodecg.Replicant("isToggled2");
+const isToggled3 = nodecg.Replicant("isToggled3");
 const toggled = document.getElementById("toggled");
+const toggled2 = document.getElementById("toggled2");
+const toggled3 = document.getElementById("toggled3");
 
 let toggle = true;
 
@@ -135,3 +139,37 @@ toggled.addEventListener("click", () => {
 
 });
 
+toggled2.addEventListener("click", () => {
+  if (toggled2.textContent === "Piilota") {
+    toggle = false;
+    isToggled2.value = toggle;
+    console.log(toggle);
+    toggled2.textContent = "Päälle";
+
+
+    return;
+  }
+
+  toggle = true;
+  isToggled2.value = toggle;
+  toggled2.textContent = "Piilota";
+  console.log(toggle);
+
+});
+toggled3.addEventListener("click", () => {
+  if (toggled3.textContent === "Piilota") {
+    toggle = false;
+    isToggled3.value = toggle;
+    console.log(toggle);
+    toggled3.textContent = "Päälle";
+
+
+    return;
+  }
+
+  toggle = true;
+  isToggled3.value = toggle;
+  toggled3.textContent = "Piilota";
+  console.log(toggle);
+
+});

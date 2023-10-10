@@ -15,7 +15,10 @@ const laskuri = document.getElementById("laskuri")
 const rooli = document.getElementById("rooli");
 const isToggled = nodecg.Replicant("isToggled");
 const isToggled2 = nodecg.Replicant("isToggled2");
+const isToggled3 = nodecg.Replicant("isToggled3");
 const lowerthird = document.getElementById("lowerThird");
+const lowersecond = document.getElementById("lowerSecond");
+const lowerfourth = document.getElementById("lowerFourth");
 const timerRep = nodecg.Replicant("timerReplicant");
 const countdownDisplay = document.getElementById("laskuri");
 
@@ -32,6 +35,30 @@ isToggled.on("change", (newValue, oldValue) => {
     lowerthird.classList.add("hidden");
   }
 });
+
+isToggled2.on("change", (newValue, oldValue) => {
+  console.log(`myRep changed from ${oldValue} to ${newValue}`);
+  if (newValue === true) {
+    console.log("true");
+    lowersecond.classList.remove("hidden");
+  } else if (newValue === false) {
+    console.log("false");
+    lowersecond.classList.add("hidden");
+  }
+});
+
+isToggled3.on("change", (newValue, oldValue) => {
+  console.log(`myRep changed from ${oldValue} to ${newValue}`);
+  if (newValue === true) {
+    console.log("true");
+    lowerfourth.classList.remove("hidden");
+  } else if (newValue === false) {
+    console.log("false");
+    lowerfourth.classList.add("hidden");
+  }
+});
+
+
 timerRep.on("change", (newValue, oldValue) => {
   countdownDisplay.textContent = newValue;
 });
