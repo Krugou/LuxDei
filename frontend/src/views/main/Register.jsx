@@ -12,109 +12,57 @@ const Register = () => {
   const usernameRef = useRef('');
   const emailRef = useRef('');
   const passwordRef = useRef('');
+  const confirmPasswordRef = useRef('');
   const { setUser, user } = useContext(UserContext);
 
   const [alert, setAlert] = useState('');
 
-  const countryRef = useRef('fi'); // Set the initial value for the select
+  const countryRef = useRef('FI'); // Set the initial value for the select
   useEffect(() => {
     if (user) {
       navigate('/');
     }
   }, [user, navigate]);
 
-  /*
-  const doLogin = async () => {
-    const inputs = {
-      username: usernameRef.current.value,
-      password: passwordRef.current.value,
-    };
-    try {
-      const loginResult = await postLogin(inputs);
-      localStorage.setItem('userToken', loginResult.token);
-      setUser(loginResult.user);
-      console.log('username:', loginResult.user.name);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-*/
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(
-      `Username: ${usernameRef.current.value}, Email: ${emailRef.current.value}, Password: ${passwordRef.current.value}`
-    );
+
+    const username = usernameRef.current.value;
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+    const confirmPassword = confirmPasswordRef.current.value;
+
+    if (password !== confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      return;
+    }
+
     const userData = {
-      name: usernameRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
+      name: username,
+      email,
+      password,
       countryid: countryRef.current.value,
     };
-    // INTEGROI SAMAAN FUNKTIOON
-    /*
+
     try {
-      const response = await getCheckUser(userData.name);
-      console.log(response, 'checkUser Response');
-    } catch (error) {
-      alert(error);
-    }
- */
-    try {
-      //const withoutConfirm = { ...inputs };
-      //delete withoutConfirm.confirm;
       const response = await postUser(userData);
       console.log(response, 'Register Response');
-      const inputs = {
-        username: usernameRef.current.value,
-        password: passwordRef.current.value,
+
+      const loginData = {
+        username,
+        password,
       };
-      const user = await doLogin(inputs);
-      // Successful login
-      setUser(user);
+
+      const loggedInUser = await doLogin(loginData);
+      setUser(loggedInUser);
       navigate('/');
     } catch (error) {
-      // Set the error message
       if (error.message === 'Username already taken') {
-        setErrorMessage(error.message);
-
-        // Clear the error message after 3 seconds (adjust the duration as needed)
-        setTimeout(() => {
-          setErrorMessage('');
-        }, 2500);
-        return;
+        setErrorMessage('Username is already taken');
+      } else {
+        setAlert(error.message);
       }
-      setAlert(error.message);
-      console.log(error.message, 'error message');
     }
-
-    // Add code here to submit form data to server
-    /*
-
-    fetch('http://jakfilms.northeurope.cloudapp.azure.com/backend/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: usernameRef.current.value,
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
-        countryid: countryRef.current.value,
-      }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error('There was a problem with the fetch operation:', error);
-      });
-      */
   };
 
   return (
@@ -125,7 +73,8 @@ const Register = () => {
         onSubmit={handleSubmit}
         className='flex bg-gray-100  flex-col items-center'
       >
-        <label className='flex flex-col items-start mt-4'>
+        {errorMessage && <p className='text-red-500 mt-1'>{errorMessage}</p>}
+        <label className='flex flex-col items-start sm:mt-4 w-full sm:w-4/5 md:w-3/5 lg:w-2/6 2xl:w-3/12 p-2'>
           <span className='block text-gray-700 font-bold mb-2'>Username</span>
           <input
             type='text'
@@ -134,12 +83,12 @@ const Register = () => {
             aria-label='Username'
             autoComplete='username'
             required
-            placeholder='atleast 3 char max 15'
+            minLength='3'
+            maxLength='15'
+            placeholder='Enter your username (3-15 characters)'
           />
-          {/* Display the error message */}
-          {errorMessage && <p className='text-orange-500'>{errorMessage}</p>}
         </label>
-        <label className='flex flex-col items-start mt-4'>
+        <label className='flex flex-col items-start sm:mt-4 w-full sm:w-4/5 md:w-3/5 lg:w-2/6 2xl:w-3/12 p-2'>
           <span className='block text-gray-700 font-bold mb-2'>Email</span>
           <input
             type='email'
@@ -148,9 +97,10 @@ const Register = () => {
             aria-label='Email'
             autoComplete='email'
             required
+            placeholder='Enter your email address'
           />
         </label>
-        <label className='flex flex-col items-start mt-4'>
+        <label className='flex flex-col items-start sm:mt-4 w-full sm:w-4/5 md:w-3/5 lg:w-2/6 2xl:w-3/12 p-2'>
           <span className='block text-gray-700 font-bold mb-2'>Password</span>
           <input
             type='password'
@@ -159,11 +109,29 @@ const Register = () => {
             aria-label='Password'
             autoComplete='new-password'
             required
-            placeholder='atleast 8 char one capital letter'
+            minLength='8'
+            placeholder='Must incl. 8 characters and a capital letter'
           />
         </label>
-        <label className='flex flex-col items-center mt-4'>
-          <span className='block text-gray-700 font-bold mb-2'>Country</span>
+        <label className='flex flex-col items-start sm:mt-4 w-full sm:w-4/5 md:w-3/5 lg:w-2/6 2xl:w-3/12 p-2'>
+          <span className='block text-gray-700 font-bold mb-2'>
+            Confirm Password
+          </span>
+          <input
+            type='password'
+            ref={confirmPasswordRef}
+            className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+            aria-label='Confirm Password'
+            autoComplete='new-password'
+            required
+            minLength='8'
+            placeholder='Confirm your password'
+          />
+        </label>
+        <label className='flex flex-col items-center sm:mt-4 w-full sm:w-4/5 md:w-3/5 lg:w-2/6 2xl:w-3/12 p-4'>
+          <span className='block text-gray-700 font-bold mb-2'>
+            Select a country to represent
+          </span>
           <select
             ref={countryRef}
             className='border font-bold border-gray-400 text-white bg-gray-700 rounded-lg p-2 w-full'
