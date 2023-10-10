@@ -268,16 +268,7 @@ const Chat = ({user}) => {
 					alert={alert}
 				/>
 			)}
-			<div className='flex flex-col w-full md:w-4/12 sm:w-8/12  h-full   '>
-				{typingUsers.length > 0 && (
-					<div
-						className={`text-md text-white bg-black ${
-							isPulsing ? 'animate-pulse' : ''
-						}`}>
-						<span className='mr-1'>{typingUsers.join(', ')}</span>
-						<span>{typingUsers.length === 1 ? 'is' : 'are'} typing...</span>
-					</div>
-				)}
+			<div className='flex flex-col w-full md:w-4/12 sm:w-8/12  h-full'>
 				<span className='bg-gmdeepblack rounded p-2 text-white  lg:w-1/2 w-3/4 text-center m-auto mb-4'>
 					Users in current room: {userCount}
 				</span>
@@ -326,6 +317,15 @@ const Chat = ({user}) => {
 									size={20}
 								/>
 							</span>
+							{typingUsers.length > 0 && (
+									<div
+											className={`text-md text-white bg-black ${
+													isPulsing ? 'animate-pulse' : ''
+											}`}>
+										<span className='mr-1'>{typingUsers.join(', ')}</span>
+										<span>{typingUsers.length === 1 ? 'is' : 'are'} typing...</span>
+									</div>
+							)}
 						</li>
 					))}
 				</ul>
