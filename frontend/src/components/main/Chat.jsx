@@ -319,16 +319,16 @@ const Chat = ({user}) => {
 							</span>
 						</li>
 					))}
-					{typingUsers.length > 0 && (
-							<div
-									className={`text-md text-white bg-black ${
-											isPulsing ? 'animate-pulse' : ''
-									}`}>
-								<span className='mr-1'>{typingUsers.join(', ')}</span>
-								<span>{typingUsers.length === 1 ? 'is' : 'are'} typing...</span>
-							</div>
-					)}
 				</ul>
+				{typingUsers.length > 0 && (
+						<div
+								className={`text-md text-white bg-black ${
+										isPulsing ? 'animate-pulse' : ''
+								}`}>
+							<span className='mr-1'>{typingUsers.join(', ')}</span>
+							<span>{typingUsers.length === 1 ? 'is' : 'are'} typing...</span>
+						</div>
+				)}
 				{showEmojiPicker && (
 					<Picker
 						style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}}
