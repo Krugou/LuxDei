@@ -103,27 +103,27 @@ const getSchedule = async () => {
         },
         {
           time: '3:00 PM',
-          title: 'Movie 1',
+          title: 'Movie 1 - Mikko/Evtek to Alaska',
           date: new Date('2023-10-11T15:00:00'),
         },
         {
           time: '4:00 PM',
-          title: 'Movie 2',
+          title: 'Movie 2 - Morning after',
           date: new Date('2023-10-11T16:00:00'),
         },
         {
           time: '5:00 PM',
-          title: 'Movie 3',
+          title: 'Movie 3 - Museo olohuoneena',
           date: new Date('2023-10-11T17:00:00'),
         },
         {
           time: '6:00 PM',
-          title: 'Movie 4',
+          title: 'Movie 4 - Opiskelijaelämää 2009',
           date: new Date('2023-10-11T18:00:00'),
         },
         {
           time: '7:00 PM',
-          title: 'Movie 5',
+          title: 'Movie 5 - Democompo',
           date: new Date('2023-10-11T19:00:00'),
         },
       ],
