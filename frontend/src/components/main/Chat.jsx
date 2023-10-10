@@ -59,19 +59,20 @@ const Chat = ({user}) => {
 	}, []);
 
 	const handleTypingIntoServer = (event) => {
-		console.log(user.name, 'user.name');
+		const username = user.name;
+		console.log(username + ' is typing');
 		if (event.target.value !== '') {
 			if (!isTyping) {
 				setIsTyping(true);
-				socket.emit('typing', {username: user.name, room});
+				socket.emit('typing', {username, room});
 				setTimeout(() => {
 					setIsTyping(false);
-					socket.emit('stop typing', {username: user.name, room});
+					socket.emit('stop typing', {username, room});
 				}, 2000);
 			}
 		} else {
 			setIsTyping(false);
-			socket.emit('stop typing', {name: user.name, room});
+			socket.emit('stop typing', {username, room});
 		}
 	};
 	// Function to handle room changes
