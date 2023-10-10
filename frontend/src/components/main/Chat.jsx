@@ -322,7 +322,7 @@ const Chat = ({user}) => {
 				</ul>
 				{typingUsers.length > 0 && (
 						<div
-								className={`text-md text-white p-2 bg-black w-1/3 rounded ml-4 ${
+								className={`text-md text-white p-2 bg-black w-3/4 rounded ml-4 ${
 										isPulsing ? 'animate-pulse' : ''
 								}`}>
 							<span className='mr-1'>{typingUsers.join(', ')}</span>
@@ -331,7 +331,7 @@ const Chat = ({user}) => {
 				)}
 				{showEmojiPicker && (
 					<Picker
-						style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}}
+						style={{boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)', margin:"auto",}}
 						emojiSize={18}
 						perLine={6}
 						data={data}
