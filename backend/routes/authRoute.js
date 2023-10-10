@@ -8,10 +8,10 @@ const router = express.Router();
 
 // Define a separate function for handling passport authentication
 const authenticate = (req, res, next) => {
-  console.log('authenticate maan');
+  // console.log('authenticate maan');
   passport.authenticate('local', { session: false }, (err, user, info) => {
-    console.log('info: ', info);
-    console.log('err1: ', err);
+    // console.log('info: ', info);
+    // console.log('err1: ', err);
     if (err || !user) {
       next(httpError('Virhe kirjautuessa', 403));
       return res.status(403).json({
@@ -20,7 +20,7 @@ const authenticate = (req, res, next) => {
     }
     req.login(user, { session: false }, (err) => {
       if (err) {
-        console.log('err2: ', err);
+        // console.log('err2: ', err);
         next(httpError('Virhe kirjautuessa', 403));
         return res.status(403).json({
           message: 'Something went wrong, check your inputs',

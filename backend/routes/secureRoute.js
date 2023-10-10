@@ -13,7 +13,7 @@ const router = express.Router();
 
 // GET route to retrieve user information
 router.get('/', (req, res, next) => {
-  console.log(req.user, 'USER ASDASD');
+  // console.log("🚀 ~ file: secureRoute.js:17 ~ router.get ~ req.user:", req.user)
   res.json(req.user);
 });
 
@@ -83,8 +83,8 @@ router.put(
           password: pwd,
         };
       }
-
-      console.log(data, 'DATA');
+      // console.log("🚀 ~ file: secureRoute.js:82 ~ data:", data)
+      
       const updatedUser = await User.findByIdAndUpdate(userId, data, {
         new: true,
       });
@@ -113,10 +113,10 @@ router.delete('/users', async (req, res, next) => {
 
     // Get the user's ID from the authenticated user
     const userId = req.user._id;
-    console.log(userId, 'USER IDDDD');
+    // console.log("🚀 ~ file: secureRoute.js:116 ~ router.delete ~ userId:", userId)
     // Use the User model to delete the user from the database
     const result = await User.deleteOne({ _id: userId });
-    console.log(result, 'USER DELETE RESULT');
+    // console.log("🚀 ~ file: secureRoute.js:119 ~ router.delete ~ result:", result)
     // Check if the user was successfully deleted
     if (result.deletedCount === 1) {
       res.json({ message: 'User deleted successfully' });
@@ -144,7 +144,7 @@ router.post(
     if (req.user.userrole !== 0) {
       return res.status(403).json({ error: 'Access denied' });
     }
-    console.log(req.body, 'post schedule body');
+    // console.log("🚀 ~ file: secureRoute.js:148 ~ req.body:", req.body)
     // Extract the validation errors from a request.
     const errors = validationResult(req);
 

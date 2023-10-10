@@ -59,7 +59,7 @@ router.post(
     body('countryid').escape(),
   ],
   async (req, res) => {
-    console.log('router post');
+    // console.log('router post');
     // Extract the validation errors from a request.
 
     const errors = validationResult(req);
