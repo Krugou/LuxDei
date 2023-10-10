@@ -48,7 +48,7 @@ const Countdown = ({unixTime}) => {
 					onClick={() => {
 						navigate('/livestream');
 					}}>
-					<p className='text-2xl text-center text-gmdeepblack font-bold '>
+					<p className='text-sm sm:text-2xl text-center text-gmdeepblack font-bold '>
 						Time left until showtime: {formatTime(timeLeft)} - Click to tune in
 						live:
 					</p>
