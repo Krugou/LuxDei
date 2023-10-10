@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import Calendar from 'react-calendar'; // import the Calendar component
+import 'react-calendar/dist/Calendar.css'; // import the Calendar component's styles
 import {getSchedule} from '../../hooks/ApiHooks';
-
 const Schedule = () => {
 	const [scheduleData, setScheduleData] = useState([]);
 	const [date, setDate] = useState(new Date()); // add a state variable for the selected date
