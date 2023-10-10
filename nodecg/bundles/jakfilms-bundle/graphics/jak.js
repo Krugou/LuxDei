@@ -8,9 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.getElementById('header').textContent = headerText;
 
 	// Set the subtext to the "subtext" parameter value, or a default value if it's not set
-	const subtext = urlParams.get('subtext') || 'Lähetysalkaa kohta...';
+	const subtext = urlParams.get('subtext') || 'Lähetys alkaa kohta...';
 	document.getElementById('subtext').textContent = subtext;
-
 
 	// You can define more animations or behaviors here as needed
 });
