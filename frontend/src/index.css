@@ -16,8 +16,9 @@
   background-position: center;
   background-repeat: no-repeat;
   height: 50vh;
-  transition: background-image 0.5s ease-in-out;
+  transition: background-image 1s ease-in-out;
 }
+
 @layer components {
   .preload {
     @apply absolute top-[-9999px] left-[-9999px] invisible;
