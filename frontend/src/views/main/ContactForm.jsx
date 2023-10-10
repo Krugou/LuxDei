@@ -89,6 +89,7 @@ const ContactForm = () => {
                 name='name'
                 value={formData.name}
                 onChange={handleChange}
+                placeholder='How should we address you'
                 className='w-full p-2 border rounded-md outline-none'
                 required
               />
@@ -107,6 +108,7 @@ const ContactForm = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className='w-full p-2 border rounded-md outline-none'
+                placeholder='Email for us to contact'
                 required
               />
             </div>
@@ -125,6 +127,7 @@ const ContactForm = () => {
                 rows='4'
                 className='w-full p-2 border rounded-md outline-none'
                 required
+                placeholder='How may we help you'
                 maxLength={500} // Set your desired maximum character limit here
               ></textarea>
               <p className='text-gray-500 text-sm mt-2'>
