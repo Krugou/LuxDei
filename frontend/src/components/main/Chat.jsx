@@ -201,11 +201,16 @@ const Chat = ({user}) => {
 		try {
 			if (socket) {
 				socket.on('typing', ({username}) => {
-					console.log('User is typing:', username);
+					// console.log('User is typing:', username);
 					// Rest of your code...
+					handleTyping({name: username});
 				});
 				return () => {
-					socket.off('typing', handleTyping);
+					socket.off('typing', ({username}) => {
+						// console.log('User is typing:', username);
+						// Rest of your code...
+						handleTyping({name: username});
+					});
 				};
 			}
 		} catch (error) {
@@ -216,9 +221,17 @@ const Chat = ({user}) => {
 	useEffect(() => {
 		try {
 			if (socket) {
-				socket.on('stop typing', handleStopTyping);
+				socket.on('stop typing', ({username}) => {
+					// console.log('stop typing: ', user.name);
+					// Rest of your code...
+					handleStopTyping({name: username});
+				});
 				return () => {
-					socket.off('stop typing', handleStopTyping);
+					socket.off('stop typing', ({username}) => {
+						// console.log('stop typing: ', user.name);
+						// Rest of your code...
+						handleStopTyping({name: username});
+					});
 				};
 			}
 		} catch (error) {
