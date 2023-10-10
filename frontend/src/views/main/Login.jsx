@@ -5,41 +5,63 @@ import { useUser } from '../../hooks/ApiHooks';
 import ErrorAlert from '../../components/main/ErrorAlert';
 
 const Login = () => {
+  // References to input fields for username and password
   const usernameRef = useRef();
   const passwordRef = useRef();
+
+  // Use the 'doLogin' function from the custom 'useUser' hook
   const { doLogin } = useUser();
+
+  // Navigate function for page redirection
   const navigate = useNavigate();
+
+  // State for displaying login-related alerts
   const [alert, setAlert] = useState('');
 
+  // Use the 'user' and 'setUser' from the UserContext
   const { setUser, user } = useContext(UserContext);
+
+  // Effect to automatically navigate to the home page if the user is already logged in
   useEffect(() => {
     if (user) {
       navigate('/');
     }
   }, [user, navigate]);
+
+  // Function to handle the form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    // Log the entered username and password
+    /*
     console.log(
       `Username: ${usernameRef.current.value}, Password: ${passwordRef.current.value}`
     );
+    */
+
+    // Construct an object with the username and password
     const inputs = {
       username: usernameRef.current.value,
       password: passwordRef.current.value,
     };
-    // Add logic to authenticate user here
+
     try {
+      // Attempt to log in with the provided credentials
       const user = await doLogin(inputs);
-      // Successful login
+
+      // Successful login, set the user and navigate to the home page
       setUser(user);
       navigate('/');
     } catch (error) {
       console.log(error.message);
+      // Display an error message in case of login failure
       setAlert(error.message);
     }
   };
 
   return (
     <>
+      {/* Display an error alert if there's an alert message */}
       {alert && <ErrorAlert onClose={() => setAlert(null)} alert={alert} />}
 
       <form
@@ -48,6 +70,7 @@ const Login = () => {
       >
         <div className='bg-gray-100  shadowz-md rounded px-8 pt-6 pb-8 mb-4 flex flex-col'>
           <div className='mb-4'>
+            {/* Username input field */}
             <label
               className='block text-gray-700 font-bold mb-2'
               htmlFor='username'
@@ -67,6 +90,7 @@ const Login = () => {
             />
           </div>
           <div className='mb-6'>
+            {/* Password input field */}
             <label
               className='block text-gray-700 font-bold mb-2'
               htmlFor='password'
@@ -85,6 +109,7 @@ const Login = () => {
             />
           </div>
           <div className='flex items-center justify-between'>
+            {/* Submit button for signing in */}
             <button className='button' type='submit'>
               Sign In
             </button>
