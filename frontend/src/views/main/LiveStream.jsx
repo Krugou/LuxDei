@@ -93,13 +93,21 @@ const LiveStream = () => {
 	// };
 	// const countries = ['FI', 'DK', 'NO', 'SE', 'IS', 'EE'];
 	// const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+	const now = new Date();
+	const targetDate = new Date('11/10/2023 13:00:00');
 
+	let message;
+	if (now < targetDate) {
+		message = 'The live stream has not started yet.';
+	} else {
+		message =
+			'Sorry but you missed the live stream. You can watch it later from below.';
+	}
 	return (
 		<>
 			{!isVideoFeedOnline && (
 				<h2 className='text-2xl font-bold text-center md:text-left'>
-					Sorry but you missed the live stream. you can watch it later from
-					below
+					{message}
 				</h2>
 			)}
 			<section className='border rounded flex flex-col md:flex-row justify-around items-center md:items-start p-2 '>
