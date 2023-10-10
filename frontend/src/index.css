@@ -18,6 +18,11 @@
   height: 50vh;
   transition: background-image 1s ease-in-out;
 }
+.emojiPicker {
+  position:fixed;
+  bottom:37%;
+  right:17%;
+}
 
 @layer components {
   .preload {
