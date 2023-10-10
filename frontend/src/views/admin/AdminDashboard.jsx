@@ -192,19 +192,20 @@ const AdminDashboard = () => {
               >
                 <div className='max-w-full'>
                   <h2 className='text-xl font-semibold text-gray-800'>
-                    Sender's preferred name: {contact.name}
+                    From: {contact.name}
                   </h2>
                   <p className='text-gray-600 font-bold'>
-                    Sender's current username: {contact.username}
+                    {contact.name}'s username in database: {contact.username}
                   </p>
                   <p className='text-gray-600 font-bold'>
-                    Sender's username when sent: {contact.usernamewhensent}
+                    {contact.name}'s username when sent:{' '}
+                    {contact.usernamewhensent}
                   </p>
                   <p className='text-gray-600 font-bold'>
-                    Sender's userid: {contact.useridofsender}
+                    {contact.name}'s userid: {contact.useridofsender}
                   </p>
                   <p className='text-gray-600 font-bold border-b border-black'>
-                    Sender's Email: {contact.email}
+                    {contact.name}'s Email: {contact.email}
                   </p>
                   <p className='text-gray-600 mt-2 border-b border-black '>
                     Message: {contact.message}
