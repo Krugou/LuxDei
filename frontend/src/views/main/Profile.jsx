@@ -11,6 +11,7 @@ import CountrySelector from '../../components/main/CountrySelector.jsx';
 import { COUNTRIES } from '../../utils/countries.js';
 
 const Profile = () => {
+  // State to manage modal visibility and user data
   const [isOpen, setIsOpen] = useState(false);
   const { user } = useContext(UserContext);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -21,12 +22,14 @@ const Profile = () => {
   const [country, setCountry] = useState('');
 
   useEffect(() => {
+    // Set the user's country as selected in the country selector
     setCountry(user.countryid);
   }, [user]);
 
   const { deleteUser, putUser } = useUser();
   const navigate = useNavigate();
 
+  // State to manage edit form data
   const [editData, setEditData] = useState({
     name: '',
     email: '',
@@ -34,22 +37,27 @@ const Profile = () => {
   });
 
   const openDeleteModal = () => {
+    // Open the delete confirmation modal
     setDeleteModalOpen(true);
   };
 
   const closeDeleteModal = () => {
+    // Close the delete confirmation modal
     setDeleteModalOpen(false);
   };
 
   const openEditModal = () => {
+    // Open the edit profile modal
     setEditModalOpen(true);
   };
 
   const closeEditModal = () => {
+    // Close the edit profile modal
     setEditModalOpen(false);
   };
 
   const handleDeleteProfile = async () => {
+    // Delete the user's profile
     const token = localStorage.getItem('userToken');
     try {
       await deleteUser(token);
@@ -74,6 +82,7 @@ const Profile = () => {
   };
 
   const handleEditProfile = async () => {
+    // Update the user's profile data
     const token = localStorage.getItem('userToken');
     try {
       if (user.countryid !== country) editData.countryid = country;
