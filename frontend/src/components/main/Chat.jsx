@@ -242,6 +242,7 @@ const Chat = ({ user }) => {
             <span>{typingUsers.length === 1 ? 'is' : 'are'} typing...</span>
           </div>
         )}
+        <span className='bg-gmdeepblack rounded p-2 text-white  lg:w-1/2 w-3/4 text-center m-auto mb-4'>Users in current room: {userCount}</span>
         <ul
           id='messages'
           ref={messagesRef}
@@ -311,8 +312,7 @@ const Chat = ({ user }) => {
           onSubmit={handleSubmit}
         >
           {/* Room selection dropdown */}
-          <div className='flex  p-4 flex-col  justify-center items-center'>
-            <span className='mr-2 mb-4'>Users in current room: {userCount}</span>
+          <div className='flex p-3 flex-col  justify-center items-center'>
             <select
               title='selector'
               name='room'
@@ -358,7 +358,7 @@ const Chat = ({ user }) => {
               {/* Submit button */}
               <button
                 type='submit'
-                className='inline-flex justify-center my-auto mx-2 border rounded   cursor-pointer hover:bg-gmpictonblue '
+                className='inline-flex justify-center border rounded button items-center cursor-pointer hover:bg-gmpictonblue '
               >
                 <svg
                   fill='currentColor'
