@@ -63,10 +63,10 @@ const Chat = ({user}) => {
 		if (event.target.value !== '') {
 			if (!isTyping) {
 				setIsTyping(true);
-				socket.emit('typing', {name: user.name, room});
+				socket.emit('typing', {username: user.name, room});
 				setTimeout(() => {
 					setIsTyping(false);
-					socket.emit('stop typing', {name: user.name, room});
+					socket.emit('stop typing', {username: user.name, room});
 				}, 2000);
 			}
 		} else {
