@@ -156,15 +156,15 @@ const LikesElement = ({user, location}) => {
 					<div className='animate-spin rounded-full h-6 w-6 border-b-2 border-gray-900'></div>
 				</div>
 			) : user ? (
-				<div className='flex mt-2 pointer'>
+				<div className='flex mt-2 mb-2 pointer'>
 					<ThumbUp
 						onClick={handleLike}
-						className={likeClicked ? 'text-green-500' : ''}
+						className={likeClicked ? 'text-green-500 text-xl' : 'text-xl'}
 					/>
 					<span className='mx-2'>{likes}</span>
 					<ThumbDown
 						onClick={handleDislike}
-						className={disLikeClicked ? 'text-red-500' : ''}
+						className={disLikeClicked ? 'text-red-500 text-xl' : 'text-xl'}
 					/>
 					<span className='mx-2'>{dislikes}</span>
 				</div>

@@ -303,16 +303,16 @@ const Chat = ({ user }) => {
             onEmojiSelect={handleEmojiSelect}
           />
         )}
-        <button onClick={handleEmojiButtonClick}>
+        <button className="button" onClick={handleEmojiButtonClick}>
           {showEmojiPicker ? 'Click to close' : 'Emoji Selector 😀'}
         </button>
         <form
-          className='flex items-center justify-end align-end mt-auto'
+          className='flex items-center justify-center align-end mt-auto'
           onSubmit={handleSubmit}
         >
           {/* Room selection dropdown */}
           <div className='flex  p-4 flex-col  justify-center items-center'>
-            <span className='mr-2'>Users in current room: {userCount}</span>
+            <span className='mr-2 mb-4'>Users in current room: {userCount}</span>
             <select
               title='selector'
               name='room'
