@@ -191,27 +191,27 @@ const AdminDashboard = () => {
                 className='bg-white p-6 rounded-lg shadow-lg flex flex-col items-start justify-between overflow-auto'
               >
                 <div className='max-w-full'>
-                  <h2 className='text-xl font-semibold text-gray-800'>
+                  <h2 className='text-xl font-bold text-gray-800'>
                     From: {contact.name}
                   </h2>
-                  <p className='text-gray-600 font-bold'>
-                    {contact.name}'s username in database: {contact.username}
-                  </p>
-                  <p className='text-gray-600 font-bold'>
-                    {contact.name}'s username when sent:{' '}
-                    {contact.usernamewhensent}
-                  </p>
-                  <p className='text-gray-600 font-bold'>
-                    {contact.name}'s userid: {contact.useridofsender}
-                  </p>
-                  <p className='text-gray-600 font-bold border-b border-black'>
-                    {contact.name}'s Email: {contact.email}
-                  </p>
-                  <p className='text-gray-600 mt-2 border-b border-black '>
+                  <p className='text-gray-600 mt-2 border rounded-sm border-black p-4 text-sm md:text-base '>
                     Message: {contact.message}
                   </p>
                   <p className='text-gray-600 mt-2'>
                     Received: {formatDate(contact.createdAt)}
+                  </p>
+                  <p className='text-gray-600 font-semibold'>
+                    {contact.name}'s username in database: {contact.username}
+                  </p>
+                  <p className='text-gray-600 font-semibold'>
+                    {contact.name}'s username when sent:{' '}
+                    {contact.usernamewhensent}
+                  </p>
+                  <p className='text-gray-600 font-semibold'>
+                    {contact.name}'s userid: {contact.useridofsender}
+                  </p>
+                  <p className='text-gray-600 font-semibold'>
+                    {contact.name}'s Email: {contact.email}
                   </p>
                 </div>
                 {/* Delete button */}
