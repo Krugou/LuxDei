@@ -5,7 +5,16 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css">
     <title> SpeakerRole</title>
     <style>
-        @import url("https://fonts.googleapis.com/css?family=Lato:300,400|Poppins:300,400,800&display=swap");
+
+        @font-face {
+            font-family: "Open Sans";
+            src: url('../../assets/fonts/OpenSans-Regular.ttf');
+        }
+
+        @font-face {
+            font-family: "Open Sans Bold";
+            src: url('../../assets/fonts/OpenSans-Bold.ttf');
+        }
 
         * {
             margin: 0;
@@ -14,14 +23,8 @@
 
         body,
         html {
+
             overflow: hidden;
-        }
-
-
-
-        .lower-third-animation {
-            animation: lowerThird 1s forwards;
-            animation-delay: 8s;
         }
 
 
@@ -37,7 +40,7 @@
         .title .block {
             width: 0%;
             height: inherit;
-            background: #ffb510;
+            background: #FFD700;
             position: absolute;
 
             display: flex;
@@ -49,7 +52,7 @@
 
         .title h1 {
             color: #fff;
-            font-size: 32px;
+            font-size: 50px;
             opacity: 0;
             display: flex;
             align-items: baseline;
@@ -69,13 +72,13 @@
             display: flex;
             align-items: center;
             height: 30px;
-            margin-top: -10px;
+            margin-top: 10px;
         }
 
         .role .block {
             width: 0%;
             height: inherit;
-            background: #7571fc;
+            background: #d9d968;
             position: absolute;
             display: flex;
         }
@@ -90,7 +93,7 @@
             opacity: 0;
             font-weight: 400;
             color: #ffffff;
-            font-size: 12px;
+            font-size: 24px;
             text-transform: uppercase;
             letter-spacing: 5px;
         }
@@ -171,21 +174,40 @@
 </head>
 
 <body class="">
-    <div class="container m-4 w-full h-screen flex justify-between items-start p-4" id="lowerThird">
-        <div class=" box m-4 w-80 h-auto relative flex justify-center flex-col p-4 bg-black ">
+<div class="flex">
+    <div class="container w-full h-screen flex items-start" id="lowerThird">
+        <div class=" box w-80 h-auto absolute left-0 flex justify-center flex-col p-4 bg-black ">
             <div class="title">
                 <span class="block title-block-animation font-sans" id="blokki"></span>
-                <h1 class="title-h1-animation" id="puhuja"></h1>
+                <h1 class="title-h1-animation" id="lahetys"></h1>
             </div>
 
             <div class="role">
-                <div class="block role-block-animation" id="tokablokki"></div>
-                <p class="role-p-animation font-serif" id="rooli"></p>
+                <div class="block role-block-animation" id="ekablokki"></div>
+                <p class="role-p-animation font-serif" id="lahetystyyppi"></p>
             </div>
         </div>
     </div>
+    <div class="box absolute bottom-0 w-auto h-auto flex justify-center flex-col p-6 bg-black" id="lowerSecond">
+        <div class="title">
+            <span class="block title-block-animation font-sans" id="blokki2"></span>
+            <h1 class="title-h1-animation text-3xl" id="puhuja"></h1>
+        </div>
 
-
+        <div class="role">
+            <div class="block role-block-animation" id="tokablokki"></div>
+            <p class="role-p-animation font-serif" id="rooli"></p>
+        </div>
+    </div>
+    <div class="container w-full h-screen flex justify-end items-start" id="lowerFourth">
+        <div class=" box w-50 absolute right-0 h-auto flex justify-center flex-col p-4 bg-black ">
+            <div class="title">
+                <span class="block title-block-animation font-sans" id="kolmasblokki"></span>
+                <h1 class="title-h1-animation" id="laskuri"></h1>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 
 <script type="module" src="./jakviewer.js"></script>

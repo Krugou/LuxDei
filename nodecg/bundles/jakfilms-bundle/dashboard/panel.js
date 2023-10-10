@@ -3,20 +3,44 @@
 nodecg.log.info("Here's an example of using NodeCG's logging API!");
 const speakerRep = nodecg.Replicant("speakerReplicant");
 const roleRep = nodecg.Replicant("roleReplicant");
+
 const timerRep = nodecg.Replicant("timerReplicant");
+
+const broadcasterRep = nodecg.Replicant("broadcasterReplicant");
+const broadcastRep = nodecg.Replicant("broadcastReplicant");
+
 const speaker = document.getElementById("speaker");
-const timer = document.getElementById("countdown");
 const role = document.getElementById("role");
+
+const broadcaster = document.getElementById("broadcaster")
+const broadcast = document.getElementById("broadcast")
+
+const timer = document.getElementById("countdown");
+
+
 const isToggled = nodecg.Replicant("isToggled");
 const toggled = document.getElementById("toggled");
+
 let toggle = true;
 speakerRep.on("change", (newValue, oldValue) => {
   console.log(`myRep changed from ${oldValue} to ${newValue}`);
   speaker.value = newValue;
 });
+
+
 roleRep.on("change", (newValue, oldValue) => {
   console.log(`myRep changed from ${oldValue} to ${newValue}`);
   role.value = newValue;
+});
+
+broadcasterRep.on("change", (newValue, oldValue) => {
+  console.log(`myRep changed from ${oldValue} to ${newValue}`);
+  broadcaster.value = newValue;
+});
+
+broadcastRep.on("change", (newValue, oldValue) => {
+  console.log(`myRep changed from ${oldValue} to ${newValue}`);
+  broadcast.value = newValue;
 });
 
 timerRep.on("change", (newValue, oldValue) => {
@@ -27,18 +51,30 @@ isToggled.on("change", (newValue, oldValue) => {
   console.log(`myRep changed from ${oldValue} to ${newValue}`);
 
 });
+
 const speakerForm = document.getElementById("speakerForm");
 
 const timerForm = document.getElementById("countdownForm");
+
+const broadcastForm = document.getElementById("broadcastForm");
+
 
 
 const submitForm = () => {
   speakerRep.value = speaker.value;
   roleRep.value = role.value;
-  timerRep.value = timer.value;
-
-  timerForm.submit();
   speakerForm.submit();
+};
+
+const submitTimerForm = () => {
+  timerRep.value = timer.value;
+  timerForm.submit();
+};
+
+const submitBroadcastForm = () => {
+  broadcasterRep.value = broadcaster.value;
+  broadcastRep.value = broadcast.value;
+  broadcastForm.submit();
 };
 
 let timeoutId;
@@ -61,8 +97,14 @@ speakerForm.addEventListener("submit", (e) => {
 
 timerForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  submitForm();
+  submitTimerForm();
 });
+
+broadcastForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  submitBroadcastForm();
+});
+
 
 toggled.addEventListener("click", () => {
   if (toggled.textContent === "Piilota") {
@@ -81,3 +123,4 @@ toggled.addEventListener("click", () => {
   console.log(toggle);
 
 });
+
