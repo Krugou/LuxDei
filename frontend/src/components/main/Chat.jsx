@@ -90,11 +90,10 @@ const Chat = ({ user }) => {
     const userToken = localStorage.getItem('userToken');
     if (userToken) {
       try {
-        const user = await getUserInfoByToken(userToken);
+        const userFromDB = await getUserInfoByToken(userToken);
         // console.log(user, 'userinfomaan');
-        if (user) {
-          setUser(user);
-          return;
+        if (userFromDB) {
+          userFromDB !== user && setUser(user);
         }
       } catch (error) {
         setAlert('Your session has expired, please login again.');
