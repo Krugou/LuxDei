@@ -85,7 +85,7 @@ const Register = () => {
             required
             minLength='3'
             maxLength='15'
-            placeholder='Enter your username (3-15 characters)'
+            placeholder='Enter your username (3 to 15 characters)'
           />
         </label>
         <label className='flex flex-col items-start sm:mt-4 w-full sm:w-4/5 md:w-3/5 lg:w-2/6 2xl:w-3/12 p-2'>
