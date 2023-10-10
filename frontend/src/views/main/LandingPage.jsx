@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import Banner from '../../components/main/Banner';
 import EventDetails from '../../components/main/EventDetails';
-import LiveStreamButton
-  from '../../components/header/buttons/LiveStreamButton.jsx';
 import {useNavigate} from 'react-router-dom';
-import HeaderListButton
-  from '../../components/header/buttons/HeaderListButton.jsx';
 import EventButton from '../../components/header/buttons/EventButton.jsx';
 const LandingPage = () => {
   const [count, setCount] = useState(0);
@@ -38,7 +34,7 @@ const LandingPage = () => {
             </div>
             <div className="md:w-1/2">
               <img
-                  src="../../public/images/card.jpg"
+                  src="/public/images/card.jpg"
                   alt="Jakfilms"
                   className="w-full h-auto  rounded-lg"
               />
@@ -52,7 +48,7 @@ const LandingPage = () => {
           <div className="flex flex-col md:flex-row">
             <div className="md:w-1/2">
               <img
-                  src="../../public/images/movie.jpg"
+                  src="/public/images/movie.jpg"
                   alt="Jakfilms"
                   className="w-full h-auto  rounded-lg"
               />
