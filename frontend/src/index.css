@@ -24,7 +24,7 @@
     @apply absolute top-[-9999px] left-[-9999px] invisible;
   }
   .thumb {
-    @apply text-2xl;
+    @apply text-2xl !important;
   }
   .paragraph {
     @apply m-1 text-lg p-4 bg-white rounded-lg shadow-xl;
@@ -73,7 +73,7 @@
 }
 
 .vjs-theme-city .vjs-play-progress {
-  background-color: var(--vjs-theme-city--primary);
+  background-color: #8B0000;
 }
 
 .vjs-theme-city .vjs-remaining-time {
