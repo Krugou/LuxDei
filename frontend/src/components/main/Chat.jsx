@@ -169,6 +169,7 @@ const Chat = ({user}) => {
 	}, [messages]);
 
 	const handleTyping = ({name}) => {
+		console.log('Handletyping: ', name);
 		try {
 			// Create a new Set with the current typingUsers array and the new user.name
 			const uniqueTypingUsers = [...new Set([...typingUsers, name])];
