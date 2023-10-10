@@ -11,17 +11,6 @@ const LikesElement = ({user, location}) => {
 	const [disLikeClicked, setdisLikeClicked] = useState(false);
 	const [loading, setLoading] = useState(true); // add loading state
 
-	const CustomThumbUp= () => {
-		return (
-				<ThumbUp style={{ fontSize: '2rem' }} />
-		);
-	};
-	const CustomThumbDown= () => {
-		return (
-				<ThumbDown style={{ fontSize: '2rem' }} />
-		);
-	};
-
 	useEffect(() => {
 		try {
 			// Create a new socket connection when the component mounts
@@ -168,12 +157,12 @@ const LikesElement = ({user, location}) => {
 				</div>
 			) : user ? (
 				<div className='flex mt-5 mb-5 text-2xl justify-end pointer'>
-					<CustomThumbUp
+					<ThumbUp
 						onClick={handleLike}
 						className={likeClicked ? 'text-green-500' : 'cursor-pointer'}
 					/>
 					<span className='mx-2'>{likes}</span>
-					<CustomThumbDown
+					<ThumbDown
 						onClick={handleDislike}
 						className={disLikeClicked ? 'text-red-500' : 'cursor-pointer'}
 					/>
@@ -181,9 +170,9 @@ const LikesElement = ({user, location}) => {
 				</div>
 			) : (
 				<div className='flex mt-2'>
-					<CustomThumbUp />
+					<ThumbUp />
 					<span className='mx-2'>{likes}</span>
-					<CustomThumbDown />
+					<ThumbDown />
 					<span className='mx-2'>{dislikes}</span>
 				</div>
 			)}
