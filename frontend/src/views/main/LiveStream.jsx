@@ -30,7 +30,7 @@ const LiveStream = () => {
 		} else {
 			options.sources = [
 				{
-					src: './videos/testitallenne.mp4',
+					src: './videos/hidden/tallenne.mp4',
 					type: 'video/mp4',
 				},
 			];
