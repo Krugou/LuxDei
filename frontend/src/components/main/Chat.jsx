@@ -317,17 +317,17 @@ const Chat = ({user}) => {
 									size={20}
 								/>
 							</span>
-							{typingUsers.length > 0 && (
-									<div
-											className={`text-md text-white bg-black ${
-													isPulsing ? 'animate-pulse' : ''
-											}`}>
-										<span className='mr-1'>{typingUsers.join(', ')}</span>
-										<span>{typingUsers.length === 1 ? 'is' : 'are'} typing...</span>
-									</div>
-							)}
 						</li>
 					))}
+					{typingUsers.length > 0 && (
+							<div
+									className={`text-md text-white bg-black ${
+											isPulsing ? 'animate-pulse' : ''
+									}`}>
+								<span className='mr-1'>{typingUsers.join(', ')}</span>
+								<span>{typingUsers.length === 1 ? 'is' : 'are'} typing...</span>
+							</div>
+					)}
 				</ul>
 				{showEmojiPicker && (
 					<Picker
