@@ -8,16 +8,21 @@ import formatDate from '../../utils/utilities';
 
 import { useUser } from '../../hooks/ApiHooks';
 import CountrySelector from '../../components/main/CountrySelector.jsx';
-import {COUNTRIES} from '../../utils/countries.js';
+import { COUNTRIES } from '../../utils/countries.js';
 
 const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [country, setCountry] = useState('FI');
   const { user } = useContext(UserContext);
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [alert, setAlert] = useState('');
   const [successAlert, setSuccessAlert] = useState('');
+
+  const [country, setCountry] = useState('');
+
+  useEffect(() => {
+    setCountry(user.countryid);
+  }, [user]);
 
   const { deleteUser, putUser } = useUser();
   const navigate = useNavigate();
@@ -26,7 +31,6 @@ const Profile = () => {
     name: '',
     email: '',
     password: '',
-    countryid: user ? user.countryid : 'FI',
   });
 
   const openDeleteModal = () => {
@@ -73,6 +77,7 @@ const Profile = () => {
   const handleEditProfile = async () => {
     const token = localStorage.getItem('userToken');
     try {
+      editData.countryid = country;
       for (const [key, value] of Object.entries(editData)) {
         if (value === '') delete editData[key];
       }
@@ -216,15 +221,17 @@ const Profile = () => {
                 />
               </label>
               <label className='flex flex-col items-center sm:mt-4 w-full sm:w-4/5 md:w-3/5 lg:w-2/6 2xl:w-3/12 p-4'>
-          <span className='block text-gray-700 font-bold mb-2'>
-            Change your country
-          </span>
+                <span className='block text-gray-700 font-bold mb-2'>
+                  Change your country
+                </span>
                 <CountrySelector
-                    id={'country-selector'}
-                    open={isOpen}
-                    onToggle={() => setIsOpen(!isOpen)}
-                    onChange={setCountry}
-                    selectedValue={COUNTRIES.find((option) => option.value === country)}
+                  id={'country-selector'}
+                  open={isOpen}
+                  onToggle={() => setIsOpen(!isOpen)}
+                  onChange={setCountry}
+                  selectedValue={COUNTRIES.find(
+                    (option) => option.value === country
+                  )}
                 />
               </label>
               <div className='flex justify-end mt-4'>
