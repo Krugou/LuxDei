@@ -183,6 +183,20 @@ const Profile = () => {
               }}
               className='flex flex-col'
             >
+              <label className='flex flex-col items-center sm:mt-4 w-1/2 m-auto p-4'>
+                <span className='block text-gray-700 font-bold mb-2'>
+                  Change your country
+                </span>
+                <CountrySelector
+                    id={'country-selector'}
+                    open={isOpen}
+                    onToggle={() => setIsOpen(!isOpen)}
+                    onChange={setCountry}
+                    selectedValue={COUNTRIES.find(
+                        (option) => option.value === country
+                    )}
+                />
+              </label>
               <label className='flex flex-col items-start mt-2'>
                 <span className='block text-gray-700 font-bold mb-2'>
                   Username
@@ -231,20 +245,6 @@ const Profile = () => {
                   autoComplete='new-password'
                   minLength='8'
                   placeholder='Must incl. 8 characters and a capital letter'
-                />
-              </label>
-              <label className='flex flex-col items-center sm:mt-4 w-1/2 m-auto p-4'>
-                <span className='block text-gray-700 font-bold mb-2'>
-                  Change your country
-                </span>
-                <CountrySelector
-                  id={'country-selector'}
-                  open={isOpen}
-                  onToggle={() => setIsOpen(!isOpen)}
-                  onChange={setCountry}
-                  selectedValue={COUNTRIES.find(
-                    (option) => option.value === country
-                  )}
                 />
               </label>
               <div className='flex justify-end mt-4'>
