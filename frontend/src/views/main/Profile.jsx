@@ -183,7 +183,7 @@ const Profile = () => {
               }}
               className='flex flex-col'
             >
-              <label className='flex flex-col items-center sm:mt-4 w-1/2 m-auto p-4'>
+              <label className='flex flex-col items-center sm:mt-4 w-1/2 m-auto sm:p4 p-0'>
                 <span className='block text-gray-700 font-bold mb-2'>
                   Change your country
                 </span>
