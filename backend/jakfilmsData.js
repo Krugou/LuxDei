@@ -136,10 +136,7 @@ io.on('connection', (socket) => {
 					likes += likeDocument.likes;
 					dislikes += likeDocument.dislikes;
 				});
-				console
-					.log
-					// `Like counts updated: likes=${likes}, dislikes=${dislikes}`
-					();
+				
 				io.emit('likeCountsUpdated', {likes, dislikes});
 			}
 		} catch (error) {
