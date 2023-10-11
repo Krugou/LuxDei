@@ -93,7 +93,7 @@ const LiveStream = () => {
   // const countries = ['FI', 'DK', 'NO', 'SE', 'IS', 'EE'];
   // const randomCountry = countries[Math.floor(Math.random() * countries.length)];
   const now = new Date();
-  const targetDate = new Date('11/10/2023 13:00:00');
+  const targetDate = new Date('10/11/2023 13:00:00');
 
   let message;
   if (now < targetDate) {
