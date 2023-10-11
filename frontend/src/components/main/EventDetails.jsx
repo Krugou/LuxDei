@@ -13,7 +13,7 @@ const EventDetails = () => {
                 <div className="flex flex-col md:flex-row">
                     <div className="md:w-1/2">
                         <img
-                            src="https://static.onecms.io/wp-content/uploads/sites/6/2015/06/movie-theater-line_0.jpg"
+                            src="./images/tickets.jpg"
                             alt="Jakfilms"
                             className="w-full h-auto  rounded-lg"
                         />
